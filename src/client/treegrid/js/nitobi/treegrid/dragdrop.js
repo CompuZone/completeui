@@ -6,7 +6,7 @@
  * http://www.nitobi.com/license
  */
 
-nitobi.grid.DragDropColumn = function(grid)
+nitobi.treegrid.DragDropColumn = function(grid)
 {
   this.grid = grid;
 
@@ -45,7 +45,7 @@ nitobi.grid.DragDropColumn = function(grid)
 
 }
 
-nitobi.grid.DragDropColumn.prototype.pickUp = function(grid, column, columnHeaderElement, evt)
+nitobi.treegrid.DragDropColumn.prototype.pickUp = function(grid, column, columnHeaderElement, evt)
 {
   var C = nitobi.html.Css;
 
@@ -95,20 +95,11 @@ nitobi.grid.DragDropColumn.prototype.pickUp = function(grid, column, columnHeade
 
 }
 
-nitobi.grid.DragDropColumn.prototype.drop = function(dragStopEventArgs)
+nitobi.treegrid.DragDropColumn.prototype.drop = function(dragStopEventArgs)
 {
 
   this.x = dragStopEventArgs.x;
   this.y = dragStopEventArgs.y;
-
-  // At least try to get the target column, before relying on guesswork
-  var target = nitobi.grid.Cell.getColumnNumber(dragStopEventArgs.event.srcElement.parentNode);
-
-  if (target != null)
-  {
-    targerCol = this.grid.getColumnObject(target);
-  }
-  
 
   var gridLeft = nitobi.html.getBoundingClientRect(this.grid.UiContainer).left;
 
@@ -121,7 +112,7 @@ nitobi.grid.DragDropColumn.prototype.drop = function(dragStopEventArgs)
   
 }
 
-nitobi.grid.DragDropColumn.prototype.dispose = function()
+nitobi.treegrid.DragDropColumn.prototype.dispose = function()
 {
   this.grid = null;
   this.dragbox = null;

@@ -102,6 +102,10 @@ nitobi.grid.Column.prototype = {
 	 * @type String
 	 */
 	getInitial:function(){return this.xGET("Initial",arguments);},
+	getHidden:function(){return this.xGET("Hidden", arguments);},
+	setHidden:function(){return this.xSET("Hidden", arguments);},
+	getHeaderAlign:function(){return this.xGET("HeaderAlign", arguments);},
+	setHeaderAlign:function(){return this.xSET("HeaderAlign", arguments);},
 	/**
 	 * Sets the label to render for the column.
 	 * @param {String} label The label to use.
@@ -273,7 +277,7 @@ nitobi.grid.Column.prototype.getStyle = function()
  */
 nitobi.grid.Column.prototype.getHeaderStyle = function()
 {
-	var className = "acolumnheader"+this.grid.uid+"_"+this.column;
+	var className = "ntb-column-header"+this.grid.uid+"_"+this.column;
 	return nitobi.html.getClass(className);
 }
 /**
@@ -302,7 +306,7 @@ nitobi.grid.Column.prototype.hide = function()
 {
   var width = this.getWidth();
   var className = "ntb-column" + this.grid.uid + "_" + String(this.column + 1);
-  var classDef = nitobi.html.getClass(className);
+  var classDef = nitobi.html.getClass(className, true);
   classDef.display = "none";
   this.grid.resizePanes(-width, this.column );
   this.grid.adjustHorizontalScrollBars();
@@ -312,19 +316,34 @@ nitobi.grid.Column.prototype.show = function()
 {
   var width = this.getWidth();
   var className = "ntb-column" + this.grid.uid + "_" + String(this.column + 1);
-  var classDef = nitobi.html.getClass(className);
+  var classDef = nitobi.html.getClass(className, true);
   classDef.display = "";
   this.grid.resizePanes(width, this.column);
+  this.grid.adjustHorizontalScrollBars();
 }
 
 nitobi.grid.Column.prototype.toggleVis = function()
 {
+  var columnXml = this.grid.Declaration.columns.firstChild.childNodes[this.column];
+  var gridxml = this.grid.Declaration.grid.firstChild.firstChild.childNodes[this.column];
+  var modelXml = this.grid.getColumnDefinitions()[this.column];
+  
   var className = "ntb-column" + this.grid.uid + "_" + String(this.column + 1);
   var classDef = nitobi.html.getClass(className, true);
   if (classDef.display == "none")
+  {
+    columnXml.setAttribute('visible','true');
+	gridxml.setAttribute('visible','true');
+	modelXml.setAttribute('Visible','1');
   	this.show();
-  else 
+  }
+  else
+  { 
+    columnXml.setAttribute('visible','false');
+	gridxml.setAttribute('visible','false');
+	modelXml.setAttribute('Visible','0');
 	this.hide();
+  }
 }
 
 /**

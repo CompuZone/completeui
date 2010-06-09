@@ -319,6 +319,7 @@ nitobi.grid.Grid.prototype.properties = {
 nitobi.grid.Grid.prototype.xColumnProperties = {
 	column: {
 		align:{n:"Align",t:"s",d:"left"},
+		headeralign:{n:"HeaderAlign",t:"s",d:"left"},
 		classname:{n:"ClassName",t:"s",d:""},
 		cssstyle:{n:"CssStyle",t:"s",d:""},
 		columnname:{n:"ColumnName",t:"s",d:""},
@@ -339,6 +340,7 @@ nitobi.grid.Grid.prototype.xColumnProperties = {
 		xdatafld:{n:"xdatafld",t:"s",d:""},
 		value:{n:"Value",t:"s",d:""},
 		wrap:{n:"Wrap",t:"b",d:false},
+		hidden:{n:"Hidden",t:"b",d:false},
 		xi:{n:"xi",t:"i",d:100},
 		oncellclickevent:{n:"OnCellClickEvent"},
 		onbeforecellclickevent:{n:"OnBeforeCellClickEvent"},
@@ -364,6 +366,7 @@ nitobi.grid.Grid.prototype.xColumnProperties = {
 	},
 	numbercolumn: {
 		align:{n:"Align",t:"s",d:"right"},
+		headeralign:{n:"HeaderAlign",t:"s",d:"right"},
 		mask:{n:"Mask",t:"s",d:"#,###.00"},
 		negativemask:{n:"NegativeMask",t:"s",d:""},
 		groupingseparator:{n:"GroupingSeparator",t:"s",d:","},
@@ -498,10 +501,10 @@ nitobi.grid.Grid.prototype.initialize= function()
  */
 nitobi.grid.Grid.prototype.initializeFromCss = function()
 {
-	this.CellHoverColor = this.getThemedStyle("ntb-cell-hover", "backgroundColor") || "#C0C0FF";
+	this.CellHoverColor = this.getThemedStyle("ntb-cell-hover", "backgroundColor") || "#6699CC";
 	this.RowHoverColor = this.getThemedStyle("ntb-row-hover", "backgroundColor") || "#FFFFC0";
-	this.CellActiveColor = this.getThemedStyle("ntb-cell-active", "backgroundColor") || "#F0C0FF";
-	this.RowActiveColor = this.getThemedStyle("ntb-row-active", "backgroundColor") || "#FFC0FF";
+	this.CellActiveColor = this.getThemedStyle("ntb-cell-active", "backgroundColor") || "#DDD9D5";
+	this.RowActiveColor = this.getThemedStyle("ntb-row-active", "backgroundColor") || "#DDD9D5";
 
 	var rowHeight = this.getThemedStyle("ntb-row", "height");
 	if (rowHeight != null && rowHeight != "")
@@ -1481,7 +1484,6 @@ nitobi.grid.Grid.prototype.adjustHorizontalScrollBars = function()
 	
 	var C = nitobi.html.Css;
 	var viewport_Width = parseInt(C.getStyle(this.getScrollSurface(), "width"));
-	
 	if ((viewableWidth <= viewport_Width))
 	{
 		hScrollbarContainer.style.display = "none";
@@ -1675,14 +1677,31 @@ nitobi.grid.Grid.prototype.populateColumnList = function()
   for (var i = 0; i < count; ++i)
   {
       var hdr = this.getColumnObject(i);
-      var hdrTitle = hdr.getLabel();
-      var list_item = document.createElement("li");
-      var id = "ntb-hidecol_" + i + "_" + uid;
-      list_item.innerHTML = '<input type="checkbox" id="' + id + '"> ' + hdrTitle;
-      list.appendChild(list_item);
-      //Attach event here
-      nitobi.html.attachEvent($ntb("ntb-hidecol_"+ i + "_" + this.uid), "mouseup", hdr.toggleVis, hdr); 
+      if (hdr.getHidden() == "0")
+	{
+      		var hdrTitle = hdr.getLabel();
+      		var list_item = document.createElement("li");
+      		var id = "ntb-hidecol_" + i + "_" + uid;
+      		list_item.innerHTML = '<input type="checkbox" id="' + id + '"> ' + hdrTitle;
+      		list.appendChild(list_item);
+			if(!hdr.isVisible())
+			{
+				list_item.children[0].checked = true;
+			}
+      		//Attach event here
+      		nitobi.html.attachEvent($ntb("ntb-hidecol_"+ i + "_" + this.uid), "mouseup", hdr.toggleVis, hdr); 
+	}
   } 
+}
+
+nitobi.grid.Grid.prototype.refreshColumnList = function()
+{
+	var list = $ntb('ntb-grid-colcheck' + this.uid);
+	while(list.childNodes[0])
+	{
+		list.removeChild(list.childNodes[0]);
+	}
+	this.populateColumnList();
 }
 
 /**
@@ -1944,7 +1963,7 @@ nitobi.grid.Grid.prototype.measureColumns= function() {
 	var colDefs = this.getColumnDefinitions();
 	var cols = colDefs.length;
 	for (var i=0; i<cols;i++) {
-		if (colDefs[i].getAttribute("Visible") == "1" || colDefs[i].getAttribute("visible") == "1")
+		if (nitobi.lang.toBool(colDefs[i].getAttribute("Visible"),false) == true || nitobi.lang.toBool(colDefs[i].getAttribute("visible"),false) == true)
 		{
 			var w = Number(colDefs[i].getAttribute("Width"));
 			wT+=w;
@@ -1992,7 +2011,17 @@ nitobi.grid.Grid.prototype.resize= function(width, height)
 {
 	this.setWidth(width);
 	this.setHeight(height);
-
+	var gridDeclaration = this.Declaration.grid.selectSingleNode('ntb:grid');
+	if(width != undefined)
+	{	
+		gridDeclaration.setAttribute('width', width);
+	}
+	
+	if(height != undefined)
+	{
+		gridDeclaration.setAttribute('height', height);
+	}
+	
 	// Just generate the CSS
 	this.generateCss();
 
@@ -2044,18 +2073,22 @@ nitobi.grid.Grid.prototype.afterColumnResize = function(resizer)
 nitobi.grid.Grid.prototype.afterDragDropColumn = function(dragbox)
 {
   var source = this.getColumnObject(dragbox.column);
+
   if (this.targetCol == null)
     var target = this.findColumnWithX(dragbox.x);
   else
     var target = this.targetCol;
-
+	
   if (source == target || target == null)
   {
     this.headerClicked(dragbox.column);
+  }else if(target=='last')
+  {
+  	this.moveColumns(source, this.getColumnObject(this.getColumnCount()-1), true);
   }
   else
   {
-    this.moveColumns(source, target);
+    this.moveColumns(source, target, false);
   }
 }
 
@@ -2071,7 +2104,11 @@ nitobi.grid.Grid.prototype.columnResize= function(column, width)
 	column = (typeof column == "object"?column:this.getColumnObject(column));
 	var prevWidth = column.getWidth();
 	column.setWidth(width);
-
+	
+	var columnIndex = column.column;
+	this.Declaration.columns.firstChild.childNodes[columnIndex].setAttribute('width',width);
+	this.Declaration.grid.firstChild.firstChild.childNodes[columnIndex].setAttribute('width',width);
+	
 	//	TODO: this is a hack to fix a problem with the fixed column header not resizing.
 	// This was causing some hacky code to be added in EBASelection.collapse 
 	// see the following - tix for details.
@@ -2088,7 +2125,6 @@ nitobi.grid.Grid.prototype.columnResize= function(column, width)
 	}
 	else
 	{
-		var columnIndex = column.column;
 		var dx = width - prevWidth;
 		var C = nitobi.html.Css;
 		// Things are different if we are resizing a frozen or unfrozen column
@@ -2113,28 +2149,43 @@ nitobi.grid.Grid.prototype.columnResize= function(column, width)
 	}
 
 	this.Selection.collapse(this.activeCell);
-
+	
 	var afterColumnResizeEventArgs = new nitobi.grid.OnAfterColumnResizeEventArgs(this, column);
 	nitobi.event.evaluate(column.getOnAfterResizeEvent(), afterColumnResizeEventArgs);
 }
 
-nitobi.grid.Grid.prototype.moveColumns = function(source, dest)
+nitobi.grid.Grid.prototype.moveColumns = function(source, dest, after)
 {
   var srcIndex = source.column;
   var destIndex = dest.column;
   
-  // This manipulates the Grid XML
+  // This manipulates the columns XML
   var columns = this.Declaration.columns.firstChild;
   var destCol = columns.childNodes[destIndex];
   var srcCol = columns.childNodes[srcIndex];
   var tmpNode = srcCol.cloneNode(true);
   columns.removeChild(srcCol);
-  columns.insertBefore(tmpNode, destCol);
+  
+  if(!after)
+  {
+  	columns.insertBefore(tmpNode, destCol);
+  }else
+  {
+  	columns.appendChild(tmpNode);
+  }
 
+  // Update the grid xml as well
+  var gridXml = this.Declaration.grid.firstChild;
+  tmpNode = columns.cloneNode(true);
+  gridXml.removeChild(gridXml.childNodes[0]);
+  gridXml.appendChild(tmpNode);
+  
   // Dump the old cached stuff out, redefine everything and bind it!
   this.columns = [];
   this.defineColumns(columns);
+  this.refreshColumnList();
   this.bind();
+  this.Scroller.setScrollLeft(this.Scroller.getScrollLeft());
 }
 
 nitobi.grid.Grid.prototype.reloadColumnDef = function()
@@ -2148,7 +2199,7 @@ nitobi.grid.Grid.prototype.reloadColumnDef = function()
 nitobi.grid.Grid.prototype.findColumnWithX = function(x)
 {
   var C = nitobi.html.Css;
-  var gridLeft = nitobi.html.getBoundingClientRect(this.UiContainer).left;
+  var lastColumn = this.getColumnObject(this.getColumnCount()-1);
  
   if (nitobi.browser.IE)
   {
@@ -2166,22 +2217,35 @@ nitobi.grid.Grid.prototype.findColumnWithX = function(x)
   // We're trying to figure out the state of the grid on the DOM now
   if(frznCount > 0 && leftStyleWidth < x)
   {
+  	var gridLeft = nitobi.html.getBoundingClientRect(this.UiContainer).left;
      var new_range = ((x - gridLeft) - leftStyleWidth) + this.scroller.getScrollLeft();
      for(var i = frznCount; i < this.getColumnCount(); ++i)
      {
          if( this.getColumnObject(i).inRange(new_range) )
            return this.getColumnObject(i);
      } 
+	 if(new_range>(lastColumn.getHeaderElement().offsetLeft+lastColumn.getWidth()))
+	 {
+	 	return 'last';
+	 }
   }
   else
   {
+  	var gridLeft = this.getScrollSurface().scrollLeft;
     for (var i = 0; i < this.getColumnCount(); ++i)
     {
-      if( this.getColumnObject(i).inRange(x - gridLeft) )
+      if( this.getColumnObject(i).inRange(x + gridLeft) )
+	  {
         return this.getColumnObject(i);
+	  }
     }
+	
+	if((x + gridLeft)>(lastColumn.getHeaderElement().offsetLeft+lastColumn.getWidth()))
+	{
+		// hate to do this
+		return 'last';
+	}
   }
-
   return null;
 }
 
@@ -2191,14 +2255,19 @@ nitobi.grid.Grid.prototype.resizePanes= function(dx, columnIndex)
 		// Things are different if we are resizing a frozen or unfrozen column
 		if (columnIndex < this.getFrozenLeftColumnCount())
 		{
-			var leftStyle = C.getClass(".ntb-grid-leftwidth"+this.uid);
-			leftStyle.width = (parseInt(leftStyle.width) + dx) + "px";
-			var centerStyle = C.getClass(".ntb-grid-centerwidth"+this.uid);
-			centerStyle.width = (parseInt(centerStyle.width) - dx) + "px";
+			var leftStyle = C.getClass(".ntb-grid-leftwidth"+this.uid, true);
+			var parsedLeftStyleWidth = parseInt(leftStyle.width);
+			var leftSyleCalcWidth =  parsedLeftStyleWidth + dx;
+			leftStyle.width =  leftSyleCalcWidth + "px";
+			
+			var centerStyle = C.getClass(".ntb-grid-centerwidth"+this.uid, true);
+			var parsedCenterStyleWidth = parseInt(centerStyle.width);
+			var centerStyleWidthCalc = parsedCenterStyleWidth - dx;
+			centerStyle.width = centerStyleWidthCalc + "px";
 		}
 		else
 		{
-			var surfaceStyle = C.getClass(".ntb-grid-surfacewidth"+this.uid);
+			var surfaceStyle = C.getClass(".ntb-grid-surfacewidth"+this.uid, true);
 			surfaceStyle.width = (parseInt(surfaceStyle.width) + dx) + "px";
 		}
 }
@@ -2415,6 +2484,8 @@ nitobi.grid.Grid.prototype.bindComplete=function()
 	
 	// TODO: This toolbar calc should not be here either
 	this.toolbars.calculateRange();
+	this.toolbars.resetCounter();
+	this.toolbars.synchDropDown();
 	
 	// The bound property indicates that events from the datasource to which
 	// we are bound will now be able to cause re-renders of our interface
@@ -2572,7 +2643,7 @@ nitobi.grid.Grid.prototype.layoutFrame= function(columns)
 			// 2. Width of scrollbar (sbW)
 		// Height dimenions
 			// 1. Header height (hdrH)
-			// 2. Height of visible rows (vpH) - calculated 
+			// 2. Height of  rows (vpH) - calculated 
 			// 3. Height of scrollbar (sbH)
 			// 4. Height of toolbar (tbH)
 
@@ -3396,8 +3467,21 @@ nitobi.grid.Grid.prototype.calculateHeight = function(start, end)
 {
 	start = (start != null)?start:0;
 	var numRows = this.getDisplayedRowCount();
-	end = (end != null)?end:numRows - 1;
-	return (end - start + 1) * this.getRowHeight();
+	end = (end != null)?end:numRows;
+
+	var height=0;
+	for(var i=0;i<end;i++)
+	{
+		if ($ntb('row_' + i + '_' + this.uid)) {
+			height += $ntb('row_' + i + '_' + this.uid).clientHeight;
+		}else
+		{
+			height+= this.getRowHeight();
+		}
+	}
+	
+	return height;
+	//return (end - start + 1) * this.getRowHeight();
 }
 
 /**
@@ -3416,7 +3500,7 @@ nitobi.grid.Grid.prototype.calculateWidth= function(start, end)
 	end = (end != null)?Math.min(end,cols):cols;
 	var wT = 0;
 	for (var i=start; i<end;i++) {
-		if (colDefs[i].getAttribute("Visible") == "1" || colDefs[i].getAttribute("visible") == "1") {
+		if (nitobi.lang.toBool(colDefs[i].getAttribute("Visible"),false) == true || nitobi.lang.toBool(colDefs[i].getAttribute("visible"),false) == true) {
 			wT+=Number(colDefs[i].getAttribute("Width"));
 		}
 	}
@@ -3820,7 +3904,7 @@ nitobi.grid.Grid.prototype.clearColumnHeaderSortOrder= function()
 nitobi.grid.Grid.prototype.setColumnSortOrder= function(colIndex,sortDir)
 {
 	this.clearColumnHeaderSortOrder();
-
+	//debugger;
 	//	TODO: This does not need to be called in the case of sorting on the server
 	//	since the entire grid is refiltered and the sort column stuff gets rendered in the XSLT
 	var headerColumn = this.getColumnObject(colIndex);
@@ -3839,8 +3923,8 @@ nitobi.grid.Grid.prototype.setColumnSortOrder= function(colIndex,sortDir)
 	{
 		//var clazz = (sortDir=="Desc" ? "ntb-descending" : "ntb-ascending");
 		//C.addClass(headerCell, clazz, true);
-		headerCell.className = css.replace(/(ntb-column-indicator-border)(.*?)(\s|$)/g,function(m)
-		{
+		headerCell.className = css.replace(/(ntb-column-indicator-border)/g,function(m)
+		{	
 			var repl = (sortDir=="Desc" ? "descending" : "ascending");
 			return (m.indexOf("hover") > 0 ? m.replace("hover", repl+"hover") : m + repl);
 		});
@@ -4122,7 +4206,6 @@ nitobi.grid.Grid.prototype.refresh= function()
 	if (!this.fire('BeforeRefresh', eventArgs)) return;
 
 	ntbAssert(this.datatable != null,'The Grid must be conntected to a DataTable to call refresh.','',EBA_THROW);
-
 	// TODO: Not sure why clear is commented out and the other code is here?
 	//this.clear();
 	this.selectedRows = [];
@@ -4130,6 +4213,7 @@ nitobi.grid.Grid.prototype.refresh= function()
 	if(this.getDataMode()!="local")
 		this.datatable.clearData();
 
+	this.Scroller.refresh = true;
 	this.syncWithData();
 
 	this.subscribeOnce("HtmlReady", this.handleAfterRefresh, this);
