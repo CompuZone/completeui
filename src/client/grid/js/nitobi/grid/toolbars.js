@@ -259,7 +259,7 @@ nitobi.ui.Toolbars.prototype.render= function()
 					{
 						  grid = _this.grid;
 						  element = _this.show_hide_btn;
-						  var menu = $ntb('ntb-grid-showhide' + grid.uid);
+						  var menu = $ntb('ntb-grid-showhide-wrapper' + grid.uid);
   						  nitobi.ui.Toolbars.showMenu(menu, element);
 					};
 			break;
@@ -298,6 +298,39 @@ nitobi.ui.Toolbars.prototype.render= function()
 						  	var menu = $ntb('ntb-treegrid-colmenu-' + colset);
 							nitobi.ui.Toolbars.showMenu(menu, element);
 						  }
+					};
+			break;
+			case "firstPage"+this.uid:
+				buttons[eachbutton].onClick = 
+					function()
+					{
+						_this.fire("FirstPage");		
+						_this.resetCounter();
+					};
+			break;
+			case "lastPage"+this.uid:
+				buttons[eachbutton].onClick = 
+					function()
+					{
+						_this.fire("LastPage");	
+						_this.maxCounter();		
+					};
+			break;
+			case "previousPage"+this.uid:
+				buttons[eachbutton].onClick = 
+					function()
+					{
+						_this.fire("PreviousPage");
+						_this.decrementCounter();
+					};
+				buttons[eachbutton].disable();
+			break;
+			case "nextPage"+this.uid:
+				buttons[eachbutton].onClick = 
+					function()
+					{
+						_this.fire("NextPage");
+						_this.incrementCounter();
 					};
 			break;
 			default:
@@ -364,14 +397,7 @@ nitobi.ui.Toolbars.prototype.render= function()
 						_this.fire("LastPage");	
 						_this.maxCounter();		
 					};
-			break;
-			case "startPage"+this.uid:
-				buttonsPaging[eachPbutton].onBlur = 
-					function()
-					{	
-						_this.inputCounter();		
-					};
-			break;			
+			break;		
 			default:
 		}
 	}
@@ -430,22 +456,50 @@ nitobi.ui.Toolbars.prototype.resetCounter = function()
 	var disp_start = $ntb('startRow' + this.uid);
 	var disp_end = $ntb('numRows' + this.uid);
 	var rows_per_page = this.grid.getRowsPerPage();
+	
 	if (start_page)
 	{		
 		start_page.value = String(1);
+	}
+	
+	if(total_items)
+	{
 		total_items.innerHTML = "&nbsp;" + this.grid.datatable.totalRowCount;
+	}
+	
+	if(disp_start)
+	{
 		disp_start.innerHTML = "&nbsp;1";
+	}
+	
+	if(disp_end)
+	{
 		disp_end.innerHTML = "&nbsp;" + rows_per_page;
-	}	
+	}
 }
 
 nitobi.ui.Toolbars.prototype.maxCounter = function()
 {
 	var start_page = $ntb('startPage' + this.uid);
+	var disp_start = $ntb('startRow' + this.uid);
+	var disp_end = $ntb('numRows' + this.uid);
+	var rows_per_page = this.grid.getRowsPerPage();
 	var pages = this.grid.datatable.totalRowCount/this.grid.getRowsPerPage();
 	if (start_page)
 	{		
-		start_page.value = String(Math.ceil(pages));	
+		start_page.value = String(Math.ceil(pages));
+		var val = parseInt(start_page.value);
+		if(disp_start)
+		{
+			var start_disp = (val-1)*rows_per_page+1;
+			disp_start.innerHTML = "&nbsp;" + start_disp;
+		}
+		
+		if(disp_end)
+		{
+			var end_disp = start_disp+rows_per_page-1;
+			disp_end.innerHTML = "&nbsp;" + end_disp;
+		}	
 	}	
 }
 
@@ -459,10 +513,17 @@ nitobi.ui.Toolbars.prototype.incrementCounter = function()
 	{		
 		var val = parseInt(start_page.value);
 		start_page.value = String(++val);
-		var start_disp = val*rows_per_page;
-		var end_disp = start_disp+rows_per_page;
-		disp_start.innerHTML = "&nbsp;" + start_disp;
-		disp_end.innerHTML = "&nbsp;" + end_disp;
+		if(disp_start)
+		{
+			var start_disp = (val-1)*rows_per_page+1;
+			disp_start.innerHTML = "&nbsp;" + start_disp;
+		}
+		
+		if(disp_end)
+		{
+			var end_disp = start_disp+rows_per_page-1;
+			disp_end.innerHTML = "&nbsp;" + end_disp;
+		}
 	}	
 }
 
@@ -476,16 +537,26 @@ nitobi.ui.Toolbars.prototype.decrementCounter = function()
 	{		
 		var val = parseInt(start_page.value);
 		start_page.value = String(--val);
-		var start_disp = val*rows_per_page;
-		var end_disp = val+rows_per_page;
-		disp_start.innerHTML = "&nbsp;" + start_disp;
-		disp_end.innerHTML = "&nbsp;" + end_disp;	
+		if(disp_start)
+		{
+			var start_disp = (val-1)*rows_per_page+1;
+			disp_start.innerHTML = "&nbsp;" + start_disp;
+		}
+		
+		if(disp_end)
+		{
+			var end_disp = start_disp+rows_per_page-1;
+			disp_end.innerHTML = "&nbsp;" + end_disp;			
+		}
 	}	
 }
 
 nitobi.ui.Toolbars.prototype.inputCounter = function()
 {
 	var start_page = $ntb('startPage' + this.uid);
+	var disp_start = $ntb('startRow' + this.uid);
+	var disp_end = $ntb('numRows' + this.uid);
+	var rows_per_page = this.grid.getRowsPerPage();
 	if (start_page)
 	{		
 		var maxPage = Math.ceil(this.grid.datatable.totalRowCount/this.grid.getRowsPerPage());
@@ -497,28 +568,45 @@ nitobi.ui.Toolbars.prototype.inputCounter = function()
 		}
 		else
 		{
+			if(disp_start)
+			{
+				var start_disp = (val-1)*rows_per_page+1;
+				disp_start.innerHTML = "&nbsp;" + start_disp;
+			}
+			
+			if(disp_end)
+			{
+				var end_disp = start_disp+rows_per_page-1;
+				disp_end.innerHTML = "&nbsp;" + end_disp;			
+			}
 			this.fire("InputTextPage");
 		}
 	}	
 }
 nitobi.ui.Toolbars.prototype.calculateRange = function()
 {
-	var startPage = 1;
 	var pages = this.grid.datatable.totalRowCount/this.grid.getRowsPerPage();
 	var total_items = $ntb('endRow' + this.uid);
 	var last_page =  $ntb('endPage' + this.uid);
-	
 	if(total_items)
 	{
 		total_items.innerHTML = "&nbsp;" + this.grid.datatable.totalRowCount;
 	}
-
 	if(last_page)
 	{
 		last_page.innerHTML = "&nbsp;" + Math.ceil(pages);
 	}
 }
 
+nitobi.ui.Toolbars.prototype.synchDropDown = function()
+{
+	var rows = this.grid.getRowsPerPage();
+	var dropdown = $ntb('pageDrop' + this.uid);
+	if(dropdown)
+	{
+		dropdown.value = rows;
+	}
+}
 
 nitobi.ui.Toolbars.prototype.resize = function()
 {

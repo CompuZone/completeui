@@ -50,11 +50,12 @@
 				<xsl:attribute name="class">ntb-header-row<xsl:value-of select="$uniqueId" /></xsl:attribute>
 
 				<xsl:for-each select="$columns">
-					<xsl:if test="(position() &gt; $firstColumn and position() &lt;= $lastColumn)">
+					<xsl:if test="@Hidden = '0' and (position() &gt; $firstColumn and position() &lt;= $lastColumn)">
 						<td ebatype="columnheader" xi="{position()-1}" col="{position()-1}">
 						<xsl:attribute name="id">columnheader_<xsl:value-of select="position()-1"/>_<xsl:value-of select="$uniqueId" /></xsl:attribute>
 						<xsl:attribute name="onmouseover">$ntb('grid<xsl:value-of select="$uniqueId" />').jsObject.handleHeaderMouseOver(this);</xsl:attribute>
 						<xsl:attribute name="onmouseout">$ntb('grid<xsl:value-of select="$uniqueId" />').jsObject.handleHeaderMouseOut(this);</xsl:attribute>
+						<xsl:attribute name="style">text-align:<xsl:value-of select="@HeaderAlign"/>;</xsl:attribute>
 						<!-- note that the ntb-columnUID_POSITION class is for a safari bug -->
 						<xsl:attribute name="class">ntb-column-header ntb-column-indicator-border<xsl:choose><xsl:when test="$sortColumn=position()-1 and $sortDirection='Asc'">ascending</xsl:when><xsl:when test="$sortColumn=position()-1 and $sortDirection='Desc'">descending</xsl:when><xsl:otherwise></xsl:otherwise></xsl:choose><xsl:text> </xsl:text>ntb-column<xsl:value-of select="$uniqueId"/>_<xsl:value-of select="position()" /></xsl:attribute>
 							<div>
@@ -87,7 +88,7 @@
 <xsl:template name="colgroup">
 	<colgroup>
 		<xsl:for-each select="$columns">
-			<xsl:if test="(position() &gt; $firstColumn and position() &lt;= $lastColumn)">
+			<xsl:if test="@Hidden = '0' and (position() &gt; $firstColumn and position() &lt;= $lastColumn)">
 				<col>
 				</col>
 			</xsl:if>
@@ -112,7 +113,7 @@
 
 		<xsl:for-each select="$columns">
 
-			<xsl:if test="(position() &gt; $firstColumn and position() &lt;= $lastColumn)">
+			<xsl:if test="@Hidden = '0' and (position() &gt; $firstColumn and position() &lt;= $lastColumn)">
 
 				<xsl:call-template name="render-cell">
 					<xsl:with-param name="row" select="$row"/>
