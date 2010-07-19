@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+<project default="enterpriseSource" basedir=".">
+
+	<target name="gridWar" >
+		<echo message="buildin JSP WAR"/>
+		<war destfile="${basedir}\..\Output\JSP\NitobiGridV34Sample.war"  duplicate="preserve" webxml="web.xml" update="true" >
+			
+			<fileset dir="${basedir}\..\Output\JSP\Samples">
+				<exclude name="**/*.jar" />
+				<exclude name="**/lib" />	 	
+			</fileset>
+			
+			<lib dir="${basedir}\..\Output\JSP\lib"/>
+		</war>
+	</target>
+
+	<target name="deploySamples.dotnet">
+		<replaceregexp byline="true">
+			<!-- 
+				Take all .htm files in "${nant.project.basedir}/Output/JSP/Samples" and replace development code with shipping code 
+				
+				We need to clean up all the code between NITOBI_REMOVE_START and NITOBI_REMOVE_END 
+			-->
+			<regexp pattern="&lt;!--_NRS_.*_NRE_-->"/>
+			<substitution expression=""/>
+			<fileset dir="${basedir}\..\Output\">
+				<include name="dotnet\samples\**\*.*"/>
+			</fileset>
+		</replaceregexp>
+	</target>
+	
+	<target name="deploySamples">
+		<replaceregexp byline="true">
+			<!-- 
+				Take all .htm files in "${nant.project.basedir}/Output/JSP/Samples" and replace development code with shipping code 
+				
+				We need to clean up all the code between NITOBI_REMOVE_START and NITOBI_REMOVE_END 
+			-->
+			<regexp pattern="&lt;!-- EBA_REMOVE_START.*EBA_REMOVE_END -->"/>
+			<substitution expression=""/>
+			<fileset dir="${basedir}\..\Output\">
+				<include name="*\Samples\*\*.*"/>
+			</fileset>
+		</replaceregexp>
+		
+		<!-- There is currently no replace done for php or jsp -->
+		
+		<replaceregexp byline="true" flags="i">
+			<regexp pattern="../../../Test/Lib/ASP/base_gethandler.inc"/>
+			<substitution expression="nitobi.xml.inc"/>
+			<fileset dir="${basedir}\..\Output\">
+				<include name="*\Samples\*\*.asp"/>
+			</fileset>
+		</replaceregexp>
+		
+		<replaceregexp byline="true" flags="i">
+			<regexp pattern="../../../Test/Lib/CFM/base_gethandler.cfm"/>
+			<substitution expression="nitobi.xml.cfm"/>
+			<fileset dir="${basedir}\..\Output\">
+				<include name="*\Samples\*\*.cfm"/>
+			</fileset>
+		</replaceregexp>
+		
+	</target>
+
+	<target name="docs.server" description="Build all the server side documentation." depends="platform.check" unless="platform.js">
+		<echo message="Building server docs - ${platform.name} - ${platform.js}"></echo>
+		<if>
+			<not>
+				<equals arg1="toolkit" arg2="${component.name}" />
+			</not>
+			<then>
+				<if>
+					<equals arg1="dotnet" arg2="${platform.name}" />
+					<then>
+						<!--This is special for now since .NET needs different grid and combo references.-->
+						<!--<copy file="../temp/docs/${component.name}-server.chm" tofile="../../temp/documentation/${component.name}-server.chm" failonerror="false" />-->
+					</then>
+					<elseif>
+						<equals arg1="jsp" arg2="${platform.name}" />
+						<then>
+							<!-- Build javadocs -->
+							<!--
+							<javadoc destdir="../../temp/java/docs" Public="true">
+								<fileset dir="../../server/java/serverLibrary/src/eba/gethandler"/>
+								<fileset dir="../../server/java/serverLibrary/src/eba/savehandler"/>
+								<fileset dir="../../server/java/serverLibrary/src/eba/tools"/>
+								<fileset dir="../../server/java/serverLibrary/src/com/nitobi/server/handler"/>
+								<fileset dir="../../server/java/serverLibrary/src/com/nitobi/server/tools"/>
+								<fileset dir="../../server/java/serverLibrary/src/com/nitobi/exception"/>		
+							</javadoc>
+							-->
+
+							<!-- convert javadoc to chm -->
+							<!--
+							<exec executable="cmd" dir="../../temp/java/docs">
+								<arg value="/c"/>
+								<arg value="python ../../../build/JavaDoc2Chm/jd2chm_Grid_Get_Save_Handlers.py -p serverapiref -t serverapiref" />
+							</exec>
+							-->
+
+							<!-- copy the generated chm to the temp/documentation for inclusion in main chm file -->
+							<!--
+							<copy file="../../temp/java/docs/serverapiref.chm" tofile="../../temp/documentation/serverapiref.chm" />
+							-->
+
+						</then>
+					</elseif>
+					<elseif>
+						<equals arg1="${platform.name}" arg2="script" />
+						<then>
+							<!-- generate the script docs for asp, php, and cfm -->
+							<antcall target="scriptpackage.docs">
+								<param name="doc.platform.name" value="asp"></param>
+							</antcall>
+							<antcall target="scriptpackage.docs">
+								<param name="doc.platform.name" value="cfm"></param>
+							</antcall>
+							<antcall target="scriptpackage.docs">
+								<param name="doc.platform.name" value="php"></param>
+							</antcall>							
+						</then>
+					</elseif>
+					<else>
+						<!--
+						<copy todir="../../temp/serverdocumentation">
+							<fileset dir="../../server/${platform.name}/xmlconverter/docs">
+								<exclude name="**/*.hhk" />
+							</fileset>
+						</copy>
+						-->
+
+						<!-- Make the custom server CHM -->
+						<!--
+						<antcall target="CHM">
+							<param name="workingdir" value="../../temp/serverdocumentation"></param>
+							<param name="src" value="serverapiref"></param>
+							<param name="dest" value="../../temp/documentation" />
+						</antcall>
+						-->
+					</else>
+				</if>
+			</then>
+		</if>
+	</target>
+
+	<target name="scriptpackage.docs" description="Target to build the server docs a bit different for WebAssist">
+		<!--
+		<copy todir="../../temp/serverdocumentation/${doc.platform.name}">
+			<fileset dir="../../server/${doc.platform.name}/xmlconverter/docs">
+				<exclude name="**/*.hhk" />
+			</fileset>
+		</copy>
+		<replaceregexp byline="true">
+			<regexp pattern="serverapiref.chm"/>
+			<substitution expression="serverapiref-${doc.platform.name}.chm"/>
+			<fileset dir="../../temp/serverdocumentation/${doc.platform.name}">
+				<include name="**\*.*"/>
+			</fileset>
+		</replaceregexp>
+		<replaceregexp byline="true">
+			<regexp pattern="serverapiref.hhc"/>
+			<substitution expression="serverapiref-${doc.platform.name}.hhc"/>
+			<fileset dir="../../temp/serverdocumentation/${doc.platform.name}">
+				<include name="**\*.*"/>
+			</fileset>
+		</replaceregexp>		
+		<rename src="../../temp/serverdocumentation/${doc.platform.name}/serverapiref.hhc" dest="../../temp/serverdocumentation/${doc.platform.name}/serverapiref-${doc.platform.name}.hhc"/>
+		<rename src="../../temp/serverdocumentation/${doc.platform.name}/serverapiref.hhp" dest="../../temp/serverdocumentation/${doc.platform.name}/serverapiref-${doc.platform.name}.hhp"/>							
+		-->
+
+		<!-- Make the custom server CHM -->
+		<!--
+		<antcall target="CHM">
+			<param name="workingdir" value="../../temp/serverdocumentation/${doc.platform.name}"></param>
+			<param name="src" value="serverapiref-${doc.platform.name}"></param>
+			<param name="dest" value="../../temp/serverdocumentation/${doc.platform.name}" />
+		</antcall>
+		<copy file="../../temp/serverdocumentation/${doc.platform.name}/serverapiref-${doc.platform.name}.chm" tofile="../../temp/documentation/serverapiref-${doc.platform.name}.chm" />
+		-->
+
+	</target>
+
+	<target name="platform.check">
+		<condition property="platform.js">
+			<or>
+				<equals arg1="platform.name" arg2=""></equals>
+				<equals arg1="platform.name" arg2="js"></equals>
+			</or>
+		</condition>	
+	</target>
+
+	<target name="JSDoc" unless="javascript.updated">
+		<!-- create the list of JS files of XSLT to merge -->
+		<xslt in="../includes.xml" out="../temp/jsdocincludes.txt" style="jsdocincludes.xslt"></xslt>
+
+		<loadfile property="jsdocincludes" srcfile="../temp/jsdocincludes.txt" />
+		<echo message="perl ..\..\..\EBABuild\v13\Documentation\JSDoc\jsdoc.pl --package-naming --logo nitobi.gif --no-sources ${jsdocincludes}"></echo>
+		<!-- execute the stringify which will create all the single JS files of XSLT -->		
+		<exec executable="cmd">
+			<arg value="/c"/>
+			<arg value="perl ..\..\..\EBABuild\v13\Documentation\JSDoc\jsdoc.pl --package-naming --logo nitobi.gif --no-sources ${jsdocincludes}"/>
+		</exec>
+		
+		<mkdir dir="../output/documentation"></mkdir>
+		
+		<!-- copy the documentation to the output folder -->
+		<copy todir="../output/documentation">
+			<fileset dir="js_docs_out"/>
+		</copy>
+		<delete dir="js_docs_out"></delete>
+	</target>
+
+	<target name="clean">
+		<delete dir="../temp"></delete>
+		<delete dir="../output"></delete>
+	</target>
+
+</project>

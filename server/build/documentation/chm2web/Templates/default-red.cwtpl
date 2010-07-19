@@ -1,0 +1,78 @@
+;==============================================================================
+;
+; DEFAULT TEMPLATE SCHEME for chm2web software
+; by A!K Research Labs, 2002-2004
+;
+;==============================================================================
+
+
+[TEMPLATE.INFO]
+
+NAME		= Default Red
+Template name
+
+BODY		= default.body
+Template body file name
+
+AUTHOR		= A!K Research Labs
+Copyright(c) 2002-2004, All Rights Reserved
+
+
+[OPEN.FIELDS]
+
+SCHEMECOLOR1	= white
+
+SCHEMECOLOR2    = #ffa6a6
+
+SCHEMECOLOR3	= #840000
+
+SCHEMECOLOR4	= #C60000
+
+LEFTBACKCOLOR	= white
+Left frame background color
+                  
+ABUTTONTEXT	= White
+Active button text color
+
+ABUTTONFRAME    = White
+Active button frame color
+
+IBUTTONFACE	= #840000
+Inactive button color
+
+IBUTTONTEXT	= White
+Inactive button text color
+
+IBUTTONFRAME	= #ffa6a6
+Inactive button frame color
+
+PAGECAPTION    = White
+Page caption text color
+
+
+
+;==============================================================================
+;
+; FILES TO COPY
+;
+; [F|N|M]:[target_image_name] = [source_image_name]
+;
+; F - only for frames version
+; N - only for noframes version
+; M - only for mobile version
+;
+;==============================================================================
+
+[COPY.FILES]
+
+N:files\next.gif       = icons\nextred.gif
+N:files\prev.gif       = icons\prevred.gif
+F:files\home.gif       = icons\homered.gif
+F:files\next.gif       = icons\nextred.gif
+F:files\prev.gif       = icons\prevred.gif
+F:files\print.gif      = icons\printred.gif
+M:files\next.gif       = icons\mobile_red_next.gif
+M:files\prev.gif       = icons\mobile_red_prev.gif
+M:files\cont.gif       = icons\mobile_red_contents.gif
+
+

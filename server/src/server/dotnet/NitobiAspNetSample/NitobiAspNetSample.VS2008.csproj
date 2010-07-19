@@ -1,0 +1,2366 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{265542B0-8B0E-4ED7-9FA0-F8C6F33FF8B9}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>test</RootNamespace>
+    <AssemblyName>NitobiAspNetSample</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="data\GeneralProducts.mdb">
+    </Content>
+    <Content Include="Default.aspx" />
+    <Content Include="Web.config" />
+    <Content Include="WebUserControl1.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApiDocumentation.aspx.cs">
+      <DependentUpon>ApiDocumentation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ApiDocumentation.aspx.designer.cs">
+      <DependentUpon>ApiDocumentation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CalendarEvents.aspx.cs">
+      <DependentUpon>CalendarEvents.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CalendarEvents.aspx.designer.cs">
+      <DependentUpon>CalendarEvents.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CalloutAutorun.aspx.cs">
+      <DependentUpon>CalloutAutorun.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CalloutAutorun.aspx.designer.cs">
+      <DependentUpon>CalloutAutorun.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ButtonSpotlightStory.aspx.cs">
+      <DependentUpon>ButtonSpotlightStory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ButtonSpotlightStory.aspx.designer.cs">
+      <DependentUpon>ButtonSpotlightStory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdvancedDomTabStrip.aspx.cs">
+      <DependentUpon>AdvancedDomTabStrip.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdvancedDomTabStrip.aspx.designer.cs">
+      <DependentUpon>AdvancedDomTabStrip.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ComboWithIndentedText.aspx.cs">
+      <DependentUpon>ComboWithIndentedText.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ComboWithIndentedText.aspx.designer.cs">
+      <DependentUpon>ComboWithIndentedText.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GridWithIndentedText.aspx.cs">
+      <DependentUpon>GridWithIndentedText.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GridWithIndentedText.aspx.designer.cs">
+      <DependentUpon>GridWithIndentedText.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FisheyePhotoAlbum.aspx.cs">
+      <DependentUpon>FisheyePhotoAlbum.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FisheyePhotoAlbum.aspx.designer.cs">
+      <DependentUpon>FisheyePhotoAlbum.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SimpleDataGrid.aspx.cs">
+      <DependentUpon>SimpleDataGrid.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SimpleDataGrid.aspx.designer.cs">
+      <DependentUpon>SimpleDataGrid.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SimpleDomTabStrip.aspx.cs">
+      <DependentUpon>SimpleDomTabStrip.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SimpleDomTabStrip.aspx.designer.cs">
+      <DependentUpon>SimpleDomTabStrip.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerInfoDetails.ascx.cs">
+      <DependentUpon>CustomerInfoDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerInfoDetails.ascx.designer.cs">
+      <DependentUpon>CustomerInfoDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FormAssist.aspx.cs">
+      <DependentUpon>FormAssist.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormAssist.aspx.designer.cs">
+      <DependentUpon>FormAssist.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SimpleFisheye.aspx.cs">
+      <DependentUpon>SimpleFisheye.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SimpleFisheye.aspx.designer.cs">
+      <DependentUpon>SimpleFisheye.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SimpleTabStrip.aspx.cs">
+      <DependentUpon>SimpleTabStrip.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SimpleTabStrip.aspx.designer.cs">
+      <DependentUpon>SimpleTabStrip.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="YouTubeCallout.aspx.cs">
+      <DependentUpon>YouTubeCallout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="YouTubeCallout.aspx.designer.cs">
+      <DependentUpon>YouTubeCallout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SimpleButtonCallout.aspx.cs">
+      <DependentUpon>SimpleButtonCallout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SimpleButtonCallout.aspx.designer.cs">
+      <DependentUpon>SimpleButtonCallout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SimpleCalendar.aspx.cs">
+      <DependentUpon>SimpleCalendar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SimpleCalendar.aspx.designer.cs">
+      <DependentUpon>SimpleCalendar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DocuMaster.Master.cs">
+      <DependentUpon>DocuMaster.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DocuMaster.Master.designer.cs">
+      <DependentUpon>DocuMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="GridWithCustomToolbars.aspx.cs">
+      <DependentUpon>GridWithCustomToolbars.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GridWithCustomToolbars.aspx.designer.cs">
+      <DependentUpon>GridWithCustomToolbars.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer.cs" />
+    <Compile Include="GridBoundToListOfObjects.aspx.cs">
+      <DependentUpon>GridBoundToListOfObjects.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GridBoundToListOfObjects.aspx.designer.cs">
+      <DependentUpon>GridBoundToListOfObjects.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MainMenu.ascx.cs">
+      <DependentUpon>MainMenu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MainMenu.ascx.designer.cs">
+      <DependentUpon>MainMenu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="MultipleComboOnXmlDataIsland.aspx.cs">
+      <DependentUpon>MultipleComboOnXmlDataIsland.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MultipleComboOnXmlDataIsland.aspx.designer.cs">
+      <DependentUpon>MultipleComboOnXmlDataIsland.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SimpleComboLocalHandler.aspx.cs">
+      <DependentUpon>SimpleComboLocalHandler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SimpleComboLocalHandler.aspx.designer.cs">
+      <DependentUpon>SimpleComboLocalHandler.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DataHandler.ashx.cs">
+      <DependentUpon>DataHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleCombo.aspx.cs">
+      <DependentUpon>SimpleCombo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SimpleCombo.aspx.designer.cs">
+      <DependentUpon>SimpleCombo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SimpleTree.aspx.cs">
+      <DependentUpon>SimpleTree.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SimpleTree.aspx.designer.cs">
+      <DependentUpon>SimpleTree.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SimpleTreeGrid.aspx.cs">
+      <DependentUpon>SimpleTreeGrid.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SimpleTreeGrid.aspx.designer.cs">
+      <DependentUpon>SimpleTreeGrid.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Site1.Master.cs">
+      <DependentUpon>Site1.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site1.Master.designer.cs">
+      <DependentUpon>Site1.Master</DependentUpon>
+    </Compile>
+    <Compile Include="SpotlightStory.aspx.cs">
+      <DependentUpon>SpotlightStory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SpotlightStory.aspx.designer.cs">
+      <DependentUpon>SpotlightStory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StandAlongGrid.aspx.cs">
+      <DependentUpon>StandAlongGrid.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StandAlongGrid.aspx.designer.cs">
+      <DependentUpon>StandAlongGrid.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TestDataHandler.cs" />
+    <Compile Include="TestDataProvider.cs" />
+    <Compile Include="UmlDesigns.aspx.cs">
+      <DependentUpon>UmlDesigns.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UmlDesigns.aspx.designer.cs">
+      <DependentUpon>UmlDesigns.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebUserControl1.ascx.cs">
+      <DependentUpon>WebUserControl1.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebUserControl1.ascx.designer.cs">
+      <DependentUpon>WebUserControl1.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EndUserExtensions\EndUserExtensions.VS2008.csproj">
+      <Project>{8AE32E29-9663-4839-9BD8-FF06E8EC5056}</Project>
+      <Name>EndUserExtensions.VS2008</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NitobiControls\NitobiControls.VS2008.csproj">
+      <Project>{B4697F79-84FF-4C23-89A3-1148713CA89F}</Project>
+      <Name>NitobiControls.VS2008</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Site1.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\DarkIce\styles.css" />
+    <Content Include="MultipleComboOnXmlDataIsland.aspx" />
+    <Content Include="SimpleComboLocalHandler.aspx" />
+    <Content Include="DataHandler.ashx" />
+    <Content Include="SimpleCombo.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Tiger\styles.css" />
+    <Content Include="App_Themes\DarkIce\Skin1.skin" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ApiDocumentation.aspx" />
+    <Content Include="App_Themes\Tiger\Skin1.skin" />
+    <Content Include="GridWithCustomToolbars.aspx" />
+    <Content Include="GridBoundToListOfObjects.aspx" />
+    <Content Include="SimpleTree.aspx" />
+    <Content Include="SimpleTreeGrid.aspx" />
+    <Content Include="StandAlongGrid.aspx" />
+    <Content Include="UmlDesigns.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CalendarEvents.aspx" />
+    <Content Include="CalloutAutorun.aspx" />
+    <Content Include="ButtonSpotlightStory.aspx" />
+    <Content Include="AdvancedDomTabStrip.aspx" />
+    <Content Include="ComboWithIndentedText.aspx" />
+    <Content Include="GridWithIndentedText.aspx" />
+    <Content Include="FisheyePhotoAlbum.aspx" />
+    <Content Include="HTMLPage1.htm" />
+    <Content Include="SimpleDataGrid.aspx" />
+    <Content Include="SimpleDomTabStrip.aspx" />
+    <Content Include="CustomerInfoDetails.ascx" />
+    <Content Include="FormAssist.aspx" />
+    <Content Include="SimpleFisheye.aspx" />
+    <Content Include="SimpleTabStrip.aspx" />
+    <Content Include="YouTubeCallout.aspx" />
+    <Content Include="SimpleButtonCallout.aspx" />
+    <Content Include="EventTestData.xml" />
+    <Content Include="images\add.gif" />
+    <Content Include="images\aspx.png" />
+    <Content Include="images\Calendar.png" />
+    <Content Include="images\Callout.png" />
+    <Content Include="images\Combobox.png" />
+    <Content Include="images\css.png" />
+    <Content Include="images\db.png" />
+    <Content Include="images\dll.png" />
+    <Content Include="images\doc.png" />
+    <Content Include="images\file_attention.png" />
+    <Content Include="images\file_del.png" />
+    <Content Include="images\file_explore.png" />
+    <Content Include="images\file_new.png" />
+    <Content Include="images\Fisheye.png" />
+    <Content Include="images\Grid.png" />
+    <Content Include="images\header.png" />
+    <Content Include="images\htm.png" />
+    <Content Include="images\html.png" />
+    <Content Include="images\info.png" />
+    <Content Include="images\information.gif" />
+    <Content Include="images\mdb.png" />
+    <Content Include="images\New Picture.bmp" />
+    <Content Include="images\nitobi.png" />
+    <Content Include="images\power.png" />
+    <Content Include="images\scustomerimage1.gif" />
+    <Content Include="images\scustomerimage2.gif" />
+    <Content Include="images\scustomerimage3.gif" />
+    <Content Include="images\scustomerimage4.gif" />
+    <Content Include="images\scustomerimage5.gif" />
+    <Content Include="images\Spotlight.png" />
+    <Content Include="images\theme.png" />
+    <Content Include="images\Tree.png" />
+    <Content Include="images\TreeGrid.png" />
+    <Content Include="images\xml.png" />
+    <Content Include="SimpleCalendar.aspx" />
+    <Content Include="DocuMaster.Master" />
+    <Content Include="js\nitobi.fisheye.js" />
+    <Content Include="MainMenu.ascx" />
+    <Content Include="NitobiStyles\calendar\base\calendar.css" />
+    <Content Include="NitobiStyles\calendar\flex\assets\background.gif" />
+    <Content Include="NitobiStyles\calendar\flex\assets\button.gif" />
+    <Content Include="NitobiStyles\calendar\flex\assets\drawer.png" />
+    <Content Include="NitobiStyles\calendar\flex\assets\next.png" />
+    <Content Include="NitobiStyles\calendar\flex\assets\next_dis.png" />
+    <Content Include="NitobiStyles\calendar\flex\assets\prev.png" />
+    <Content Include="NitobiStyles\calendar\flex\assets\prev_dis.png" />
+    <Content Include="NitobiStyles\calendar\flex\assets\top_header.png" />
+    <Content Include="NitobiStyles\calendar\flex\calendar.css" />
+    <Content Include="NitobiStyles\calendar\gloss\assets\background.png" />
+    <Content Include="NitobiStyles\calendar\gloss\assets\button.gif" />
+    <Content Include="NitobiStyles\calendar\gloss\assets\drawer.png" />
+    <Content Include="NitobiStyles\calendar\gloss\assets\next.gif" />
+    <Content Include="NitobiStyles\calendar\gloss\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\calendar\gloss\assets\prev.gif" />
+    <Content Include="NitobiStyles\calendar\gloss\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\calendar\gloss\assets\top_header.png" />
+    <Content Include="NitobiStyles\calendar\gloss\calendar.css" />
+    <Content Include="NitobiStyles\calendar\leopard\assets\background.gif" />
+    <Content Include="NitobiStyles\calendar\leopard\assets\button.gif" />
+    <Content Include="NitobiStyles\calendar\leopard\assets\drawer.png" />
+    <Content Include="NitobiStyles\calendar\leopard\assets\next.gif" />
+    <Content Include="NitobiStyles\calendar\leopard\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\calendar\leopard\assets\prev.gif" />
+    <Content Include="NitobiStyles\calendar\leopard\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\calendar\leopard\assets\top_header.png" />
+    <Content Include="NitobiStyles\calendar\leopard\calendar.css" />
+    <Content Include="NitobiStyles\calendar\minimal\assets\button.gif" />
+    <Content Include="NitobiStyles\calendar\minimal\assets\next.gif" />
+    <Content Include="NitobiStyles\calendar\minimal\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\calendar\minimal\assets\prev.gif" />
+    <Content Include="NitobiStyles\calendar\minimal\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\calendar\minimal\calendar.css" />
+    <Content Include="NitobiStyles\calendar\minimal_bluestripes\assets\background.png" />
+    <Content Include="NitobiStyles\calendar\minimal_bluestripes\assets\button.gif" />
+    <Content Include="NitobiStyles\calendar\minimal_bluestripes\assets\next.gif" />
+    <Content Include="NitobiStyles\calendar\minimal_bluestripes\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\calendar\minimal_bluestripes\assets\prev.gif" />
+    <Content Include="NitobiStyles\calendar\minimal_bluestripes\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\calendar\minimal_bluestripes\calendar.css" />
+    <Content Include="NitobiStyles\calendar\minimal_greenstripes\assets\background.png" />
+    <Content Include="NitobiStyles\calendar\minimal_greenstripes\assets\button.gif" />
+    <Content Include="NitobiStyles\calendar\minimal_greenstripes\assets\next.gif" />
+    <Content Include="NitobiStyles\calendar\minimal_greenstripes\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\calendar\minimal_greenstripes\assets\prev.gif" />
+    <Content Include="NitobiStyles\calendar\minimal_greenstripes\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\calendar\minimal_greenstripes\calendar.css" />
+    <Content Include="NitobiStyles\calendar\minimal_redstripes\assets\background.png" />
+    <Content Include="NitobiStyles\calendar\minimal_redstripes\assets\button.gif" />
+    <Content Include="NitobiStyles\calendar\minimal_redstripes\assets\next.gif" />
+    <Content Include="NitobiStyles\calendar\minimal_redstripes\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\calendar\minimal_redstripes\assets\prev.gif" />
+    <Content Include="NitobiStyles\calendar\minimal_redstripes\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\calendar\minimal_redstripes\calendar.css" />
+    <Content Include="NitobiStyles\calendar\minimal_stripes\assets\background.png" />
+    <Content Include="NitobiStyles\calendar\minimal_stripes\assets\button.gif" />
+    <Content Include="NitobiStyles\calendar\minimal_stripes\assets\next.gif" />
+    <Content Include="NitobiStyles\calendar\minimal_stripes\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\calendar\minimal_stripes\assets\prev.gif" />
+    <Content Include="NitobiStyles\calendar\minimal_stripes\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\calendar\minimal_stripes\calendar.css" />
+    <Content Include="NitobiStyles\calendar\nitobi.reset.css" />
+    <Content Include="NitobiStyles\calendar\outline\assets\background.gif" />
+    <Content Include="NitobiStyles\calendar\outline\assets\button.gif" />
+    <Content Include="NitobiStyles\calendar\outline\assets\next.gif" />
+    <Content Include="NitobiStyles\calendar\outline\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\calendar\outline\assets\prev.gif" />
+    <Content Include="NitobiStyles\calendar\outline\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\calendar\outline\calendar.css" />
+    <Content Include="NitobiStyles\calendar\radial\assets\background.gif" />
+    <Content Include="NitobiStyles\calendar\radial\assets\button.gif" />
+    <Content Include="NitobiStyles\calendar\radial\assets\next.gif" />
+    <Content Include="NitobiStyles\calendar\radial\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\calendar\radial\assets\prev.gif" />
+    <Content Include="NitobiStyles\calendar\radial\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\calendar\radial\calendar.css" />
+    <Content Include="NitobiStyles\calendar\radial_blue\assets\background.gif" />
+    <Content Include="NitobiStyles\calendar\radial_blue\assets\button.gif" />
+    <Content Include="NitobiStyles\calendar\radial_blue\assets\next.gif" />
+    <Content Include="NitobiStyles\calendar\radial_blue\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\calendar\radial_blue\assets\prev.gif" />
+    <Content Include="NitobiStyles\calendar\radial_blue\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\calendar\radial_blue\calendar.css" />
+    <Content Include="NitobiStyles\calendar\radial_orange\assets\background.gif" />
+    <Content Include="NitobiStyles\calendar\radial_orange\assets\button.gif" />
+    <Content Include="NitobiStyles\calendar\radial_orange\assets\next.gif" />
+    <Content Include="NitobiStyles\calendar\radial_orange\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\calendar\radial_orange\assets\prev.gif" />
+    <Content Include="NitobiStyles\calendar\radial_orange\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\calendar\radial_orange\assets\selected.png" />
+    <Content Include="NitobiStyles\calendar\radial_orange\calendar.css" />
+    <Content Include="NitobiStyles\calendar\template\assets\background.png" />
+    <Content Include="NitobiStyles\calendar\template\assets\button.gif" />
+    <Content Include="NitobiStyles\calendar\template\assets\multi_header.png" />
+    <Content Include="NitobiStyles\calendar\template\assets\next.gif" />
+    <Content Include="NitobiStyles\calendar\template\assets\prev.gif" />
+    <Content Include="NitobiStyles\calendar\template\calendar.css" />
+    <Content Include="NitobiStyles\calendar\vista\assets\background.gif" />
+    <Content Include="NitobiStyles\calendar\vista\assets\background.png" />
+    <Content Include="NitobiStyles\calendar\vista\assets\button.gif" />
+    <Content Include="NitobiStyles\calendar\vista\assets\drawer.png" />
+    <Content Include="NitobiStyles\calendar\vista\assets\next.gif" />
+    <Content Include="NitobiStyles\calendar\vista\assets\prev.gif" />
+    <Content Include="NitobiStyles\calendar\vista\assets\top_header.png" />
+    <Content Include="NitobiStyles\calendar\vista\calendar.css" />
+    <Content Include="NitobiStyles\callout\clean\arrow.png" />
+    <Content Include="NitobiStyles\callout\clean\arrowimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\arrow_click.png" />
+    <Content Include="NitobiStyles\callout\clean\arrow_clickimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\bat.png" />
+    <Content Include="NitobiStyles\callout\clean\bl_bottomimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\bl_main.png" />
+    <Content Include="NitobiStyles\callout\clean\bl_mainclean.png" />
+    <Content Include="NitobiStyles\callout\clean\bl_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\bottom_plainimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\br_bottomimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\br_plainimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\burst.png" />
+    <Content Include="NitobiStyles\callout\clean\close_offimpact.gif" />
+    <Content Include="NitobiStyles\callout\clean\close_onimpact.gif" />
+    <Content Include="NitobiStyles\callout\clean\irregular.png" />
+    <Content Include="NitobiStyles\callout\clean\lb_bottomimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\lb_brimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\lb_lbimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\lb_leftimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\lb_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\lb_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\lt_bottomimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\lt_brimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\lt_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\lt_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\next_offimpact.gif" />
+    <Content Include="NitobiStyles\callout\clean\next_onimpact.gif" />
+    <Content Include="NitobiStyles\callout\clean\nitobi.callout.css" />
+    <Content Include="NitobiStyles\callout\clean\rb_bottomimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\rb_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\rb_rbimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\rb_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\round.png" />
+    <Content Include="NitobiStyles\callout\clean\rt_brimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\rt_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\spacer.gif" />
+    <Content Include="NitobiStyles\callout\clean\square.png" />
+    <Content Include="NitobiStyles\callout\clean\star.png" />
+    <Content Include="NitobiStyles\callout\clean\tl_br_plainimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\tl_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\tl_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\tr_mainpartimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\tr_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\tr_topleftimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\tr_toprightimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\type.png" />
+    <Content Include="NitobiStyles\callout\clean\typeimpact.png" />
+    <Content Include="NitobiStyles\callout\clean\wait.png" />
+    <Content Include="NitobiStyles\callout\impact\arrow.png" />
+    <Content Include="NitobiStyles\callout\impact\arrowimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\arrowsimpact.gif" />
+    <Content Include="NitobiStyles\callout\impact\arrow_click.png" />
+    <Content Include="NitobiStyles\callout\impact\arrow_clickimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\bat.png" />
+    <Content Include="NitobiStyles\callout\impact\bl_bottomimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\bl_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\bl_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\bottom_plainimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\br_bottomimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\br_plainimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\burst.png" />
+    <Content Include="NitobiStyles\callout\impact\close_offimpact.gif" />
+    <Content Include="NitobiStyles\callout\impact\close_onimpact.gif" />
+    <Content Include="NitobiStyles\callout\impact\irregular.png" />
+    <Content Include="NitobiStyles\callout\impact\lb_bottomimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\lb_brimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\lb_lbimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\lb_leftimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\lb_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\lb_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\lt_bottomimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\lt_brimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\lt_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\lt_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\next_offimpact.gif" />
+    <Content Include="NitobiStyles\callout\impact\next_onimpact.gif" />
+    <Content Include="NitobiStyles\callout\impact\nitobi.callout.css" />
+    <Content Include="NitobiStyles\callout\impact\rb_bottomimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\rb_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\rb_rbimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\rb_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\round.png" />
+    <Content Include="NitobiStyles\callout\impact\rt_brimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\rt_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\square.png" />
+    <Content Include="NitobiStyles\callout\impact\star.png" />
+    <Content Include="NitobiStyles\callout\impact\tl_br_plainimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\tl_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\tl_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\tr_mainpartimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\tr_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\tr_topleftimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\tr_toprightimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\type.png" />
+    <Content Include="NitobiStyles\callout\impact\typeimpact.png" />
+    <Content Include="NitobiStyles\callout\impact\wait.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\arrow.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\arrowimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\arrow_click.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\arrow_clickimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\bat.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\bl_bottomimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\bl_mainclean.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\bl_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\bottom_plainimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\br_bottomimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\br_plainimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\burst.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\close_offimpact.gif" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\close_onimpact.gif" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\irregular.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\lb_bottomimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\lb_brimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\lb_lbimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\lb_leftimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\lb_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\lb_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\lt_bottomimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\lt_brimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\lt_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\lt_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\next_offimpact.gif" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\next_onimpact.gif" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\nitobi.callout.css" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\rb_bottomimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\rb_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\rb_rbimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\rb_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\rt_brimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\rt_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\star.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\tl_br_plainimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\tl_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\tl_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\tr_mainpartimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\tr_rightimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\tr_topleftimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\tr_toprightimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\type.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\typeimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_exclam\wait.png" />
+    <Content Include="NitobiStyles\callout\peanut_info\bl_mainclean.png" />
+    <Content Include="NitobiStyles\callout\peanut_info\lb_leftimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_info\lt_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_info\next_offxp.gif" />
+    <Content Include="NitobiStyles\callout\peanut_info\next_onxp.gif" />
+    <Content Include="NitobiStyles\callout\peanut_info\nitobi.callout.css" />
+    <Content Include="NitobiStyles\callout\peanut_info\rb_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_info\tl_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_info\tr_mainpartimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_noaccess\bl_mainclean.png" />
+    <Content Include="NitobiStyles\callout\peanut_noaccess\lb_leftimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_noaccess\lb_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_noaccess\lt_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_noaccess\next_offxp.gif" />
+    <Content Include="NitobiStyles\callout\peanut_noaccess\next_onxp.gif" />
+    <Content Include="NitobiStyles\callout\peanut_noaccess\nitobi.callout.css" />
+    <Content Include="NitobiStyles\callout\peanut_noaccess\peanut_raw_r3_c17.png" />
+    <Content Include="NitobiStyles\callout\peanut_noaccess\rb_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_noaccess\tl_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_noaccess\tr_mainpartimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_talkbubble\bl_mainclean.png" />
+    <Content Include="NitobiStyles\callout\peanut_talkbubble\lb_leftimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_talkbubble\lb_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_talkbubble\lt_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_talkbubble\next_offxp.gif" />
+    <Content Include="NitobiStyles\callout\peanut_talkbubble\next_onxp.gif" />
+    <Content Include="NitobiStyles\callout\peanut_talkbubble\nitobi.callout.css" />
+    <Content Include="NitobiStyles\callout\peanut_talkbubble\rb_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_talkbubble\tl_mainimpact.png" />
+    <Content Include="NitobiStyles\callout\peanut_talkbubble\tr_mainpartimpact.png" />
+    <Content Include="NitobiStyles\callout\vista\arrow.png" />
+    <Content Include="NitobiStyles\callout\vista\arrow_click.png" />
+    <Content Include="NitobiStyles\callout\vista\bat.png" />
+    <Content Include="NitobiStyles\callout\vista\bl_bottom.png" />
+    <Content Include="NitobiStyles\callout\vista\bl_main.png" />
+    <Content Include="NitobiStyles\callout\vista\bl_right.png" />
+    <Content Include="NitobiStyles\callout\vista\bottom_plain.png" />
+    <Content Include="NitobiStyles\callout\vista\br_bottom.png" />
+    <Content Include="NitobiStyles\callout\vista\br_plain.png" />
+    <Content Include="NitobiStyles\callout\vista\burst.png" />
+    <Content Include="NitobiStyles\callout\vista\close_off.gif" />
+    <Content Include="NitobiStyles\callout\vista\close_on.gif" />
+    <Content Include="NitobiStyles\callout\vista\irregular.png" />
+    <Content Include="NitobiStyles\callout\vista\lb_bottom.png" />
+    <Content Include="NitobiStyles\callout\vista\lb_br.png" />
+    <Content Include="NitobiStyles\callout\vista\lb_lb.png" />
+    <Content Include="NitobiStyles\callout\vista\lb_left.png" />
+    <Content Include="NitobiStyles\callout\vista\lb_main.png" />
+    <Content Include="NitobiStyles\callout\vista\lb_right.png" />
+    <Content Include="NitobiStyles\callout\vista\lt_bottom.png" />
+    <Content Include="NitobiStyles\callout\vista\lt_br.png" />
+    <Content Include="NitobiStyles\callout\vista\lt_main.png" />
+    <Content Include="NitobiStyles\callout\vista\lt_right.png" />
+    <Content Include="NitobiStyles\callout\vista\next_off.gif" />
+    <Content Include="NitobiStyles\callout\vista\next_on.gif" />
+    <Content Include="NitobiStyles\callout\vista\nitobi.callout.css" />
+    <Content Include="NitobiStyles\callout\vista\rb_bottom.png" />
+    <Content Include="NitobiStyles\callout\vista\rb_main.png" />
+    <Content Include="NitobiStyles\callout\vista\rb_rb.png" />
+    <Content Include="NitobiStyles\callout\vista\rb_right.png" />
+    <Content Include="NitobiStyles\callout\vista\round.png" />
+    <Content Include="NitobiStyles\callout\vista\rt_br.png" />
+    <Content Include="NitobiStyles\callout\vista\rt_right.png" />
+    <Content Include="NitobiStyles\callout\vista\square.png" />
+    <Content Include="NitobiStyles\callout\vista\star.png" />
+    <Content Include="NitobiStyles\callout\vista\tl_main.png" />
+    <Content Include="NitobiStyles\callout\vista\tl_right.png" />
+    <Content Include="NitobiStyles\callout\vista\tr_mainpart.png" />
+    <Content Include="NitobiStyles\callout\vista\tr_right.png" />
+    <Content Include="NitobiStyles\callout\vista\tr_topleft.png" />
+    <Content Include="NitobiStyles\callout\vista\tr_topright.png" />
+    <Content Include="NitobiStyles\callout\vista\type.png" />
+    <Content Include="NitobiStyles\callout\vista\wait.png" />
+    <Content Include="NitobiStyles\callout\xp\arrow.png" />
+    <Content Include="NitobiStyles\callout\xp\arrow_click.png" />
+    <Content Include="NitobiStyles\callout\xp\bat.png" />
+    <Content Include="NitobiStyles\callout\xp\bl_botleftxp.png" />
+    <Content Include="NitobiStyles\callout\xp\bl_botrightxp.png" />
+    <Content Include="NitobiStyles\callout\xp\bl_mainxp.png" />
+    <Content Include="NitobiStyles\callout\xp\bl_plainxp.png" />
+    <Content Include="NitobiStyles\callout\xp\bl_rightxp.png" />
+    <Content Include="NitobiStyles\callout\xp\bottom_plainxp.png" />
+    <Content Include="NitobiStyles\callout\xp\br_bottomxp.png" />
+    <Content Include="NitobiStyles\callout\xp\burst.png" />
+    <Content Include="NitobiStyles\callout\xp\close_offxp.gif" />
+    <Content Include="NitobiStyles\callout\xp\close_onxp.gif" />
+    <Content Include="NitobiStyles\callout\xp\irregular.png" />
+    <Content Include="NitobiStyles\callout\xp\lb_bottomxp.png" />
+    <Content Include="NitobiStyles\callout\xp\lb_brxp.png" />
+    <Content Include="NitobiStyles\callout\xp\lb_lbxp.png" />
+    <Content Include="NitobiStyles\callout\xp\lb_leftxp.png" />
+    <Content Include="NitobiStyles\callout\xp\lb_mainxp.png" />
+    <Content Include="NitobiStyles\callout\xp\lb_rightxp.png" />
+    <Content Include="NitobiStyles\callout\xp\lt_bottomxp.png" />
+    <Content Include="NitobiStyles\callout\xp\lt_brxp.png" />
+    <Content Include="NitobiStyles\callout\xp\lt_mainxp.png" />
+    <Content Include="NitobiStyles\callout\xp\lt_rightxp.png" />
+    <Content Include="NitobiStyles\callout\xp\next_offxp.gif" />
+    <Content Include="NitobiStyles\callout\xp\next_onxp.gif" />
+    <Content Include="NitobiStyles\callout\xp\nitobi.callout.css" />
+    <Content Include="NitobiStyles\callout\xp\rb_bottomxp.png" />
+    <Content Include="NitobiStyles\callout\xp\rb_mainxp.png" />
+    <Content Include="NitobiStyles\callout\xp\rb_rbxp.png" />
+    <Content Include="NitobiStyles\callout\xp\rb_rightxp.png" />
+    <Content Include="NitobiStyles\callout\xp\round.png" />
+    <Content Include="NitobiStyles\callout\xp\rt_brxp.png" />
+    <Content Include="NitobiStyles\callout\xp\rt_rightxp.png" />
+    <Content Include="NitobiStyles\callout\xp\square.png" />
+    <Content Include="NitobiStyles\callout\xp\star.png" />
+    <Content Include="NitobiStyles\callout\xp\tl_br_plainxp.png" />
+    <Content Include="NitobiStyles\callout\xp\tl_mainxp.png" />
+    <Content Include="NitobiStyles\callout\xp\tl_plainxp.png" />
+    <Content Include="NitobiStyles\callout\xp\tl_rightxp.png" />
+    <Content Include="NitobiStyles\callout\xp\tr_mainpartxp.png" />
+    <Content Include="NitobiStyles\callout\xp\tr_mainxp.png" />
+    <Content Include="NitobiStyles\callout\xp\tr_rightxp.png" />
+    <Content Include="NitobiStyles\callout\xp\tr_topleftxp.png" />
+    <Content Include="NitobiStyles\callout\xp\tr_toprightxp.png" />
+    <Content Include="NitobiStyles\callout\xp\type.png" />
+    <Content Include="NitobiStyles\callout\xp\wait.png" />
+    <Content Include="NitobiStyles\combo\basicgrey\blank.gif" />
+    <Content Include="NitobiStyles\combo\basicgrey\button.gif" />
+    <Content Include="NitobiStyles\combo\basicgrey\button_pressed.gif" />
+    <Content Include="NitobiStyles\combo\basicgrey\nitobi.combo.css" />
+    <Content Include="NitobiStyles\combo\basicgrey\nitobi.reset.css" />
+    <Content Include="NitobiStyles\combo\basicgrey\paging.gif" />
+    <Content Include="NitobiStyles\combo\basicgrey\paging_hl.gif" />
+    <Content Include="NitobiStyles\combo\bluetrim\blank.gif" />
+    <Content Include="NitobiStyles\combo\bluetrim\button.gif" />
+    <Content Include="NitobiStyles\combo\bluetrim\button_hl.gif" />
+    <Content Include="NitobiStyles\combo\bluetrim\button_pressed.gif" />
+    <Content Include="NitobiStyles\combo\bluetrim\nitobi.combo.css" />
+    <Content Include="NitobiStyles\combo\bluetrim\paging.gif" />
+    <Content Include="NitobiStyles\combo\bluetrim\paging_hl.gif" />
+    <Content Include="NitobiStyles\combo\bluetrim\topback.gif" />
+    <Content Include="NitobiStyles\combo\bluetrim\topbar.gif" />
+    <Content Include="NitobiStyles\combo\cmail\blank.gif" />
+    <Content Include="NitobiStyles\combo\cmail\button.gif" />
+    <Content Include="NitobiStyles\combo\cmail\button_hl.gif" />
+    <Content Include="NitobiStyles\combo\cmail\button_pressed.gif" />
+    <Content Include="NitobiStyles\combo\cmail\nitobi.combo.css" />
+    <Content Include="NitobiStyles\combo\cmail\nitobi.reset.css" />
+    <Content Include="NitobiStyles\combo\cmail\paging.gif" />
+    <Content Include="NitobiStyles\combo\cmail\paging_hl.gif" />
+    <Content Include="NitobiStyles\combo\contactsearch\blank.gif" />
+    <Content Include="NitobiStyles\combo\contactsearch\button.gif" />
+    <Content Include="NitobiStyles\combo\contactsearch\button_hl.gif" />
+    <Content Include="NitobiStyles\combo\contactsearch\button_pressed.gif" />
+    <Content Include="NitobiStyles\combo\contactsearch\icon.gif" />
+    <Content Include="NitobiStyles\combo\contactsearch\listback.jpg" />
+    <Content Include="NitobiStyles\combo\contactsearch\nitobi.combo.css" />
+    <Content Include="NitobiStyles\combo\contactsearch\nitobi.reset.css" />
+    <Content Include="NitobiStyles\combo\contactsearch\paging.gif" />
+    <Content Include="NitobiStyles\combo\contactsearch\paging_hl.gif" />
+    <Content Include="NitobiStyles\combo\desktopsearch\blank.gif" />
+    <Content Include="NitobiStyles\combo\desktopsearch\boxback.gif" />
+    <Content Include="NitobiStyles\combo\desktopsearch\button.gif" />
+    <Content Include="NitobiStyles\combo\desktopsearch\button_hl.gif" />
+    <Content Include="NitobiStyles\combo\desktopsearch\button_pressed.gif" />
+    <Content Include="NitobiStyles\combo\desktopsearch\nitobi.combo.css" />
+    <Content Include="NitobiStyles\combo\desktopsearch\nitobi.reset.css" />
+    <Content Include="NitobiStyles\combo\desktopsearch\paging.gif" />
+    <Content Include="NitobiStyles\combo\desktopsearch\paging_hl.gif" />
+    <Content Include="NitobiStyles\combo\desktopsearch\topbar.gif" />
+    <Content Include="NitobiStyles\combo\ebacombo\blank.gif" />
+    <Content Include="NitobiStyles\combo\ebacombo\button.gif" />
+    <Content Include="NitobiStyles\combo\ebacombo\button_hl.gif" />
+    <Content Include="NitobiStyles\combo\ebacombo\button_pressed.gif" />
+    <Content Include="NitobiStyles\combo\ebacombo\listback.jpg" />
+    <Content Include="NitobiStyles\combo\ebacombo\nitobi.combo.css" />
+    <Content Include="NitobiStyles\combo\ebacombo\paging.gif" />
+    <Content Include="NitobiStyles\combo\ebacombo\paging_hl.gif" />
+    <Content Include="NitobiStyles\combo\flex\assets\bar.png" />
+    <Content Include="NitobiStyles\combo\flex\assets\blank.gif" />
+    <Content Include="NitobiStyles\combo\flex\assets\button.gif" />
+    <Content Include="NitobiStyles\combo\flex\assets\button_hl.gif" />
+    <Content Include="NitobiStyles\combo\flex\assets\button_pressed.gif" />
+    <Content Include="NitobiStyles\combo\flex\assets\footer.png" />
+    <Content Include="NitobiStyles\combo\flex\assets\paging.gif" />
+    <Content Include="NitobiStyles\combo\flex\assets\paging_hl.gif" />
+    <Content Include="NitobiStyles\combo\flex\nitobi.combo.css" />
+    <Content Include="NitobiStyles\combo\flex\nitobi.reset.css" />
+    <Content Include="NitobiStyles\combo\ice\blank.gif" />
+    <Content Include="NitobiStyles\combo\ice\botbar.gif" />
+    <Content Include="NitobiStyles\combo\ice\botbar.jpg" />
+    <Content Include="NitobiStyles\combo\ice\button.gif" />
+    <Content Include="NitobiStyles\combo\ice\button_hl.gif" />
+    <Content Include="NitobiStyles\combo\ice\button_pressed.gif" />
+    <Content Include="NitobiStyles\combo\ice\listback.jpg" />
+    <Content Include="NitobiStyles\combo\ice\nitobi.combo.css" />
+    <Content Include="NitobiStyles\combo\ice\nitobi.reset.css" />
+    <Content Include="NitobiStyles\combo\ice\paging.gif" />
+    <Content Include="NitobiStyles\combo\ice\paging_hl.gif" />
+    <Content Include="NitobiStyles\combo\ice\tbback.gif" />
+    <Content Include="NitobiStyles\combo\nitobi.reset.css" />
+    <Content Include="NitobiStyles\combo\outlookmini\blank.gif" />
+    <Content Include="NitobiStyles\combo\outlookmini\button.gif" />
+    <Content Include="NitobiStyles\combo\outlookmini\button_hl.gif" />
+    <Content Include="NitobiStyles\combo\outlookmini\button_pressed.gif" />
+    <Content Include="NitobiStyles\combo\outlookmini\footer.gif" />
+    <Content Include="NitobiStyles\combo\outlookmini\header.gif" />
+    <Content Include="NitobiStyles\combo\outlookmini\nitobi.combo.css" />
+    <Content Include="NitobiStyles\combo\outlookmini\nitobi.reset.css" />
+    <Content Include="NitobiStyles\combo\outlookmini\paging.gif" />
+    <Content Include="NitobiStyles\combo\outlookmini\paging_hl.gif" />
+    <Content Include="NitobiStyles\combo\outlook\blank.gif" />
+    <Content Include="NitobiStyles\combo\outlook\button.gif" />
+    <Content Include="NitobiStyles\combo\outlook\button_hl.gif" />
+    <Content Include="NitobiStyles\combo\outlook\button_pressed.gif" />
+    <Content Include="NitobiStyles\combo\outlook\footer.gif" />
+    <Content Include="NitobiStyles\combo\outlook\header.gif" />
+    <Content Include="NitobiStyles\combo\outlook\nitobi.combo.css" />
+    <Content Include="NitobiStyles\combo\outlook\nitobi.reset.css" />
+    <Content Include="NitobiStyles\combo\outlook\paging.gif" />
+    <Content Include="NitobiStyles\combo\outlook\paging_hl.gif" />
+    <Content Include="NitobiStyles\combo\recordsearch\blank.gif" />
+    <Content Include="NitobiStyles\combo\recordsearch\button.gif" />
+    <Content Include="NitobiStyles\combo\recordsearch\button_hl.gif" />
+    <Content Include="NitobiStyles\combo\recordsearch\button_pressed.gif" />
+    <Content Include="NitobiStyles\combo\recordsearch\icon.gif" />
+    <Content Include="NitobiStyles\combo\recordsearch\listback.jpg" />
+    <Content Include="NitobiStyles\combo\recordsearch\nitobi.combo.css" />
+    <Content Include="NitobiStyles\combo\recordsearch\nitobi.reset.css" />
+    <Content Include="NitobiStyles\combo\recordsearch\paging.gif" />
+    <Content Include="NitobiStyles\combo\recordsearch\paging_hl.gif" />
+    <Content Include="NitobiStyles\combo\suggests\blank.gif" />
+    <Content Include="NitobiStyles\combo\suggests\button.gif" />
+    <Content Include="NitobiStyles\combo\suggests\button_hl.gif" />
+    <Content Include="NitobiStyles\combo\suggests\button_pressed.gif" />
+    <Content Include="NitobiStyles\combo\suggests\listback.jpg" />
+    <Content Include="NitobiStyles\combo\suggests\nitobi.combo.css" />
+    <Content Include="NitobiStyles\combo\suggests\nitobi.reset.css" />
+    <Content Include="NitobiStyles\combo\suggests\paging.gif" />
+    <Content Include="NitobiStyles\combo\suggests\paging_hl.gif" />
+    <Content Include="NitobiStyles\combo\tiger\assets\bar1.png" />
+    <Content Include="NitobiStyles\combo\tiger\assets\bar2.png" />
+    <Content Include="NitobiStyles\combo\tiger\assets\blank.gif" />
+    <Content Include="NitobiStyles\combo\tiger\assets\button.gif" />
+    <Content Include="NitobiStyles\combo\tiger\assets\button_hl.gif" />
+    <Content Include="NitobiStyles\combo\tiger\assets\button_pressed.gif" />
+    <Content Include="NitobiStyles\combo\tiger\assets\footer.gif" />
+    <Content Include="NitobiStyles\combo\tiger\assets\paging.gif" />
+    <Content Include="NitobiStyles\combo\tiger\assets\paging_hl.gif" />
+    <Content Include="NitobiStyles\combo\tiger\assets\shadow.png" />
+    <Content Include="NitobiStyles\combo\tiger\nitobi.combo.css" />
+    <Content Include="NitobiStyles\combo\tiger\nitobi.reset.css" />
+    <Content Include="NitobiStyles\combo\vista\assets\blank.gif" />
+    <Content Include="NitobiStyles\combo\vista\assets\button.gif" />
+    <Content Include="NitobiStyles\combo\vista\assets\button_hl.gif" />
+    <Content Include="NitobiStyles\combo\vista\assets\button_pressed.gif" />
+    <Content Include="NitobiStyles\combo\vista\assets\header.png" />
+    <Content Include="NitobiStyles\combo\vista\assets\paging.gif" />
+    <Content Include="NitobiStyles\combo\vista\assets\paging_hl.gif" />
+    <Content Include="NitobiStyles\combo\vista\nitobi.combo.css" />
+    <Content Include="NitobiStyles\combo\vista\nitobi.reset.css" />
+    <Content Include="NitobiStyles\combo\visualstudio\blank.gif" />
+    <Content Include="NitobiStyles\combo\visualstudio\button.gif" />
+    <Content Include="NitobiStyles\combo\visualstudio\button_hl.gif" />
+    <Content Include="NitobiStyles\combo\visualstudio\button_pressed.gif" />
+    <Content Include="NitobiStyles\combo\visualstudio\nitobi.combo.css" />
+    <Content Include="NitobiStyles\combo\visualstudio\nitobi.reset.css" />
+    <Content Include="NitobiStyles\combo\visualstudio\paging.gif" />
+    <Content Include="NitobiStyles\combo\visualstudio\paging_hl.gif" />
+    <Content Include="NitobiStyles\combo\winofficexp\blank.gif" />
+    <Content Include="NitobiStyles\combo\winofficexp\button.gif" />
+    <Content Include="NitobiStyles\combo\winofficexp\button_hl.gif" />
+    <Content Include="NitobiStyles\combo\winofficexp\button_pressed.gif" />
+    <Content Include="NitobiStyles\combo\winofficexp\nitobi.combo.css" />
+    <Content Include="NitobiStyles\combo\winofficexp\nitobi.reset.css" />
+    <Content Include="NitobiStyles\combo\winofficexp\paging.gif" />
+    <Content Include="NitobiStyles\combo\winofficexp\paging_hl.gif" />
+    <Content Include="NitobiStyles\combo\winofficexp\topbar.gif" />
+    <Content Include="NitobiStyles\combo\winxpblue\blank.gif" />
+    <Content Include="NitobiStyles\combo\winxpblue\button.gif" />
+    <Content Include="NitobiStyles\combo\winxpblue\button_hl.gif" />
+    <Content Include="NitobiStyles\combo\winxpblue\button_pressed.gif" />
+    <Content Include="NitobiStyles\combo\winxpblue\nitobi.combo.css" />
+    <Content Include="NitobiStyles\combo\winxpblue\nitobi.reset.css" />
+    <Content Include="NitobiStyles\combo\winxpblue\paging.gif" />
+    <Content Include="NitobiStyles\combo\winxpblue\paging_hl.gif" />
+    <Content Include="NitobiStyles\combo\winxpblue\pb_hl.gif" />
+    <Content Include="NitobiStyles\combo\winxpblue\pb_n.gif" />
+    <Content Include="NitobiStyles\combo\winxpsilver\blank.gif" />
+    <Content Include="NitobiStyles\combo\winxpsilver\button.gif" />
+    <Content Include="NitobiStyles\combo\winxpsilver\button_hl.gif" />
+    <Content Include="NitobiStyles\combo\winxpsilver\button_pressed.gif" />
+    <Content Include="NitobiStyles\combo\winxpsilver\nitobi.combo.css" />
+    <Content Include="NitobiStyles\combo\winxpsilver\nitobi.reset.css" />
+    <Content Include="NitobiStyles\combo\winxpsilver\paging.gif" />
+    <Content Include="NitobiStyles\combo\winxpsilver\paging_hl.gif" />
+    <Content Include="NitobiStyles\combo\winxpsilver\pb_hl.gif" />
+    <Content Include="NitobiStyles\combo\winxpsilver\pb_n.gif" />
+    <Content Include="NitobiStyles\fisheye\clearback\fisheye.css" />
+    <Content Include="NitobiStyles\fisheye\flex\background.png" />
+    <Content Include="NitobiStyles\fisheye\flex\fisheye.css" />
+    <Content Include="NitobiStyles\fisheye\nitobi.reset.css" />
+    <Content Include="NitobiStyles\fisheye\nitobi\fisheye.css" />
+    <Content Include="NitobiStyles\fisheye\osx\fisheye.css" />
+    <Content Include="NitobiStyles\fisheye\osx\lineback.png" />
+    <Content Include="NitobiStyles\fisheye\pixel\background.png" />
+    <Content Include="NitobiStyles\fisheye\pixel\fisheye.css" />
+    <Content Include="NitobiStyles\fisheye\plastik\background-black.png" />
+    <Content Include="NitobiStyles\fisheye\plastik\background.png" />
+    <Content Include="NitobiStyles\fisheye\plastik\fisheye.css" />
+    <Content Include="NitobiStyles\fisheye\qmark.png" />
+    <Content Include="NitobiStyles\fisheye\tiger\background-black.png" />
+    <Content Include="NitobiStyles\fisheye\tiger\background-white.png" />
+    <Content Include="NitobiStyles\fisheye\tiger\fisheye.css" />
+    <Content Include="NitobiStyles\fisheye\vista\background.png" />
+    <Content Include="NitobiStyles\fisheye\vista\fisheye.css" />
+    <Content Include="NitobiStyles\fisheye\xp\background.png" />
+    <Content Include="NitobiStyles\fisheye\xp\fisheye.css" />
+    <Content Include="NitobiStyles\grid\base\calendar-green.css" />
+    <Content Include="NitobiStyles\grid\base\calendar.css" />
+    <Content Include="NitobiStyles\grid\flex\assets\arrow_down.gif" />
+    <Content Include="NitobiStyles\grid\flex\assets\arrow_up.gif" />
+    <Content Include="NitobiStyles\grid\flex\assets\checkbox_off.png" />
+    <Content Include="NitobiStyles\grid\flex\assets\checkbox_on.png" />
+    <Content Include="NitobiStyles\grid\flex\assets\header.png" />
+    <Content Include="NitobiStyles\grid\flex\assets\toolbar_base.png" />
+    <Content Include="NitobiStyles\grid\flex\assets\toolbar_hover.png" />
+    <Content Include="NitobiStyles\grid\flex\cancelsave.gif" />
+    <Content Include="NitobiStyles\grid\flex\cancelsave_disabled.gif" />
+    <Content Include="NitobiStyles\grid\flex\date.gif" />
+    <Content Include="NitobiStyles\grid\flex\delete.gif" />
+    <Content Include="NitobiStyles\grid\flex\deleterecord.gif" />
+    <Content Include="NitobiStyles\grid\flex\deleterecord_disabled.gif" />
+    <Content Include="NitobiStyles\grid\flex\folder.gif" />
+    <Content Include="NitobiStyles\grid\flex\left.gif" />
+    <Content Include="NitobiStyles\grid\flex\left_disabled.gif" />
+    <Content Include="NitobiStyles\grid\flex\loading.gif" />
+    <Content Include="NitobiStyles\grid\flex\newrecord.gif" />
+    <Content Include="NitobiStyles\grid\flex\newrecord_disabled.gif" />
+    <Content Include="NitobiStyles\grid\flex\nitobi.grid.css" />
+    <Content Include="NitobiStyles\grid\flex\nitobi.reset.css" />
+    <Content Include="NitobiStyles\grid\flex\refresh.gif" />
+    <Content Include="NitobiStyles\grid\flex\refresh_disabled.gif" />
+    <Content Include="NitobiStyles\grid\flex\resizecorner.png" />
+    <Content Include="NitobiStyles\grid\flex\resize_bottom.png" />
+    <Content Include="NitobiStyles\grid\flex\resize_right.png" />
+    <Content Include="NitobiStyles\grid\flex\right.gif" />
+    <Content Include="NitobiStyles\grid\flex\right_disabled.gif" />
+    <Content Include="NitobiStyles\grid\flex\save.gif" />
+    <Content Include="NitobiStyles\grid\flex\save_disabled.gif" />
+    <Content Include="NitobiStyles\grid\flex\separator.jpg" />
+    <Content Include="NitobiStyles\grid\flex\shadow.png" />
+    <Content Include="NitobiStyles\grid\lightblue\broken.gif" />
+    <Content Include="NitobiStyles\grid\lightblue\checked.gif" />
+    <Content Include="NitobiStyles\grid\lightblue\column_asc.gif" />
+    <Content Include="NitobiStyles\grid\lightblue\column_asc_over.gif" />
+    <Content Include="NitobiStyles\grid\lightblue\column_asc_pressed.gif" />
+    <Content Include="NitobiStyles\grid\lightblue\column_deadspace.gif" />
+    <Content Include="NitobiStyles\grid\lightblue\column_desc.gif" />
+    <Content Include="NitobiStyles\grid\lightblue\column_desc_over.gif" />
+    <Content Include="NitobiStyles\grid\lightblue\column_desc_pressed.gif" />
+    <Content Include="NitobiStyles\grid\lightblue\column_header.gif" />
+    <Content Include="NitobiStyles\grid\lightblue\column_header_over.gif" />
+    <Content Include="NitobiStyles\grid\lightblue\column_header_pressed.gif" />
+    <Content Include="NitobiStyles\grid\lightblue\date.gif" />
+    <Content Include="NitobiStyles\grid\lightblue\loading.gif" />
+    <Content Include="NitobiStyles\grid\lightblue\nitobi.grid.css" />
+    <Content Include="NitobiStyles\grid\lightblue\nitobi.reset.css" />
+    <Content Include="NitobiStyles\grid\lightblue\resizecorner.png" />
+    <Content Include="NitobiStyles\grid\lightblue\resize_bottom.png" />
+    <Content Include="NitobiStyles\grid\lightblue\resize_right.png" />
+    <Content Include="NitobiStyles\grid\lightblue\rowcolors.gif" />
+    <Content Include="NitobiStyles\grid\lightblue\shadow.png" />
+    <Content Include="NitobiStyles\grid\lightblue\unchecked.gif" />
+    <Content Include="NitobiStyles\grid\nitobi.reset.css" />
+    <Content Include="NitobiStyles\grid\nitobi\broken.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\checked.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\column_asc.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\column_asc_over.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\column_asc_pressed.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\column_deadspace.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\column_desc.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\column_desc_over.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\column_desc_pressed.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\column_header.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\column_header_over.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\column_header_pressed.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\date.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\delete.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\effects\effects.css" />
+    <Content Include="NitobiStyles\grid\nitobi\input_bg.png" />
+    <Content Include="NitobiStyles\grid\nitobi\loading.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\nitobi.grid.css" />
+    <Content Include="NitobiStyles\grid\nitobi\nitobi.reset.css" />
+    <Content Include="NitobiStyles\grid\nitobi\resizecorner.png" />
+    <Content Include="NitobiStyles\grid\nitobi\resize_bottom.png" />
+    <Content Include="NitobiStyles\grid\nitobi\resize_right.png" />
+    <Content Include="NitobiStyles\grid\nitobi\rowcolors.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\row_hover.png" />
+    <Content Include="NitobiStyles\grid\nitobi\shadow.png" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\background.jpg" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\cancelsave.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\cancelsave_disabled.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\delete.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\deleterecord.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\deleterecord_disabled.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\dock.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\folder.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\handle.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\handle.JPG" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\left.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\left_disabled.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\newrecord.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\newrecord_disabled.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\refresh.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\refresh_disabled.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\right.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\right_disabled.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\save.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\save.jpg" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\save_disabled.gif" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\separator.jpg" />
+    <Content Include="NitobiStyles\grid\nitobi\toolbar\default\toolbar.css" />
+    <Content Include="NitobiStyles\grid\nitobi\unchecked.gif" />
+    <Content Include="NitobiStyles\grid\plastik\assets\background1.png" />
+    <Content Include="NitobiStyles\grid\plastik\assets\background2.png" />
+    <Content Include="NitobiStyles\grid\plastik\assets\background3.png" />
+    <Content Include="NitobiStyles\grid\plastik\assets\checkbox_off.gif" />
+    <Content Include="NitobiStyles\grid\plastik\assets\checkbox_on.gif" />
+    <Content Include="NitobiStyles\grid\plastik\assets\date.gif" />
+    <Content Include="NitobiStyles\grid\plastik\assets\header.png" />
+    <Content Include="NitobiStyles\grid\plastik\assets\header_active.png" />
+    <Content Include="NitobiStyles\grid\plastik\assets\header_ascending.png" />
+    <Content Include="NitobiStyles\grid\plastik\assets\header_decending.png" />
+    <Content Include="NitobiStyles\grid\plastik\assets\header_hover.png" />
+    <Content Include="NitobiStyles\grid\plastik\assets\header_inactive.png" />
+    <Content Include="NitobiStyles\grid\plastik\assets\resizecorner.png" />
+    <Content Include="NitobiStyles\grid\plastik\assets\toolbar.png" />
+    <Content Include="NitobiStyles\grid\plastik\assets\toolbar_hover.png" />
+    <Content Include="NitobiStyles\grid\plastik\cancelsave.gif" />
+    <Content Include="NitobiStyles\grid\plastik\cancelsave_disabled.gif" />
+    <Content Include="NitobiStyles\grid\plastik\delete.gif" />
+    <Content Include="NitobiStyles\grid\plastik\deleterecord.gif" />
+    <Content Include="NitobiStyles\grid\plastik\deleterecord_disabled.gif" />
+    <Content Include="NitobiStyles\grid\plastik\folder.gif" />
+    <Content Include="NitobiStyles\grid\plastik\left.gif" />
+    <Content Include="NitobiStyles\grid\plastik\left_disabled.gif" />
+    <Content Include="NitobiStyles\grid\plastik\loading.gif" />
+    <Content Include="NitobiStyles\grid\plastik\newrecord.gif" />
+    <Content Include="NitobiStyles\grid\plastik\newrecord_disabled.gif" />
+    <Content Include="NitobiStyles\grid\plastik\nitobi.grid.css" />
+    <Content Include="NitobiStyles\grid\plastik\nitobi.reset.css" />
+    <Content Include="NitobiStyles\grid\plastik\refresh.gif" />
+    <Content Include="NitobiStyles\grid\plastik\refresh_disabled.gif" />
+    <Content Include="NitobiStyles\grid\plastik\right.gif" />
+    <Content Include="NitobiStyles\grid\plastik\right_disabled.gif" />
+    <Content Include="NitobiStyles\grid\plastik\save.gif" />
+    <Content Include="NitobiStyles\grid\plastik\save_disabled.gif" />
+    <Content Include="NitobiStyles\grid\plastik\separator.jpg" />
+    <Content Include="NitobiStyles\grid\tiger\assets\background1.png" />
+    <Content Include="NitobiStyles\grid\tiger\assets\background2.png" />
+    <Content Include="NitobiStyles\grid\tiger\assets\background3.png" />
+    <Content Include="NitobiStyles\grid\tiger\assets\checkbox_off.gif" />
+    <Content Include="NitobiStyles\grid\tiger\assets\checkbox_on.gif" />
+    <Content Include="NitobiStyles\grid\tiger\assets\date.gif" />
+    <Content Include="NitobiStyles\grid\tiger\assets\header.png" />
+    <Content Include="NitobiStyles\grid\tiger\assets\header_active.png" />
+    <Content Include="NitobiStyles\grid\tiger\assets\header_ascending.png" />
+    <Content Include="NitobiStyles\grid\tiger\assets\header_decending.png" />
+    <Content Include="NitobiStyles\grid\tiger\assets\header_hover.png" />
+    <Content Include="NitobiStyles\grid\tiger\assets\header_inactive.png" />
+    <Content Include="NitobiStyles\grid\tiger\assets\resizecorner.png" />
+    <Content Include="NitobiStyles\grid\tiger\assets\toolbar.png" />
+    <Content Include="NitobiStyles\grid\tiger\assets\toolbar_hover.png" />
+    <Content Include="NitobiStyles\grid\tiger\cancelsave.gif" />
+    <Content Include="NitobiStyles\grid\tiger\cancelsave_disabled.gif" />
+    <Content Include="NitobiStyles\grid\tiger\delete.gif" />
+    <Content Include="NitobiStyles\grid\tiger\deleterecord.gif" />
+    <Content Include="NitobiStyles\grid\tiger\deleterecord_disabled.gif" />
+    <Content Include="NitobiStyles\grid\tiger\folder.gif" />
+    <Content Include="NitobiStyles\grid\tiger\left.gif" />
+    <Content Include="NitobiStyles\grid\tiger\left_disabled.gif" />
+    <Content Include="NitobiStyles\grid\tiger\loading.gif" />
+    <Content Include="NitobiStyles\grid\tiger\newrecord.gif" />
+    <Content Include="NitobiStyles\grid\tiger\newrecord_disabled.gif" />
+    <Content Include="NitobiStyles\grid\tiger\nitobi.grid.css" />
+    <Content Include="NitobiStyles\grid\tiger\nitobi.reset.css" />
+    <Content Include="NitobiStyles\grid\tiger\refresh.gif" />
+    <Content Include="NitobiStyles\grid\tiger\refresh_disabled.gif" />
+    <Content Include="NitobiStyles\grid\tiger\resize_bottom.png" />
+    <Content Include="NitobiStyles\grid\tiger\resize_right.png" />
+    <Content Include="NitobiStyles\grid\tiger\right.gif" />
+    <Content Include="NitobiStyles\grid\tiger\right_disabled.gif" />
+    <Content Include="NitobiStyles\grid\tiger\save.gif" />
+    <Content Include="NitobiStyles\grid\tiger\save_disabled.gif" />
+    <Content Include="NitobiStyles\grid\tiger\separator.jpg" />
+    <Content Include="NitobiStyles\grid\tiger\shadow.png" />
+    <Content Include="NitobiStyles\grid\tiny\broken.gif" />
+    <Content Include="NitobiStyles\grid\tiny\checked.gif" />
+    <Content Include="NitobiStyles\grid\tiny\column_asc.gif" />
+    <Content Include="NitobiStyles\grid\tiny\column_asc_over.gif" />
+    <Content Include="NitobiStyles\grid\tiny\column_asc_pressed.gif" />
+    <Content Include="NitobiStyles\grid\tiny\column_deadspace.gif" />
+    <Content Include="NitobiStyles\grid\tiny\column_desc.gif" />
+    <Content Include="NitobiStyles\grid\tiny\column_desc_over.gif" />
+    <Content Include="NitobiStyles\grid\tiny\column_desc_pressed.gif" />
+    <Content Include="NitobiStyles\grid\tiny\column_header.gif" />
+    <Content Include="NitobiStyles\grid\tiny\column_header_over.gif" />
+    <Content Include="NitobiStyles\grid\tiny\column_header_pressed.gif" />
+    <Content Include="NitobiStyles\grid\tiny\date.gif" />
+    <Content Include="NitobiStyles\grid\tiny\delete.gif" />
+    <Content Include="NitobiStyles\grid\tiny\loading.gif" />
+    <Content Include="NitobiStyles\grid\tiny\nitobi.grid.css" />
+    <Content Include="NitobiStyles\grid\tiny\nitobi.reset.css" />
+    <Content Include="NitobiStyles\grid\tiny\resizecorner.png" />
+    <Content Include="NitobiStyles\grid\tiny\resize_bottom.png" />
+    <Content Include="NitobiStyles\grid\tiny\resize_right.png" />
+    <Content Include="NitobiStyles\grid\tiny\rowcolors.gif" />
+    <Content Include="NitobiStyles\grid\tiny\shadow.png" />
+    <Content Include="NitobiStyles\grid\tiny\unchecked.gif" />
+    <Content Include="NitobiStyles\grid\vista\assets\arrow_down.gif" />
+    <Content Include="NitobiStyles\grid\vista\assets\arrow_up.gif" />
+    <Content Include="NitobiStyles\grid\vista\assets\checkbox_off.png" />
+    <Content Include="NitobiStyles\grid\vista\assets\checkbox_on.png" />
+    <Content Include="NitobiStyles\grid\vista\assets\header.png" />
+    <Content Include="NitobiStyles\grid\vista\assets\header_ascending.png" />
+    <Content Include="NitobiStyles\grid\vista\assets\header_base.png" />
+    <Content Include="NitobiStyles\grid\vista\assets\header_decending.png" />
+    <Content Include="NitobiStyles\grid\vista\assets\header_hover.png" />
+    <Content Include="NitobiStyles\grid\vista\assets\toolbar.png" />
+    <Content Include="NitobiStyles\grid\vista\assets\toolbar_hover copy.png" />
+    <Content Include="NitobiStyles\grid\vista\assets\toolbar_hover.png" />
+    <Content Include="NitobiStyles\grid\vista\cancelsave.gif" />
+    <Content Include="NitobiStyles\grid\vista\cancelsave_disabled.gif" />
+    <Content Include="NitobiStyles\grid\vista\date.gif" />
+    <Content Include="NitobiStyles\grid\vista\delete.gif" />
+    <Content Include="NitobiStyles\grid\vista\deleterecord.gif" />
+    <Content Include="NitobiStyles\grid\vista\deleterecord_disabled.gif" />
+    <Content Include="NitobiStyles\grid\vista\folder.gif" />
+    <Content Include="NitobiStyles\grid\vista\left.gif" />
+    <Content Include="NitobiStyles\grid\vista\left_disabled.gif" />
+    <Content Include="NitobiStyles\grid\vista\loading.gif" />
+    <Content Include="NitobiStyles\grid\vista\newrecord.gif" />
+    <Content Include="NitobiStyles\grid\vista\newrecord_disabled.gif" />
+    <Content Include="NitobiStyles\grid\vista\nitobi.grid.css" />
+    <Content Include="NitobiStyles\grid\vista\nitobi.reset.css" />
+    <Content Include="NitobiStyles\grid\vista\refresh.gif" />
+    <Content Include="NitobiStyles\grid\vista\refresh_disabled.gif" />
+    <Content Include="NitobiStyles\grid\vista\resizecorner.png" />
+    <Content Include="NitobiStyles\grid\vista\resize_bottom.png" />
+    <Content Include="NitobiStyles\grid\vista\resize_right.png" />
+    <Content Include="NitobiStyles\grid\vista\right.gif" />
+    <Content Include="NitobiStyles\grid\vista\right_disabled.gif" />
+    <Content Include="NitobiStyles\grid\vista\save.gif" />
+    <Content Include="NitobiStyles\grid\vista\save_disabled.gif" />
+    <Content Include="NitobiStyles\grid\vista\separator.jpg" />
+    <Content Include="NitobiStyles\grid\vista\shadow.png" />
+    <Content Include="NitobiStyles\grid\xp\assets\arrow_down.png" />
+    <Content Include="NitobiStyles\grid\xp\assets\arrow_up.png" />
+    <Content Include="NitobiStyles\grid\xp\assets\checkbox_off.png" />
+    <Content Include="NitobiStyles\grid\xp\assets\checkbox_on.png" />
+    <Content Include="NitobiStyles\grid\xp\assets\header.png" />
+    <Content Include="NitobiStyles\grid\xp\assets\seperator.png" />
+    <Content Include="NitobiStyles\grid\xp\assets\toolbar.png" />
+    <Content Include="NitobiStyles\grid\xp\assets\toolbar_hover.png" />
+    <Content Include="NitobiStyles\grid\xp\cancelsave.gif" />
+    <Content Include="NitobiStyles\grid\xp\cancelsave_disabled.gif" />
+    <Content Include="NitobiStyles\grid\xp\date.gif" />
+    <Content Include="NitobiStyles\grid\xp\delete.gif" />
+    <Content Include="NitobiStyles\grid\xp\deleterecord.gif" />
+    <Content Include="NitobiStyles\grid\xp\deleterecord_disabled.gif" />
+    <Content Include="NitobiStyles\grid\xp\folder.gif" />
+    <Content Include="NitobiStyles\grid\xp\left.gif" />
+    <Content Include="NitobiStyles\grid\xp\left_disabled.gif" />
+    <Content Include="NitobiStyles\grid\xp\loading.gif" />
+    <Content Include="NitobiStyles\grid\xp\newrecord.gif" />
+    <Content Include="NitobiStyles\grid\xp\newrecord_disabled.gif" />
+    <Content Include="NitobiStyles\grid\xp\nitobi.grid.css" />
+    <Content Include="NitobiStyles\grid\xp\nitobi.reset.css" />
+    <Content Include="NitobiStyles\grid\xp\refresh.gif" />
+    <Content Include="NitobiStyles\grid\xp\refresh_disabled.gif" />
+    <Content Include="NitobiStyles\grid\xp\resizecorner.png" />
+    <Content Include="NitobiStyles\grid\xp\resize_bottom.png" />
+    <Content Include="NitobiStyles\grid\xp\resize_right.png" />
+    <Content Include="NitobiStyles\grid\xp\right.gif" />
+    <Content Include="NitobiStyles\grid\xp\right_disabled.gif" />
+    <Content Include="NitobiStyles\grid\xp\save.gif" />
+    <Content Include="NitobiStyles\grid\xp\save_disabled.gif" />
+    <Content Include="NitobiStyles\grid\xp\separator.jpg" />
+    <Content Include="NitobiStyles\grid\xp\shadow.png" />
+    <Content Include="NitobiStyles\nitobi.calendar.css" />
+    <Content Include="NitobiStyles\nitobi.callout.css" />
+    <Content Include="NitobiStyles\nitobi.combo.css" />
+    <Content Include="NitobiStyles\nitobi.fisheye.css" />
+    <Content Include="NitobiStyles\nitobi.grid.css" />
+    <Content Include="NitobiStyles\nitobi.spotlight.css" />
+    <Content Include="NitobiStyles\nitobi.tabstrip.css" />
+    <Content Include="NitobiStyles\nitobi.tree.css" />
+    <Content Include="NitobiStyles\nitobi.treegrid.css" />
+    <Content Include="NitobiStyles\samples.css" />
+    <Content Include="NitobiStyles\spotlight\clean\arrow.png" />
+    <Content Include="NitobiStyles\spotlight\clean\arrowimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\arrow_click.png" />
+    <Content Include="NitobiStyles\spotlight\clean\arrow_clickimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\bat.png" />
+    <Content Include="NitobiStyles\spotlight\clean\bl_bottomimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\bl_main.png" />
+    <Content Include="NitobiStyles\spotlight\clean\bl_mainclean.png" />
+    <Content Include="NitobiStyles\spotlight\clean\bl_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\bottom_plainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\br_bottomimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\br_plainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\burst.png" />
+    <Content Include="NitobiStyles\spotlight\clean\close_offimpact.gif" />
+    <Content Include="NitobiStyles\spotlight\clean\close_onimpact.gif" />
+    <Content Include="NitobiStyles\spotlight\clean\irregular.png" />
+    <Content Include="NitobiStyles\spotlight\clean\lb_bottomimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\lb_brimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\lb_lbimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\lb_leftimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\lb_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\lb_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\lt_bottomimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\lt_brimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\lt_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\lt_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\next_offimpact.gif" />
+    <Content Include="NitobiStyles\spotlight\clean\next_onimpact.gif" />
+    <Content Include="NitobiStyles\spotlight\clean\nitobi.callout.css" />
+    <Content Include="NitobiStyles\spotlight\clean\rb_bottomimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\rb_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\rb_rbimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\rb_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\round.png" />
+    <Content Include="NitobiStyles\spotlight\clean\rt_brimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\rt_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\spacer.gif" />
+    <Content Include="NitobiStyles\spotlight\clean\square.png" />
+    <Content Include="NitobiStyles\spotlight\clean\star.png" />
+    <Content Include="NitobiStyles\spotlight\clean\tl_br_plainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\tl_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\tl_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\tr_mainpartimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\tr_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\tr_topleftimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\tr_toprightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\type.png" />
+    <Content Include="NitobiStyles\spotlight\clean\typeimpact.png" />
+    <Content Include="NitobiStyles\spotlight\clean\wait.png" />
+    <Content Include="NitobiStyles\spotlight\impact\arrow.png" />
+    <Content Include="NitobiStyles\spotlight\impact\arrowimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\arrowsimpact.gif" />
+    <Content Include="NitobiStyles\spotlight\impact\arrow_click.png" />
+    <Content Include="NitobiStyles\spotlight\impact\arrow_clickimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\bat.png" />
+    <Content Include="NitobiStyles\spotlight\impact\bl_bottomimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\bl_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\bl_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\bottom_plainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\br_bottomimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\br_plainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\burst.png" />
+    <Content Include="NitobiStyles\spotlight\impact\close_offimpact.gif" />
+    <Content Include="NitobiStyles\spotlight\impact\close_onimpact.gif" />
+    <Content Include="NitobiStyles\spotlight\impact\irregular.png" />
+    <Content Include="NitobiStyles\spotlight\impact\lb_bottomimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\lb_brimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\lb_lbimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\lb_leftimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\lb_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\lb_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\lt_bottomimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\lt_brimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\lt_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\lt_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\next_offimpact.gif" />
+    <Content Include="NitobiStyles\spotlight\impact\next_onimpact.gif" />
+    <Content Include="NitobiStyles\spotlight\impact\nitobi.callout.css" />
+    <Content Include="NitobiStyles\spotlight\impact\rb_bottomimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\rb_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\rb_rbimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\rb_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\round.png" />
+    <Content Include="NitobiStyles\spotlight\impact\rt_brimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\rt_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\square.png" />
+    <Content Include="NitobiStyles\spotlight\impact\star.png" />
+    <Content Include="NitobiStyles\spotlight\impact\tl_br_plainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\tl_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\tl_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\tr_mainpartimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\tr_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\tr_topleftimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\tr_toprightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\type.png" />
+    <Content Include="NitobiStyles\spotlight\impact\typeimpact.png" />
+    <Content Include="NitobiStyles\spotlight\impact\wait.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\arrow.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\arrowimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\arrow_click.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\arrow_clickimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\bat.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\bl_bottomimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\bl_mainclean.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\bl_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\bottom_plainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\br_bottomimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\br_plainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\burst.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\close_offimpact.gif" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\close_onimpact.gif" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\irregular.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\lb_bottomimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\lb_brimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\lb_lbimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\lb_leftimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\lb_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\lb_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\lt_bottomimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\lt_brimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\lt_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\lt_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\next_offimpact.gif" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\next_onimpact.gif" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\nitobi.callout.css" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\rb_bottomimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\rb_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\rb_rbimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\rb_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\rt_brimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\rt_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\star.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\tl_br_plainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\tl_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\tl_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\tr_mainpartimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\tr_rightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\tr_topleftimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\tr_toprightimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\type.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\typeimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_exclam\wait.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_info\bl_mainclean.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_info\lb_leftimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_info\lt_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_info\next_offxp.gif" />
+    <Content Include="NitobiStyles\spotlight\peanut_info\next_onxp.gif" />
+    <Content Include="NitobiStyles\spotlight\peanut_info\nitobi.callout.css" />
+    <Content Include="NitobiStyles\spotlight\peanut_info\rb_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_info\tl_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_info\tr_mainpartimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_noaccess\bl_mainclean.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_noaccess\lb_leftimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_noaccess\lb_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_noaccess\lt_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_noaccess\next_offxp.gif" />
+    <Content Include="NitobiStyles\spotlight\peanut_noaccess\next_onxp.gif" />
+    <Content Include="NitobiStyles\spotlight\peanut_noaccess\nitobi.callout.css" />
+    <Content Include="NitobiStyles\spotlight\peanut_noaccess\peanut_raw_r3_c17.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_noaccess\rb_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_noaccess\tl_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_noaccess\tr_mainpartimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_talkbubble\bl_mainclean.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_talkbubble\lb_leftimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_talkbubble\lb_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_talkbubble\lt_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_talkbubble\next_offxp.gif" />
+    <Content Include="NitobiStyles\spotlight\peanut_talkbubble\next_onxp.gif" />
+    <Content Include="NitobiStyles\spotlight\peanut_talkbubble\nitobi.callout.css" />
+    <Content Include="NitobiStyles\spotlight\peanut_talkbubble\rb_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_talkbubble\tl_mainimpact.png" />
+    <Content Include="NitobiStyles\spotlight\peanut_talkbubble\tr_mainpartimpact.png" />
+    <Content Include="NitobiStyles\spotlight\vista\arrow.png" />
+    <Content Include="NitobiStyles\spotlight\vista\arrow_click.png" />
+    <Content Include="NitobiStyles\spotlight\vista\bat.png" />
+    <Content Include="NitobiStyles\spotlight\vista\bl_bottom.png" />
+    <Content Include="NitobiStyles\spotlight\vista\bl_main.png" />
+    <Content Include="NitobiStyles\spotlight\vista\bl_right.png" />
+    <Content Include="NitobiStyles\spotlight\vista\bottom_plain.png" />
+    <Content Include="NitobiStyles\spotlight\vista\br_bottom.png" />
+    <Content Include="NitobiStyles\spotlight\vista\br_plain.png" />
+    <Content Include="NitobiStyles\spotlight\vista\burst.png" />
+    <Content Include="NitobiStyles\spotlight\vista\close_off.gif" />
+    <Content Include="NitobiStyles\spotlight\vista\close_on.gif" />
+    <Content Include="NitobiStyles\spotlight\vista\irregular.png" />
+    <Content Include="NitobiStyles\spotlight\vista\lb_bottom.png" />
+    <Content Include="NitobiStyles\spotlight\vista\lb_br.png" />
+    <Content Include="NitobiStyles\spotlight\vista\lb_lb.png" />
+    <Content Include="NitobiStyles\spotlight\vista\lb_left.png" />
+    <Content Include="NitobiStyles\spotlight\vista\lb_main.png" />
+    <Content Include="NitobiStyles\spotlight\vista\lb_right.png" />
+    <Content Include="NitobiStyles\spotlight\vista\lt_bottom.png" />
+    <Content Include="NitobiStyles\spotlight\vista\lt_br.png" />
+    <Content Include="NitobiStyles\spotlight\vista\lt_main.png" />
+    <Content Include="NitobiStyles\spotlight\vista\lt_right.png" />
+    <Content Include="NitobiStyles\spotlight\vista\next_off.gif" />
+    <Content Include="NitobiStyles\spotlight\vista\next_on.gif" />
+    <Content Include="NitobiStyles\spotlight\vista\nitobi.callout.css" />
+    <Content Include="NitobiStyles\spotlight\vista\rb_bottom.png" />
+    <Content Include="NitobiStyles\spotlight\vista\rb_main.png" />
+    <Content Include="NitobiStyles\spotlight\vista\rb_rb.png" />
+    <Content Include="NitobiStyles\spotlight\vista\rb_right.png" />
+    <Content Include="NitobiStyles\spotlight\vista\round.png" />
+    <Content Include="NitobiStyles\spotlight\vista\rt_br.png" />
+    <Content Include="NitobiStyles\spotlight\vista\rt_right.png" />
+    <Content Include="NitobiStyles\spotlight\vista\square.png" />
+    <Content Include="NitobiStyles\spotlight\vista\star.png" />
+    <Content Include="NitobiStyles\spotlight\vista\tl_main.png" />
+    <Content Include="NitobiStyles\spotlight\vista\tl_right.png" />
+    <Content Include="NitobiStyles\spotlight\vista\tr_mainpart.png" />
+    <Content Include="NitobiStyles\spotlight\vista\tr_right.png" />
+    <Content Include="NitobiStyles\spotlight\vista\tr_topleft.png" />
+    <Content Include="NitobiStyles\spotlight\vista\tr_topright.png" />
+    <Content Include="NitobiStyles\spotlight\vista\type.png" />
+    <Content Include="NitobiStyles\spotlight\vista\wait.png" />
+    <Content Include="NitobiStyles\spotlight\xp\arrow.png" />
+    <Content Include="NitobiStyles\spotlight\xp\arrow_click.png" />
+    <Content Include="NitobiStyles\spotlight\xp\bat.png" />
+    <Content Include="NitobiStyles\spotlight\xp\bl_botleftxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\bl_botrightxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\bl_mainxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\bl_plainxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\bl_rightxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\bottom_plainxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\br_bottomxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\burst.png" />
+    <Content Include="NitobiStyles\spotlight\xp\close_offxp.gif" />
+    <Content Include="NitobiStyles\spotlight\xp\close_onxp.gif" />
+    <Content Include="NitobiStyles\spotlight\xp\irregular.png" />
+    <Content Include="NitobiStyles\spotlight\xp\lb_bottomxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\lb_brxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\lb_lbxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\lb_leftxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\lb_mainxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\lb_rightxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\lt_bottomxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\lt_brxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\lt_mainxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\lt_rightxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\next_offxp.gif" />
+    <Content Include="NitobiStyles\spotlight\xp\next_onxp.gif" />
+    <Content Include="NitobiStyles\spotlight\xp\nitobi.callout.css" />
+    <Content Include="NitobiStyles\spotlight\xp\rb_bottomxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\rb_mainxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\rb_rbxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\rb_rightxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\round.png" />
+    <Content Include="NitobiStyles\spotlight\xp\rt_brxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\rt_rightxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\square.png" />
+    <Content Include="NitobiStyles\spotlight\xp\star.png" />
+    <Content Include="NitobiStyles\spotlight\xp\tl_br_plainxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\tl_mainxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\tl_plainxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\tl_rightxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\tr_mainpartxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\tr_mainxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\tr_rightxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\tr_topleftxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\tr_toprightxp.png" />
+    <Content Include="NitobiStyles\spotlight\xp\type.png" />
+    <Content Include="NitobiStyles\spotlight\xp\wait.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\activebody.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\activebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\activeleft.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\activeleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\activeright.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\activeright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\binactivebody.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\binactivebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\binactiveleft.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\binactiveleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\binactiveright.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\binactiveright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\deadspace.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\disabledbody.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\disabledleft.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\disabledright.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\gactivebody.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\gactivebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\gactiveleft.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\gactiveleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\gactiveright.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\gactiveright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\ginactivebody.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\ginactivebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\ginactiveleft.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\ginactiveleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\ginactiveright.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\ginactiveright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\inactivebody.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\inactivebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\inactiveleft.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\inactiveleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\inactiveright.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\inactiveright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\indicator.gif" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\left.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\pactivebody.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\pactivebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\pactiveleft.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\pactiveleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\pactiveright.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\pactiveright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\pinactivebody.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\pinactivebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\pinactiveleft.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\pinactiveleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\pinactiveright.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\pinactiveright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\ractivebody.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\ractivebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\ractiveleft.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\ractiveleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\ractiveright.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\ractiveright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\right.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\rinactivebody.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\rinactivebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\rinactiveleft.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\rinactiveleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\rinactiveright.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\rinactiveright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\yactivebody.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\yactivebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\yactiveleft.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\yactiveleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\yactiveright.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\yactiveright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\yinactivebody.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\yinactivebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\yinactiveleft.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\yinactiveleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\yinactiveright.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\images\yinactiveright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\glass\nitobi.tabstrip.css" />
+    <Content Include="NitobiStyles\tabstrip\nested\images\activebody.gif" />
+    <Content Include="NitobiStyles\tabstrip\nested\images\activeleft.gif" />
+    <Content Include="NitobiStyles\tabstrip\nested\images\activeright.gif" />
+    <Content Include="NitobiStyles\tabstrip\nested\images\indicator.gif" />
+    <Content Include="NitobiStyles\tabstrip\nested\images\tab.gif" />
+    <Content Include="NitobiStyles\tabstrip\nested\images\tabActive.gif" />
+    <Content Include="NitobiStyles\tabstrip\nested\images\topleft.gif" />
+    <Content Include="NitobiStyles\tabstrip\nested\images\topright.gif" />
+    <Content Include="NitobiStyles\tabstrip\nested\nitobi.tabstrip.css" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\activebody.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\activebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\activeleft.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\activeleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\activeright.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\activeright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\disabledbody.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\disabledleft.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\disabledright.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\gactivebody.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\gactivebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\gactiveleft.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\gactiveleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\gactiveright.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\gactiveright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\inactivebody.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\inactivebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\inactiveleft.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\inactiveleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\inactiveright.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\inactiveright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\indicator.gif" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\left.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\pactivebody.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\pactivebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\pactiveleft.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\pactiveleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\pactiveright.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\pactiveright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\redinactivebody.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\redinactivebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\redinactiveleft.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\redinactiveleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\redinactiveright.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\redinactiveright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\images\right.png" />
+    <Content Include="NitobiStyles\tabstrip\nitobi\nitobi.tabstrip.css" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\activebody.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\activebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\activeleft.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\activeleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\activeright.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\activeright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\binactivebody.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\binactivebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\binactiveleft.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\binactiveleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\binactiveright.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\binactiveright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\disabledbody.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\disabledleft.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\disabledright.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\gactivebody.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\gactivebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\gactiveleft.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\gactiveleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\gactiveright.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\gactiveright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\inactivebody.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\inactivebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\inactiveleft.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\inactiveleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\inactiveright.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\inactiveright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\indicator.gif" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\left.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\right.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\yactivebody.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\yactivebody_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\yactiveleft.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\yactiveleft_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\yactiveright.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\images\yactiveright_hover.png" />
+    <Content Include="NitobiStyles\tabstrip\plain\nitobi.tabstrip.css" />
+    <Content Include="NitobiStyles\treegrid\flex\assets\arrow_down.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\assets\arrow_up.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\assets\background.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\assets\button.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\assets\checkbox_off.png" />
+    <Content Include="NitobiStyles\treegrid\flex\assets\checkbox_on.png" />
+    <Content Include="NitobiStyles\treegrid\flex\assets\drawer.png" />
+    <Content Include="NitobiStyles\treegrid\flex\assets\header.png" />
+    <Content Include="NitobiStyles\treegrid\flex\assets\minus.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\assets\minus_hover.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\assets\next.png" />
+    <Content Include="NitobiStyles\treegrid\flex\assets\next_dis.png" />
+    <Content Include="NitobiStyles\treegrid\flex\assets\plus.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\assets\plus_hover.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\assets\prev.png" />
+    <Content Include="NitobiStyles\treegrid\flex\assets\prev_dis.png" />
+    <Content Include="NitobiStyles\treegrid\flex\assets\toolbar_base.png" />
+    <Content Include="NitobiStyles\treegrid\flex\assets\toolbar_hover.png" />
+    <Content Include="NitobiStyles\treegrid\flex\assets\top_header.png" />
+    <Content Include="NitobiStyles\treegrid\flex\calendar.css" />
+    <Content Include="NitobiStyles\treegrid\flex\cancelsave.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\cancelsave_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\date.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\delete.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\deleterecord.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\deleterecord_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\folder.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\left.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\left_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\loading.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\newrecord.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\newrecord_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\nitobi.grid.css" />
+    <Content Include="NitobiStyles\treegrid\flex\nitobi.reset.css" />
+    <Content Include="NitobiStyles\treegrid\flex\refresh.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\refresh_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\resizecorner.png" />
+    <Content Include="NitobiStyles\treegrid\flex\resize_bottom.png" />
+    <Content Include="NitobiStyles\treegrid\flex\resize_right.png" />
+    <Content Include="NitobiStyles\treegrid\flex\right.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\right_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\save.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\save_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\flex\separator.jpg" />
+    <Content Include="NitobiStyles\treegrid\flex\shadow.png" />
+    <Content Include="NitobiStyles\treegrid\gloss\assets\background.png" />
+    <Content Include="NitobiStyles\treegrid\gloss\assets\button.gif" />
+    <Content Include="NitobiStyles\treegrid\gloss\assets\drawer.png" />
+    <Content Include="NitobiStyles\treegrid\gloss\assets\next.gif" />
+    <Content Include="NitobiStyles\treegrid\gloss\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\gloss\assets\prev.gif" />
+    <Content Include="NitobiStyles\treegrid\gloss\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\gloss\assets\top_header.png" />
+    <Content Include="NitobiStyles\treegrid\gloss\calendar.css" />
+    <Content Include="NitobiStyles\treegrid\leopard\assets\background.gif" />
+    <Content Include="NitobiStyles\treegrid\leopard\assets\button.gif" />
+    <Content Include="NitobiStyles\treegrid\leopard\assets\drawer.png" />
+    <Content Include="NitobiStyles\treegrid\leopard\assets\next.gif" />
+    <Content Include="NitobiStyles\treegrid\leopard\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\leopard\assets\prev.gif" />
+    <Content Include="NitobiStyles\treegrid\leopard\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\leopard\assets\top_header.png" />
+    <Content Include="NitobiStyles\treegrid\leopard\calendar.css" />
+    <Content Include="NitobiStyles\treegrid\lightblue\checked.gif" />
+    <Content Include="NitobiStyles\treegrid\lightblue\column_asc.gif" />
+    <Content Include="NitobiStyles\treegrid\lightblue\column_asc_over.gif" />
+    <Content Include="NitobiStyles\treegrid\lightblue\column_asc_pressed.gif" />
+    <Content Include="NitobiStyles\treegrid\lightblue\column_deadspace.gif" />
+    <Content Include="NitobiStyles\treegrid\lightblue\column_desc.gif" />
+    <Content Include="NitobiStyles\treegrid\lightblue\column_desc_over.gif" />
+    <Content Include="NitobiStyles\treegrid\lightblue\column_desc_pressed.gif" />
+    <Content Include="NitobiStyles\treegrid\lightblue\column_header.gif" />
+    <Content Include="NitobiStyles\treegrid\lightblue\column_header_over.gif" />
+    <Content Include="NitobiStyles\treegrid\lightblue\column_header_pressed.gif" />
+    <Content Include="NitobiStyles\treegrid\lightblue\date.gif" />
+    <Content Include="NitobiStyles\treegrid\lightblue\loading.gif" />
+    <Content Include="NitobiStyles\treegrid\lightblue\nitobi.grid.css" />
+    <Content Include="NitobiStyles\treegrid\lightblue\nitobi.reset.css" />
+    <Content Include="NitobiStyles\treegrid\lightblue\resizecorner.png" />
+    <Content Include="NitobiStyles\treegrid\lightblue\resize_bottom.png" />
+    <Content Include="NitobiStyles\treegrid\lightblue\resize_right.png" />
+    <Content Include="NitobiStyles\treegrid\lightblue\rowcolors.gif" />
+    <Content Include="NitobiStyles\treegrid\lightblue\shadow.png" />
+    <Content Include="NitobiStyles\treegrid\lightblue\unchecked.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal\assets\button.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal\assets\next.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal\assets\prev.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal\calendar.css" />
+    <Content Include="NitobiStyles\treegrid\minimal_bluestripes\assets\background.png" />
+    <Content Include="NitobiStyles\treegrid\minimal_bluestripes\assets\button.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal_bluestripes\assets\next.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal_bluestripes\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal_bluestripes\assets\prev.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal_bluestripes\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal_bluestripes\calendar.css" />
+    <Content Include="NitobiStyles\treegrid\minimal_greenstripes\assets\background.png" />
+    <Content Include="NitobiStyles\treegrid\minimal_greenstripes\assets\button.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal_greenstripes\assets\next.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal_greenstripes\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal_greenstripes\assets\prev.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal_greenstripes\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal_greenstripes\calendar.css" />
+    <Content Include="NitobiStyles\treegrid\minimal_redstripes\assets\background.png" />
+    <Content Include="NitobiStyles\treegrid\minimal_redstripes\assets\button.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal_redstripes\assets\next.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal_redstripes\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal_redstripes\assets\prev.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal_redstripes\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal_redstripes\calendar.css" />
+    <Content Include="NitobiStyles\treegrid\minimal_stripes\assets\background.png" />
+    <Content Include="NitobiStyles\treegrid\minimal_stripes\assets\button.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal_stripes\assets\next.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal_stripes\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal_stripes\assets\prev.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal_stripes\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\minimal_stripes\calendar.css" />
+    <Content Include="NitobiStyles\treegrid\nitobi.reset.css" />
+    <Content Include="NitobiStyles\treegrid\nitobi\checked.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\column_asc.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\column_asc_over.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\column_asc_pressed.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\column_deadspace.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\column_desc.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\column_desc_over.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\column_desc_pressed.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\column_header.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\column_header_over.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\column_header_pressed.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\date.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\delete.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\effects\effects.css" />
+    <Content Include="NitobiStyles\treegrid\nitobi\input_bg.png" />
+    <Content Include="NitobiStyles\treegrid\nitobi\loading.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\minus.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\minus_hover.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\nitobi.grid.css" />
+    <Content Include="NitobiStyles\treegrid\nitobi\nitobi.reset.css" />
+    <Content Include="NitobiStyles\treegrid\nitobi\plus.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\plus_hover.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\resizecorner.png" />
+    <Content Include="NitobiStyles\treegrid\nitobi\resize_bottom.png" />
+    <Content Include="NitobiStyles\treegrid\nitobi\resize_right.png" />
+    <Content Include="NitobiStyles\treegrid\nitobi\rowcolors.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\row_hover.png" />
+    <Content Include="NitobiStyles\treegrid\nitobi\shadow.png" />
+    <Content Include="NitobiStyles\treegrid\nitobi\toolbar\default\background.jpg" />
+    <Content Include="NitobiStyles\treegrid\nitobi\toolbar\default\cancelsave.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\toolbar\default\cancelsave_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\toolbar\default\delete.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\toolbar\default\deleterecord.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\toolbar\default\deleterecord_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\toolbar\default\folder.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\toolbar\default\left.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\toolbar\default\left_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\toolbar\default\newrecord.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\toolbar\default\newrecord_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\toolbar\default\refresh.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\toolbar\default\refresh_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\toolbar\default\right.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\toolbar\default\right_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\toolbar\default\save.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\toolbar\default\save_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\nitobi\toolbar\default\separator.jpg" />
+    <Content Include="NitobiStyles\treegrid\nitobi\toolbar\default\toolbar.css" />
+    <Content Include="NitobiStyles\treegrid\nitobi\unchecked.gif" />
+    <Content Include="NitobiStyles\treegrid\outline\assets\background.gif" />
+    <Content Include="NitobiStyles\treegrid\outline\assets\button.gif" />
+    <Content Include="NitobiStyles\treegrid\outline\assets\next.gif" />
+    <Content Include="NitobiStyles\treegrid\outline\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\outline\assets\prev.gif" />
+    <Content Include="NitobiStyles\treegrid\outline\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\outline\calendar.css" />
+    <Content Include="NitobiStyles\treegrid\plastik\assets\background1.png" />
+    <Content Include="NitobiStyles\treegrid\plastik\assets\background2.png" />
+    <Content Include="NitobiStyles\treegrid\plastik\assets\background3.png" />
+    <Content Include="NitobiStyles\treegrid\plastik\assets\checkbox_off.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\assets\checkbox_on.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\assets\date.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\assets\header.png" />
+    <Content Include="NitobiStyles\treegrid\plastik\assets\header_active.png" />
+    <Content Include="NitobiStyles\treegrid\plastik\assets\header_ascending.png" />
+    <Content Include="NitobiStyles\treegrid\plastik\assets\header_decending.png" />
+    <Content Include="NitobiStyles\treegrid\plastik\assets\header_hover.png" />
+    <Content Include="NitobiStyles\treegrid\plastik\assets\header_inactive.png" />
+    <Content Include="NitobiStyles\treegrid\plastik\assets\minus.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\assets\minus_hover.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\assets\plus.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\assets\plus_hover.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\assets\resizecorner.png" />
+    <Content Include="NitobiStyles\treegrid\plastik\assets\toolbar.png" />
+    <Content Include="NitobiStyles\treegrid\plastik\assets\toolbar_hover.png" />
+    <Content Include="NitobiStyles\treegrid\plastik\cancelsave.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\cancelsave_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\delete.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\deleterecord.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\deleterecord_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\folder.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\left.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\left_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\loading.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\newrecord.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\newrecord_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\nitobi.grid.css" />
+    <Content Include="NitobiStyles\treegrid\plastik\nitobi.reset.css" />
+    <Content Include="NitobiStyles\treegrid\plastik\refresh.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\refresh_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\right.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\right_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\save.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\save_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\plastik\separator.jpg" />
+    <Content Include="NitobiStyles\treegrid\radial\assets\background.gif" />
+    <Content Include="NitobiStyles\treegrid\radial\assets\button.gif" />
+    <Content Include="NitobiStyles\treegrid\radial\assets\next.gif" />
+    <Content Include="NitobiStyles\treegrid\radial\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\radial\assets\prev.gif" />
+    <Content Include="NitobiStyles\treegrid\radial\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\radial\calendar.css" />
+    <Content Include="NitobiStyles\treegrid\radial_blue\assets\background.gif" />
+    <Content Include="NitobiStyles\treegrid\radial_blue\assets\button.gif" />
+    <Content Include="NitobiStyles\treegrid\radial_blue\assets\next.gif" />
+    <Content Include="NitobiStyles\treegrid\radial_blue\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\radial_blue\assets\prev.gif" />
+    <Content Include="NitobiStyles\treegrid\radial_blue\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\radial_blue\calendar.css" />
+    <Content Include="NitobiStyles\treegrid\radial_orange\assets\background.gif" />
+    <Content Include="NitobiStyles\treegrid\radial_orange\assets\button.gif" />
+    <Content Include="NitobiStyles\treegrid\radial_orange\assets\next.gif" />
+    <Content Include="NitobiStyles\treegrid\radial_orange\assets\next_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\radial_orange\assets\prev.gif" />
+    <Content Include="NitobiStyles\treegrid\radial_orange\assets\prev_dis.gif" />
+    <Content Include="NitobiStyles\treegrid\radial_orange\assets\selected.png" />
+    <Content Include="NitobiStyles\treegrid\radial_orange\calendar.css" />
+    <Content Include="NitobiStyles\treegrid\template\assets\background.png" />
+    <Content Include="NitobiStyles\treegrid\template\assets\button.gif" />
+    <Content Include="NitobiStyles\treegrid\template\assets\multi_header.png" />
+    <Content Include="NitobiStyles\treegrid\template\assets\next.gif" />
+    <Content Include="NitobiStyles\treegrid\template\assets\prev.gif" />
+    <Content Include="NitobiStyles\treegrid\template\calendar.css" />
+    <Content Include="NitobiStyles\treegrid\tiger\assets\background1.png" />
+    <Content Include="NitobiStyles\treegrid\tiger\assets\background2.png" />
+    <Content Include="NitobiStyles\treegrid\tiger\assets\background3.png" />
+    <Content Include="NitobiStyles\treegrid\tiger\assets\checkbox_off.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\assets\checkbox_on.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\assets\date.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\assets\header.png" />
+    <Content Include="NitobiStyles\treegrid\tiger\assets\header_active.png" />
+    <Content Include="NitobiStyles\treegrid\tiger\assets\header_ascending.png" />
+    <Content Include="NitobiStyles\treegrid\tiger\assets\header_decending.png" />
+    <Content Include="NitobiStyles\treegrid\tiger\assets\header_hover.png" />
+    <Content Include="NitobiStyles\treegrid\tiger\assets\header_inactive.png" />
+    <Content Include="NitobiStyles\treegrid\tiger\assets\minus.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\assets\minus_hover.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\assets\plus.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\assets\plus_hover.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\assets\resizecorner.png" />
+    <Content Include="NitobiStyles\treegrid\tiger\assets\toolbar.png" />
+    <Content Include="NitobiStyles\treegrid\tiger\assets\toolbar_hover.png" />
+    <Content Include="NitobiStyles\treegrid\tiger\cancelsave.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\cancelsave_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\delete.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\deleterecord.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\deleterecord_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\folder.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\left.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\left_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\loading.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\newrecord.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\newrecord_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\nitobi.grid.css" />
+    <Content Include="NitobiStyles\treegrid\tiger\nitobi.reset.css" />
+    <Content Include="NitobiStyles\treegrid\tiger\refresh.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\refresh_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\resize_bottom.png" />
+    <Content Include="NitobiStyles\treegrid\tiger\resize_right.png" />
+    <Content Include="NitobiStyles\treegrid\tiger\right.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\right_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\save.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\save_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\tiger\separator.jpg" />
+    <Content Include="NitobiStyles\treegrid\tiger\shadow.png" />
+    <Content Include="NitobiStyles\treegrid\tiny\checked.gif" />
+    <Content Include="NitobiStyles\treegrid\tiny\column_asc.gif" />
+    <Content Include="NitobiStyles\treegrid\tiny\column_asc_over.gif" />
+    <Content Include="NitobiStyles\treegrid\tiny\column_asc_pressed.gif" />
+    <Content Include="NitobiStyles\treegrid\tiny\column_deadspace.gif" />
+    <Content Include="NitobiStyles\treegrid\tiny\column_desc.gif" />
+    <Content Include="NitobiStyles\treegrid\tiny\column_desc_over.gif" />
+    <Content Include="NitobiStyles\treegrid\tiny\column_desc_pressed.gif" />
+    <Content Include="NitobiStyles\treegrid\tiny\column_header.gif" />
+    <Content Include="NitobiStyles\treegrid\tiny\column_header_over.gif" />
+    <Content Include="NitobiStyles\treegrid\tiny\column_header_pressed.gif" />
+    <Content Include="NitobiStyles\treegrid\tiny\date.gif" />
+    <Content Include="NitobiStyles\treegrid\tiny\delete.gif" />
+    <Content Include="NitobiStyles\treegrid\tiny\loading.gif" />
+    <Content Include="NitobiStyles\treegrid\tiny\minus.gif" />
+    <Content Include="NitobiStyles\treegrid\tiny\minus_hover.gif" />
+    <Content Include="NitobiStyles\treegrid\tiny\nitobi.grid.css" />
+    <Content Include="NitobiStyles\treegrid\tiny\nitobi.reset.css" />
+    <Content Include="NitobiStyles\treegrid\tiny\plus.gif" />
+    <Content Include="NitobiStyles\treegrid\tiny\plus_hover.gif" />
+    <Content Include="NitobiStyles\treegrid\tiny\resizecorner.png" />
+    <Content Include="NitobiStyles\treegrid\tiny\resize_bottom.png" />
+    <Content Include="NitobiStyles\treegrid\tiny\resize_right.png" />
+    <Content Include="NitobiStyles\treegrid\tiny\rowcolors.gif" />
+    <Content Include="NitobiStyles\treegrid\tiny\shadow.png" />
+    <Content Include="NitobiStyles\treegrid\tiny\unchecked.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\arrow_down.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\arrow_up.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\background.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\background.png" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\button.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\checkbox_off.png" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\checkbox_on.png" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\drawer.png" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\header.png" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\header_ascending.png" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\header_base.png" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\header_decending.png" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\header_hover.png" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\minus.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\minus_hover.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\next.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\plus.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\plus_hover.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\prev.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\toolbar.png" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\toolbar_hover copy.png" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\toolbar_hover.png" />
+    <Content Include="NitobiStyles\treegrid\vista\assets\top_header.png" />
+    <Content Include="NitobiStyles\treegrid\vista\calendar.css" />
+    <Content Include="NitobiStyles\treegrid\vista\cancelsave.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\cancelsave_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\date.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\delete.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\deleterecord.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\deleterecord_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\folder.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\left.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\left_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\loading.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\newrecord.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\newrecord_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\nitobi.grid.css" />
+    <Content Include="NitobiStyles\treegrid\vista\nitobi.reset.css" />
+    <Content Include="NitobiStyles\treegrid\vista\refresh.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\refresh_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\resizecorner.png" />
+    <Content Include="NitobiStyles\treegrid\vista\resize_bottom.png" />
+    <Content Include="NitobiStyles\treegrid\vista\resize_right.png" />
+    <Content Include="NitobiStyles\treegrid\vista\right.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\right_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\save.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\save_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\vista\separator.jpg" />
+    <Content Include="NitobiStyles\treegrid\vista\shadow.png" />
+    <Content Include="NitobiStyles\treegrid\xp\assets\arrow_down.png" />
+    <Content Include="NitobiStyles\treegrid\xp\assets\arrow_up.png" />
+    <Content Include="NitobiStyles\treegrid\xp\assets\checkbox_off.png" />
+    <Content Include="NitobiStyles\treegrid\xp\assets\checkbox_on.png" />
+    <Content Include="NitobiStyles\treegrid\xp\assets\header.png" />
+    <Content Include="NitobiStyles\treegrid\xp\assets\minus.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\assets\minus_hover.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\assets\plus.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\assets\plus_hover.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\assets\seperator.png" />
+    <Content Include="NitobiStyles\treegrid\xp\assets\toolbar.png" />
+    <Content Include="NitobiStyles\treegrid\xp\assets\toolbar_hover.png" />
+    <Content Include="NitobiStyles\treegrid\xp\cancelsave.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\cancelsave_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\date.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\delete.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\deleterecord.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\deleterecord_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\folder.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\left.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\left_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\loading.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\newrecord.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\newrecord_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\nitobi.grid.css" />
+    <Content Include="NitobiStyles\treegrid\xp\nitobi.reset.css" />
+    <Content Include="NitobiStyles\treegrid\xp\refresh.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\refresh_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\resizecorner.png" />
+    <Content Include="NitobiStyles\treegrid\xp\resize_bottom.png" />
+    <Content Include="NitobiStyles\treegrid\xp\resize_right.png" />
+    <Content Include="NitobiStyles\treegrid\xp\right.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\right_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\save.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\save_disabled.gif" />
+    <Content Include="NitobiStyles\treegrid\xp\separator.jpg" />
+    <Content Include="NitobiStyles\treegrid\xp\shadow.png" />
+    <Content Include="NitobiStyles\tree\base\nitobi.reset.css" />
+    <Content Include="NitobiStyles\tree\base\tree.css" />
+    <Content Include="NitobiStyles\tree\documents\base.gif" />
+    <Content Include="NitobiStyles\tree\documents\empty.gif" />
+    <Content Include="NitobiStyles\tree\documents\folder.gif" />
+    <Content Include="NitobiStyles\tree\documents\folderopen.gif" />
+    <Content Include="NitobiStyles\tree\documents\foldersel.gif" />
+    <Content Include="NitobiStyles\tree\documents\indicator.gif" />
+    <Content Include="NitobiStyles\tree\documents\join.gif" />
+    <Content Include="NitobiStyles\tree\documents\joinbottom.gif" />
+    <Content Include="NitobiStyles\tree\documents\line.gif" />
+    <Content Include="NitobiStyles\tree\documents\minus.gif" />
+    <Content Include="NitobiStyles\tree\documents\minusbottom.gif" />
+    <Content Include="NitobiStyles\tree\documents\page.gif" />
+    <Content Include="NitobiStyles\tree\documents\pagesel.gif" />
+    <Content Include="NitobiStyles\tree\documents\plus.gif" />
+    <Content Include="NitobiStyles\tree\documents\plusbottom.gif" />
+    <Content Include="NitobiStyles\tree\documents\sidebar.gif" />
+    <Content Include="NitobiStyles\tree\documents\tree.css" />
+    <Content Include="NitobiStyles\tree\finefolders\base.gif" />
+    <Content Include="NitobiStyles\tree\finefolders\empty.gif" />
+    <Content Include="NitobiStyles\tree\finefolders\folder.gif" />
+    <Content Include="NitobiStyles\tree\finefolders\foldergroup.gif" />
+    <Content Include="NitobiStyles\tree\finefolders\folderopen.gif" />
+    <Content Include="NitobiStyles\tree\finefolders\indicator.gif" />
+    <Content Include="NitobiStyles\tree\finefolders\join.gif" />
+    <Content Include="NitobiStyles\tree\finefolders\joinbottom.gif" />
+    <Content Include="NitobiStyles\tree\finefolders\line.gif" />
+    <Content Include="NitobiStyles\tree\finefolders\minus.gif" />
+    <Content Include="NitobiStyles\tree\finefolders\minusbottom.gif" />
+    <Content Include="NitobiStyles\tree\finefolders\plus.gif" />
+    <Content Include="NitobiStyles\tree\finefolders\plusbottom.gif" />
+    <Content Include="NitobiStyles\tree\finefolders\sidebar.gif" />
+    <Content Include="NitobiStyles\tree\finefolders\tree.css" />
+    <Content Include="NitobiStyles\tree\flex\base\nitobi.reset.css" />
+    <Content Include="NitobiStyles\tree\flex\base\tree.css" />
+    <Content Include="NitobiStyles\tree\flex\documents\base.gif" />
+    <Content Include="NitobiStyles\tree\flex\documents\empty.gif" />
+    <Content Include="NitobiStyles\tree\flex\documents\folder.gif" />
+    <Content Include="NitobiStyles\tree\flex\documents\folderopen.gif" />
+    <Content Include="NitobiStyles\tree\flex\documents\foldersel.gif" />
+    <Content Include="NitobiStyles\tree\flex\documents\indicator.gif" />
+    <Content Include="NitobiStyles\tree\flex\documents\join.gif" />
+    <Content Include="NitobiStyles\tree\flex\documents\joinbottom.gif" />
+    <Content Include="NitobiStyles\tree\flex\documents\line.gif" />
+    <Content Include="NitobiStyles\tree\flex\documents\minus.gif" />
+    <Content Include="NitobiStyles\tree\flex\documents\minus_hover.gif" />
+    <Content Include="NitobiStyles\tree\flex\documents\page.gif" />
+    <Content Include="NitobiStyles\tree\flex\documents\pagesel.gif" />
+    <Content Include="NitobiStyles\tree\flex\documents\plus.gif" />
+    <Content Include="NitobiStyles\tree\flex\documents\plus_hover.gif" />
+    <Content Include="NitobiStyles\tree\flex\documents\sidebar.gif" />
+    <Content Include="NitobiStyles\tree\flex\documents\tree.css" />
+    <Content Include="NitobiStyles\tree\flex\finefolders\base.gif" />
+    <Content Include="NitobiStyles\tree\flex\finefolders\empty.gif" />
+    <Content Include="NitobiStyles\tree\flex\finefolders\folder.gif" />
+    <Content Include="NitobiStyles\tree\flex\finefolders\foldergroup.gif" />
+    <Content Include="NitobiStyles\tree\flex\finefolders\folderopen.gif" />
+    <Content Include="NitobiStyles\tree\flex\finefolders\indicator.gif" />
+    <Content Include="NitobiStyles\tree\flex\finefolders\join.gif" />
+    <Content Include="NitobiStyles\tree\flex\finefolders\joinbottom.gif" />
+    <Content Include="NitobiStyles\tree\flex\finefolders\line.gif" />
+    <Content Include="NitobiStyles\tree\flex\finefolders\minus.gif" />
+    <Content Include="NitobiStyles\tree\flex\finefolders\minus_hover.gif" />
+    <Content Include="NitobiStyles\tree\flex\finefolders\plus.gif" />
+    <Content Include="NitobiStyles\tree\flex\finefolders\plus_hover.gif" />
+    <Content Include="NitobiStyles\tree\flex\finefolders\sidebar.gif" />
+    <Content Include="NitobiStyles\tree\flex\finefolders\tree.css" />
+    <Content Include="NitobiStyles\tree\flex\folders\base.gif" />
+    <Content Include="NitobiStyles\tree\flex\folders\empty.gif" />
+    <Content Include="NitobiStyles\tree\flex\folders\folder.gif" />
+    <Content Include="NitobiStyles\tree\flex\folders\folderopen.gif" />
+    <Content Include="NitobiStyles\tree\flex\folders\indicator.gif" />
+    <Content Include="NitobiStyles\tree\flex\folders\join.gif" />
+    <Content Include="NitobiStyles\tree\flex\folders\line.gif" />
+    <Content Include="NitobiStyles\tree\flex\folders\minus.gif" />
+    <Content Include="NitobiStyles\tree\flex\folders\minus_hover.gif" />
+    <Content Include="NitobiStyles\tree\flex\folders\page.gif" />
+    <Content Include="NitobiStyles\tree\flex\folders\plus.gif" />
+    <Content Include="NitobiStyles\tree\flex\folders\plus_hover.gif" />
+    <Content Include="NitobiStyles\tree\flex\folders\sidebar.gif" />
+    <Content Include="NitobiStyles\tree\flex\folders\tree.css" />
+    <Content Include="NitobiStyles\tree\folders\base.gif" />
+    <Content Include="NitobiStyles\tree\folders\empty.gif" />
+    <Content Include="NitobiStyles\tree\folders\folder.gif" />
+    <Content Include="NitobiStyles\tree\folders\folderopen.gif" />
+    <Content Include="NitobiStyles\tree\folders\indicator.gif" />
+    <Content Include="NitobiStyles\tree\folders\join.gif" />
+    <Content Include="NitobiStyles\tree\folders\joinbottom.gif" />
+    <Content Include="NitobiStyles\tree\folders\line.gif" />
+    <Content Include="NitobiStyles\tree\folders\minus.gif" />
+    <Content Include="NitobiStyles\tree\folders\minusbottom.gif" />
+    <Content Include="NitobiStyles\tree\folders\page.gif" />
+    <Content Include="NitobiStyles\tree\folders\plus.gif" />
+    <Content Include="NitobiStyles\tree\folders\plusbottom.gif" />
+    <Content Include="NitobiStyles\tree\folders\sidebar.gif" />
+    <Content Include="NitobiStyles\tree\folders\tree.css" />
+    <Content Include="NitobiStyles\tree\nitobi.reset.css" />
+    <Content Include="NitobiStyles\tree\pixel\base\nitobi.reset.css" />
+    <Content Include="NitobiStyles\tree\pixel\base\tree.css" />
+    <Content Include="NitobiStyles\tree\pixel\documents\base.gif" />
+    <Content Include="NitobiStyles\tree\pixel\documents\empty.gif" />
+    <Content Include="NitobiStyles\tree\pixel\documents\folder.gif" />
+    <Content Include="NitobiStyles\tree\pixel\documents\folderopen.gif" />
+    <Content Include="NitobiStyles\tree\pixel\documents\foldersel.gif" />
+    <Content Include="NitobiStyles\tree\pixel\documents\indicator.gif" />
+    <Content Include="NitobiStyles\tree\pixel\documents\join.gif" />
+    <Content Include="NitobiStyles\tree\pixel\documents\joinbottom.gif" />
+    <Content Include="NitobiStyles\tree\pixel\documents\line.gif" />
+    <Content Include="NitobiStyles\tree\pixel\documents\minus.gif" />
+    <Content Include="NitobiStyles\tree\pixel\documents\minusbottom.gif" />
+    <Content Include="NitobiStyles\tree\pixel\documents\minusbottom_hover.gif" />
+    <Content Include="NitobiStyles\tree\pixel\documents\minus_hover.gif" />
+    <Content Include="NitobiStyles\tree\pixel\documents\page.gif" />
+    <Content Include="NitobiStyles\tree\pixel\documents\pagesel.gif" />
+    <Content Include="NitobiStyles\tree\pixel\documents\plus.gif" />
+    <Content Include="NitobiStyles\tree\pixel\documents\plusbottom.gif" />
+    <Content Include="NitobiStyles\tree\pixel\documents\plusbottom_hover.gif" />
+    <Content Include="NitobiStyles\tree\pixel\documents\plus_hover.gif" />
+    <Content Include="NitobiStyles\tree\pixel\documents\sidebar.gif" />
+    <Content Include="NitobiStyles\tree\pixel\documents\tree.css" />
+    <Content Include="NitobiStyles\tree\pixel\finefolders\base.gif" />
+    <Content Include="NitobiStyles\tree\pixel\finefolders\empty.gif" />
+    <Content Include="NitobiStyles\tree\pixel\finefolders\folder.gif" />
+    <Content Include="NitobiStyles\tree\pixel\finefolders\foldergroup.gif" />
+    <Content Include="NitobiStyles\tree\pixel\finefolders\folderopen.gif" />
+    <Content Include="NitobiStyles\tree\pixel\finefolders\indicator.gif" />
+    <Content Include="NitobiStyles\tree\pixel\finefolders\join.gif" />
+    <Content Include="NitobiStyles\tree\pixel\finefolders\joinbottom.gif" />
+    <Content Include="NitobiStyles\tree\pixel\finefolders\line.gif" />
+    <Content Include="NitobiStyles\tree\pixel\finefolders\minus.gif" />
+    <Content Include="NitobiStyles\tree\pixel\finefolders\minusbottom.gif" />
+    <Content Include="NitobiStyles\tree\pixel\finefolders\minusbottom_hover.gif" />
+    <Content Include="NitobiStyles\tree\pixel\finefolders\minus_hover.gif" />
+    <Content Include="NitobiStyles\tree\pixel\finefolders\plus.gif" />
+    <Content Include="NitobiStyles\tree\pixel\finefolders\plusbottom.gif" />
+    <Content Include="NitobiStyles\tree\pixel\finefolders\plusbottom_hover.gif" />
+    <Content Include="NitobiStyles\tree\pixel\finefolders\plus_hover.gif" />
+    <Content Include="NitobiStyles\tree\pixel\finefolders\sidebar.gif" />
+    <Content Include="NitobiStyles\tree\pixel\finefolders\tree.css" />
+    <Content Include="NitobiStyles\tree\pixel\folders\base.gif" />
+    <Content Include="NitobiStyles\tree\pixel\folders\empty.gif" />
+    <Content Include="NitobiStyles\tree\pixel\folders\folder.gif" />
+    <Content Include="NitobiStyles\tree\pixel\folders\folderopen.gif" />
+    <Content Include="NitobiStyles\tree\pixel\folders\indicator.gif" />
+    <Content Include="NitobiStyles\tree\pixel\folders\join.gif" />
+    <Content Include="NitobiStyles\tree\pixel\folders\joinbottom.gif" />
+    <Content Include="NitobiStyles\tree\pixel\folders\line.gif" />
+    <Content Include="NitobiStyles\tree\pixel\folders\minus.gif" />
+    <Content Include="NitobiStyles\tree\pixel\folders\minusbottom.gif" />
+    <Content Include="NitobiStyles\tree\pixel\folders\minusbottom_hover.gif" />
+    <Content Include="NitobiStyles\tree\pixel\folders\minus_hover.gif" />
+    <Content Include="NitobiStyles\tree\pixel\folders\page.gif" />
+    <Content Include="NitobiStyles\tree\pixel\folders\plus.gif" />
+    <Content Include="NitobiStyles\tree\pixel\folders\plusbottom.gif" />
+    <Content Include="NitobiStyles\tree\pixel\folders\plusbottom_hover.gif" />
+    <Content Include="NitobiStyles\tree\pixel\folders\plus_hover.gif" />
+    <Content Include="NitobiStyles\tree\pixel\folders\sidebar.gif" />
+    <Content Include="NitobiStyles\tree\pixel\folders\tree.css" />
+    <Content Include="NitobiStyles\tree\tiger\base\nitobi.reset.css" />
+    <Content Include="NitobiStyles\tree\tiger\base\tree.css" />
+    <Content Include="NitobiStyles\tree\tiger\documents\base.gif" />
+    <Content Include="NitobiStyles\tree\tiger\documents\empty.gif" />
+    <Content Include="NitobiStyles\tree\tiger\documents\folder.gif" />
+    <Content Include="NitobiStyles\tree\tiger\documents\folderopen.gif" />
+    <Content Include="NitobiStyles\tree\tiger\documents\foldersel.gif" />
+    <Content Include="NitobiStyles\tree\tiger\documents\indicator.gif" />
+    <Content Include="NitobiStyles\tree\tiger\documents\join.gif" />
+    <Content Include="NitobiStyles\tree\tiger\documents\joinbottom.gif" />
+    <Content Include="NitobiStyles\tree\tiger\documents\line.gif" />
+    <Content Include="NitobiStyles\tree\tiger\documents\minus.gif" />
+    <Content Include="NitobiStyles\tree\tiger\documents\minusbottom.gif" />
+    <Content Include="NitobiStyles\tree\tiger\documents\minus_hover.gif" />
+    <Content Include="NitobiStyles\tree\tiger\documents\page.gif" />
+    <Content Include="NitobiStyles\tree\tiger\documents\pagesel.gif" />
+    <Content Include="NitobiStyles\tree\tiger\documents\plus.gif" />
+    <Content Include="NitobiStyles\tree\tiger\documents\plusbottom.gif" />
+    <Content Include="NitobiStyles\tree\tiger\documents\plus_hover.gif" />
+    <Content Include="NitobiStyles\tree\tiger\documents\sidebar.gif" />
+    <Content Include="NitobiStyles\tree\tiger\documents\tree.css" />
+    <Content Include="NitobiStyles\tree\tiger\finefolders\base.gif" />
+    <Content Include="NitobiStyles\tree\tiger\finefolders\empty.gif" />
+    <Content Include="NitobiStyles\tree\tiger\finefolders\folder.gif" />
+    <Content Include="NitobiStyles\tree\tiger\finefolders\foldergroup.gif" />
+    <Content Include="NitobiStyles\tree\tiger\finefolders\folderopen.gif" />
+    <Content Include="NitobiStyles\tree\tiger\finefolders\indicator.gif" />
+    <Content Include="NitobiStyles\tree\tiger\finefolders\join.gif" />
+    <Content Include="NitobiStyles\tree\tiger\finefolders\joinbottom.gif" />
+    <Content Include="NitobiStyles\tree\tiger\finefolders\line.gif" />
+    <Content Include="NitobiStyles\tree\tiger\finefolders\minus.gif" />
+    <Content Include="NitobiStyles\tree\tiger\finefolders\minusbottom.gif" />
+    <Content Include="NitobiStyles\tree\tiger\finefolders\minus_hover.gif" />
+    <Content Include="NitobiStyles\tree\tiger\finefolders\plus.gif" />
+    <Content Include="NitobiStyles\tree\tiger\finefolders\plusbottom.gif" />
+    <Content Include="NitobiStyles\tree\tiger\finefolders\plus_hover.gif" />
+    <Content Include="NitobiStyles\tree\tiger\finefolders\sidebar.gif" />
+    <Content Include="NitobiStyles\tree\tiger\finefolders\tree.css" />
+    <Content Include="NitobiStyles\tree\tiger\folders\base.gif" />
+    <Content Include="NitobiStyles\tree\tiger\folders\empty.gif" />
+    <Content Include="NitobiStyles\tree\tiger\folders\folder.gif" />
+    <Content Include="NitobiStyles\tree\tiger\folders\folderopen.gif" />
+    <Content Include="NitobiStyles\tree\tiger\folders\indicator.gif" />
+    <Content Include="NitobiStyles\tree\tiger\folders\join.gif" />
+    <Content Include="NitobiStyles\tree\tiger\folders\joinbottom.gif" />
+    <Content Include="NitobiStyles\tree\tiger\folders\line.gif" />
+    <Content Include="NitobiStyles\tree\tiger\folders\minus.gif" />
+    <Content Include="NitobiStyles\tree\tiger\folders\minusbottom.gif" />
+    <Content Include="NitobiStyles\tree\tiger\folders\minus_hover.gif" />
+    <Content Include="NitobiStyles\tree\tiger\folders\page.gif" />
+    <Content Include="NitobiStyles\tree\tiger\folders\plus.gif" />
+    <Content Include="NitobiStyles\tree\tiger\folders\plusbottom.gif" />
+    <Content Include="NitobiStyles\tree\tiger\folders\plus_hover.gif" />
+    <Content Include="NitobiStyles\tree\tiger\folders\sidebar.gif" />
+    <Content Include="NitobiStyles\tree\tiger\folders\tree.css" />
+    <Content Include="NitobiStyles\tree\vista\base\nitobi.reset.css" />
+    <Content Include="NitobiStyles\tree\vista\base\tree.css" />
+    <Content Include="NitobiStyles\tree\vista\documents\base.gif" />
+    <Content Include="NitobiStyles\tree\vista\documents\empty.gif" />
+    <Content Include="NitobiStyles\tree\vista\documents\folder.gif" />
+    <Content Include="NitobiStyles\tree\vista\documents\folderopen.gif" />
+    <Content Include="NitobiStyles\tree\vista\documents\foldersel.gif" />
+    <Content Include="NitobiStyles\tree\vista\documents\indicator.gif" />
+    <Content Include="NitobiStyles\tree\vista\documents\join.gif" />
+    <Content Include="NitobiStyles\tree\vista\documents\joinbottom.gif" />
+    <Content Include="NitobiStyles\tree\vista\documents\line.gif" />
+    <Content Include="NitobiStyles\tree\vista\documents\minus.gif" />
+    <Content Include="NitobiStyles\tree\vista\documents\minusbottom.gif" />
+    <Content Include="NitobiStyles\tree\vista\documents\minusbottom_hover.gif" />
+    <Content Include="NitobiStyles\tree\vista\documents\minus_hover.gif" />
+    <Content Include="NitobiStyles\tree\vista\documents\page.gif" />
+    <Content Include="NitobiStyles\tree\vista\documents\pagesel.gif" />
+    <Content Include="NitobiStyles\tree\vista\documents\plus.gif" />
+    <Content Include="NitobiStyles\tree\vista\documents\plusbottom.gif" />
+    <Content Include="NitobiStyles\tree\vista\documents\plusbottom_hover.gif" />
+    <Content Include="NitobiStyles\tree\vista\documents\plus_hover.gif" />
+    <Content Include="NitobiStyles\tree\vista\documents\sidebar.gif" />
+    <Content Include="NitobiStyles\tree\vista\documents\tree.css" />
+    <Content Include="NitobiStyles\tree\vista\finefolders\base.gif" />
+    <Content Include="NitobiStyles\tree\vista\finefolders\empty.gif" />
+    <Content Include="NitobiStyles\tree\vista\finefolders\folder.gif" />
+    <Content Include="NitobiStyles\tree\vista\finefolders\foldergroup.gif" />
+    <Content Include="NitobiStyles\tree\vista\finefolders\folderopen.gif" />
+    <Content Include="NitobiStyles\tree\vista\finefolders\indicator.gif" />
+    <Content Include="NitobiStyles\tree\vista\finefolders\join.gif" />
+    <Content Include="NitobiStyles\tree\vista\finefolders\joinbottom.gif" />
+    <Content Include="NitobiStyles\tree\vista\finefolders\line.gif" />
+    <Content Include="NitobiStyles\tree\vista\finefolders\minus.gif" />
+    <Content Include="NitobiStyles\tree\vista\finefolders\minusbottom.gif" />
+    <Content Include="NitobiStyles\tree\vista\finefolders\minusbottom_hover.gif" />
+    <Content Include="NitobiStyles\tree\vista\finefolders\minus_hover.gif" />
+    <Content Include="NitobiStyles\tree\vista\finefolders\plus.gif" />
+    <Content Include="NitobiStyles\tree\vista\finefolders\plusbottom.gif" />
+    <Content Include="NitobiStyles\tree\vista\finefolders\plusbottom_hover.gif" />
+    <Content Include="NitobiStyles\tree\vista\finefolders\plus_hover.gif" />
+    <Content Include="NitobiStyles\tree\vista\finefolders\sidebar.gif" />
+    <Content Include="NitobiStyles\tree\vista\finefolders\tree.css" />
+    <Content Include="NitobiStyles\tree\vista\folders\base.gif" />
+    <Content Include="NitobiStyles\tree\vista\folders\empty.gif" />
+    <Content Include="NitobiStyles\tree\vista\folders\folder.gif" />
+    <Content Include="NitobiStyles\tree\vista\folders\folderopen.gif" />
+    <Content Include="NitobiStyles\tree\vista\folders\indicator.gif" />
+    <Content Include="NitobiStyles\tree\vista\folders\join.gif" />
+    <Content Include="NitobiStyles\tree\vista\folders\joinbottom.gif" />
+    <Content Include="NitobiStyles\tree\vista\folders\line.gif" />
+    <Content Include="NitobiStyles\tree\vista\folders\minus.gif" />
+    <Content Include="NitobiStyles\tree\vista\folders\minusbottom.gif" />
+    <Content Include="NitobiStyles\tree\vista\folders\minusbottom_hover.gif" />
+    <Content Include="NitobiStyles\tree\vista\folders\minus_hover.gif" />
+    <Content Include="NitobiStyles\tree\vista\folders\page.gif" />
+    <Content Include="NitobiStyles\tree\vista\folders\plus.gif" />
+    <Content Include="NitobiStyles\tree\vista\folders\plusbottom.gif" />
+    <Content Include="NitobiStyles\tree\vista\folders\plusbottom_hover.gif" />
+    <Content Include="NitobiStyles\tree\vista\folders\plus_hover.gif" />
+    <Content Include="NitobiStyles\tree\vista\folders\sidebar.gif" />
+    <Content Include="NitobiStyles\tree\vista\folders\tree.css" />
+    <Content Include="SpotlightStory.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="NitobiStyles\callout\clean\Thumbs.db" />
+    <None Include="NitobiStyles\callout\peanut_exclam\Thumbs.db" />
+    <None Include="NitobiStyles\callout\peanut_info\Thumbs.db" />
+    <None Include="NitobiStyles\callout\peanut_noaccess\Thumbs.db" />
+    <None Include="NitobiStyles\callout\peanut_talkbubble\Thumbs.db" />
+    <None Include="NitobiStyles\grid\lightblue\Thumbs.db" />
+    <None Include="NitobiStyles\grid\nitobi\Thumbs.db" />
+    <None Include="NitobiStyles\grid\plastik\assets\bar.psd" />
+    <None Include="NitobiStyles\grid\tiny\Thumbs.db" />
+    <None Include="NitobiStyles\grid\vista\assets\header_hover.psd" />
+    <None Include="NitobiStyles\spotlight\clean\Thumbs.db" />
+    <None Include="NitobiStyles\spotlight\peanut_exclam\Thumbs.db" />
+    <None Include="NitobiStyles\spotlight\peanut_info\Thumbs.db" />
+    <None Include="NitobiStyles\spotlight\peanut_noaccess\Thumbs.db" />
+    <None Include="NitobiStyles\spotlight\peanut_talkbubble\Thumbs.db" />
+    <None Include="NitobiStyles\tabstrip\glass\images\Thumbs.db" />
+    <None Include="NitobiStyles\tabstrip\plain\images\Thumbs.db" />
+    <None Include="NitobiStyles\treegrid\lightblue\Thumbs.db" />
+    <None Include="NitobiStyles\treegrid\nitobi\Thumbs.db" />
+    <None Include="NitobiStyles\treegrid\plastik\assets\bar.psd" />
+    <None Include="NitobiStyles\treegrid\tiny\Thumbs.db" />
+    <None Include="NitobiStyles\treegrid\vista\assets\header_hover.psd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="App_Themes\DarkIce\images\" />
+    <Folder Include="App_Themes\Tiger\images\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51125</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/netdemos</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

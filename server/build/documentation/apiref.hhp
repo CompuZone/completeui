@@ -1,0 +1,19 @@
+
+[OPTIONS]
+Auto Index=Yes
+Compatibility=1.1 or later
+Compiled file=apiref.chm
+Contents file=apiref.hhc
+Default Window=Main
+Default topic=index.htm
+Display compile progress=No
+Error log file=common.log
+Full-text search=Yes
+Language=0x409 English (United States)
+Title=Nitobi Complete UI API Reference
+
+[WINDOWS]
+Main="Nitobi Complete UI API Reference","apiref.hhc",,,,,,,,0x42520,,0x386e,[0,0,800,600],,,,,,,0
+
+[INFOTYPES]
+

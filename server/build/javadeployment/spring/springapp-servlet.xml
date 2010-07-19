@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!--
+  - Application context definition for "springapp" DispatcherServlet.
+  -->
+
+<beans>
+    <bean id="getHandlerController" class="examples.grid.spring.GetHandlerController"/>
+	<bean id="saveHandlerController" class="examples.grid.spring.SaveHandlerController"/>
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="/grid/java/livescrolling/gethandler.htm">getHandlerController</prop>
+                <prop key="/grid/java/livescrolling/savehandler.htm">saveHandlerController</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

@@ -1,0 +1,133 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="NAME">nitobi.lang.defineNs</span><span class="PUNC">(</span><span class="STRN">"nitobi.form"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  2</span> 
+<span class='line'>  3</span> </span><span class="COMM">// initialize the editor offset for Firefox alignment problem</span><span class="WHIT">
+<span class='line'>  4</span> </span><span class="COMM">// these will be changed once in initialize of the EditorFactor </span><span class="WHIT">
+<span class='line'>  5</span> </span><span class="COMM">// by looking at the grid border widths</span><span class="WHIT">
+<span class='line'>  6</span> </span><span class="NAME">nitobi.form.EDITOR_OFFSETX</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  7</span> </span><span class="NAME">nitobi.form.EDITOR_OFFSETY</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  8</span> 
+<span class='line'>  9</span> 
+<span class='line'> 10</span> </span><span class="COMM">/*
+<span class='line'> 11</span> The editor 
+<span class='line'> 12</span> 
+<span class='line'> 13</span> how can we enable people to override masking say with custom functionality etc ...
+<span class='line'> 14</span> */</span><span class="WHIT">
+<span class='line'> 15</span> </span><span class="COMM">/**
+<span class='line'> 16</span>  * @class
+<span class='line'> 17</span>  * @constructor
+<span class='line'> 18</span>  */</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="NAME">nitobi.form.ControlFactory</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="WHIT">	</span><span class="NAME">this.editors</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 22</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 23</span> 
+<span class='line'> 24</span> </span><span class="COMM">/**
+<span class='line'> 25</span>  * @ignore
+<span class='line'> 26</span>  */</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="NAME">nitobi.form.ControlFactory.prototype.getEditor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">caller</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">column</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">callerEvent</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 28</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">editor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 30</span> 
+<span class='line'> 31</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">column</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">		</span><span class="NAME">ebaErrorReport</span><span class="PUNC">(</span><span class="STRN">"getEditor: column parameter is null"</span><span class="PUNC">,</span><span class="STRN">""</span><span class="PUNC">,</span><span class="NAME">EBA_DEBUG</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">editor</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 36</span> 
+<span class='line'> 37</span> </span><span class="WHIT">	</span><span class="COMM">//	Check if the column metadata node could not be found for some reason</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="WHIT">	</span><span class="COMM">//	If it can be found then check if it is editable.</span><span class="WHIT">
+<span class='line'> 39</span> </span><span class="WHIT">	</span><span class="COMM">/*
+<span class='line'> 40</span> 	if((typeof(xEditorMetaNode) == "undefined") ||
+<span class='line'> 41</span> 	   (false == nitobi.lang.toBool(xEditorMetaNode.getAttribute("Editable"), true)) || (false == nitobi.lang.toBool(xEditorMetaNode.getAttribute("editable"), true)))
+<span class='line'> 42</span> 	{
+<span class='line'> 43</span> 		return editor;
+<span class='line'> 44</span> 	}
+<span class='line'> 45</span> 	*/</span><span class="WHIT">
+<span class='line'> 46</span> 
+<span class='line'> 47</span> </span><span class="WHIT">	</span><span class="COMM">// Not using meta model</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="WHIT">	</span><span class="COMM">// var editorType = (xEditorMetaNode != null)?xEditorMetaNode.nodeName:"";</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="WHIT">	</span><span class="COMM">// var dataType = (xEditorMetaNode != null)?xEditorMetaNode.getAttribute("dt"):"";</span><span class="WHIT">
+<span class='line'> 50</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">editorType</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">column.getType</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 51</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">dataType</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">column.getType</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 52</span> 
+<span class='line'> 53</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">editorHash</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"nitobi.Grid"</span><span class="PUNC">+</span><span class="NAME">editorType</span><span class="PUNC">+</span><span class="NAME">dataType</span><span class="PUNC">+</span><span class="STRN">"Editor"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">	</span><span class="COMM">//	First check if there is already an Editor of the appropriate type</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">	</span><span class="COMM">//	Could it also be the case that some other control is using the editor?</span><span class="WHIT">
+<span class='line'> 56</span> </span><span class="WHIT">	</span><span class="COMM">//	It should not be possible since blurs should fire when clicks are made on other controls ...</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="WHIT">	</span><span class="NAME">editor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.editors</span><span class="PUNC">[</span><span class="NAME">editorHash</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">editor</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">editor.control</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="COMM">// TODO: when we dont check the control we need to do some editor destruction along with the grid cause grid destruction removes all the editor HTML but not the hash</span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 60</span> </span><span class="WHIT">		</span><span class="COMM">//	can maybe move away from the switch statment by eval'ing the type string ... </span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="WHIT">		</span><span class="COMM">//	that would be less code, maybe a bit slower and easier to create new editors BUT harder to customize any editors ...</span><span class="WHIT">
+<span class='line'> 62</span> </span><span class="WHIT">		</span><span class="KEYW">switch</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">editorType</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 63</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 64</span> </span><span class="WHIT">			</span><span class="KEYW">case</span><span class="WHIT"> </span><span class="STRN">"LINK"</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'> 65</span> </span><span class="WHIT">			</span><span class="KEYW">case</span><span class="WHIT"> </span><span class="STRN">"HYPERLINK"</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="WHIT">				</span><span class="NAME">editor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.form.Link</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 67</span> </span><span class="WHIT">				</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="WHIT">			</span><span class="KEYW">case</span><span class="WHIT"> </span><span class="STRN">"IMAGE"</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="WHIT">				</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="WHIT">			</span><span class="KEYW">case</span><span class="WHIT"> </span><span class="STRN">"BUTTON"</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="WHIT">				</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 72</span> </span><span class="WHIT">			</span><span class="KEYW">case</span><span class="WHIT"> </span><span class="STRN">"LOOKUP"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="WHIT">				</span><span class="NAME">editor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.form.Lookup</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="WHIT">				</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 75</span> </span><span class="WHIT">			</span><span class="KEYW">case</span><span class="WHIT"> </span><span class="STRN">"LISTBOX"</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'> 76</span> </span><span class="WHIT">				</span><span class="NAME">editor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.form.ListBox</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 77</span> </span><span class="WHIT">				</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 78</span> </span><span class="WHIT">			</span><span class="KEYW">case</span><span class="WHIT"> </span><span class="STRN">"PASSWORD"</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'> 79</span> </span><span class="WHIT">				</span><span class="NAME">editor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.form.Password</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 80</span> </span><span class="WHIT">				</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 81</span> </span><span class="WHIT">			</span><span class="KEYW">case</span><span class="WHIT"> </span><span class="STRN">"TEXTAREA"</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'> 82</span> </span><span class="WHIT">				</span><span class="NAME">editor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.form.TextArea</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 83</span> </span><span class="WHIT">				</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 84</span> </span><span class="WHIT">			</span><span class="KEYW">case</span><span class="WHIT"> </span><span class="STRN">"CHECKBOX"</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'> 85</span> </span><span class="WHIT">				</span><span class="NAME">editor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.form.Checkbox</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 86</span> </span><span class="WHIT">				</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 87</span> </span><span class="WHIT">			</span><span class="KEYW">default</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'> 88</span> </span><span class="WHIT">				</span><span class="COMM">//	Here we need to check the datatype so that we can create the proper editor ...</span><span class="WHIT">
+<span class='line'> 89</span> </span><span class="WHIT">				</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">dataType</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"DATE"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 90</span> </span><span class="WHIT">				</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 91</span> </span><span class="WHIT">					</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">column.isCalendarEnabled</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 92</span> </span><span class="WHIT">						</span><span class="NAME">editor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.form.Calendar</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 93</span> </span><span class="WHIT">					</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'> 94</span> </span><span class="WHIT">						</span><span class="NAME">editor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.form.Date</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 95</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 96</span> </span><span class="WHIT">				</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">dataType</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"NUMBER"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 97</span> </span><span class="WHIT">					</span><span class="NAME">editor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.form.Number</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 98</span> </span><span class="WHIT">				</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'> 99</span> </span><span class="WHIT">					</span><span class="NAME">editor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.form.Text</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>100</span> </span><span class="WHIT">			</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>101</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>102</span> </span><span class="WHIT">		</span><span class="COMM">// Initialize the editor </span><span class="WHIT">
+<span class='line'>103</span> </span><span class="WHIT">		</span><span class="NAME">editor.initialize</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>104</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>105</span> 
+<span class='line'>106</span> </span><span class="WHIT">	</span><span class="NAME">this.editors</span><span class="PUNC">[</span><span class="NAME">editorHash</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">editor</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>107</span> 
+<span class='line'>108</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">editor</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>110</span> 
+<span class='line'>111</span> </span><span class="COMM">/**
+<span class='line'>112</span>  * @ignore
+<span class='line'>113</span>  */</span><span class="WHIT">
+<span class='line'>114</span> </span><span class="NAME">nitobi.form.ControlFactory.prototype.dispose</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>115</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>116</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">editor</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">this.editors</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>117</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>118</span> </span><span class="WHIT">		</span><span class="NAME">this.editors</span><span class="PUNC">[</span><span class="NAME">editor</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">dispose</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>119</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>120</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>121</span> </span><span class="COMM">//	this is the nitobi.form.ControlFactory.instance but it should likely be in a variable of type EBAGlobal (i have called it eba)</span><span class="WHIT">
+<span class='line'>122</span> </span><span class="COMM">/**
+<span class='line'>123</span>  * @ignore
+<span class='line'>124</span>  */</span><span class="WHIT">
+<span class='line'>125</span> </span><span class="NAME">nitobi.form.ControlFactory.instance</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.form.ControlFactory</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>126</span> </span></pre></body></html>

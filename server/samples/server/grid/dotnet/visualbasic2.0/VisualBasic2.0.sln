@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "C:\...\VisualBasic2.0\", "..\..\..\..\..\..\dev\trunk\combo\samples\dotnet\VisualBasic2.0\", "{AC610B0F-B3DF-4213-9E8D-D27FB3D0B25C}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.VirtualPath = "/VisualBasic2.0"
+		Debug.AspNetCompiler.PhysicalPath = "..\..\..\..\..\..\dev\trunk\combo\samples\dotnet\VisualBasic2.0\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\VisualBasic2.0\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/VisualBasic2.0"
+		Release.AspNetCompiler.PhysicalPath = "..\..\..\..\..\..\dev\trunk\combo\samples\dotnet\VisualBasic2.0\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\VisualBasic2.0\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "2228"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|.NET = Debug|.NET
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC610B0F-B3DF-4213-9E8D-D27FB3D0B25C}.Debug|.NET.ActiveCfg = Debug|.NET
+		{AC610B0F-B3DF-4213-9E8D-D27FB3D0B25C}.Debug|.NET.Build.0 = Debug|.NET
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

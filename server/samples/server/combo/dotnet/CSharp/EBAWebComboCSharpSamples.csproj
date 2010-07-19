@@ -1,0 +1,459 @@
+<VisualStudioProject>
+    <CSHARP
+        ProjectType = "Web"
+        ProductVersion = "7.10.3077"
+        SchemaVersion = "2.0"
+        ProjectGuid = "{6D6B02AC-EF9D-4533-B270-9F059298EF57}"
+    >
+        <Build>
+            <Settings
+                ApplicationIcon = ""
+                AssemblyKeyContainerName = ""
+                AssemblyName = "EBAWebComboCSharpSamples"
+                AssemblyOriginatorKeyFile = ""
+                DefaultClientScript = "JScript"
+                DefaultHTMLPageLayout = "Grid"
+                DefaultTargetSchema = "IE50"
+                DelaySign = "false"
+                OutputType = "Library"
+                PreBuildEvent = ""
+                PostBuildEvent = ""
+                RootNamespace = "EBAWebComboCSharpSamples"
+                RunPostBuildEvent = "OnBuildSuccess"
+                StartupObject = ""
+            >
+                <Config
+                    Name = "Debug"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "DEBUG;TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "true"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "false"
+                    NoStdLib = "false"
+                    NoWarn = ""
+                    Optimize = "false"
+                    OutputPath = "bin\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+                <Config
+                    Name = "Release"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "false"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "false"
+                    NoStdLib = "false"
+                    NoWarn = ""
+                    Optimize = "true"
+                    OutputPath = "bin\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+            </Settings>
+            <References>
+                <Reference
+                    Name = "System"
+                    AssemblyName = "System"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll"
+                />
+                <Reference
+                    Name = "System.Drawing"
+                    AssemblyName = "System.Drawing"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Drawing.dll"
+                />
+                <Reference
+                    Name = "System.Data"
+                    AssemblyName = "System.Data"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Data.dll"
+                />
+                <Reference
+                    Name = "System.Web"
+                    AssemblyName = "System.Web"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Web.dll"
+                />
+                <Reference
+                    Name = "System.XML"
+                    AssemblyName = "System.Xml"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
+                />
+                <Reference
+                    Name = "Combo"
+                    Project = "{AB0B71EE-F7E7-4B0A-8D8D-CD90D0794984}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+            </References>
+        </Build>
+        <Files>
+            <Include>
+                <File
+                    RelPath = "AssemblyInfo.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Global.asax"
+                    SubType = "Component"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Global.asax.cs"
+                    DependentUpon = "Global.asax"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Global.asax.resx"
+                    DependentUpon = "Global.asax.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Web.config"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Advanced\DataGrid\Datagrid.aspx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Advanced\DataGrid\Datagrid.aspx.cs"
+                    DependentUpon = "Datagrid.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Advanced\DataGrid\Datagrid.aspx.resx"
+                    DependentUpon = "Datagrid.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Advanced\DataGrid\data\customerdb.mdb"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Advanced\DataGrid\resources\combologo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Advanced\DataGrid\resources\ebalogo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Advanced\DataGrid\resources\gridlogo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Advanced\LinkedCombos\LinkedCombos.aspx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Advanced\LinkedCombos\LinkedCombos.aspx.cs"
+                    DependentUpon = "LinkedCombos.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Advanced\LinkedCombos\LinkedCombos.aspx.resx"
+                    DependentUpon = "LinkedCombos.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Advanced\LinkedCombos\data\countryProvince.mdb"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Advanced\LinkedCombos\resources\combologo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Advanced\LinkedCombos\resources\ebalogo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Advanced\LinkedCombos\resources\linkedicon.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Advanced\UserControlCombo\ComboUC.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Advanced\UserControlCombo\ComboUC.ascx.cs"
+                    DependentUpon = "ComboUC.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Advanced\UserControlCombo\ComboUC.ascx.resx"
+                    DependentUpon = "ComboUC.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Advanced\UserControlCombo\default.aspx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Advanced\UserControlCombo\default.aspx.cs"
+                    DependentUpon = "default.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Advanced\UserControlCombo\default.aspx.resx"
+                    DependentUpon = "default.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Advanced\UserControlCombo\data\countryProvince.mdb"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Advanced\UserControlCombo\resources\combologo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Advanced\UserControlCombo\resources\ebalogo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Advanced\UserControlCombo\resources\infoicon.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Classic\Classic.aspx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Classic\Classic.aspx.cs"
+                    DependentUpon = "Classic.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Basic\Classic\Classic.aspx.resx"
+                    DependentUpon = "Classic.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Basic\Classic\data\customerdb.mdb"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Basic\Classic\resources\combologo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Classic\resources\ebalogo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Classic\resources\pagingicon.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Compact\Compact.aspx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Compact\Compact.aspx.cs"
+                    DependentUpon = "Compact.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Basic\Compact\Compact.aspx.resx"
+                    DependentUpon = "Compact.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Basic\Compact\data\words.ldb"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Basic\Compact\data\words.mdb"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Basic\Compact\resources\bookicon.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Compact\resources\combologo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Compact\resources\ebalogo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Filter\Filter.aspx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Filter\Filter.aspx.cs"
+                    DependentUpon = "Filter.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Basic\Filter\Filter.aspx.resx"
+                    DependentUpon = "Filter.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Basic\Filter\data\customerdb.mdb"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Basic\Filter\resources\combologo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Filter\resources\ebalogo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Filter\resources\peopleiconbig.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Filter\resources\scustomerimage.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\SmartList\SmartList.aspx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\SmartList\SmartList.aspx.cs"
+                    DependentUpon = "SmartList.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Basic\SmartList\SmartList.aspx.resx"
+                    DependentUpon = "SmartList.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Basic\SmartList\data\econtactsdb.mdb"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Basic\SmartList\resources\combologo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\SmartList\resources\ebalogo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\SmartList\resources\mailicon.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\SmartSearch\SmartSearch.aspx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\SmartSearch\SmartSearch.aspx.cs"
+                    DependentUpon = "SmartSearch.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Basic\SmartSearch\SmartSearch.aspx.resx"
+                    DependentUpon = "SmartSearch.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Basic\SmartSearch\Data\folders.mdb"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Basic\SmartSearch\Resources\combologo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\SmartSearch\Resources\ebalogo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\SmartSearch\Resources\foldericon.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Unbound\Unbound.aspx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Unbound\Unbound.aspx.cs"
+                    DependentUpon = "Unbound.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Basic\Unbound\Unbound.aspx.resx"
+                    DependentUpon = "Unbound.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Basic\Unbound\resources\comboicon.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Unbound\resources\combologo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Unbound\resources\ebalogo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Unicode\index.aspx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Unicode\index.aspx.cs"
+                    DependentUpon = "index.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Basic\Unicode\index.aspx.resx"
+                    DependentUpon = "index.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Basic\Unicode\data\dvds.mdb"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Basic\Unicode\resources\combologo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Unicode\resources\ebalogo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Unicode\resources\pagingicon.gif"
+                    BuildAction = "Content"
+                />
+            </Include>
+        </Files>
+    </CSHARP>
+</VisualStudioProject>
+

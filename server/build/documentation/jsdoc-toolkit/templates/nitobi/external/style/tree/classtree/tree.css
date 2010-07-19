@@ -1,0 +1,206 @@
+.classtree .tree {
+	background-color:transparent;
+}
+
+.classtree .sidebar-background {
+	background-image:url('sidebar.gif');
+	background-repeat: repeat-y;
+}
+
+.classtree .root .node .icon {
+	width:19px;
+	background-color:transparent;
+	background-image:url('base.gif');
+	background-repeat: no-repeat;
+}
+
+.classtree .hover .node, .classtree .hover .leaf { 
+	background-color: #D4AAFF; 
+	color: white;	
+}
+
+
+.classtree .tree .selected .node, .classtree .tree .selected .leaf {
+	background-color: #dff0f8;
+}
+
+.classtree .pipe {
+	width:19px;
+	background-color:transparent;
+	background-image:url('line.gif');
+
+}
+.classtree .tee {
+	width:19px;
+	background-color:transparent;
+	background-image:url('joinbottom.gif');
+
+}
+.classtree .ell {
+	width:19px;
+	background-color:transparent;
+	background-image:url('join.gif');
+	background-repeat: no-repeat;
+}
+.classtree .spacer {
+	width:20px;
+}
+
+.classtree .sidebar {
+	background-color:transparent;
+	width:34px;	
+}
+.classtree .flag {
+	background-color:transparent;
+}
+
+.classtree .collapsed .tee {
+	background-image:url('plusbottom.gif');
+}
+
+.classtree .expanded .tee {
+	background-image:url('minusbottom.gif');
+}
+
+.classtree .collapsed .ell {
+	background-image:url('plus.gif');
+}
+
+.classtree .expanded .ell {
+	background-image:url('minus.gif');
+}
+
+.classtree .node .icon {
+	width:19px;
+	background-color:transparent;
+	background-image:url('package2_icon.png');
+	background-repeat: no-repeat;
+}
+
+.classtree .expanded .node .icon {
+
+}
+
+.classtree .leaf .icon {
+	width:19px;
+	background-color:transparent;
+	background-image:url('class1_icon.png');
+	background-repeat: no-repeat;
+}
+
+.classtree .label {
+	font-family: arial;
+	font-size: 12px;
+	padding-left: 2px;
+}
+.classtree .working .tee {
+	width:19px;
+	background-image:url('indicator.gif');
+	background-repeat: no-repeat;
+}
+
+.classtree .working .ell{
+	width:19px;
+	background-image:url('indicator.gif');
+	background-repeat: no-repeat;
+}.nitobi-hide {
+	display:none;
+}
+
+.ntb-effects-small {
+	clear:both;
+	display:block;
+	float:none;
+	height:0px;
+	//height:1px;
+	overflow:hidden;
+	width:auto;
+}
+
+/* Tree customization */
+.classtree .classnode .leaf .icon
+{
+	width:19px;
+	background-color:transparent;
+	background-image:url('class1_icon.png');
+	background-repeat: no-repeat;
+}
+
+.classtree .nitobitree .node .icon
+{
+	width:19px;
+	background-color:transparent;
+	background-image:url('cui_tree_icon.png');
+	background-repeat: no-repeat;
+}
+
+.classtree .nitobicalendar .node .icon
+{
+	width:19px;
+	background-color:transparent;
+	background-image:url('cui_calendar_icon.png');
+	background-repeat: no-repeat;
+}
+
+.classtree .nitobiroot .node .icon
+{
+	width:19px;
+	background-color:transparent;
+	background-image:url('nitobi.png');
+	background-repeat: no-repeat;
+}
+.classtree .nitobicallout .node .icon
+{
+	width:19px;
+	background-color:transparent;
+	background-image:url('cui_callout_icon.png');
+	background-repeat: no-repeat;
+}
+
+.classtree .nitobicombo .node .icon
+{
+	width:19px;
+	background-color:transparent;
+	background-image:url('cui_combobox_icon.png');
+	background-repeat: no-repeat;
+}
+
+.classtree .nitobifisheye .node .icon
+{
+	width:19px;
+	background-color:transparent;
+	background-image:url('cui_fisheye_icon.png');
+	background-repeat: no-repeat;
+}
+
+.classtree .nitobigrid .node .icon
+{
+	width:19px;
+	background-color:transparent;
+	background-image:url('cui_grid_icon.png');
+	background-repeat: no-repeat;
+}
+
+.classtree .nitobispotlight .node .icon
+{
+	width:19px;
+	background-color:transparent;
+	background-image:url('cui_spotlight_icon.png');
+	background-repeat: no-repeat;
+}
+
+.classtree .nitobitabstrip .node .icon
+{
+	width:19px;
+	background-color:transparent;
+	background-image:url('cui_tabstrip_icon.png');
+	background-repeat: no-repeat;
+}
+
+.classtree .nitobitreegrid .node .icon
+{
+	width:19px;
+	background-color:transparent;
+	background-image:url('cui_treegrid_icon.png');
+	background-repeat: no-repeat;
+}

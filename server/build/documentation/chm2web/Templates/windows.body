@@ -1,0 +1,477 @@
+;==============================================================================
+;
+; WINDOWS TEMPLATE BODY for chm2web software
+; by A!K Research Labs, 2002-2004
+; 
+; Supported help versions:
+; 
+;  Frames version :       supported
+:  No frames version :    not supported
+;  Mobile version :       not supported
+;
+;==============================================================================
+
+
+
+;====================================================
+;
+; Current template body information
+;
+;====================================================
+[BODY.INFO]
+
+NAME		= Windows Style Body
+Template body for chm2web software.
+
+AUTHOR		= A!K Research Labs
+Copyright(c) 2002-2004, All Rights Reserved
+
+TARGETS		= FRAMES
+Supported targets
+
+FORBUILD	= 120
+Required chm2web version (build)
+
+
+;====================================================
+;
+; Custom Fields
+; 
+; VARxxxxx - user can edit this fields
+; xxxxxxxx - fields with fixed values
+;
+;====================================================
+[OPEN.FIELDS]
+
+VARPAGECAPTION	= Web Online Help
+Help page caption
+
+VARCONTENTS	= Contents
+Contents button caption
+
+VARHOMEURL	= http://www.mycoolproduct.com
+Home page url
+
+VARHOMECAP	= Home
+Home button hint
+
+VARINDEX	= Index
+Index button caption
+
+VARPRINTCAP	= Print Page
+Print the current page
+
+VARNEXTCAP	= Next Page
+Next page button tool tip
+
+VARPREVCAP	= Prev Page
+Prev page button tool tip
+
+VARCONTENTSWIDTH= 250
+Left frame width
+
+HEADER.HEIGHT	= 30
+Header frame height
+
+VARSEARCH	= Search
+Search button caption
+
+INDEX.TREE	= No index
+
+
+;====================================================
+;
+; Template for Configuration Manager 
+; ("Template" chm2web tab)
+; 
+; All field names should begins with "var" keyword.
+;
+;====================================================
+
+[CONFIG.MANAGER]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+
+<META HTTP-EQUIV="MSThemeCompatible" CONTENT="yes">
+
+<HEAD>
+ <STYLE>
+   TD { font-family: Tahoma; font-size: 8pt}
+   SELECT { font-family: Tahoma; font-size: 8pt}
+   INPUT { font-family: Tahoma; font-size: 8pt}
+   .TRCAP { background-color: #000080; color: white }
+ </STYLE>
+</HEAD>
+
+<BODY BGCOLOR="#FBFAFB" SCROLL="no" topmargin="2" leftmargin="2">
+
+<table cellpadding="2" style="border-collapse: collapse" width="100%" BGCOLOR="#FBFAFB">
+    <tr class="TRCAP">
+     <td width="100%" nowrap ><b>Supported Targets:</td>
+     <td align="right" bgcolor="white" width=100 height=35 rowspan="2" valign="top" nowrap>
+       <img src="#TEMPLATES.FOLDER#logo/valid-html401.png" 
+       alt="Valid HTML 4.01!" height="31" width="88" border=0></td>
+    </tr>
+    <tr>
+      <td height="25">Frames and No frames version only</td>
+    </tr>
+</table>
+
+<table cellpadding="2" style="border-collapse: collapse" width="100%" BGCOLOR="#FBFAFB">
+    <tr class="TRCAP">
+      <td width="100%" colspan="2"><b>
+      General:</td>
+    </tr>
+    <tr>
+      <td width="16%">Help Title:</td>
+      <td width="84%"><input type="text" name="varPageCaption" size="75"></td>
+    </tr>
+    <tr>
+      <td colspan="2" width="100%">
+        Contents Frame Width:&nbsp;&nbsp;
+        <input type="text" name="varContentswidth" size="5"> pixels
+      </td>
+    </tr>
+
+    <tr class="TRCAP">
+      <td colspan="2"><b>
+      Captions:</td>
+    </tr>
+    <tr>
+      <td colspan="2"> Contents Button Caption:&nbsp;&nbsp;
+      <input type="text" name="varContents" size="30"></td>
+    </tr>
+    <tr>
+      <td colspan="2"> Index Button Caption:&nbsp;&nbsp;
+      <input type="text" name="varIndex" size="30"></td>
+    </tr>
+    <tr>
+      <td colspan="2"> Search Button Caption:&nbsp;&nbsp;
+      <input type="text" name="varSearch" size="30"></td>
+    </tr>
+    <tr>
+      <td colspan="2"> Home url:&nbsp;&nbsp;
+      <input type="text" name="varHomeUrl" size="30"></td>
+    </tr>
+
+    <tr class="TRCAP">
+      <td colspan="2"><b>
+      Tool Tips:</td>
+    </tr>
+
+    <tr>
+      <td colspan="2"> 
+        <table width="100%">
+        <tr width="50%">
+         <td colspan="2"> Home button:&nbsp;&nbsp;
+          <input type="text" name="varHomeCap" size="20"></td>
+         <td colspan="2"> Print button:&nbsp;&nbsp;
+          <input type="text" name="varPrintCap" size="20"></td>
+        </tr>
+        <tr width="50%">
+         <td colspan="2"> Prev button:&nbsp;&nbsp;
+          <input type="text" name="varPrevCap" size="20"></td>
+         <td colspan="2"> Next button:&nbsp;&nbsp;
+          <input type="text" name="varNextCap" size="20"></td>
+        </tr>
+        </table>
+      </td>
+    </tr>
+
+</table>
+  
+</BODY>
+
+</HTML>
+
+;==============================================================================
+;==============================================================================
+;==============================================================================
+;====================================================
+;
+; FRAMES VERSION TEMPLATES
+;
+;====================================================
+
+
+;====================================================
+;
+; Top Frame HTML Template (header frame)
+;
+;====================================================
+
+[PAGE.HEADER.BODY]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+
+<HEAD>
+ <TITLE>#VARPAGECAPTION#</TITLE>
+ <STYLE type="text/css">
+  BODY { margin: 0; border: none; padding: 2px }
+  TABLE { border-collapse: collapse; border: 0 }
+  .ti { font-family: Tahoma, Verdana; font-size: 8pt; font-weight: bold; text-decoration: none}
+ </STYLE>
+</HEAD>
+
+<BODY bgcolor="#BACKCOLOR#">   
+<TABLE cellpadding="2" cellspacing="0" bgcolor="#BACKCOLOR#" width="100%">
+ <TR>
+  <TD width="30">
+   <a target="_top" href="#VARHOMEURL#">
+     <IMG align="LEFT" width="23" height="21" src="files/home.gif" border="0" alt="#VARHOMECAP#"></a>
+  </TD>
+  <TD class="ti" nowrap>
+   <b><font size="4pt" color="#PAGECAPTION#">#VARPAGECAPTION#</font></b>
+  </TD>
+  <TD width=40 nowrap>
+   <IMG alt="#VARPRINTCAP#" align="LEFT" width="23" height="21" src="files/print.gif"
+         onMouseOver="this.style.cursor='hand';" 
+         onMouseOut="this.style.cursor='default';" 
+         onClick="#SCRIPT.PRINT#">
+  </TD>
+  <TD width="60">
+   <IMG alt="#VARPREVCAP#" align="LEFT" width="23" height="21" src="files/prev.gif"
+         onMouseOver="this.style.cursor='hand';" 
+         onMouseOut="this.style.cursor='default';" 
+         onClick="#SCRIPT.NAVIGATE.PREVPAGE#">
+   <IMG alt="#VARNEXTCAP#" align="LEFT" width="23" height="21" src="files/next.gif"
+         onMouseOver="this.style.cursor='hand';" 
+         onMouseOut="this.style.cursor='default';" 
+         onClick="#SCRIPT.NAVIGATE.NEXTPAGE#">
+  </TD>
+ </TR>
+</TABLE>
+</BODY>
+
+</HTML>
+
+
+;====================================================
+;
+; Header of Contents frame
+;
+;====================================================
+
+[HEADER.BODY]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+
+<HEAD>
+ <TITLE>#VARPAGECAPTION#</TITLE>
+ <STYLE type="text/css">
+	.tabatext {
+		font-weight: normal;		
+		font-size: 8pt;
+		font-family: Tahoma, Verdana;
+		vertical-align: top;
+		text-align: center;
+		word-wrap: normal;
+	 }
+	.tabitext {
+		font-weight: normal;		
+		font-size: 8pt;
+		font-family: Tahoma, Verdana;
+		vertical-align: middle;
+		text-align: center;
+		word-wrap: normal;
+	 }
+	BODY {margin: 3 2 3 3; padding: 0 };
+ </STYLE>
+</HEAD>
+
+<BODY bgcolor="#LEFTFRAMECOLOR#">
+
+<TABLE border="0" cellpadding="0" cellspacing="0" style="heigth:24">
+<TR>
+##CONTENTS_SELECTED_BEGIN##
+       <td rowspan="2" nowrap>
+         <img border="0" src="files/tabs/a1.gif" width="3" height="24" alt=""></td>
+       <td nowrap>
+         <img border="0" src="files/tabs/a2.gif" width="100%" height="5" alt=""></td>
+       <td rowspan="2" width="3" nowrap>
+         <img border="0" src="files/tabs/a3.gif" width="3" height="24" alt=""></td>  
+##CONTENTS_SELECTED_END##
+##CONTENTS_NOTSELECTED_BEGIN##
+       <td rowspan="2" nowrap>
+         <img border="0" src="files/tabs/a5.gif" width="3" height="24" alt=""></td>
+       <td nowrap>
+         <img border="0" src="files/tabs/a6.gif" width="100%" height="5" alt=""></td>
+       <td rowspan="2" width="3" nowrap>
+         <img border="0" src="files/tabs/a7.gif" width="3" height="24" alt=""></td>  
+##CONTENTS_NOTSELECTED_END##
+
+##INDEX_EXISTS_BEGIN##
+##INDEX_SELECTED_BEGIN##
+       <td rowspan="2" nowrap>
+         <img border="0" src="files/tabs/a1.gif" width="3" height="24" alt=""></td>
+       <td nowrap>
+         <img border="0" src="files/tabs/a2.gif" width="100%" height="5" alt=""></td>
+       <td rowspan="2" width="3" nowrap>
+         <img border="0" src="files/tabs/a3.gif" width="3" height="24" alt=""></td>  
+##INDEX_SELECTED_END##
+##INDEX_NOTSELECTED_BEGIN##
+       <td rowspan="2" nowrap>
+         <img border="0" src="files/tabs/a5.gif" width="3" height="24" alt=""></td>
+       <td nowrap>
+         <img border="0" src="files/tabs/a6.gif" width="100%" height="5" alt=""></td>
+       <td rowspan="2" width="3" nowrap>
+         <img border="0" src="files/tabs/a7.gif" width="3" height="24" alt=""></td>  
+##INDEX_NOTSELECTED_END##
+##INDEX_EXISTS_END##
+
+##SEARCH_SELECTED_BEGIN##
+       <td rowspan="2" nowrap>
+         <img border="0" src="files/tabs/a1.gif" width="3" height="24" alt=""></td>
+       <td nowrap>
+         <img border="0" src="files/tabs/a2.gif" width="100%" height="5" alt=""></td>
+       <td rowspan="2" width="3" nowrap>
+         <img border="0" src="files/tabs/a3.gif" width="3" height="24" alt=""></td>  
+##SEARCH_SELECTED_END##
+##SEARCH_NOTSELECTED_BEGIN##
+       <td rowspan="2" nowrap>
+         <img border="0" src="files/tabs/a5.gif" width="3" height="24" alt=""></td>
+       <td nowrap>
+         <img border="0" src="files/tabs/a6.gif" width="100%" height="5" alt=""></td>
+       <td rowspan="2" width="3" nowrap>
+         <img border="0" src="files/tabs/a7.gif" width="3" height="24" alt=""></td>  
+##SEARCH_NOTSELECTED_END##
+</TR>
+       
+<TR>    
+##CONTENTS_SELECTED_BEGIN##
+      <td height="19" bgcolor="#ABUTTONFACE#" class="tabatext" nowrap>
+	    <font color="#ABUTTONFACETXT#">&nbsp;#VARCONTENTS#&nbsp;</font></td>
+##CONTENTS_SELECTED_END##
+##CONTENTS_NOTSELECTED_BEGIN##
+      <td height="19" bgcolor="#IBUTTONFACE#" class="tabitext"
+        OnMouseOver="this.style.cursor='hand';"
+        OnMouseOut="this.style.cursor='default';"
+        OnClick="window.open('helpleftcon.html', 'hleftframe');return false;" nowrap>
+	    <a target="hleftframe" href="helpleftcon.html" style="text-decoration: none">
+	    <font color="#IBUTTONFACETXT#">&nbsp;#VARCONTENTS#&nbsp;</font></a></td>
+##CONTENTS_NOTSELECTED_END##
+
+##INDEX_EXISTS_BEGIN##
+##INDEX_SELECTED_BEGIN##
+      <td height="19" bgcolor="#ABUTTONFACE#" class="tabatext" nowrap>
+	    <font color="#ABUTTONFACETXT#">&nbsp;#VARINDEX#&nbsp;</font></td>
+##INDEX_SELECTED_END##
+##INDEX_NOTSELECTED_BEGIN##
+      <td height="19" bgcolor="#IBUTTONFACE#" class="tabitext"
+        OnMouseOver="this.style.cursor='hand';"
+        OnMouseOut="this.style.cursor='default';"
+        OnClick="window.open('helpleftind.html', 'hleftframe');return false;" nowrap>
+	    <a target="hleftframe" href="helpleftind.html" style="text-decoration: none">
+	    <font color="#IBUTTONFACETXT#">&nbsp;#VARINDEX#&nbsp;</font></a></td>
+##INDEX_NOTSELECTED_END##
+##INDEX_EXISTS_END##
+
+##SEARCH_SELECTED_BEGIN##
+      <td height="19" bgcolor="#ABUTTONFACE#" class="tabatext" nowrap>
+	    <font color="#ABUTTONFACETXT#">&nbsp;#VARSEARCH#&nbsp;</font></td>
+##SEARCH_SELECTED_END##
+##SEARCH_NOTSELECTED_BEGIN##
+      <td height="19" bgcolor="#IBUTTONFACE#" class="tabitext"
+        OnMouseOver="this.style.cursor='hand';"
+        OnMouseOut="this.style.cursor='default';"
+        OnClick="window.open('helpleftsch.html', 'hleftframe');return false;" nowrap>
+	    <a target="hleftframe" href="helpleftsch.html" style="text-decoration: none">
+	    <font color="#IBUTTONFACETXT#">&nbsp;#VARSEARCH#&nbsp;</font></a></td>     
+##SEARCH_NOTSELECTED_END##
+</TR>
+
+</TABLE>
+
+</BODY>
+</HTML>
+
+
+;====================================================
+;
+; Left Frame: Help Contents HTML Template
+;
+;====================================================
+
+[CONTENTS.BODY]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE>#VARPAGECAPTION#</TITLE>
+ </HEAD>
+ <BODY bgcolor="#LEFTBACKCOLOR#">
+    #CONTENTS.TREE#
+ </BODY>
+</HTML>
+
+;====================================================
+;
+; Left Frame: Help Index HTML Template
+;
+;====================================================
+
+[INDEX.BODY]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE>#VARPAGECAPTION#</TITLE>
+ </HEAD>
+ <BODY bgcolor="#LEFTBACKCOLOR#">
+    <p style="font-family: Tahoma, Verdana; font-size: 8pt"><b>Type in the keyword to find:</b></p>
+    #INDEX.TREE#
+ </BODY>
+</HTML>
+
+;====================================================
+;
+; Left Frame: Help Search HTML Template
+;
+;====================================================
+
+[SEARCH.BODY]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE>#VARPAGECAPTION#</TITLE>
+ </HEAD>
+ <BODY bgcolor="#LEFTBACKCOLOR#"> 
+    <p style="font-family: Tahoma, Verdana; font-size: 8pt"><b>Type in the word(s) to search for:</b></p>
+    #SEARCH.PAGE#
+ </BODY>
+</HTML>
+
+
+;====================================================
+;
+; Main Frameset Template (left frame + right frame)
+; Target file: index.html
+;
+; Standard frame names:
+;   for left frame (index & table of contents) : hleftframe
+;   for other space : mainframe
+;
+;====================================================
+
+[MAINFRAMESET.BODY]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+ <head>
+  <title>#VARPAGECAPTION#</title>
+
+  <frameset cols="#VARCONTENTSWIDTH#,*" bordercolor="#BACKCOLOR#">
+   <frame name="hleftframe" src="helpleftcon.html" scrolling="no">
+    <frameset rows="#HEADER.HEIGHT#,*">
+     <frame name="pheader" src="#PAGE.HEADER.FILE#">
+     <frame name="content" src="#START.FILE#">
+    </frameset>
+  </frameset>
+
+</html>
+
+

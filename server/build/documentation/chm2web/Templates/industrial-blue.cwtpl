@@ -1,0 +1,74 @@
+;==============================================================================
+;
+; INDUSTRIAL TEMPLATE SCHEME for chm2web software
+; by A!K Research Labs, 2002-2004
+;
+;==============================================================================
+
+
+[TEMPLATE.INFO]
+
+NAME		= Industrial Blue
+Template name
+
+BODY		= industrial.body
+Template body file name
+
+AUTHOR		= A!K Research Labs
+Copyright(c) 2002-2004, All Rights Reserved
+
+
+[OPEN.FIELDS]
+
+SCHEMECOLOR1	= #F5FAFC
+
+SCHEMECOLOR2    = #D2E8F2
+
+SCHEMECOLOR3	= #81A2B3
+
+SCHEMECOLOR4	= #113E71
+
+SCHEMECOLOR5	= #C60000
+Used for hyperlinks
+                        
+SCHEMECOLOR6	= #840000
+Used for highlighted hyperlinks
+
+ABUTTONTEXT	= white
+Active button text color
+
+ABUTTONFRAME    = white
+Active button frame color
+
+IBUTTONFACE	= #CCCCCC
+Inactive button color
+
+IBUTTONTEXT	= black
+Inactive button text color
+
+IBUTTONFRAME	= gray
+Inactive button frame color
+
+PAGECAPTION    = white
+Page caption text color
+
+
+
+;==============================================================================
+;
+; FILES TO COPY
+;
+; [F|N|M]:[target_image_name] = [source_image_name]
+;
+; F - only for frames version
+; N - only for noframes version
+; M - only for mobile version
+;
+;==============================================================================
+
+[COPY.FILES]
+
+files\       		= industrial\blue\*.*
+F:.\			= industrial\blue\html\*.*
+
+

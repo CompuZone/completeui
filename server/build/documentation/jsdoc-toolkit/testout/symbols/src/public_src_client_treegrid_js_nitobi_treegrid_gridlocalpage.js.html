@@ -1,0 +1,167 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<span class='line'>  2</span>  * @class Fixed-height grid that does not scroll that pages through client-side data.
+<span class='line'>  3</span>  * &lt;p>
+<span class='line'>  4</span>  * This paging mode would be used when you want to load all data at once from the server but you 
+<span class='line'>  5</span>  * don't want to show all rows at once and you do not want to go back to the server for paging 
+<span class='line'>  6</span>  * operations. 
+<span class='line'>  7</span>  * &lt;/p>
+<span class='line'>  8</span>  * &lt;p>
+<span class='line'>  9</span>  * &lt;b>Stretch&lt;/b>&lt;br/>
+<span class='line'> 10</span>  * 	Miniumum height of grid specified explicitly.&lt;br/>
+<span class='line'> 11</span>  * 	Maximum height of grid specified explicitly.&lt;br/> 
+<span class='line'> 12</span>  * 	Grid height stretches and shrinks to accomodate rows rendered.  
+<span class='line'> 13</span>  * 	If there are not enough rows to fill the grid (based on min height), a blank area will be present 
+<span class='line'> 14</span>  * 	Vertical scrollbar appears once max height has been exceeded.&lt;br/>
+<span class='line'> 15</span>  * &lt;/p>
+<span class='line'> 16</span>  * &lt;p>
+<span class='line'> 17</span>  * &lt;b>Client-side Data&lt;/b>&lt;br/>
+<span class='line'> 18</span>  * 	Data in the client-side datasource constitutes all the available records.  
+<span class='line'> 19</span>  * 	The grid renders a single page of data present in the client-side datasource that match the 
+<span class='line'> 20</span>  *  specified filter criteria.&lt;br/>
+<span class='line'> 21</span>  * 	Sorting is performed client-side.&lt;br/>
+<span class='line'> 22</span>  * 	Grid rows are rendered in multiple render operations (with each paging operation).&lt;br/>
+<span class='line'> 23</span>  * 	Data is loaded once.&lt;br/> 
+<span class='line'> 24</span>  * 	Allows for static client-side XML and loadXML() 
+<span class='line'> 25</span>  * &lt;/p>
+<span class='line'> 26</span>  * &lt;p>
+<span class='line'> 27</span>  * &lt;b>Client-side Paging&lt;/b>&lt;br/>
+<span class='line'> 28</span>  * 	Paging operations DO NOT request data from server.&lt;br/>
+<span class='line'> 29</span>  * 	Client-side data is kept across paging requests.&lt;br/> 
+<span class='line'> 30</span>  * 	Rendered rows are purged before each paging request.&lt;br/> 
+<span class='line'> 31</span>  * &lt;/p>
+<span class='line'> 32</span>  * @constructor
+<span class='line'> 33</span>  * @param {String} uid The unique ID of the Grid.
+<span class='line'> 34</span>  */</span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="NAME">nitobi.grid.GridLocalPage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">uid</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.grid.GridLocalPage.baseConstructor.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">uid</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="WHIT">	</span><span class="NAME">this.mode</span><span class="PUNC">=</span><span class="STRN">"localpaging"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="COMM">//	this.PagingMode="standard";	//0 - None | 1 - Standard | 2 - LiveScrolling</span><span class="WHIT">
+<span class='line'> 39</span> </span><span class="WHIT">	</span><span class="NAME">this.setPagingMode</span><span class="PUNC">(</span><span class="NAME">nitobi.grid.PAGINGMODE_STANDARD</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="COMM">//	this.DataMode="local";		//0 - Local | 1 - Remote | 2 - Caching</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="COMM">// TODO: ensure that properties with setters are using the setters</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">	</span><span class="NAME">this.setDataMode</span><span class="PUNC">(</span><span class="STRN">'local'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">		</span><span class="COMM">//0 - Local | 1 - Remote | 2 - Caching</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="NAME">nitobi.lang.extend</span><span class="PUNC">(</span><span class="NAME">nitobi.grid.GridLocalPage</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">nitobi.grid.TreeGrid</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 45</span> 
+<span class='line'> 46</span> </span><span class="NAME">nitobi.grid.GridLocalPage.prototype.createChildren</span><span class="PUNC">=</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 47</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">args</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">arguments</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 48</span> 
+<span class='line'> 49</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.grid.GridLocalPage.base.createChildren.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="NAME">args</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 50</span> 
+<span class='line'> 51</span> </span><span class="WHIT">	</span><span class="COMM">// Enable paging toolbar</span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">	</span><span class="COMM">// This should be done only if there is a toolbar</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.grid.GridLiveScrolling.base.createToolbars.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="NAME">nitobi.ui.Toolbars.VisibleToolbars.STANDARD</span><span class="WHIT"> </span><span class="PUNC">|</span><span class="WHIT"> </span><span class="NAME">nitobi.ui.Toolbars.VisibleToolbars.PAGING</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">	</span><span class="COMM">// Attach events</span><span class="WHIT">
+<span class='line'> 56</span> </span><span class="WHIT">	</span><span class="NAME">this.toolbars.subscribe</span><span class="PUNC">(</span><span class="STRN">"NextPage"</span><span class="PUNC">,</span><span class="NAME">nitobi.lang.close</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="NAME">this.pageNext</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="WHIT">	</span><span class="NAME">this.toolbars.subscribe</span><span class="PUNC">(</span><span class="STRN">"PreviousPage"</span><span class="PUNC">,</span><span class="NAME">nitobi.lang.close</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="NAME">this.pagePrevious</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="WHIT">	</span><span class="NAME">this.subscribe</span><span class="PUNC">(</span><span class="STRN">"EndOfData"</span><span class="PUNC">,</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">pct</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="NAME">this.toolbars.pagingToolbar.getUiElements</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">[</span><span class="STRN">"nextPage"</span><span class="PUNC">+</span><span class="NAME">this.toolbars.uid</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">disable</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="WHIT">	</span><span class="NAME">this.subscribe</span><span class="PUNC">(</span><span class="STRN">"TopOfData"</span><span class="PUNC">,</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">pct</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="NAME">this.toolbars.pagingToolbar.getUiElements</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">[</span><span class="STRN">"previousPage"</span><span class="PUNC">+</span><span class="NAME">this.toolbars.uid</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">disable</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 60</span> </span><span class="WHIT">	</span><span class="NAME">this.subscribe</span><span class="PUNC">(</span><span class="STRN">"NotTopOfData"</span><span class="PUNC">,</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">pct</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="NAME">this.toolbars.pagingToolbar.getUiElements</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">[</span><span class="STRN">"previousPage"</span><span class="PUNC">+</span><span class="NAME">this.toolbars.uid</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">enable</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="WHIT">	</span><span class="NAME">this.subscribe</span><span class="PUNC">(</span><span class="STRN">"NotEndOfData"</span><span class="PUNC">,</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">pct</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="NAME">this.toolbars.pagingToolbar.getUiElements</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">[</span><span class="STRN">"nextPage"</span><span class="PUNC">+</span><span class="NAME">this.toolbars.uid</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">enable</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 62</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 63</span> 
+<span class='line'> 64</span> </span><span class="NAME">nitobi.grid.GridLocalPage.prototype.pagePrevious</span><span class="PUNC">=</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 65</span> </span><span class="WHIT">	</span><span class="NAME">this.fire</span><span class="PUNC">(</span><span class="STRN">"BeforeLoadPreviousPage"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="WHIT">	</span><span class="NAME">this.loadDataPage</span><span class="PUNC">(</span><span class="NAME">Math.max</span><span class="PUNC">(</span><span class="NAME">this.getCurrentPageIndex</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">,</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 67</span> </span><span class="WHIT">	</span><span class="NAME">this.fire</span><span class="PUNC">(</span><span class="STRN">"AfterLoadPreviousPage"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 69</span> 
+<span class='line'> 70</span> </span><span class="NAME">nitobi.grid.GridLocalPage.prototype.pageNext</span><span class="PUNC">=</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="WHIT">	</span><span class="NAME">this.fire</span><span class="PUNC">(</span><span class="STRN">"BeforeLoadNextPage"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 72</span> </span><span class="WHIT">	</span><span class="NAME">this.loadDataPage</span><span class="PUNC">(</span><span class="NAME">this.getCurrentPageIndex</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="WHIT">	</span><span class="NAME">this.fire</span><span class="PUNC">(</span><span class="STRN">"AfterLoadNextPage"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 75</span> </span><span class="NAME">nitobi.grid.GridLocalPage.prototype.loadDataPage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">newPageNumber</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 76</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 77</span> </span><span class="WHIT">	</span><span class="COMM">// Clear the selection if there is one.</span><span class="WHIT">
+<span class='line'> 78</span> </span><span class="WHIT">	</span><span class="NAME">this.fire</span><span class="PUNC">(</span><span class="STRN">'BeforeLoadDataPage'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 79</span> 
+<span class='line'> 80</span> </span><span class="WHIT">	</span><span class="COMM">//	Check if the newPageNumber is greater than -1</span><span class="WHIT">
+<span class='line'> 81</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">newPageNumber</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 82</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 83</span> </span><span class="WHIT">		</span><span class="NAME">this.setCurrentPageIndex</span><span class="PUNC">(</span><span class="NAME">newPageNumber</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 84</span> </span><span class="WHIT">		</span><span class="NAME">this.setDisplayedRowCount</span><span class="PUNC">(</span><span class="NAME">this.getRowsPerPage</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 85</span> 
+<span class='line'> 86</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT">	</span><span class="NAME">startRow</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.getCurrentPageIndex</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">*</span><span class="NAME">this.getRowsPerPage</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">//freezeTop not supported in standard paging (cuz how would that work? what rows would be frozen?)</span><span class="WHIT">
+<span class='line'> 87</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">rows</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.getRowsPerPage</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">-</span><span class="NAME">this.getfreezetop</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 88</span> </span><span class="WHIT">		</span><span class="NAME">this.setDisplayedRowCount</span><span class="PUNC">(</span><span class="NAME">rows</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 89</span> </span><span class="COMM">//		The -1 part causes EndOfData not to fire when we have pagesize = 20 and exactly 40 rows</span><span class="WHIT">
+<span class='line'> 90</span> </span><span class="COMM">//		var endRow = startRow+rows-1;</span><span class="WHIT">
+<span class='line'> 91</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">endRow</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">startRow</span><span class="PUNC">+</span><span class="NAME">rows</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 92</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">endRow</span><span class="PUNC">>=</span><span class="NAME">this.getRowCount</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 93</span> </span><span class="WHIT">			</span><span class="NAME">this.fire</span><span class="PUNC">(</span><span class="STRN">"EndOfData"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 94</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 95</span> </span><span class="WHIT">			</span><span class="NAME">this.fire</span><span class="PUNC">(</span><span class="STRN">"NotEndOfData"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 96</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 97</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">startRow</span><span class="PUNC">==</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 98</span> </span><span class="WHIT">			</span><span class="NAME">this.fire</span><span class="PUNC">(</span><span class="STRN">"TopOfData"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 99</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>100</span> </span><span class="WHIT">			</span><span class="NAME">this.fire</span><span class="PUNC">(</span><span class="STRN">"NotTopOfData"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>101</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>102</span> </span><span class="WHIT">		</span><span class="NAME">this.clearSurfaces</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>103</span> </span><span class="WHIT">		</span><span class="NAME">this.updateCellRanges</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>104</span> </span><span class="WHIT">		</span><span class="NAME">this.scrollVertical</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>105</span> 
+<span class='line'>106</span> </span><span class="COMM">//		this.Scroller.view.midcenter.renderGap(startRow, endRow, false);</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>109</span> 
+<span class='line'>110</span> </span><span class="WHIT">	</span><span class="COMM">// Resize the grid if necessary, show/hide scrollbars</span><span class="WHIT">
+<span class='line'>111</span> </span><span class="WHIT">	</span><span class="COMM">// Set focus to topleft cell</span><span class="WHIT">
+<span class='line'>112</span> </span><span class="WHIT">	</span><span class="NAME">this.fire</span><span class="PUNC">(</span><span class="STRN">'AfterLoadDataPage'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>113</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>114</span> 
+<span class='line'>115</span> </span><span class="COMM">// PAGING MEMBERS</span><span class="WHIT">
+<span class='line'>116</span> </span><span class="NAME">nitobi.grid.GridLocalPage.prototype.setRowsPerPage</span><span class="PUNC">=</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">rows</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>117</span> </span><span class="WHIT">	</span><span class="COMM">// </span><span class="WHIT">
+<span class='line'>118</span> </span><span class="WHIT">	</span><span class="NAME">this.setDisplayedRowCount</span><span class="PUNC">(</span><span class="NAME">this.getRowsPerPage</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>119</span> </span><span class="WHIT">	</span><span class="NAME">this.data.table.pageSize</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.getRowsPerPage</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>120</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>121</span> </span><span class="NAME">nitobi.grid.GridLocalPage.prototype.pageStartIndexChanges</span><span class="PUNC">=</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>122</span> </span><span class="WHIT">	</span><span class="COMM">// Clear surfaces</span><span class="WHIT">
+<span class='line'>123</span> </span><span class="WHIT">	</span><span class="COMM">// Get page of xml (based on current sort and filter criteria)</span><span class="WHIT">
+<span class='line'>124</span> </span><span class="WHIT">	</span><span class="COMM">// Re-render data</span><span class="WHIT">
+<span class='line'>125</span> </span><span class="PUNC">}</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="NAME">nitobi.grid.GridLocalPage.prototype.hitFirstPage</span><span class="PUNC">=</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>127</span> </span><span class="WHIT">	</span><span class="NAME">this.fire</span><span class="PUNC">(</span><span class="STRN">"FirstPage"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>128</span> </span><span class="PUNC">}</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>129</span> </span><span class="NAME">nitobi.grid.GridLocalPage.prototype.hitLastPage</span><span class="PUNC">=</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>130</span> </span><span class="WHIT">	</span><span class="NAME">this.fire</span><span class="PUNC">(</span><span class="STRN">"LastPage"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>131</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>132</span> </span><span class="NAME">nitobi.grid.GridLocalPage.prototype.bind</span><span class="PUNC">=</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>133</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>134</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.grid.GridLocalPage.base.bind.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>135</span> 
+<span class='line'>136</span> </span><span class="WHIT">	</span><span class="COMM">// TODO: if we have created the datasource and loaded it with data BEFORE connecting to it</span><span class="WHIT">
+<span class='line'>137</span> </span><span class="WHIT">	</span><span class="COMM">// the rowcount changed events etc will not have propagated to the Grid and so we will</span><span class="WHIT">
+<span class='line'>138</span> </span><span class="WHIT">	</span><span class="COMM">// have an incorrect row count.</span><span class="WHIT">
+<span class='line'>139</span> </span><span class="WHIT">	</span><span class="NAME">this.finalizeRowCount</span><span class="PUNC">(</span><span class="NAME">this.datatable.getRemoteRowCount</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>140</span> </span><span class="WHIT">	</span><span class="NAME">this.bindComplete</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>141</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>142</span> 
+<span class='line'>143</span> </span><span class="COMM">//PageUp-PageDown Keys</span><span class="WHIT">
+<span class='line'>144</span> </span><span class="NAME">nitobi.grid.GridLocalPage.prototype.pageUpKey</span><span class="PUNC">=</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>145</span> </span><span class="WHIT">	</span><span class="NAME">this.pagePrevious</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>146</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>147</span> </span><span class="NAME">nitobi.grid.GridLocalPage.prototype.pageDownKey</span><span class="PUNC">=</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="WHIT">	</span><span class="NAME">this.pageNext</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>149</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>150</span> 
+<span class='line'>151</span> 
+<span class='line'>152</span> </span><span class="WHIT">    </span><span class="NAME">nitobi.grid.GridLocalPage.prototype.renderMiddle</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>153</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>154</span> </span><span class="WHIT">		</span><span class="NAME">nitobi.grid.GridLocalPage.base.renderMiddle.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="NAME">arguments</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>155</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">startRow</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.getfreezetop</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>156</span> </span><span class="WHIT">		</span><span class="NAME">endRow</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.getRowsPerPage</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>157</span> </span><span class="WHIT">		</span><span class="NAME">this.Scroller.view.midcenter.renderGap</span><span class="PUNC">(</span><span class="NAME">startRow</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">endRow</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>158</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="WHIT">  </span><span class="WHIT">
+<span class='line'>160</span> </span></pre></body></html>

@@ -1,0 +1,139 @@
+<html>
+<head>
+<title>Nitobi Tree Grid Tag Translator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=">
+<script language="text/javascipt" src="../Shared/Nitobi/NitobiUtility.js"></script>
+<script language="JavaScript">
+var DEFAULTHEIGHT = "300px";
+var DEFAULTWIDTH = "700px";
+function getTranslatorInfo()
+{
+	var translatorInfo = new Array(6);
+	
+	translatorInfo[0] = "NTB_TREEGRID";
+	translatorInfo[1] = "Nitobi Tree Grid";
+	translatorInfo[2] = "0";
+	translatorInfo[3] = "1";
+	translatorInfo[4] = "<ntb:treegrid";
+	translatorInfo[5] = "byExpression";
+	return translatorInfo;
+}
+
+function translateMarkup(docNameStr, siteRootStr, inStr)
+{
+	var outStr = "";
+	var replCode = "";
+	var start = inStr.indexOf("<ntb:treegrid");
+	var end = inStr.indexOf("</ntb:treegrid>");
+
+	// If the string to translate is empty, do nothing.
+	if (inStr.length <= 0)
+	{
+		return "";
+	}
+	
+	while (start != -1)
+	{
+		outStr = inStr.substring(0,start);
+		replCode = constructLockedMarkup(inStr.substring(start, end+15));
+		outStr = outStr + replCode;
+		outStr = outStr + inStr.substring(end+15);
+		inStr = outStr;
+		start = inStr.indexOf("<ntb:treegrid");
+		end = inStr.indexOf("</ntb:treegrid>");
+	}
+	return outStr;
+}
+
+function constructLockedMarkup(declaration)
+{
+	var startMarkup = "<MM:BeginLock translatorClass=\"NTB_TREEGRID\" type=\"ntb:treegrid\" orig=\"" + escape(declaration) + "\">";
+	var endMarkup = "<" + "MM:EndLock>";
+	var grid = nitobi.util.getTag(declaration, "ntb:treegrid", 0);
+	var height = nitobi.util.getAttribute(grid, "height");
+	var width = nitobi.util.getAttribute(grid, "width");
+	if (height.indexOf("px") == -1)
+	{
+		height += "px";
+	}
+	if (width.indexOf("px") == -1)
+	{
+		width += "px";
+	}
+	var toolbar = nitobi.util.getAttribute(grid, "toolbarenabled");
+	var mode = nitobi.util.getAttribute(grid, "mode");
+	var rowsperpage = nitobi.util.getAttribute(grid, "rowsperpage");
+	var theme = nitobi.util.getAttribute(grid, "theme");
+	var rootcolumnsid = nitobi.util.getAttribute(grid, "rootcolumns");
+		
+	var content = "";
+	content += "<div class='ntb-grid ntb-grid-reset " + (theme != null?theme:'nitobi') + "' style='overflow:hidden;";
+	content += "width:" + (width?width:DEFAULTWIDTH) + ";";
+	content += "height:" + (height?height:DEFAULTHEIGHT) + ";'>"
+	content += "<div style='height:" + (height?parseInt(height) - 23 + "px":parseInt(DEFAULTHEIGHT) - 23 + "px") + ";'>";
+	content += "<table cellspacing='0' cellpadding='0' border='0'>";
+	content += "<thead>";
+	content += "<tr>";
+	
+	var columns = declaration.match(/<ntb:(?:text|date|number)column.*?>[\s\S]*?<\/ntb:(?:text|date|number)column>/gi);
+	//var columnsMatch = new RegExp("<ntb:columns id=\"" + rootcolumnsid + "\"[\\s\\w\\W]*?>\s*(<ntb:(?:expand|text|date|number)column.*?>[\\s\\W]*?<\/
+	if (columns != null)
+	{
+		for (var i = 0; i < columns.length; i++)
+		{
+			var column = columns[i];
+			var width = nitobi.util.getAttribute(column, "width");
+			var label = nitobi.util.getAttribute(column, "label");
+			content += "<td class='ntb-column-indicator-border' style='padding-right:1px;height:19px;padding-left:4px;padding-top:3px;";
+			content += (width?"width:" + parseInt(width) + "px" + ";":"width:100px;");
+			content += "'>";
+			content += (label?label:"Column");
+			content += "</td>";
+		}
+	}
+	content += "</tr>";
+	content += "</thead>";
+	content += "<tbody>";
+	if (columns != null)
+	{
+		var row = "";
+		for (var j = 0; j < columns.length; j++)
+		{
+			row += "<td class='ntb-cell-border' style='margin:0px;overflow:hidden;white-space:nowrap;border-bottom:1px solid #C0C0C0;border-right:1px solid #C0C0C0;height:19px;padding-left:4px;padding-top:3px;'>";
+			row += "abc";
+			row += "</td>";
+		}
+		// The number of rows to render will depend on the height of the Grid.
+		var rowcount = Math.floor(parseInt((height?height:DEFAULTHEIGHT))/23) - 1;
+		for (var i = 0; i < rowcount; i++)
+		{
+			content += "<tr class='ntb-row'>";
+			content += row;
+			content += "</tr>";
+		}
+	}
+	content += "</tbody>";
+	content += "</table>";
+	content += "</div>";
+	if (toolbar == "true" || toolbar == null)
+	{
+		content += "<div class='ntb-toolbar' style='height:23px;display:block;'>";
+		content += "<img border='0' style='float:left;margin-left:10px;margin-top:3.5px;margin-bottom:0px;' src='Nitobi/Assets/style/grid/nitobi/toolbar/default/save.gif'/>";
+		content += "<img border='0' style='float:left;margin-left:10px;margin-top:5px;margin-bottom:0px;' src='Nitobi/Assets/style/grid/nitobi/toolbar/default/newrecord.gif'/>";
+		content += "<img border='0' style='float:left;margin-left:10px;margin-top:5px;margin-bottom:0px;' src='Nitobi/Assets/style/grid/nitobi/toolbar/default/deleterecord.gif'/>";
+		content += "<img border='0' style='float:left;margin-left:10px;margin-top:5px;margin-bottom:0px;' src='Nitobi/Assets/style/grid/nitobi/toolbar/default/refresh.gif'/>";
+		if (mode == "standard" || mode == "localstandard" || mode == "pagedlivescrolling")
+		{
+			content += "<img border='0' style='float:right;margin-right:10px;margin-top:5px;margin-bottom:0px;' src='Nitobi/Assets/style/grid/nitobi/toolbar/default/right.gif'/>";
+			content += "<img border='0' style='float:right;margin-right:10px;margin-top:5px;margin-bottom:0px;' src='Nitobi/Assets/style/grid/nitobi/toolbar/default/left.gif'/>";
+		}
+		content += "</div>";
+	}
+	content += "</div>";
+	return startMarkup + content + endMarkup;
+}
+</script>
+</head>
+<body>
+</body>
+</html>

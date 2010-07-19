@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>javaGridSamples</display-name>
+	
+	<!-- ********************************** -->
+	<!-- Complex Tree Servlet -->
+	<!-- ********************************** -->
+	<servlet>
+		<servlet-name>ComplexTree</servlet-name>
+		<servlet-class>examples.tree.complex.TreeHandler</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ComplexTree</servlet-name>
+		<url-pattern>/tree/java/complex/get</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ********************************** -->
+	<!-- Simple Tree Servlet -->
+	<!-- ********************************** -->
+	<servlet>
+		<servlet-name>SimpleTree</servlet-name>
+		<servlet-class>examples.tree.simple.TreeHandler</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>SimpleTree</servlet-name>
+		<url-pattern>/tree/java/simple/get</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ********************************** -->
+	<!-- Unicode Combo Servlet -->
+	<!-- ********************************** -->
+	<servlet>
+		<servlet-name>UnicodeCombo</servlet-name>
+		<servlet-class>examples.combo.unicode.ComboHandler</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>UnicodeCombo</servlet-name>
+		<url-pattern>/combo/java/unicode/get</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ********************************** -->
+	<!-- SmartSearch Mode Combo Servlet -->
+	<!-- ********************************** -->
+	<servlet>
+		<servlet-name>SmartSearchCombo</servlet-name>
+		<servlet-class>examples.combo.smartsearch.ComboHandler</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>SmartSearchCombo</servlet-name>
+		<url-pattern>/combo/java/smartsearch/get</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ********************************** -->
+	<!-- SmartList Mode Combo Servlet -->
+	<!-- ********************************** -->
+	<servlet>
+		<servlet-name>SmartListCombo</servlet-name>
+		<servlet-class>examples.combo.smartlist.ComboHandler</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>SmartListCombo</servlet-name>
+		<url-pattern>/combo/java/smartlist/get</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ********************************** -->
+	<!-- Compact Mode Combo Servlet -->
+	<!-- ********************************** -->
+	<servlet>
+		<servlet-name>FilterCombo</servlet-name>
+		<servlet-class>examples.combo.filter.ComboHandler</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>FilterCombo</servlet-name>
+		<url-pattern>/combo/java/filter/get</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ********************************** -->
+	<!-- Compact Mode Combo Servlet -->
+	<!-- ********************************** -->
+	<servlet>
+		<servlet-name>CompactCombo</servlet-name>
+		<servlet-class>examples.combo.compact.ComboHandler</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>CompactCombo</servlet-name>
+		<url-pattern>/combo/java/compact/get</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ********************************** -->
+	<!-- Classic Mode Combo Servlet -->
+	<!-- ********************************** -->
+	<servlet>
+		<servlet-name>ClassicCombo</servlet-name>
+		<servlet-class>examples.combo.classic.ComboHandler</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ClassicCombo</servlet-name>
+		<url-pattern>/combo/java/classic/get</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ********************************** -->
+	<!-- Basic Combo Servlet -->
+	<!-- ********************************** -->
+	<servlet>
+		<servlet-name>BasicCombo</servlet-name>
+		<servlet-class>examples.combo.basic.ComboHandler</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>BasicCombo</servlet-name>
+		<url-pattern>/combo/java/basic/get</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ********************************** -->
+	<!-- Combo Menu Servlet -->
+	<!-- ********************************** -->
+	<servlet>
+		<servlet-name>ComboMenu</servlet-name>
+		<servlet-class>examples.combo.menus.ComboHandler</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ComboMenu</servlet-name>
+		<url-pattern>/combo/java/menus/get</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ********************************** -->
+	<!-- Linked ComboServlet -->
+	<!-- ********************************** -->
+	<servlet>
+		<servlet-name>MasterCombo</servlet-name>
+		<servlet-class>examples.combo.linked.MasterHandler</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>MasterCombo</servlet-name>
+		<url-pattern>/combo/java/linkedCombos/master</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>DetailCombo</servlet-name>
+		<servlet-class>examples.combo.linked.DetailHandler</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>DetailCombo</servlet-name>
+		<url-pattern>/combo/java/linkedCombos/detail</url-pattern>
+	</servlet-mapping>
+	<!-- ********************************** -->
+	<!-- Combo Events Servlet -->
+	<!-- ********************************** -->
+	<servlet>
+		<servlet-name>ComboEvent</servlet-name>
+		<servlet-class>examples.combo.events.ComboHandler</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ComboEvent</servlet-name>
+		<url-pattern>/combo/java/comboEvents/get</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ********************************** -->
+	<!-- Showall Data Grid Servlets -->
+	<!-- ********************************** -->
+	<servlet>
+		<servlet-name>ShowAllGet</servlet-name>
+		<servlet-class>examples.grid.showall.ShowAllGetHandler</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ShowAllGet</servlet-name>
+		<url-pattern>/grid/java/showall/get</url-pattern>
+	</servlet-mapping>
+	<!-- ********************************** -->
+	<!-- Remote Data Grid Servlets -->
+	<!-- ********************************** -->
+	<servlet>
+		<servlet-name>RemoteGet</servlet-name>
+		<servlet-class>examples.grid.remotedata.RemoteGetHandler</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>RemoteGet</servlet-name>
+		<url-pattern>/grid/java/remotedata/get</url-pattern>
+	</servlet-mapping>
+	<!-- ********************************** -->
+	<!-- Paging Grid Servlets -->
+	<!-- ********************************** -->
+	<servlet>
+		<servlet-name>PagingGet</servlet-name>
+		<servlet-class>examples.grid.paging.PagingGetHandler</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>PagingSave</servlet-name>
+		<servlet-class>examples.grid.paging.PagingSaveHandler</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>PagingGet</servlet-name>
+		<url-pattern>/grid/java/paging/get</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>PagingSave</servlet-name>
+		<url-pattern>/grid/java/paging/save</url-pattern>
+	</servlet-mapping>
+	<!-- ********************************** -->
+	<!-- Master Detail Servlets -->
+	<!-- ********************************** -->
+	<servlet>
+		<servlet-name>MasterGet</servlet-name>
+		<servlet-class>examples.grid.masterdetail.MasterGetHandler</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>DetailGet</servlet-name>
+		<servlet-class>examples.grid.masterdetail.DetailGetHandler</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>MasterGet</servlet-name>
+		<url-pattern>/grid/java/masterdetail/master</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DetailGet</servlet-name>
+		<url-pattern>/grid/java/masterdetail/detail</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ********************************** -->
+	<!-- Editors Grid Servlets -->
+	<!-- ********************************** -->
+	<servlet>
+		<servlet-name>EditorsGrid</servlet-name>
+		<servlet-class>examples.grid.editors.GridHandler</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>EditorsLookup</servlet-name>
+		<servlet-class>examples.grid.editors.LookupHandler</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>EditorsGrid</servlet-name>
+		<url-pattern>/grid/java/editors/get</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>EditorsLookup</servlet-name>
+		<url-pattern>/grid/java/editors/lookup</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ********************************** -->
+	<!-- Livescrolling Grid Servlets -->
+	<!-- ********************************** -->
+	<servlet>
+		<servlet-name>LivescrollingGet</servlet-name>
+		<servlet-class>examples.grid.livescrolling.GridGetHandler</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>LivescrollingSave</servlet-name>
+		<servlet-class>examples.grid.livescrolling.GridSaveHandler</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>LivescrollingGet</servlet-name>
+		<url-pattern>/grid/java/livescrolling/get</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LivescrollingSave</servlet-name>
+		<url-pattern>/grid/java/livescrolling/save</url-pattern>
+	</servlet-mapping>
+	
+	
+</web-app>

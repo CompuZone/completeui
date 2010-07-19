@@ -1,0 +1,24 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<span class='line'>  2</span>  * @constructor
+<span class='line'>  3</span>  * @extends nitobi.grid.Column
+<span class='line'>  4</span>  */</span><span class="WHIT">
+<span class='line'>  5</span> </span><span class="NAME">nitobi.grid.DateColumn</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">grid</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">column</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">surface</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>  6</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>  7</span> </span><span class="WHIT">	</span><span class="COMM">//	Call the base constructor</span><span class="WHIT">
+<span class='line'>  8</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.grid.DateColumn.baseConstructor.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">grid</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">column</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">surface</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  9</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 10</span> 
+<span class='line'> 11</span> </span><span class="NAME">nitobi.lang.extend</span><span class="PUNC">(</span><span class="NAME">nitobi.grid.DateColumn</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">nitobi.grid.Column</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 12</span> 
+<span class='line'> 13</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ntb_datep</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.grid.DateColumn.prototype</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="NAME">ntb_datep.setMask</span><span class="PUNC">=</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="NAME">this.xSET</span><span class="PUNC">(</span><span class="STRN">"Mask"</span><span class="PUNC">,</span><span class="NAME">arguments</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 15</span> </span><span class="NAME">ntb_datep.getMask</span><span class="PUNC">=</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.xGET</span><span class="PUNC">(</span><span class="STRN">"Mask"</span><span class="PUNC">,</span><span class="NAME">arguments</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 16</span> </span><span class="NAME">ntb_datep.setCalendarEnabled</span><span class="PUNC">=</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="NAME">this.xSET</span><span class="PUNC">(</span><span class="STRN">"CalendarEnabled"</span><span class="PUNC">,</span><span class="NAME">arguments</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 17</span> </span><span class="NAME">ntb_datep.isCalendarEnabled</span><span class="PUNC">=</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">nitobi.lang.toBool</span><span class="PUNC">(</span><span class="NAME">this.xGET</span><span class="PUNC">(</span><span class="STRN">"CalendarEnabled"</span><span class="PUNC">,</span><span class="NAME">arguments</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="PUNC">}</span></pre></body></html>

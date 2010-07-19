@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- This is a build file to generate the tag library descriptor file
+for custom Nitobi JSP Tags
+-->
+
+<project default="taglib">
+	<path id="xdoclet-path">
+		<fileset dir="../lib/">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	
+	<taskdef 
+		name="webdoclet"
+		classname="xdoclet.modules.web.WebDocletTask"
+		classpathref="xdoclet-path"/>
+	
+	<target name="taglib">
+		<webdoclet destDir="../web/WEB-INF/jsp">
+			<fileset dir="../src">
+				<include name="**/*.java"/>
+			</fileset>
+			<jsptaglib filename="nitobi-taglib.tld" uri="http://www.nitobi.com"
+				shortname="nitobi" description="The Taglib for Nitobi Components"/>
+		</webdoclet>
+	</target>
+</project>
+		

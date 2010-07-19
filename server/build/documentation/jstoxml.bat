@@ -1,0 +1,1 @@
+grep -e ".*\.prototype.*" %1 | sed -e "s/.*e\./<function name='/g" -e "s/\s=\sfunction/'>/g" -e "s/= function/'>/g"  -e "s/()/<\/function>/g" -e "s/(/<param name='/g" -e "s/,\s/'\/><param name='/g" -e "s/,/'\/><param name='/g" -e "s/)/'><function>/g" -e "s/.*GET.*//g" -e "s/.*SET.*//g" -e "s/{//g" > %2

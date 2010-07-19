@@ -1,0 +1,162 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#stage .col2 div.selected {
+	display: block;
+}
+
+#stage .col2 div {
+	display: none;
+}
+/*
+#products #demo {
+	vertical-align: middle;
+}
+
+#demo-container {
+	vertical-align: middle;
+	background-color: #ffffff;
+}
+*/
+
+/* for wordpress navigation */
+
+.col1 .navigation div {
+	font-size: 12px;
+	margin-bottom: 10px;
+}
+
+.alignleft {
+	float: left;
+	margin-right: 15px;
+}
+
+.alignright {
+}
+
+.ntb-grid-scroller {
+	background-color: #ffffff;	
+}
+
+#placeholder {
+	padding: 8px;
+}
+
+p.main {
+	font-size: 1.3em; /* 13px */
+	line-height: 1.8462; /* 24px */
+}
+
+.customer-list-page ul {
+	float: left;
+	width: 28%;
+	margin-right: 5%;
+}
+.customer-list-page li {
+	background: none;
+	padding: 0;
+	margin: 0 0 0.2em 0;
+}
+
+#blurbs div {
+	display: none;
+}
+
+#blurbs div.selected {
+	display: block;
+}
+
+#support_table {
+	font-size: 1.3em;
+	line-height: 1.8462;
+	width: 80%;
+}
+
+#support_table td {
+	padding: 0.2em;
+}
+
+#support_table th {
+	padding: 0.2em;
+	text-align: left;
+}
+
+
+/* google custom search panel */
+.col1 .gsc-resultsHeader, .col1 form.gsc-search-box, .gs-visibleUrl-short {
+	display: none;
+}
+
+.gs-watermark, .gs-visibleUrl-long {
+	display: inline;
+	margin-left: 10px;
+}
+
+#searchcontrol {
+	line-height: 2;
+}
+
+.gsc-cursor-page {
+	display: inline;
+	margin-right: 3px;
+	color: #BA3826;
+	cursor: pointer;
+}
+
+.gsc-webResult {
+	margin: 0 0 0.5em 0;
+}
+
+.gs-title {
+	margin-top: 15px;
+}
+
+.gs-title a {
+	-x-system-font:none;
+	color:#4C6D8D;
+	font-family:Helvetica,Arial,sans-serif;
+	font-size:1.4em;
+	font-size-adjust:none;
+	font-stretch:normal;
+	font-style:normal;
+	font-variant:normal;
+	font-weight:normal;
+	line-height:normal;
+	margin:1em 0 0.5em;}
+
+.gs-snippet, .gsc-trailing-more-results, .gsc-cursor-page {
+	font-size: 1.2em;
+	line-height: 2;
+}
+
+.gsc-search-button {
+	display: none;
+}
+
+.gsc-input {
+
+	line-height:19px;
+	width:136px;
+}
+
+#search-field .gsc-branding {
+	display: none;
+}
+
+#source-code {
+	display: none;
+}
+
+#products .grid-3x3 div {
+	display: none;
+}
+
+#products .grid-3x3 div.selected, #products .grid-3x3 div.selected div,
+#products .grid-3x3 div.demo-list {
+	display: block;
+}
+
+#products #source-code h2 a {
+	font-weight: normal;
+	font-size: smaller;
+}

@@ -1,0 +1,314 @@
+;==============================================================================
+;
+; CORPORATE TEMPLATE BODY for chm2web software
+; by A!K Research Labs, 2002-2004
+; 
+; Supported help versions:
+; 
+;  Frames version :       not supported
+:  No frames version :    supported
+;  Mobile version :       supported
+;
+;==============================================================================
+
+
+
+;====================================================
+;
+; Current template body information
+;
+;====================================================
+[BODY.INFO]
+
+NAME		= Corporate Style Body
+Template body for chm2web software.
+
+AUTHOR		= A!K Research Labs
+Copyright(c) 2002-2004, All Rights Reserved
+
+TARGETS		= NOFRAMES,MOBILE
+Supported targets
+
+FORBUILD	= 120
+Required chm2web version (build)
+
+
+;====================================================
+;
+; Custom Fields
+; 
+; VARxxxxx - user can edit this fields
+; xxxxxxxx - fields with fixed values
+;
+;====================================================
+[OPEN.FIELDS]
+
+VARPAGECAPTION	= Web Online Help
+Help page caption
+
+VARLOGOFILE	= files/logo.gif
+Logo image file name
+
+VARHOMEURL	= http://www.mycoolproduct.com
+Home page url
+
+VARHOMECAP	= Home
+Home button caption
+
+VARINDEX	= Index
+Index button caption
+
+VARCONTENTSWIDTH= 250
+Left frame width
+
+HEADER.HEIGHT	= 30
+Header frame height
+
+;==============================================================================
+;==============================================================================
+;==============================================================================
+;====================================================
+;
+; STYLES
+;
+; These styles will be added to Help files instead of the 
+; original ones, when the "Use template defined style sheets" 
+; option is disabled.
+;
+;====================================================
+
+[STYLESHEET]
+
+a:link,a:active,a:visited,a.postlink {color:#SCHEMECOLOR4#;text-decoration:none;}
+a:hover {color:#SCHEMECOLOR3#;}
+body { background-color: white; font-family: Tahoma, Arial; text-align : justify;}
+body, table { font-size: 10pt }
+.chitemsel { background-color:#SCHEMECOLOR2#; color: black; padding:2px; }
+
+
+;====================================================
+;
+; Template for Configuration Manager 
+; ("Template" chm2web tab)
+; 
+; All field names should begins with "var" keyword.
+;
+;====================================================
+
+[CONFIG.MANAGER]
+
+<HTML>
+
+<META HTTP-EQUIV="MSThemeCompatible" CONTENT="yes">
+
+<HEAD>
+ <STYLE>
+   TD { font-family: Tahoma; font-size: 8pt}
+   SELECT { font-family: Tahoma; font-size: 8pt}
+   INPUT { font-family: Tahoma; font-size: 8pt}
+   .TRCAP { background-color: #000080; color: white }
+ </STYLE>
+</HEAD>
+
+<BODY BGCOLOR="#FBFAFB" SCROLL="no" topmargin="2" leftmargin="2">
+
+<table cellpadding="2" style="border-collapse: collapse" width="100%" BGCOLOR="#FBFAFB">
+    <tr class="TRCAP">
+     <td width="100%" nowrap ><b>Supported Targets:</td>
+     <td align="right" bgcolor="white" width=100 height=35 rowspan="2" valign="top" nowrap>
+       <img src="#TEMPLATES.FOLDER#logo/valid-html401.png" 
+       alt="Valid HTML 4.01!" height="31" width="88" border=0></td>
+    </tr>
+    <tr>
+      <td height="25">No frames and Mobile version only</td>
+    </tr>
+</table>
+
+<table cellpadding="2" style="border-collapse: collapse" width="100%" BGCOLOR="#FBFAFB">
+    <tr class="TRCAP">
+      <td width="100%" colspan="2"><b>
+      General:</td>       
+    </tr>
+    <tr>
+      <td width="16%">Help Title:</td>
+      <td width="84%"><input type="text" name="varPageCaption" size="75"></td>
+    </tr>
+    <tr>
+      <td colspan="2" width="100%">
+        Contents Frame Width:&nbsp;&nbsp;
+        <input type="text" name="varContentswidth" size="5"> pixels
+      </td>
+    </tr>
+
+    <tr class="TRCAP">
+      <td colspan="2"><b>
+      Captions:</td>
+    </tr>
+    <tr>
+      <td colspan="2"> Logo image file name (relative path):&nbsp;&nbsp;
+      <input type="text" name="varLogoFile" size="30"></td>
+    </tr>
+    <tr>
+      <td colspan="2"> Home url:&nbsp;&nbsp;
+      <input type="text" name="varHomeUrl" size="30"></td>
+    </tr>
+
+</table>
+  
+</BODY>
+
+</HTML>
+
+
+;==============================================================================
+;==============================================================================
+;==============================================================================
+;====================================================
+;
+; NOFRAMES VERSION TEMPLATE
+;
+;====================================================
+
+[NOFRAMES.BODY]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>#VARPAGECAPTION# - #PAGE.TITLE#</TITLE>
+ <STYLE type="text/css">  
+  BODY { margin-top: 2; scrollbar-face-color: white; scrollbar-shadow-color: #SCRCOLOR#; 
+               scrollbar-highlight-color: #SCRCOLOR#; scrollbar-3dlight-color: 
+               #SCRCOLOR#; scrollbar-darkshadow-color: #LINESCOLOR#; 
+               scrollbar-track-color: #SCRCOLOR#; scrollbar-arrow-color: #LINESCOLOR# }
+  .deftab0 { border-collapse: collapse; border: 0 }
+  .caph8 { font-family: Tahoma, Verdana; font-size: 8pt; font-weight: bold; text-decoration: none; vertical-align: bottom; }
+ </STYLE>
+</HEAD>
+
+<BODY bgcolor="white">   
+
+<TABLE cellpadding="0" cellspacing="0" width="100%" class="deftab0">
+<TR>
+ <TD width="100%" class="caph8" >
+  <b><font size="4" color="#PAGETITLECOLOR#">#PAGE.TITLE#</font></b>
+ </TD>
+ <TD>
+  <a target="_blank" href="#VARHOMEURL#"><img border="0" alt="Home" align="right" 
+    src="#ROOT##VARLOGOFILE#" style="vertical-align: bottom"></a>
+ </TD>
+</TR>
+<TR>
+ <TD colspan="2"  width="100%" bgcolor="#LINESCOLOR#"><img src="#ROOT#files/0.gif" height="3" alt=""></TD> 
+</TR>
+</TABLE>
+<TABLE cellpadding="0" cellspacing="0" width="100%" class="deftab0">
+<TR valign="top">
+  <TD width="#VARCONTENTSWIDTH#" nowrap><br>#CONTENTS.TREE#<br></TD>
+  <TD width="8" nowrap><img src="#ROOT#files/0.gif" width="8" alt=""></TD>
+  <TD width="3" nowrap bgcolor="#LINESCOLOR#"><img src="#ROOT#files/0.gif" width="3" alt=""></TD>
+  <TD width="8" nowrap><img src="#ROOT#files/0.gif" width="8" alt=""></TD>
+  <TD>#PAGE.BODY#</TD>
+</TR>
+</TABLE>
+<TABLE cellpadding="0" cellspacing="0" width="100%" class="deftab0">
+<TR>
+  <TD width="100%" bgcolor="#LINESCOLOR#"><img src="#ROOT#files/0.gif" height="3" alt=""></TD> 
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>
+
+
+
+;==============================================================================
+;==============================================================================
+;==============================================================================
+;====================================================
+;
+; MOBILE VERSION TEMPLATES
+;
+;====================================================
+
+;====================================================
+;
+; Help Contents Page Template
+;
+;====================================================
+
+[MOBILE.CONTENTS.BODY]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+  <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <TITLE>#VARPAGECAPTION#</TITLE>
+ </HEAD>
+
+<BODY bgcolor="#LEFTBACKCOLOR#">
+##SPLIT_CONTENTS_BEGIN##
+  <table bgcolor="#LINESCOLOR#" border="1" cellspacing="1" cellpadding="2" width="100%" style="border-color:#LINESCOLOR#">
+   <tr>
+    <td bgcolor="#LINESCOLOR#">
+     <font color="#ABUTTONTEXT#"><b>&nbsp;#PAGE.CURRENT#&nbsp;</b></font>
+    </td>
+    <td bgcolor="white" width="100%">   
+     #CONTENTS.PAGEN#
+    </td>
+    <td align="right" nowrap> 
+    <a href="#PAGE.PREV.URL#"><img 
+    src="files/prev.gif" align="middle" height="13" alt="#VARPREVCAP#"></A><img 
+    src="files/0.gif" width="5" height="1" alt=""><a 
+    href="#PAGE.NEXT.URL#"><img src="files/next.gif" align="middle" height="13" alt="#VARNEXTCAP#"></A>
+    </td>
+   </tr>
+  </table>
+##SPLIT_CONTENTS_END##
+    #CONTENTS.TREE#  
+  <table bgcolor="#BACKCOLOR#" border="0" cellspacing="0" cellpadding="2" width="100%">
+   <TR>
+    <TD width="100%" bgcolor="#LINESCOLOR#"><img src="files/0.gif" height="3" alt=""></TD> 
+   </TR>
+  </table>
+</BODY>
+</HTML>
+
+;====================================================
+;
+; Help Page Template
+;
+;====================================================
+
+[MOBILE.BODY]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE>#VARPAGECAPTION#</TITLE>
+ </HEAD>
+ <BODY bgcolor="white">
+  <table border="0" cellspacing="0" cellpadding="2" width="100%">
+  <TR valign="top">
+   <TD width = "100%" height="30" align="left" class="caph8">
+    <b><font size="4" color="#PAGETITLECOLOR#">#PAGE.TITLE#</font></b>
+   </TD>
+   <TD width = "120" valign="top" align="right" nowrap>
+    <a href="#MOBILEC.URL#"><img src="#ROOT#files/cont.gif" align="middle" height="13" alt=""></a><br>
+    <a href="#PREV.URL#"><img src="#ROOT#files/prev.gif" align="middle" height="13" alt="#VARPREVCAP#"></A>
+    <a href="#NEXT.URL#"><img src="#ROOT#files/next.gif" align="middle" height="13" alt="#VARNEXTCAP#"></A>
+   </td>
+  </tr> 
+  <TR>
+   <TD colspan="2" width="100%" bgcolor="#LINESCOLOR#"><img src="#ROOT#files/0.gif" height="3" alt=""></TD> 
+  </TR>
+  </table>
+  #PAGE.BODY#
+  <table bgcolor="#BACKCOLOR#" border="0" cellspacing="0" cellpadding="2" width="100%">
+  <TR>
+   <TD width="100%" bgcolor="#LINESCOLOR#"><img src="#ROOT#files/0.gif" height="3" alt=""></TD> 
+  </TR>
+  </table>
+ </BODY>
+</HTML>
+
+

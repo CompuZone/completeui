@@ -1,0 +1,28 @@
+<tag name="datepicker" endtag="yes">
+	<tagformat nlbeforetag="1" nlaftertag="1"></tagformat>
+	<tagdialog file="datepicker.htm"></tagdialog>
+	<attributes>
+		<attrib name="id" type="text"></attrib>
+		<attrib name="theme" type="text"></attrib>
+		<attrib name="mindate" type="text"></attrib>
+		<attrib name="maxdate" type="text"></attrib>
+		<attrib name="selecteddate" type="text"></attrib>
+		<attrib name="submitmask" type="text"></attrib>
+		<attrib name="eventsurl" type="text"></attrib>
+		<attrib name="longmonthnames" type="text"></attrib>
+		<attrib name="shortmonthnames" type="text"></attrib>
+		<attrib name="longdaynames" type="text"></attrib>
+		<attrib name="shortdaynames" type="text"></attrib>
+		<attrib name="mindaynames" type="text"></attrib>
+		<attrib name="navconfirmtext" type="text"></attrib>
+		<attrib name="navcanceltext" type="text"></attrib>
+		<attrib name="navinvalidyeartext" type="text"></attrib>
+		<attrib name="navoutofrangetext" type="text"></attrib>
+		<attrib name="shimenabled" type="text"></attrib>
+		<attrib name="onsetinvaliddate" type="text"></attrib>
+		<attrib name="onsetoutofrangedate" type="text"></attrib>
+		<attrib name="onsetdisableddate" type="text"></attrib>
+		<attrib name="ondateselected" type="text"></attrib>
+		<attrib name="oneventdateselected" type="text"></attrib>
+	</attributes>
+</tag>

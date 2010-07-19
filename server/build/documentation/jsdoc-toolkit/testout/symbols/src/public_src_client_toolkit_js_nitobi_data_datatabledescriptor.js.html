@@ -1,0 +1,330 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="NAME">nitobi.lang.defineNs</span><span class="PUNC">(</span><span class="STRN">"nitobi.data"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  2</span> </span><span class="COMM">/**
+<span class='line'>  3</span>  * This class provides information about the size and nature of the 
+<span class='line'>  4</span>  * datasource. It does not provide any data.  It's single purpose is
+<span class='line'>  5</span>  * to perform reflection on the table datasource.
+<span class='line'>  6</span>  * @param {Boolean} estimateRowCount If true, the descriptor will try to leap ahead to find the end of the table.
+<span class='line'>  7</span>  */</span><span class="WHIT">
+<span class='line'>  8</span> </span><span class="NAME">nitobi.data.DataTableDescriptor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">table</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">tableProjectionUpdatedEvent</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">estimateRowCount</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>  9</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 10</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 11</span> 	 * Items that are destroyed when this object is destroyed.
+<span class='line'> 12</span> 	 * @private
+<span class='line'> 13</span> 	 */</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="WHIT">	</span><span class="NAME">this.disposal</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 15</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 16</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 17</span> 	 * The number of rows thought to be in the database. 
+<span class='line'> 18</span> 	 * This is equal to, or larger than, the last known row.
+<span class='line'> 19</span> 	 * @private
+<span class='line'> 20</span> 	 */</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="WHIT">	</span><span class="NAME">this.estimatedRowCount</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 22</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 23</span> 	 * The amount by which the projected database size is adjusted.
+<span class='line'> 24</span> 	 * @private
+<span class='line'> 25</span> 	 */</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">	</span><span class="NAME">this.leapMultiplier</span><span class="PUNC">=</span><span class="NUMB">2</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 28</span> 	 * If true, the descriptor will try to leap ahead to find the end of the table.
+<span class='line'> 29</span> 	 */</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">	</span><span class="NAME">this.estimateRowCount</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">estimateRowCount</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">estimateRowCount</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 32</span> 	 * The index of the greatest last known row in the db.
+<span class='line'> 33</span> 	 * @private
+<span class='line'> 34</span> 	 */</span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="WHIT">	</span><span class="NAME">this.lastKnownRow</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 37</span> 	 * Indicates whether or not the end of table is known.
+<span class='line'> 38</span> 	 * @private
+<span class='line'> 39</span> 	 */</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">	</span><span class="NAME">this.isAtEndOfTable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 43</span> 	 * The table that this descriptor describes.
+<span class='line'> 44</span> 	 * @private
+<span class='line'> 45</span> 	 */</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="WHIT">	</span><span class="NAME">this.table</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">table</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 47</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 49</span> 	 * The Edge of (un)known space. This will be set if you do a leap and no results are returned
+<span class='line'> 50</span> 	 * then the lowestEmptyRow becomes the lowest index of that get request.
+<span class='line'> 51</span> 	 * @private
+<span class='line'> 52</span> 	 */</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">	</span><span class="NAME">this.lowestEmptyRow</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 56</span> 	 * Fires when the descriptor finds new information
+<span class='line'> 57</span> 	 * about the datasource and updates its knowledge.
+<span class='line'> 58</span> 	 */</span><span class="WHIT"> </span><span class="COMM">/* How does closelater and context work here?*/</span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="WHIT">	</span><span class="NAME">this.tableProjectionUpdatedEvent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">tableProjectionUpdatedEvent</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 60</span> </span><span class="WHIT">	</span><span class="NAME">this.disposal.push</span><span class="PUNC">(</span><span class="NAME">this.tableProjectionUpdatedEvent</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 62</span> 
+<span class='line'> 63</span> 
+<span class='line'> 64</span> </span><span class="COMM">/*************************************************************/</span><span class="WHIT">
+<span class='line'> 65</span> </span><span class="COMM">/*				           PEEK MODE     					 */</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="COMM">/*************************************************************/</span><span class="WHIT">
+<span class='line'> 67</span> 
+<span class='line'> 68</span> </span><span class="COMM">/**
+<span class='line'> 69</span>  * Starts the peek process whereby the descriptor asks for a single
+<span class='line'> 70</span>  * record farther into the table in an attempt to find the end of the
+<span class='line'> 71</span>  * table.
+<span class='line'> 72</span>  * Peek actually uses DataTable.get to do its thing and so update
+<span class='line'> 73</span>  * on the Descriptor is called from DataTable which will stop the peek
+<span class='line'> 74</span>  * action (see update logic).
+<span class='line'> 75</span>  */</span><span class="WHIT">
+<span class='line'> 76</span> </span><span class="NAME">nitobi.data.DataTableDescriptor.prototype.startPeek</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 77</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 78</span> </span><span class="WHIT">	</span><span class="NAME">this.enablePeek</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 79</span> </span><span class="WHIT">	</span><span class="NAME">this.peek</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 80</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 81</span> 
+<span class='line'> 82</span> </span><span class="NAME">nitobi.data.DataTableDescriptor.prototype.peek</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 83</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 84</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">indexToPeekAt</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 85</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.lowestEmptyRow</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 86</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 87</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">blankRows</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.lowestEmptyRow</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">this.lastKnownRow</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 88</span> </span><span class="WHIT">		</span><span class="COMM">// Peek at the halfway point between the lastKnownRow and the last row we peeked at unsuccessfully</span><span class="WHIT">
+<span class='line'> 89</span> </span><span class="WHIT">		</span><span class="NAME">indexToPeekAt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.lastKnownRow</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">Math.round</span><span class="PUNC">(</span><span class="NAME">blankRows</span><span class="PUNC">/</span><span class="NUMB">2</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 90</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 91</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'> 92</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 93</span> </span><span class="WHIT">		</span><span class="COMM">// If this is the first time we are peeking (ie lowestEmptyRow is 0)</span><span class="WHIT">
+<span class='line'> 94</span> </span><span class="WHIT">		</span><span class="COMM">// then increase the peek position to some estimated amount</span><span class="WHIT">
+<span class='line'> 95</span> </span><span class="WHIT">		</span><span class="NAME">indexToPeekAt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.estimatedRowCount</span><span class="WHIT"> </span><span class="PUNC">*</span><span class="WHIT"> </span><span class="NAME">this.leapMultiplier</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 96</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 97</span> </span><span class="WHIT">	</span><span class="COMM">// Do a get through the datatable at the peek index for a single row</span><span class="WHIT">
+<span class='line'> 98</span> </span><span class="WHIT">	</span><span class="NAME">this.table.get</span><span class="PUNC">(</span><span class="NAME">Math.round</span><span class="PUNC">(</span><span class="NAME">indexToPeekAt</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.peekComplete</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 99</span> </span><span class="WHIT">	</span><span class="COMM">//alert(this.startPeek);</span><span class="WHIT">
+<span class='line'>100</span> 
+<span class='line'>101</span> </span><span class="WHIT">	</span><span class="COMM">// IF we got any response then increase the last known good row to the xi we looked for</span><span class="WHIT">
+<span class='line'>102</span> </span><span class="COMM">/*	if (evtArgs.startXi == this.lastKnownRow)
+<span class='line'>103</span> 	{
+<span class='line'>104</span> 		this.isAtEndOfTable = true;
+<span class='line'>105</span> 		this.fireProjectionUpdatedEvent();
+<span class='line'>106</span> 		return;
+<span class='line'>107</span> 	}
+<span class='line'>108</span> 	if (evtArgs.pageSize == 1)
+<span class='line'>109</span> 	{
+<span class='line'>110</span> 		// +1 to get the number of rows from the final row index
+<span class='line'>111</span> 		this.estimatedRowCount = Math.max(evtArgs.startXi+1,this.estimatedRowCount);
+<span class='line'>112</span> 		// -1 to get the row index from the length
+<span class='line'>113</span> 		this.lastKnownRow = this.estimatedRowCount-1;
+<span class='line'>114</span> 		this.fireProjectionUpdatedEvent();
+<span class='line'>115</span> 	}
+<span class='line'>116</span> 	else 
+<span class='line'>117</span> 	{
+<span class='line'>118</span> 		this.leapMultiplier = 1 + ((this.leapMultiplier - 1 )/2);
+<span class='line'>119</span> 	}*/</span><span class="WHIT">
+<span class='line'>120</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>121</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>122</span> 
+<span class='line'>123</span> </span><span class="NAME">nitobi.data.DataTableDescriptor.prototype.peekComplete</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">evtArgs</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>124</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>125</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.enablePeek</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>127</span> </span><span class="WHIT">		</span><span class="NAME">window.setTimeout</span><span class="PUNC">(</span><span class="NAME">nitobi.lang.close</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="NAME">this.peek</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="NUMB">1000</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>128</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>129</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>130</span> </span><span class="COMM">/**
+<span class='line'>131</span>  * Stops the peek process.
+<span class='line'>132</span>  */</span><span class="WHIT">
+<span class='line'>133</span> </span><span class="NAME">nitobi.data.DataTableDescriptor.prototype.stopPeek</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>134</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>135</span> </span><span class="WHIT">	</span><span class="NAME">this.enablePeek</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>136</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>137</span> 
+<span class='line'>138</span> </span><span class="COMM">/*************************************************************/</span><span class="WHIT">
+<span class='line'>139</span> </span><span class="COMM">/*				           LEAP MODE	 		     		 */</span><span class="WHIT">
+<span class='line'>140</span> </span><span class="COMM">/*************************************************************/</span><span class="WHIT">
+<span class='line'>141</span> 
+<span class='line'>142</span> </span><span class="COMM">/**
+<span class='line'>143</span>  * Recomputes the estimated row count based on a multiplier and an offset.
+<span class='line'>144</span>  * @param {Number} multiplier A number by which to multiply the estimated row count.
+<span class='line'>145</span>  * @param {Number} adjustment A number by which to increase the estimated row count.
+<span class='line'>146</span>  */</span><span class="WHIT">
+<span class='line'>147</span> </span><span class="NAME">nitobi.data.DataTableDescriptor.prototype.leap</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">multiplier</span><span class="PUNC">,</span><span class="NAME">adjustment</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>149</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.lowestEmptyRow</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>150</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>151</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">blankRows</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.lowestEmptyRow</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">this.lastKnownRow</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>152</span> </span><span class="WHIT">		</span><span class="NAME">this.estimatedRowCount</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.lastKnownRow</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">Math.round</span><span class="PUNC">(</span><span class="NAME">blankRows</span><span class="PUNC">/</span><span class="NUMB">2</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>153</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>154</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">multiplier</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">adjustment</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>155</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>156</span> </span><span class="WHIT">		</span><span class="NAME">this.estimatedRowCount</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>157</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>158</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.estimateRowCount</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>160</span> </span><span class="WHIT">		</span><span class="NAME">this.estimatedRowCount</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.estimatedRowCount</span><span class="WHIT"> </span><span class="PUNC">*</span><span class="WHIT"> </span><span class="NAME">multiplier</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">adjustment</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>161</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>162</span> 
+<span class='line'>163</span> </span><span class="COMM">//	window.status+="["+this.estimatedRowCount+"]";</span><span class="WHIT">
+<span class='line'>164</span> </span><span class="COMM">//	alert("LEAP ERC: " + this.estimatedRowCount);</span><span class="WHIT">
+<span class='line'>165</span> </span><span class="WHIT">	</span><span class="NAME">this.fireProjectionUpdatedEvent</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>166</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>167</span> 
+<span class='line'>168</span> </span><span class="COMM">/**
+<span class='line'>169</span>  * Updates the descriptor's knowledge about the table.
+<span class='line'>170</span>  * @param {nitobi.components.grid.OnGetCompleteEventArgs} evtArgs A hash consisting of a lastPage boolean, pageSize, firstRow, lastRow, and startXi.
+<span class='line'>171</span>  * @param {Boolean} needLeap A boolean that can be used to force the estimated row count to be adjusted.
+<span class='line'>172</span>  */</span><span class="WHIT">
+<span class='line'>173</span> 
+<span class='line'>174</span> </span><span class="NAME">nitobi.data.DataTableDescriptor.prototype.update</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">evtArgs</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">needLeap</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>175</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>176</span> </span><span class="WHIT">	</span><span class="COMM">// There a few cases we can have here.</span><span class="WHIT">
+<span class='line'>177</span> </span><span class="WHIT">	</span><span class="COMM">// We need to check the eventArgs for the lastPage parameter and the numRowsReturned</span><span class="WHIT">
+<span class='line'>178</span> 
+<span class='line'>179</span> </span><span class="COMM">//alert("update"+this.estimatedRowCount+" : "+evtArgs.pageSize)</span><span class="WHIT">
+<span class='line'>180</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">needLeap</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>181</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>182</span> </span><span class="WHIT">		</span><span class="NAME">needLeap</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>183</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>184</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.isAtEndOfTable</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">needLeap</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>185</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>186</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>187</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>188</span> 
+<span class='line'>189</span> </span><span class="WHIT">	</span><span class="COMM">// Check if the database is empty.</span><span class="WHIT">
+<span class='line'>190</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">emptyDb</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">evtArgs</span><span class="PUNC">!=</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">evtArgs.numRowsReturned</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">evtArgs.startXi</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>191</span> 
+<span class='line'>192</span> </span><span class="WHIT">	</span><span class="COMM">// Check if the data returned doesnt match what we wanted - ie we got to the end of the data.</span><span class="WHIT">
+<span class='line'>193</span> </span><span class="WHIT">	</span><span class="COMM">// What about the case where the lastRow is == lastRowReturned and this IS the last row of data ... </span><span class="WHIT">
+<span class='line'>194</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">lastPage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">evtArgs</span><span class="PUNC">!=</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">evtArgs.lastRow</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="NAME">evtArgs.lastRowReturned</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// || !this.estimateRowCount;</span><span class="WHIT">
+<span class='line'>195</span> 
+<span class='line'>196</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">evtArgs</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>197</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>198</span> </span><span class="WHIT">		</span><span class="NAME">evtArgs</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="NAME">lastPage</span><span class="PUNC">:</span><span class="KEYW">false</span><span class="PUNC">,</span><span class="NAME">pageSize</span><span class="PUNC">:</span><span class="NUMB">1</span><span class="PUNC">,</span><span class="NAME">firstRow</span><span class="PUNC">:</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">lastRow</span><span class="PUNC">:</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="NAME">startXi</span><span class="PUNC">:</span><span class="NUMB">0</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>199</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>200</span> 
+<span class='line'>201</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">foundLastPage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">emptyDb</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">lastPage</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.isAtEndOfTable</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">(</span><span class="NAME">this.lastKnownRow</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">this.estimatedRowCount</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.estimatedRowCount</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">this.lowestEmptyRow</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>202</span> 
+<span class='line'>203</span> </span><span class="COMM">//	alert(this.lastKnownRow+":"+this.lowestEmptyRow+" - "+evtArgs.pageSize+" - "+foundLastPage+"PgSize:"+evtArgs.pageSize)</span><span class="WHIT">
+<span class='line'>204</span> </span><span class="WHIT">  	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">evtArgs.pageSize</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">foundLastPage</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>205</span> </span><span class="WHIT">  	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>206</span> </span><span class="WHIT">  		</span><span class="COMM">// We've let the user page into a completely empty area and </span><span class="WHIT">
+<span class='line'>207</span> </span><span class="WHIT">  		</span><span class="COMM">// we don't know the last page.</span><span class="WHIT">
+<span class='line'>208</span> </span><span class="WHIT">		</span><span class="COMM">// Set the highest row we will ever try to get</span><span class="WHIT">
+<span class='line'>209</span> </span><span class="WHIT">		</span><span class="NAME">this.lowestEmptyRow</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.lowestEmptyRow</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">Math.min</span><span class="PUNC">(</span><span class="NAME">evtArgs.startXi</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.lowestEmptyRow</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">evtArgs.startXi</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>210</span> </span><span class="COMM">//		alert("LOWEST EMPTY ROW: " + this.lowestEmptyRow);</span><span class="WHIT">
+<span class='line'>211</span> 
+<span class='line'>212</span> </span><span class="WHIT">		</span><span class="NAME">this.leap</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>213</span> 
+<span class='line'>214</span> </span><span class="COMM">/*		// Step back a small amount to see the page just loaded.
+<span class='line'>215</span> 		this.leap(1,-1*blankRows/2);
+<span class='line'>216</span> 		// From now on, we'll need to start leaping smaller so that
+<span class='line'>217</span> 		// we don't expand the whitespace.
+<span class='line'>218</span>   		this.leapMultiplier = 1 + ((this.leapMultiplier - 1 )/2);*/</span><span class="WHIT">
+<span class='line'>219</span> </span><span class="WHIT">  		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>220</span> </span><span class="WHIT">  	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>221</span> 
+<span class='line'>222</span> </span><span class="WHIT">	</span><span class="COMM">// Does this codeneed to be moved here?</span><span class="WHIT">
+<span class='line'>223</span> </span><span class="WHIT">	</span><span class="COMM">/*if (!scrollAtTop && evtArgs.pageSize == 0 && this.owner.getPagingMode().toLowerCase() != "standard")
+<span class='line'>224</span> 	{
+<span class='line'>225</span> 		return
+<span class='line'>226</span> 	}*/</span><span class="WHIT">
+<span class='line'>227</span> </span><span class="COMM">//	this.lastKnownRow = Math.max(evtArgs.lastRow,this.lastKnownRow);</span><span class="WHIT">
+<span class='line'>228</span> </span><span class="WHIT">	</span><span class="NAME">this.lastKnownRow</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Math.max</span><span class="PUNC">(</span><span class="NAME">evtArgs.lastRowReturned</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.lastKnownRow</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>229</span> </span><span class="COMM">//  	alert(("UPDATE is setting the last known row to: "+this.lastKnownRow))</span><span class="WHIT">
+<span class='line'>230</span> 
+<span class='line'>231</span> </span><span class="WHIT">  	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">foundLastPage</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">needLeap</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>232</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>233</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">evtArgs.lastRowReturned</span><span class="PUNC">>=</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="COMM">// ie we know the exact last row (we are not in no-mans-land)</span><span class="WHIT">
+<span class='line'>234</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>235</span> </span><span class="WHIT">			</span><span class="NAME">this.estimatedRowCount</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">evtArgs.lastRowReturned</span><span class="PUNC">+</span><span class="NUMB">1</span><span class="PUNC">;</span><span class="COMM">//evtArgs.startXi + evtArgs.pageSize;</span><span class="WHIT">
+<span class='line'>236</span> 
+<span class='line'>237</span> </span><span class="WHIT">			 </span><span class="COMM">// This is the first time that we've hit the end of the table.</span><span class="WHIT">
+<span class='line'>238</span> </span><span class="WHIT">			</span><span class="NAME">this.isAtEndOfTable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>239</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>240</span> </span><span class="WHIT">		</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="COMM">// ie we have either got no data or we way past the end of our data</span><span class="WHIT">
+<span class='line'>241</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>242</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">emptyDb</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="COMM">// this.lastKnownRow &lt; 0- ie we have never had nor will get any data</span><span class="WHIT">
+<span class='line'>243</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>244</span> </span><span class="WHIT">				</span><span class="NAME">this.estimatedRowCount</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>245</span> 
+<span class='line'>246</span> </span><span class="WHIT">				 </span><span class="COMM">// This is the first time that we've hit the end of the table.</span><span class="WHIT">
+<span class='line'>247</span> </span><span class="WHIT">				</span><span class="NAME">this.isAtEndOfTable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>248</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>249</span> </span><span class="WHIT">			</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="COMM">// ie we are in no-mans-land so back off a bit</span><span class="WHIT">
+<span class='line'>250</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>251</span> </span><span class="WHIT">				</span><span class="NAME">this.estimatedRowCount</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.lastKnownRow</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">Math.ceil</span><span class="PUNC">(</span><span class="PUNC">(</span><span class="NAME">evtArgs.lastRow</span><span class="PUNC">-</span><span class="NAME">this.lastKnownRow</span><span class="PUNC">)</span><span class="PUNC">/</span><span class="NUMB">2</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>252</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>253</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>254</span> 
+<span class='line'>255</span> </span><span class="WHIT">		</span><span class="COMM">// TODO: this needs to be merged with the setRowCountKnown stuff in DataTable.</span><span class="WHIT">
+<span class='line'>256</span> </span><span class="WHIT">		</span><span class="NAME">this.fireProjectionUpdatedEvent</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>257</span> </span><span class="WHIT">		</span><span class="NAME">this.stopPeek</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>258</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>259</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>260</span> 
+<span class='line'>261</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">this.estimateRowCount</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>262</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>263</span> </span><span class="WHIT">		</span><span class="NAME">this.estimatedRowCount</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.lastKnownRow</span><span class="PUNC">+</span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>264</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>265</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.estimatedRowCount</span><span class="PUNC">==</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>266</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>267</span> </span><span class="WHIT">		</span><span class="COMM">// First page we've ever seen.</span><span class="WHIT">
+<span class='line'>268</span> </span><span class="WHIT">		</span><span class="COMM">// Estimate the remote row count to be the lastRow we received </span><span class="WHIT">
+<span class='line'>269</span> </span><span class="WHIT">		</span><span class="COMM">// (plus 1 cause rows are zero based and rowCounts are 1 based) and double it.</span><span class="WHIT">
+<span class='line'>270</span> </span><span class="WHIT">		</span><span class="NAME">this.estimatedRowCount</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">evtArgs.lastRow</span><span class="PUNC">+</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">*</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.estimateRowCount</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NUMB">2</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>271</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>272</span> 
+<span class='line'>273</span> </span><span class="WHIT">	</span><span class="COMM">// Uses evtArgs.last+1 since it is a row index compared to a rowCount</span><span class="WHIT">
+<span class='line'>274</span> </span><span class="WHIT">  	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">(</span><span class="NAME">this.estimatedRowCount</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">evtArgs.lastRow</span><span class="PUNC">+</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">needLeap</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">this.estimateRowCount</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>275</span> </span><span class="WHIT">  	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>276</span> </span><span class="WHIT">  		</span><span class="COMM">// We got a page for which there is space.</span><span class="WHIT">
+<span class='line'>277</span> 
+<span class='line'>278</span> </span><span class="WHIT">  		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>279</span> </span><span class="WHIT">  	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>280</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">this.isAtEndOfTable</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>281</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>282</span> </span><span class="WHIT">		</span><span class="NAME">this.leap</span><span class="PUNC">(</span><span class="NAME">this.leapMultiplier</span><span class="PUNC">,</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>283</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>284</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>285</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>286</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>287</span> 
+<span class='line'>288</span> </span><span class="COMM">/*************************************************************/</span><span class="WHIT">
+<span class='line'>289</span> </span><span class="COMM">/*				           ALL MODES     					 */</span><span class="WHIT">
+<span class='line'>290</span> </span><span class="COMM">/*************************************************************/</span><span class="WHIT">
+<span class='line'>291</span> 
+<span class='line'>292</span> </span><span class="COMM">/**
+<span class='line'>293</span>  * Resets the descriptor back to its initial state. In this state,
+<span class='line'>294</span>  * the descriptor knows nothing about the table.
+<span class='line'>295</span>  */</span><span class="WHIT">
+<span class='line'>296</span> </span><span class="NAME">nitobi.data.DataTableDescriptor.prototype.reset</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>297</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>298</span> </span><span class="WHIT">	</span><span class="NAME">this.estimatedRowCount</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>299</span> </span><span class="WHIT">	</span><span class="NAME">this.leapMultiplier</span><span class="PUNC">=</span><span class="NUMB">2</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>300</span> </span><span class="WHIT">	</span><span class="NAME">this.lastKnownRow</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>301</span> </span><span class="WHIT">	</span><span class="NAME">this.isAtEndOfTable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>302</span> </span><span class="WHIT">	</span><span class="NAME">this.lowestEmptyRow</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>303</span> </span><span class="WHIT">	</span><span class="NAME">this.fireProjectionUpdatedEvent</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>304</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>305</span> 
+<span class='line'>306</span> </span><span class="NAME">nitobi.data.DataTableDescriptor.prototype.fireProjectionUpdatedEvent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">evtArgs</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>307</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>308</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.tableProjectionUpdatedEvent</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>309</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>310</span> </span><span class="WHIT">		</span><span class="NAME">this.tableProjectionUpdatedEvent</span><span class="PUNC">(</span><span class="NAME">evtArgs</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>311</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>312</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>313</span> 
+<span class='line'>314</span> </span><span class="COMM">/**
+<span class='line'>315</span>  * Javascript destructor
+<span class='line'>316</span>  * 
+<span class='line'>317</span>  * @private
+<span class='line'>318</span>  */</span><span class="WHIT">
+<span class='line'>319</span> </span><span class="NAME">nitobi.data.DataTableDescriptor.prototype.dispose</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>320</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>321</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.lang.dispose</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.disposal</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>322</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>323</span> </span></pre></body></html>

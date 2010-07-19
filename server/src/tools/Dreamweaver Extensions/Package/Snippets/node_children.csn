@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<snippet name = "Nitobi Tree Node (w/ Children)" description = "A Nitobi Tree Node with children." preview="code" type="block">
+
+<insertText location="beforeSelection">
+
+<![CDATA[<ntb:node label="node"><ntb:children></ntb:children></ntb:node>
+]]>
+
+</insertText>
+</snippet>
+

@@ -1,0 +1,133 @@
+<html xmlns:ntb="http://www.nitobi.com">
+<head>
+<title>Nitobi Complete UI Samples</title>
+<script type="text/javascript" src="common/script/nitobi.toolkit.js"></script>
+<script type="text/javascript" src="common/script/nitobi.tree.js"></script>
+<link type="text/css" rel="stylesheet" href="common/style/nitobi.tree.css"></link>
+<script>
+function selectDemo(demoUrl, demoName) 
+{
+	var myFrame = document.getElementById('demoframe');
+	myFrame.src = demoUrl + "/index.html";
+}
+</script>
+<style>
+	#treeframe {
+		height:500px;
+		width:300px;
+		overflow-y:scroll;
+	}
+	#targetframe {
+		padding-left:5px;
+		border:none;
+		border-left:1px solid gray;
+		width:100%;
+		height:400px;
+	}
+</style>
+</head>
+<body onload="nitobi.loadComponent('demoTree')">
+<table>
+<tr><td>
+<div id="treeframe">
+<ntb:tree id="demoTree" cssclass="folders" expanded="false" hoverhighlight="true" cssstyle="width:100%;">
+	<ntb:children>
+
+		<ntb:node label="ComboBox" expanded="true">
+			<ntb:children>
+				<ntb:node label="Basic ComboBox"  onselect="selectDemo('combo/jsp/Basic', 'ComboBox : Basic ComboBox')"></ntb:node>
+				<ntb:node label="Paging Mode (classic)" onselect="selectDemo('combo/jsp/Classic', 'ComboBox : Paging Mode (classic)')"></ntb:node>
+				<ntb:node label="Compact Mode" onselect="selectDemo('combo/jsp/Compact', 'ComboBox : Compact Mode')"></ntb:node>
+				<ntb:node label="Filter Mode" onselect="selectDemo('combo/jsp/Filter', 'ComboBox : Filter Mode')"></ntb:node>
+				<ntb:node label="Smartlist Mode" onselect="selectDemo('combo/jsp/SmartList', 'ComboBox : Smartlist Mode')"></ntb:node>
+				<ntb:node label="SmartSearch Mode" onselect="selectDemo('combo/jsp/SmartSearch', 'ComboBox : SmartSearch Mode')"></ntb:node>
+
+				<ntb:node label="Unbound Mode (static data)" onselect="selectDemo('combo/jsp/Unbound', 'ComboBox : Unbound Mode (static data)')"></ntb:node>
+				<ntb:node label="Unicode Example i18n" onselect="selectDemo('combo/jsp/Unicode', 'ComboBox : Unicode Example (i18n)')"></ntb:node>
+				<ntb:node label="Events Demo" onselect="selectDemo('combo/jsp/ComboEvents', 'ComboBox : Events Demo')"></ntb:node>
+				<ntb:node label="Master / Detail" onselect="selectDemo('combo/jsp/LinkedCombos', 'ComboBox : Master / Detail')"></ntb:node>
+				<ntb:node label="Embedded Menus" onselect="selectDemo('combo/jsp/Menus', 'ComboBox : Embedded Menus')"></ntb:node>			
+			</ntb:children>		
+		</ntb:node>	
+		<ntb:node label="Callout" >
+			<ntb:children>
+				<ntb:node label="Autorun" selected="true" onselect="selectDemo('callout/html/autorun', 'Callout : Autorun')"></ntb:node>
+
+				<ntb:node label="API Usage" onselect="selectDemo('callout/html/api', 'Callout : API Usage')"></ntb:node>
+				<ntb:node label="Form Validation" onselect="selectDemo('callout/html/formvalidation', 'Callout : Form Validation')"></ntb:node>
+				<ntb:node label="Hints"  onselect="selectDemo('callout/html/hints', 'Callout : Hints')"></ntb:node>
+				<ntb:node label="Precache Images" onselect="selectDemo('callout/html/precacheimages', 'Callout : Precache Images')"></ntb:node>
+			</ntb:children>		
+		</ntb:node>		
+		<ntb:node label="Fisheye">
+			<ntb:children>
+				<ntb:node label="Alignment" onselect="selectDemo('fisheye/html/alignment', 'Fisheye : Basic')"></ntb:node>
+
+				<ntb:node label="Web Desktop" onselect="selectDemo('fisheye/html/webdesktop', 'Fisheye : Web Desktop')"></ntb:node>				
+				<ntb:node label="Add or Remove Items" onselect="selectDemo('fisheye/html/addremoveitems', 'Fisheye : Add or Remove Items')"></ntb:node>				
+				<ntb:node label="Statefulness" onselect="selectDemo('fisheye/html/statefulness', 'Fisheye : Statefulness')"></ntb:node>			
+			</ntb:children>
+
+		</ntb:node>		
+		<ntb:node label="Grid"  >
+			<ntb:children>
+				<ntb:node label="Basic Grid" onselect="selectDemo('grid/html/basic', 'Grid : Basic Grid')"></ntb:node>
+				<ntb:node label="Copy and Paste" onselect="selectDemo('grid/html/copypaste', 'Grid : Copy and Paste')"></ntb:node>
+				<ntb:node label="Editor Types" onselect="selectDemo('grid/jsp/editors', 'Grid : Editor Types')"></ntb:node>
+
+				<ntb:node label="Resizable Grid" onselect="selectDemo('grid/html/gridresize', 'Grid : Resizable Grid')"></ntb:node>
+				<ntb:node label="Livescrolling" onselect="selectDemo('grid/jsp/livescrolling', 'Grid : LiveScrolling')"></ntb:node>
+				<ntb:node label="Master / Detail" onselect="selectDemo('grid/jsp/masterdetail', 'Grid : Master / Detail')"></ntb:node>
+
+				<ntb:node label="Multi-select" onselect="selectDemo('grid/html/multiselect', 'Grid : Multi-select')"></ntb:node>
+				<ntb:node label="Paging" onselect="selectDemo('grid/jsp/paging', 'Grid : Paging')"></ntb:node>
+				<ntb:node label="Remotedata" onselect="selectDemo('grid/jsp/remotedata', 'Grid : Remote Data - using getHandlers and saveHandlers')"></ntb:node>
+				<ntb:node label="Show All Mode" onselect="selectDemo('grid/jsp/showall', 'Grid : ShowAll Mode')"></ntb:node>
+				<ntb:node label="Static Data" onselect="selectDemo('grid/html/staticdata', 'Grid : Static Data')"></ntb:node>			
+			</ntb:children>
+
+		</ntb:node>
+		<ntb:node label="Tabstrip">
+			<ntb:children>
+
+				<ntb:node label="Adding and Removing Tabs" onselect="selectDemo('tabstrip/html/addingremovingtabs', 'Tabstrip : Adding and Removing Tabs')"></ntb:node>
+				<ntb:node label="404 Handling" onselect="selectDemo('tabstrip/html/error404', 'Tabstrip : 404 Handling')"></ntb:node>
+				<ntb:node label="Fade Transitions" onselect="selectDemo('tabstrip/html/fading', 'Tabstrip : Fade Transitions')"></ntb:node>
+				<ntb:node label="Nested Tabs" onselect="selectDemo('tabstrip/html/nestedtabs', 'Tabstrip : Nested Tabs')"></ntb:node>
+				<ntb:node label="Static Content" onselect="selectDemo('tabstrip/html/runtimetabs', 'Tabstrip : Static Content')"></ntb:node>
+
+				<ntb:node label="Statefulness" onselect="selectDemo('tabstrip/html/statefulness', 'Tabstrip : Statefulness')"></ntb:node>
+				<ntb:node label="Tab Types" onselect="selectDemo('tabstrip/html/tabtypes', 'Tabstrip : Tab Types')"></ntb:node>
+				<ntb:node label="Unique Tabs" onselect="selectDemo('tabstrip/html/uniquetab', 'Tabstrip : Unique Tabs')"></ntb:node>				
+			</ntb:children>
+
+		</ntb:node>	
+		<ntb:node label="Tree">
+			<ntb:children>
+				<ntb:node label="Databound Tree" onselect="selectDemo('tree/jsp/simple', 'Tree : Databound Tree')"></ntb:node>
+				<ntb:node label="Static Data" onselect="selectDemo('tree/html/datasource', 'Tree : Static Data')"></ntb:node>
+
+				<ntb:node label="Statefulness" onselect="selectDemo('tree/html/statefulness', 'Tree : Statefulness')"></ntb:node>
+				<ntb:node label="Frame Targeting" onselect="selectDemo('tree/html/targeting', 'Tree : Frame Targeting')"></ntb:node>				
+			</ntb:children>
+		</ntb:node>	
+		<ntb:node label="Toolkit">
+
+			<ntb:children>
+				<ntb:node label="XMLHttp Request" onselect="selectDemo('toolkit/html/ajax', 'Ajax Toolkit : XMLHttp Request')"></ntb:node>
+				<ntb:node label="XML Parsing" onselect="selectDemo('toolkit/html/xml', 'Ajax Toolkit : XML Parsing')"></ntb:node>
+				<ntb:node label="Make a Custom Component" onselect="selectDemo('toolkit/html/component', 'Ajax Toolkit : Make a Custom Component')"></ntb:node>		
+				<ntb:node label="Precache Images" onselect="selectDemo('toolkit/html/precacheimages', 'Ajax Toolkit : Precache Images')"></ntb:node>							
+			</ntb:children>
+
+		</ntb:node>				
+	</ntb:children>
+</ntb:tree>
+</div> <!-- treeframe -->
+</td><td width="100%">
+<iframe name="demoframe" id="demoframe" frameborder="0" border="0" width="100%" height="500"></iframe>
+</td></tr>
+</table>
+
+</body>
+</html>

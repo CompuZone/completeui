@@ -1,0 +1,142 @@
+<project name="componentBuild" basedir="." default="buildComponent">
+
+	<!-- ***** Main Targets ***** -->
+	<target name="buildComponent" depends="clean, singleJS, obfuscateJS, mergeAll">
+		<copy file="../temp/nitobi.${component.name}.obfuscated.js" tofile="../../output/nitobi.${component.name}.js" />
+	</target>
+	
+	<target name="clean">
+		<delete dir="../temp" />
+	</target>
+
+	
+	<!-- ***** Helper Tasks ***** -->
+	<target name="mergeJSIncludes">
+	    <echo message="Creating jsincludes.txt file."></echo>
+	    <xslt in="../${component.name}.includes.xml" out="../temp/jsincludes.txt" style="../../../includes/xslt/jsincludes.xslt"></xslt>
+	</target>
+	
+	<!-- this creates a concatted temp\src\nitobi.grid_src_noxsl.js javascript file -->
+	<target name="singleJS" depends="mergeJSIncludes">
+	    <echo message="Component = ${component.name}" />
+	    <echo message="Merging all JavaScript files"></echo>
+	    
+	    <loadfile property="srcjsfiles" srcfile="../temp/jsincludes.txt" />
+	    
+	    <concat append="false" destfile="../temp/js.${component.name}.js" fixlastline="true" >
+	        <filelist files="${srcjsfiles}" dir="" />
+	    </concat>
+
+		<!--Remove any calls to nitobi.prepare()-->
+		<!--<replaceregexp file="../temp/js.${component.name}.js"
+			match=".*nitobi.prepare().*"
+			replace=""
+			byline="true"/>-->
+		
+
+	    <!-- clean out all the calls to ntbAssert -->
+	    <replaceregexp file="../temp/js.${component.name}.js"
+	        match="^\s*ntbAssert\(.*\);$"
+	        replace=""
+	        byline="true"/>
+	    
+	    <!-- clean out all the calls to Debug.* -->
+	    <replaceregexp file="../temp/js.${component.name}.js"
+	        match="^\s*Debug\.(.*)\(.*\);"
+	        replace=""
+	        byline="true" />
+	</target>
+
+	<!-- creates an obfuscated JS file  -->
+	<target name="obfuscateJS" description="Run rhino java class to compress and obfuscate the js code">
+	    <!-- "dir", "output" and "pathelement" are relative to the folder in which the build file is executing -->
+	    <!-- the command line arg is relative to the "dir" path -->
+	    <java classname="org.mozilla.javascript.tools.shell.Main" 
+	        dir="../../../rhino/bin/"
+	        fork="true"
+	        output="../temp/js.obfuscated.js"
+	        failonerror="true"
+	        >
+	        <!-- specify the JS file to obfuscate -->
+	        <arg line="-c ../../src/${component.name}/temp/js.${component.name}.js" />
+	        <classpath>
+	            <pathelement path="../../../rhino/bin/js.jar"/>
+	        </classpath>
+	    </java>
+	    
+	    <!--
+	        http://dojotoolkit.org/docs/compressor_system.html
+	        java -jar custom_rhino.jar -c infile.js > outfile.js 2>&1-->
+	    
+	    <!-- execute the stringify which will create all the single JS files of XSLT -->		
+    	<exec executable="cmd">
+    		<arg value="/c"/>
+    		<arg value="java -jar ../../build/rhino/dojo_rhino.jar -opt -1 -c ../temp/js.js > ../temp/js.obfuscated.js 2>&amp;1"/>
+    	</exec>      	
+	    
+	</target>
+	
+	<target name="mergeAll" depends="mergeXMLIncludes, mergeXSLIncludes" description="Merges the JS, XML and XSLT files to create a single JS. This happens for both obfuscated and non-obfuscated code.">
+	    <concat append="false" destfile="../temp/nitobi.${component.name}.obfuscated.js" fixlastline="true" >
+	        <fileset dir="../temp" casesensitive="false">
+	            <include name="js.${component.name}.obfuscated.js"/>
+	        	<include name="xml.js"/>
+	            <include name="xslt.js"/>
+	        </fileset>
+	    </concat>
+	</target>
+	
+	<!-- takes all XSLT files in includes.xml and runs them through xsltostring.js -->
+	<target name="mergeXSLIncludes">
+	    <!-- first create a txt file that contains JS calls to stringify() for each file -->
+	    <xslt in="../${component.name}.includes.xml" out="../temp/xslstringify.txt" style="../../../includes/xslt/xslstringify.xslt"></xslt>
+
+	    <!-- concat the generated JS with the stringify method -->		
+	    <concat append="false" destfile="../temp/xsltostringbat.js" fixlastline="true" >
+	        <filelist files="../temp/xslstringify.txt xsltostring.js" dir="" />
+	    </concat>
+	    
+	    <!-- execute the stringify which will create all the single JS files of XSLT -->		
+	    <exec executable="cmd">
+	        <arg value="/c"/>
+	        <arg value="cscript ../temp/xsltostringbat.js"/>
+	    </exec>
+	    
+	    <!-- create the list of JS files of XSLT to merge -->
+	    <xslt in="../${component.name}.includes.xml" out="../temp/xslincludes.txt" style="../../../includes/xslt/xslincludes.xslt"></xslt>
+
+	    <loadfile property="srcxslfiles" srcfile="../temp/xslincludes.txt" />		
+	    
+	    <!-- merge into single XSLT file -->		
+	    <concat append="false" destfile="../temp/xslt.js" fixlastline="true" >
+	        <filelist files="${srcxslfiles}" dir="" />
+	    </concat>
+	</target>
+	
+	<!-- takes all XML files in includes.xml and runs them through xsltostring.js -->
+	<target name="mergeXMLIncludes">
+	    <!-- first create a txt file that contains JS calls to stringify() for each file -->
+	    <xslt in="../${component.name}.includes.xml" out="../temp/xmlstringify.txt" style="../../../includes/xslt/xmlstringify.xslt"></xslt>
+
+	    <!-- concat the generated JS with the stringify method -->		
+	    <concat append="false" destfile="../temp/xmltostringbat.js" fixlastline="true" >
+	        <filelist files="../temp/xmlstringify.txt xmltostring.js" dir="" />
+	    </concat>
+	    
+	    <!-- execute the stringify which will create all the single JS files of XSLT -->		
+	    <exec executable="cmd">
+	        <arg value="/c"/>
+	        <arg value="cscript ../temp/xmltostringbat.js"/>
+	    </exec>
+	    
+	    <!-- create the list of JS files of XML to merge -->
+	    <xslt in="../${component.name}.includes.xml" out="../temp/xmlincludes.txt" style="../../../includes/xslt/xmlincludes.xslt"></xslt>
+
+	    <loadfile property="srcxmlfiles" srcfile="../temp/xmlincludes.txt" />		
+	    
+	    <!-- merge into single XML file -->		
+	    <concat append="false" destfile="../temp/xml.js" fixlastline="true" >
+	        <filelist files="${srcxmlfiles}" dir="" />
+	    </concat>
+	</target>
+</project>

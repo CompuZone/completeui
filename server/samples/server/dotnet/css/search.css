@@ -1,0 +1,44 @@
+/*
+
+	-- -- -- -- -- -- --
+	search.css
+	Google ajax search styling
+	-- -- -- -- -- -- --
+	
+*/
+
+
+
+.gsc-webResult .gs-visibleUrl-long {
+	margin-left: 0;
+}
+.gs-watermark {
+	opacity: 0.4;
+}
+.gs-result {
+	margin-bottom: 1em;
+}
+
+.gsc-branding-text {
+	vertical-align: center;
+}
+.gsc-branding-img {
+	vertical-align: center;
+}
+
+																		/* -- Results pager -- */
+.gsc-cursor-box {
+	width: 100%;
+	overflow: hidden;
+}
+.gsc-cursor-box .gsc-cursor-page {
+	display: block;
+	float: left;
+	padding: 0px 6px;
+	margin-right: 5px;
+}
+.gsc-cursor-box .gsc-cursor-current-page {
+	color: #fff;
+	background: #ba3826;
+	cursor: default;
+}

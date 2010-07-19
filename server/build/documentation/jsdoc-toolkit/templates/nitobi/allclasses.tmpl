@@ -1,0 +1,34 @@
+<div style="width:100%;height:100%;">
+<ntb:tree id="classesTree" theme="classtree">
+	<ntb:children>
+		<ntb:node cssclass="nitobiroot" expanded="true" symbol="nitobi" label="nitobi">
+			<ntb:children>
+				{!
+					if (data.root.length > 0)
+					{
+						output += "<ntb:node symbol=\"nitobi\" label=\"nitobi\" onselect=\"loadClass('nitobi')\"></ntb:node>";
+					}
+				!}
+				<for each="namespace" in="data.namespaces">
+					{! 
+						if (namespace.alias != "_global_")
+						{
+							output += "<ntb:node cssclass=\"" + namespace.alias.replace(".", "") + "\" onselect=\"loadClass('" + namespace.alias + "')\" expanded=\"false\" symbol=\"" + namespace.alias + "\" label=\"" + namespace.alias + "\">";
+							var classes = data.classes.filter(function($){return ($.alias.indexOf(namespace.alias) >= 0 && !$.isNamespace)});
+							if (classes.length > 0)
+							{
+								output += "<ntb:children>";
+								for(var i = 0; i < classes.length; i++)
+								{
+									output += "<ntb:node cssclass=\"classnode\" symbol=\"" + classes[i].alias + "\" onselect=\"loadClass('" + classes[i].alias + "')\" label=\"" + classes[i].alias + "\"></ntb:node>";
+								}
+								output += "</ntb:children>";
+							}
+							output += "</ntb:node>";
+						}
+					!}
+				</for>
+			</ntb:children>
+		</ntb:node>
+	</ntb:children>
+</ntb:tree>

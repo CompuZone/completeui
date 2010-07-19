@@ -1,0 +1,690 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">nitobi</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"undefined"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>  2</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>  3</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>  4</span> 	 * &lt;I>There is no constructor for this class.&lt;/I>
+<span class='line'>  5</span> 	 * @class The nitobi namespace is the root namespace for all Nitobi components and libraries.
+<span class='line'>  6</span> 	 * It should not be instantiated and is meant only to function as a namespace.
+<span class='line'>  7</span> 	 * @constructor 
+<span class='line'>  8</span> 	 */</span><span class="WHIT">
+<span class='line'>  9</span> </span><span class="WHIT">	</span><span class="NAME">nitobi</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 10</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 11</span> 
+<span class='line'> 12</span> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">false</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 13</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 15</span> 	 * &lt;I>There is no constructor for this class.&lt;/I>
+<span class='line'> 16</span> 	 * @class This namespace hosts methods that could be considered language extensions.  
+<span class='line'> 17</span> 	 * Most importantly one can find the {@link nitobi.lang#extend} and {@link nitobi.lang#implement}
+<span class='line'> 18</span> 	 * methods in this namespace.
+<span class='line'> 19</span> 	 */</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.lang</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 22</span> 
+<span class='line'> 23</span> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">nitobi.lang</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"undefined"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 26</span> 	 * @ignore
+<span class='line'> 27</span> 	 */</span><span class="WHIT">
+<span class='line'> 28</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.lang</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 30</span> 
+<span class='line'> 31</span> </span><span class="COMM">/**
+<span class='line'> 32</span>  * If the given namespace does not exist, create an empty object with that name.
+<span class='line'> 33</span>  * @param {String} namespace the namespace to define
+<span class='line'> 34</span>  */</span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="NAME">nitobi.lang.defineNs</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">namespace</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">names</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">namespace.split</span><span class="PUNC">(</span><span class="STRN">"."</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">currentNamespace</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 39</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">dot</span><span class="PUNC">=</span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">names.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">		</span><span class="NAME">currentNamespace</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">dot</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">names</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="WHIT">		</span><span class="NAME">dot</span><span class="PUNC">=</span><span class="STRN">"."</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">eval</span><span class="PUNC">(</span><span class="STRN">"typeof("</span><span class="PUNC">+</span><span class="NAME">currentNamespace</span><span class="PUNC">+</span><span class="STRN">")"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"undefined"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 45</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="WHIT">			</span><span class="NAME">eval</span><span class="PUNC">(</span><span class="NAME">currentNamespace</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"={}"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 47</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 50</span> 
+<span class='line'> 51</span> </span><span class="COMM">/**
+<span class='line'> 52</span>  * Extends the &lt;code>subClass&lt;/code> with the functionality included in the &lt;code>baseClass&lt;/code>. 
+<span class='line'> 53</span>  * This function should be called immediately after the subClass constructor is defined.
+<span class='line'> 54</span>  * &lt;div class="code">
+<span class='line'> 55</span>  * &lt;pre>&lt;code class="html">
+<span class='line'> 56</span>  * example.Cat = &#102;unction() {}
+<span class='line'> 57</span>  * example.Cat.prototype.run = function() {}
+<span class='line'> 58</span>  * 
+<span class='line'> 59</span>  * example.Lion = &#102;unction() {
+<span class='line'> 60</span>  *   example.Lion.baseConstructor.call(this);
+<span class='line'> 61</span>  * }
+<span class='line'> 62</span>  * 
+<span class='line'> 63</span>  * nitobi.lang.extend(example.Lion, example.Cat);
+<span class='line'> 64</span>  * &lt;/code>&lt;/pre>
+<span class='line'> 65</span>  * &lt;/div>
+<span class='line'> 66</span>  * @param subClass {object} The class that will inherit from the base.
+<span class='line'> 67</span>  * @param baseClass {object} The class that will be inherited from.
+<span class='line'> 68</span>  */</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="NAME">nitobi.lang.extend</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">subClass</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">baseClass</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="WHIT">   </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">inheritance</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="WHIT">   </span><span class="NAME">inheritance.prototype</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">baseClass.prototype</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 72</span> 
+<span class='line'> 73</span> </span><span class="WHIT">   </span><span class="NAME">subClass.prototype</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">inheritance</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="WHIT">   </span><span class="NAME">subClass.prototype.constructor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">subClass</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 75</span> </span><span class="WHIT">   </span><span class="NAME">subClass.baseConstructor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">baseClass</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 76</span> </span><span class="WHIT">   </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">baseClass.base</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 77</span> </span><span class="WHIT">   </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 78</span> </span><span class="WHIT">	   </span><span class="NAME">baseClass.prototype.base</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">baseClass.base</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 79</span> </span><span class="WHIT">   </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 80</span> </span><span class="WHIT">   </span><span class="NAME">subClass.base</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">baseClass.prototype</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 81</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 82</span> 
+<span class='line'> 83</span> </span><span class="COMM">/**
+<span class='line'> 84</span>  * Copies all functions from the interface to the class - commonly referred to as a mixin. 
+<span class='line'> 85</span>  * This is very similar to &lt;code>extend&lt;/code>. 
+<span class='line'> 86</span>  * &lt;div class="code">
+<span class='line'> 87</span>  * &lt;pre>&lt;code class="html">
+<span class='line'> 88</span>  * example.Cat = &#102;unction() {}
+<span class='line'> 89</span>  * example.Cat.prototype.run = function() {}
+<span class='line'> 90</span>  * 
+<span class='line'> 91</span>  * example.Lion = &#102;unction() {
+<span class='line'> 92</span>  *   example.Lion.baseConstructor.call(this);
+<span class='line'> 93</span>  * }
+<span class='line'> 94</span>  * 
+<span class='line'> 95</span>  * nitobi.lang.implement(example.Lion, example.Cat);
+<span class='line'> 96</span>  * &lt;/code>&lt;/pre>
+<span class='line'> 97</span>  * &lt;/div>
+<span class='line'> 98</span>  * @param {Function} class_ the class to copy functions onto
+<span class='line'> 99</span>  * @param {Function} interface_ the interface to copy from
+<span class='line'>100</span>  * @see #extend
+<span class='line'>101</span>  */</span><span class="WHIT">
+<span class='line'>102</span> </span><span class="NAME">nitobi.lang.implement</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">class_</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">interface_</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>103</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>104</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">member</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">interface_.prototype</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>105</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>106</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">class_.prototype</span><span class="PUNC">[</span><span class="NAME">member</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"undefined"</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">class_.prototype</span><span class="PUNC">[</span><span class="NAME">member</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="WHIT">			</span><span class="NAME">class_.prototype</span><span class="PUNC">[</span><span class="NAME">member</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">interface_.prototype</span><span class="PUNC">[</span><span class="NAME">member</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>110</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>111</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>112</span> 
+<span class='line'>113</span> </span><span class="COMM">// TODO: support dates and numbers</span><span class="WHIT">
+<span class='line'>114</span> </span><span class="COMM">/**
+<span class='line'>115</span>  * Takes a prototype and creates getters/setters for the provided array of JS properties defined
+<span class='line'>116</span>  * as {n:"PropName",t:"s"} where n is the property name and t is the property type which can be "(s)tring", 
+<span class='line'>117</span>  * "(b)oolean" or "(i)nteger".
+<span class='line'>118</span>  */</span><span class="WHIT">
+<span class='line'>119</span> </span><span class="NAME">nitobi.lang.setJsProps</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">p</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">props</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>120</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">props.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>121</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">prop</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">props</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>122</span> </span><span class="WHIT">		</span><span class="COMM">// create the getter/setter</span><span class="WHIT">
+<span class='line'>123</span> </span><span class="WHIT">		</span><span class="NAME">p</span><span class="PUNC">[</span><span class="STRN">"set"</span><span class="PUNC">+</span><span class="NAME">prop.n</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.jSET</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>124</span> </span><span class="WHIT">		</span><span class="NAME">p</span><span class="PUNC">[</span><span class="STRN">"get"</span><span class="PUNC">+</span><span class="NAME">prop.n</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.jGET</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>125</span> </span><span class="WHIT">		</span><span class="COMM">// set the default value</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="WHIT">		</span><span class="NAME">p</span><span class="PUNC">[</span><span class="NAME">prop.n</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">prop.d</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>127</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>128</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>129</span> 
+<span class='line'>130</span> </span><span class="COMM">// TODO: support dates and numbers</span><span class="WHIT">
+<span class='line'>131</span> </span><span class="COMM">/**
+<span class='line'>132</span>  * Takes a prototype and creates getters/setters for the provided array of XML properties defined
+<span class='line'>133</span>  * as {n:"PropName",t:"s"} where n is the property name and t is the property type which can be "(s)tring", 
+<span class='line'>134</span>  * "(b)oolean" or "(i)nteger".
+<span class='line'>135</span>  */</span><span class="WHIT">
+<span class='line'>136</span> </span><span class="NAME">nitobi.lang.setXmlProps</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">p</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">props</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>137</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">props.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>138</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">prop</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">props</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>139</span> </span><span class="WHIT">		</span><span class="COMM">// create the getter/setter</span><span class="WHIT">
+<span class='line'>140</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">s</span><span class="PUNC">,</span><span class="NAME">g</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>141</span> </span><span class="WHIT">		</span><span class="KEYW">switch</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">prop.t</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>142</span> </span><span class="WHIT">			</span><span class="KEYW">case</span><span class="WHIT"> </span><span class="STRN">"i"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="COMM">// integer types</span><span class="WHIT">
+<span class='line'>143</span> </span><span class="WHIT">				</span><span class="NAME">s</span><span class="PUNC">=</span><span class="NAME">this.xSET</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// no need to do any custom convert from int to string</span><span class="WHIT">
+<span class='line'>144</span> </span><span class="WHIT">				</span><span class="NAME">g</span><span class="PUNC">=</span><span class="NAME">this.xiGET</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>145</span> </span><span class="WHIT">				</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>146</span> </span><span class="WHIT">			</span><span class="KEYW">case</span><span class="WHIT"> </span><span class="STRN">"b"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="COMM">// boolean</span><span class="WHIT">
+<span class='line'>147</span> </span><span class="WHIT">				</span><span class="NAME">s</span><span class="PUNC">=</span><span class="NAME">this.xbSET</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="WHIT">				</span><span class="NAME">g</span><span class="PUNC">=</span><span class="NAME">this.xbGET</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>149</span> </span><span class="WHIT">				</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>150</span> </span><span class="WHIT">			</span><span class="KEYW">default</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'>151</span> </span><span class="WHIT">				</span><span class="NAME">s</span><span class="PUNC">=</span><span class="NAME">this.xSET</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>152</span> </span><span class="WHIT">				</span><span class="NAME">g</span><span class="PUNC">=</span><span class="NAME">this.xGET</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>153</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>154</span> </span><span class="WHIT">		</span><span class="NAME">p</span><span class="PUNC">[</span><span class="STRN">"set"</span><span class="PUNC">+</span><span class="NAME">prop.n</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">s</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>155</span> </span><span class="WHIT">		</span><span class="NAME">p</span><span class="PUNC">[</span><span class="STRN">"get"</span><span class="PUNC">+</span><span class="NAME">prop.n</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">g</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>156</span> </span><span class="WHIT">		</span><span class="COMM">// set the default value</span><span class="WHIT">
+<span class='line'>157</span> </span><span class="WHIT">		</span><span class="NAME">p</span><span class="PUNC">[</span><span class="STRN">"sModel"</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">prop.n</span><span class="PUNC">+</span><span class="STRN">"\""</span><span class="PUNC">+</span><span class="NAME">prop.d</span><span class="PUNC">+</span><span class="STRN">"\" "</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>158</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>160</span> 
+<span class='line'>161</span> </span><span class="COMM">/**
+<span class='line'>162</span>  * Takes a prototype and creates getters/setters for the provided array of event names defined
+<span class='line'>163</span>  * as "OnBeforeSaveEvent". Both the getter/setter for the event and an event object are created.
+<span class='line'>164</span>  */</span><span class="WHIT">
+<span class='line'>165</span> </span><span class="NAME">nitobi.lang.setEvents</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">p</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">events</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>166</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">events.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>167</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">n</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">events</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>168</span> </span><span class="WHIT">		</span><span class="COMM">// this is all for backwards compat.</span><span class="WHIT">
+<span class='line'>169</span> </span><span class="WHIT">		</span><span class="NAME">p</span><span class="PUNC">[</span><span class="STRN">"set"</span><span class="PUNC">+</span><span class="NAME">n</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.eSET</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>170</span> </span><span class="WHIT">		</span><span class="NAME">p</span><span class="PUNC">[</span><span class="STRN">"get"</span><span class="PUNC">+</span><span class="NAME">n</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.eGET</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>171</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nn</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">n.substring</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="NAME">n.length</span><span class="PUNC">-</span><span class="NUMB">5</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>172</span> </span><span class="WHIT">		</span><span class="NAME">p</span><span class="PUNC">[</span><span class="STRN">"set"</span><span class="PUNC">+</span><span class="NAME">nn</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.eSET</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>173</span> </span><span class="WHIT">		</span><span class="NAME">p</span><span class="PUNC">[</span><span class="STRN">"get"</span><span class="PUNC">+</span><span class="NAME">nn</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.eGET</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>174</span> </span><span class="WHIT">		</span><span class="COMM">// TODO: could do this here or in the actual constructor ...</span><span class="WHIT">
+<span class='line'>175</span> </span><span class="WHIT">		</span><span class="NAME">p</span><span class="PUNC">[</span><span class="STRN">"o"</span><span class="PUNC">+</span><span class="NAME">n.substring</span><span class="PUNC">(</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.base.Event</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>176</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>177</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>178</span> 
+<span class='line'>179</span> 
+<span class='line'>180</span> </span><span class="COMM">/**
+<span class='line'>181</span>  * Returns true if the member is defined and false otherwise. 
+<span class='line'>182</span>  * Use this only on members, eg, isDefined(this.foo) or 
+<span class='line'>183</span>  * isDefined(obj.foo) but never isDefined(foo).
+<span class='line'>184</span>  * @param {Object} a Any member.
+<span class='line'>185</span>  * @type Boolean
+<span class='line'>186</span>  */</span><span class="WHIT">
+<span class='line'>187</span> </span><span class="NAME">nitobi.lang.isDefined</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">a</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>188</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>189</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">a</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="STRN">"undefined"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>190</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>191</span> 
+<span class='line'>192</span> </span><span class="COMM">/**
+<span class='line'>193</span>  * Casts a string value to a boolean.  Returns &lt;code>true&lt;/code> if the input string is "true".
+<span class='line'>194</span>  * Otherwise, returns false.
+<span class='line'>195</span>  * @param {String} a the string-encoded boolean
+<span class='line'>196</span>  */</span><span class="WHIT">
+<span class='line'>197</span> </span><span class="NAME">nitobi.lang.getBool</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">a</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>198</span> </span><span class="PUNC">{</span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">a</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>199</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">a</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"boolean"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">a</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>200</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">a.toLowerCase</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"true"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>201</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>202</span> 
+<span class='line'>203</span> </span><span class="COMM">/**
+<span class='line'>204</span>  * An enumeration of the different types that can be returned from {@link nitobi.lang#typeOf}.
+<span class='line'>205</span>  * &lt;code>nitobi.lang.type.XMLNODE&lt;/code>, &lt;code>nitobi.lang.type.HTMLNODE&lt;/code>, 
+<span class='line'>206</span>  * &lt;code>nitobi.lang.type.ARRAY&lt;/code>, and &lt;code>nitobi.lang.type.XMLDOC&lt;/code> are the 
+<span class='line'>207</span>  * possible values.
+<span class='line'>208</span>  * @type Map
+<span class='line'>209</span>  */</span><span class="WHIT">
+<span class='line'>210</span> </span><span class="NAME">nitobi.lang.type</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="NAME">XMLNODE</span><span class="PUNC">:</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">HTMLNODE</span><span class="PUNC">:</span><span class="NUMB">1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ARRAY</span><span class="PUNC">:</span><span class="NUMB">2</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">XMLDOC</span><span class="PUNC">:</span><span class="NUMB">3</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>211</span> 
+<span class='line'>212</span> </span><span class="COMM">/**
+<span class='line'>213</span>  * Returns the type of the input object as a member of the {@link nitobi.lang#type} enumeration.
+<span class='line'>214</span>  * @param {Object} obj the object to inspect
+<span class='line'>215</span>  * @type Number
+<span class='line'>216</span>  */</span><span class="WHIT">
+<span class='line'>217</span> </span><span class="NAME">nitobi.lang.typeOf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">obj</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>218</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>219</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">t</span><span class="PUNC">=</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">obj</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>220</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">t</span><span class="PUNC">==</span><span class="STRN">"object"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>221</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>222</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">obj.blur</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">obj.innerHTML</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>223</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>224</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">nitobi.lang.type.HTMLNODE</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>225</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">			</span><span class="WHIT">
+<span class='line'>226</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">obj.nodeName</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">obj.nodeName.toLowerCase</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">"#document"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>227</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>228</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">nitobi.lang.type.XMLDOC</span><span class="PUNC">;</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>229</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>230</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">obj.nodeName</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>231</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">nitobi.lang.type.XMLNODE</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>232</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>233</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">obj</span><span class="WHIT"> </span><span class="KEYW">instanceof</span><span class="WHIT"> </span><span class="NAME">Array</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>234</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>235</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">nitobi.lang.type.ARRAY</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>236</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>237</span> </span><span class="WHIT">			</span><span class="WHIT">
+<span class='line'>238</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>239</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">t</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>240</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>241</span> 
+<span class='line'>242</span> </span><span class="COMM">/**
+<span class='line'>243</span>  * @private
+<span class='line'>244</span>  */</span><span class="WHIT">
+<span class='line'>245</span> </span><span class="NAME">nitobi.lang.toBool</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">boolStr</span><span class="PUNC">,</span><span class="NAME">defaultval</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>246</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>247</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">defaultval</span><span class="PUNC">)</span><span class="PUNC">!=</span><span class="STRN">"undefined"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>248</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">boolStr</span><span class="PUNC">)</span><span class="PUNC">==</span><span class="STRN">"undefined"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">boolStr</span><span class="PUNC">==</span><span class="STRN">""</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">boolStr</span><span class="PUNC">==</span><span class="KEYW">null</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">boolStr</span><span class="PUNC">=</span><span class="NAME">defaultval</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>249</span> 
+<span class='line'>250</span> </span><span class="WHIT">	</span><span class="NAME">boolStr</span><span class="PUNC">=</span><span class="NAME">boolStr.toString</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>251</span> </span><span class="WHIT">	</span><span class="NAME">boolStr</span><span class="PUNC">=</span><span class="NAME">boolStr.toUpperCase</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>252</span> 
+<span class='line'>253</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">boolStr</span><span class="PUNC">==</span><span class="STRN">"Y"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">boolStr</span><span class="PUNC">==</span><span class="STRN">"1"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">boolStr</span><span class="PUNC">==</span><span class="STRN">"TRUE"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>254</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>255</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>256</span> </span><span class="COMM">/**
+<span class='line'>257</span>  * @private
+<span class='line'>258</span>  * @type String
+<span class='line'>259</span>  */</span><span class="WHIT">
+<span class='line'>260</span> </span><span class="NAME">nitobi.lang.boolToStr</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">bool</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>261</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>262</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">bool</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"boolean"</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">bool</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">bool</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"string"</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">bool.toLowerCase</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"true"</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">bool</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"1"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">"1"</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">"0"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>263</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">bool</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>264</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>265</span> 
+<span class='line'>266</span> </span><span class="COMM">/**
+<span class='line'>267</span>  * Formats the given number with the given mask.
+<span class='line'>268</span>  */</span><span class="WHIT">
+<span class='line'>269</span> </span><span class="NAME">nitobi.lang.formatNumber</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">number</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">mask</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">groupingSymbol</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">decimalSymbol</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>270</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">n</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.form.numberXslProc</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>271</span> </span><span class="WHIT">	</span><span class="NAME">n.addParameter</span><span class="PUNC">(</span><span class="STRN">"number"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">number</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>272</span> </span><span class="WHIT">	</span><span class="NAME">n.addParameter</span><span class="PUNC">(</span><span class="STRN">"mask"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">mask</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>273</span> </span><span class="WHIT">	</span><span class="NAME">n.addParameter</span><span class="PUNC">(</span><span class="STRN">"group"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">groupingSymbol</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>274</span> </span><span class="WHIT">	</span><span class="NAME">n.addParameter</span><span class="PUNC">(</span><span class="STRN">"decimal"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">decimalSymbol</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>275</span> </span><span class="WHIT">	</span><span class="COMM">// TODO: put the number xsl into lang</span><span class="WHIT">
+<span class='line'>276</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.transformToString</span><span class="PUNC">(</span><span class="NAME">nitobi.xml.Empty</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">nitobi.form.numberXslProc</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>277</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>278</span> 
+<span class='line'>279</span> </span><span class="COMM">/**
+<span class='line'>280</span>  * Creates a closure for a function and a context. Also supports the passing of arguments. As an alternative to 
+<span class='line'>281</span>  * defining inline anonymous functions that alias the &lt;code>this&lt;/code> keyword one can use a closure. The conventional
+<span class='line'>282</span>  * approach to creating a closure is shown below:
+<span class='line'>283</span>  * &lt;div class="code">
+<span class='line'>284</span>  * &lt;pre>&lt;code class="html">
+<span class='line'>285</span>  * example.Account.prototype.getBalance = &#102;unction() {
+<span class='line'>286</span>  *   var xhr = new nitobi.ajax.HttpRequest();
+<span class='line'>287</span>  *   var _this = this;
+<span class='line'>288</span>  *   xhr.onGetComplete.subscribe(&#102;unction(evtArgs) {
+<span class='line'>289</span>  *     _this.balance = evtArgs.response;
+<span class='line'>290</span>  *   });
+<span class='line'>291</span>  *   xhr.get("balance.do");
+<span class='line'>292</span>  * }
+<span class='line'>293</span>  * &lt;/code>&lt;/pre>
+<span class='line'>294</span>  * &lt;/div>
+<span class='line'>295</span>  * An example of the same code using closures is shown below. This code is slightly more verbose yet easier to document and understand as well as 
+<span class='line'>296</span>  * being less prone to Internet Explorer memory leak patterns.
+<span class='line'>297</span>  * &lt;div class="code">
+<span class='line'>298</span>  * &lt;pre>&lt;code class="html">
+<span class='line'>299</span>  * example.Account.prototype.getBalance = &#102;unction() {
+<span class='line'>300</span>  *   var xhr = new nitobi.ajax.HttpRequest();
+<span class='line'>301</span>  *   xhr.onGetComplete.subscribe(nitobi.lang.close(this, this.getBalanceComplete));
+<span class='line'>302</span>  *   xhr.get("balance.do");
+<span class='line'>303</span>  * }
+<span class='line'>304</span>  * example.Account.prototype.getBalanceComplete = &#102;unction(evtArgs) {
+<span class='line'>305</span>  *   this.balance = evtArgs.response;
+<span class='line'>306</span>  * }
+<span class='line'>307</span>  * &lt;/code>&lt;/pre>
+<span class='line'>308</span>  * &lt;/div> 
+<span class='line'>309</span>  * @param {Object} context The context for the function to be executed in.
+<span class='line'>310</span>  * @param {Function} func The function to be executed.
+<span class='line'>311</span>  * @param {Array} params An array of arugments that can be passed to the function.
+<span class='line'>312</span>  */</span><span class="WHIT">
+<span class='line'>313</span> </span><span class="NAME">nitobi.lang.close</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">context</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">func</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">params</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>314</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>315</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">params</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>316</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>317</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>318</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>319</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">func.apply</span><span class="PUNC">(</span><span class="NAME">context</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">arguments</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>320</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>321</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>322</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>323</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>324</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>325</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>326</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">func.apply</span><span class="PUNC">(</span><span class="NAME">context</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">params</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>327</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>328</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>329</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>330</span> 
+<span class='line'>331</span> </span><span class="COMM">/**
+<span class='line'>332</span>  * Attachs a function to be called immediately after another method.
+<span class='line'>333</span>  * @param {Object} object1 The object that is the context of the method we are attaching the other method to.
+<span class='line'>334</span>  * @param {String} method1 The name of the method we are attaching the other method to.
+<span class='line'>335</span>  * @param {Object} object2 The object that is the context of the attached method.
+<span class='line'>336</span>  * @param {String} method2 The name of the method we are attaching.
+<span class='line'>337</span>  */</span><span class="WHIT">
+<span class='line'>338</span> </span><span class="NAME">nitobi.lang.after</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">object1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">method1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">object2</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">method2</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>339</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>340</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">srcMethod</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">object1</span><span class="PUNC">[</span><span class="NAME">method1</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>341</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">attachMethod</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">object2</span><span class="PUNC">[</span><span class="NAME">method2</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>342</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">method2</span><span class="WHIT"> </span><span class="KEYW">instanceof</span><span class="WHIT"> </span><span class="NAME">Function</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>343</span> </span><span class="WHIT">		</span><span class="NAME">attachMethod</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">method2</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>344</span> </span><span class="WHIT">	</span><span class="NAME">object1</span><span class="PUNC">[</span><span class="NAME">method1</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>345</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>346</span> </span><span class="WHIT">		</span><span class="NAME">srcMethod.apply</span><span class="PUNC">(</span><span class="NAME">object1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">arguments</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>347</span> </span><span class="WHIT">		</span><span class="NAME">attachMethod.apply</span><span class="PUNC">(</span><span class="NAME">object2</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">arguments</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>348</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>349</span> </span><span class="WHIT">	</span><span class="NAME">object1</span><span class="PUNC">[</span><span class="NAME">method1</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">orig</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">srcMethod</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>350</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>351</span> 
+<span class='line'>352</span> </span><span class="COMM">/**
+<span class='line'>353</span>  * Attachs a function to be called immediately before another method.
+<span class='line'>354</span>  * @param {Object} object1 The object that is the context of the method we are attaching the other method to.
+<span class='line'>355</span>  * @param {String} method1 The name of the method we are attaching the other method to.
+<span class='line'>356</span>  * @param {Object} object2 The object that is the context of the attached method.
+<span class='line'>357</span>  * @param {String|Function} method2 The name of the method we are attaching.
+<span class='line'>358</span>  */</span><span class="WHIT">
+<span class='line'>359</span> </span><span class="NAME">nitobi.lang.before</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">object1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">method1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">object2</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">method2</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>360</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>361</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">srcMethod</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">object1</span><span class="PUNC">[</span><span class="NAME">method1</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>362</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">attachMethod</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>363</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">object2</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>364</span> </span><span class="WHIT">		</span><span class="COMM">// Set the "before" method to the method that is passed in</span><span class="WHIT">
+<span class='line'>365</span> </span><span class="WHIT">		</span><span class="NAME">attachMethod</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">object2</span><span class="PUNC">[</span><span class="NAME">method2</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>366</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">method2</span><span class="WHIT"> </span><span class="KEYW">instanceof</span><span class="WHIT"> </span><span class="NAME">Function</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>367</span> </span><span class="WHIT">		</span><span class="NAME">attachMethod</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">method2</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>368</span> </span><span class="WHIT">	</span><span class="NAME">object1</span><span class="PUNC">[</span><span class="NAME">method1</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>369</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>370</span> </span><span class="WHIT">		</span><span class="NAME">attachMethod.apply</span><span class="PUNC">(</span><span class="NAME">object2</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">arguments</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>371</span> </span><span class="WHIT">		</span><span class="NAME">srcMethod.apply</span><span class="PUNC">(</span><span class="NAME">object1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">arguments</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>372</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>373</span> </span><span class="WHIT">	</span><span class="NAME">object1</span><span class="PUNC">[</span><span class="NAME">method1</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">orig</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">srcMethod</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>374</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>375</span> 
+<span class='line'>376</span> </span><span class="COMM">/**
+<span class='line'>377</span>  * For each item in the provided array calls the provided function with the array item and the index
+<span class='line'>378</span>  * as the two arguments to the function.
+<span class='line'>379</span>  * @param {Array} arr The array of objects.
+<span class='line'>380</span>  * @param {Function} func The function to be called for each item in the array.
+<span class='line'>381</span>  */</span><span class="WHIT">
+<span class='line'>382</span> </span><span class="NAME">nitobi.lang.forEach</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">arr</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">func</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>383</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>384</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">len</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">arr.length</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>385</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">len</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>386</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>387</span> </span><span class="WHIT">		</span><span class="NAME">func.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">arr</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>388</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>389</span> </span><span class="WHIT">	</span><span class="NAME">func</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>390</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>391</span> 
+<span class='line'>392</span> </span><span class="COMM">/**
+<span class='line'>393</span>  * Throw an error with an optional Javascript exception.
+<span class='line'>394</span>  * @param {String} description a human-readable description of the error
+<span class='line'>395</span>  * @param {Exception|String} the exception that has caused this error (Optional)
+<span class='line'>396</span>  */</span><span class="WHIT">
+<span class='line'>397</span> </span><span class="NAME">nitobi.lang.throwError</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">description</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">excep</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>398</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>399</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">msg</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">description</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>400</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">excep</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>401</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>402</span> </span><span class="WHIT">		</span><span class="NAME">msg</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"\n - because "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">nitobi.lang.getErrorDescription</span><span class="PUNC">(</span><span class="NAME">excep</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>403</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>404</span> </span><span class="WHIT">	</span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="NAME">msg</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>405</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>406</span> </span><span class="COMM">/**
+<span class='line'>407</span>  * @ignore
+<span class='line'>408</span>  */</span><span class="WHIT">
+<span class='line'>409</span> </span><span class="NAME">nitobi.lang.getErrorDescription</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">excep</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>410</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>411</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT">
+<span class='line'>412</span> </span><span class="WHIT">        </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">excep.description</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">'undefined'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT">
+<span class='line'>413</span> </span><span class="WHIT">        </span><span class="NAME">excep</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'>414</span> </span><span class="WHIT">        </span><span class="NAME">excep.description</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>415</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">result</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>416</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>417</span> 
+<span class='line'>418</span> </span><span class="COMM">/**
+<span class='line'>419</span>  * Returns a new obejct 
+<span class='line'>420</span>  * @param {int} ignoreNLeft Ignore the first n arguments.
+<span class='line'>421</span>  * @private
+<span class='line'>422</span>  */</span><span class="WHIT">
+<span class='line'>423</span> </span><span class="NAME">nitobi.lang.newObject</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">className</span><span class="PUNC">,</span><span class="NAME">args</span><span class="PUNC">,</span><span class="NAME">ignoreNLeft</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>424</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>425</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">a</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">args</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>426</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">ignoreNLeft</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">ignoreNLeft</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>427</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">e</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"new "</span><span class="PUNC">+</span><span class="NAME">className</span><span class="PUNC">+</span><span class="STRN">"("</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>428</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">comma</span><span class="PUNC">=</span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>429</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NAME">ignoreNLeft</span><span class="PUNC">;</span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">a.length</span><span class="PUNC">;</span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>430</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>431</span> </span><span class="WHIT">		</span><span class="NAME">e</span><span class="PUNC">+</span><span class="PUNC">=</span><span class="NAME">comma</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"a["</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"]"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>432</span> </span><span class="WHIT">		</span><span class="NAME">comma</span><span class="PUNC">=</span><span class="STRN">","</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>433</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>434</span> </span><span class="WHIT">	</span><span class="NAME">e</span><span class="PUNC">+</span><span class="PUNC">=</span><span class="STRN">")"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>435</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">eval</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>436</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>437</span> 
+<span class='line'>438</span> 
+<span class='line'>439</span> </span><span class="COMM">/**
+<span class='line'>440</span>  * Get the last n args starting from start
+<span class='line'>441</span>  * @private
+<span class='line'>442</span>  */</span><span class="WHIT">
+<span class='line'>443</span> </span><span class="NAME">nitobi.lang.getLastFunctionArgs</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">args</span><span class="PUNC">,</span><span class="NAME">start</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>444</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>445</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">a</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Array</span><span class="PUNC">(</span><span class="NAME">args.length</span><span class="PUNC">-</span><span class="NAME">start</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>446</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NAME">start</span><span class="PUNC">;</span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">args.length</span><span class="PUNC">;</span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>447</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>448</span> </span><span class="WHIT">		</span><span class="NAME">a</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">-</span><span class="NAME">start</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">args</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>449</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>450</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">a</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>451</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>452</span> 
+<span class='line'>453</span> </span><span class="COMM">/**
+<span class='line'>454</span>  * Return the first available key from a hash.
+<span class='line'>455</span>  * @param {Hash} hash The hash.
+<span class='line'>456</span>  * @type String
+<span class='line'>457</span>  * @private
+<span class='line'>458</span>  */</span><span class="WHIT">
+<span class='line'>459</span> </span><span class="NAME">nitobi.lang.getFirstHashKey</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">hash</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>460</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>461</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">x</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">hash</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>462</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>463</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">x</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>464</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>465</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>466</span> 
+<span class='line'>467</span> </span><span class="COMM">/**
+<span class='line'>468</span>  * Returns a struct containing the "name" of the first function in
+<span class='line'>469</span>  * obj and the "value" that is the function itself.
+<span class='line'>470</span>  * @param {Object} obj The obj whose function you want.
+<span class='line'>471</span>  * @type Object
+<span class='line'>472</span>  * @private
+<span class='line'>473</span>  */</span><span class="WHIT">
+<span class='line'>474</span> </span><span class="NAME">nitobi.lang.getFirstFunction</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">obj</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>475</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>476</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">x</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">obj</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>477</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>478</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">obj</span><span class="PUNC">[</span><span class="NAME">x</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">obj</span><span class="PUNC">[</span><span class="NAME">x</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"function"</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">obj</span><span class="PUNC">[</span><span class="NAME">x</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">prototype</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="STRN">"undefined"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>479</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>480</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="NAME">name</span><span class="PUNC">:</span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">value</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">obj</span><span class="PUNC">[</span><span class="NAME">x</span><span class="PUNC">]</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>481</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>482</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>483</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>484</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>485</span> 
+<span class='line'>486</span> </span><span class="COMM">/**
+<span class='line'>487</span>  * Returns a shallow copy of an object - this is useful for the event object in IE.
+<span class='line'>488</span>  */</span><span class="WHIT">
+<span class='line'>489</span> </span><span class="NAME">nitobi.lang.copy</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">obj</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>490</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>491</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">newObj</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>492</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">item</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">obj</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>493</span> </span><span class="WHIT">		</span><span class="NAME">newObj</span><span class="PUNC">[</span><span class="NAME">item</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">obj</span><span class="PUNC">[</span><span class="NAME">item</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>494</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">newObj</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>495</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>496</span> 
+<span class='line'>497</span> </span><span class="COMM">/**
+<span class='line'>498</span>  * Used by our javascript destructors.
+<span class='line'>499</span>  * @private
+<span class='line'>500</span>  */</span><span class="WHIT">
+<span class='line'>501</span> </span><span class="NAME">nitobi.lang.dispose</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">context</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">disposal</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>502</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>503</span> </span><span class="WHIT">	</span><span class="KEYW">try</span><span class="WHIT">
+<span class='line'>504</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>505</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">disposal</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>506</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">disposalLength</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">disposal.length</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>507</span> </span><span class="WHIT">			</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">disposalLength</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>508</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>509</span> </span><span class="WHIT">				</span><span class="COMM">// ?</span><span class="WHIT">
+<span class='line'>510</span> </span><span class="WHIT">				</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">disposal</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">dispose</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"function"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>511</span> </span><span class="WHIT">					</span><span class="NAME">disposal</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">dispose</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>512</span> </span><span class="WHIT">				</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">disposal</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"function"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>513</span> </span><span class="WHIT">					</span><span class="NAME">disposal</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">call</span><span class="PUNC">(</span><span class="NAME">context</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>514</span> </span><span class="WHIT">				</span><span class="NAME">disposal</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>515</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>516</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>517</span> 
+<span class='line'>518</span> </span><span class="WHIT">		</span><span class="COMM">// Loop through every item in the object.</span><span class="WHIT">
+<span class='line'>519</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">item</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">context</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>520</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>521</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">context</span><span class="PUNC">[</span><span class="NAME">item</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">context</span><span class="PUNC">[</span><span class="NAME">item</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">dispose</span><span class="WHIT"> </span><span class="KEYW">instanceof</span><span class="WHIT"> </span><span class="NAME">Function</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>522</span> </span><span class="WHIT">				</span><span class="NAME">context</span><span class="PUNC">[</span><span class="NAME">item</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">dispose</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>523</span> </span><span class="WHIT">			</span><span class="NAME">context</span><span class="PUNC">[</span><span class="NAME">item</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>524</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>525</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>526</span> </span><span class="WHIT">	</span><span class="KEYW">catch</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>527</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>528</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>529</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>530</span> 
+<span class='line'>531</span> </span><span class="COMM">/**
+<span class='line'>532</span>  * Returns a number from a value, and never returns NaN.
+<span class='line'>533</span>  * @param {String} val A value that may or may not be a number.
+<span class='line'>534</span>  * @return {Number} The numeric interpretation of the value. If none can be made, zero is returned.
+<span class='line'>535</span>  */</span><span class="WHIT">
+<span class='line'>536</span> </span><span class="NAME">nitobi.lang.parseNumber</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">val</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>537</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>538</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">num</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">val</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>539</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">isNaN</span><span class="PUNC">(</span><span class="NAME">num</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">num</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>540</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>541</span> 
+<span class='line'>542</span> </span><span class="COMM">/**
+<span class='line'>543</span>  * Returns the base-26 style character string for the given number.  This will be valid up from 'a' to 'zz' or (26^2-1)
+<span class='line'>544</span>  * @param {Number} num the number to use in the conversion
+<span class='line'>545</span>  * @type String
+<span class='line'>546</span>  * @private
+<span class='line'>547</span>  */</span><span class="WHIT">
+<span class='line'>548</span> </span><span class="NAME">nitobi.lang.numToAlpha</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">num</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>549</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>550</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">nitobi.lang.numAlphaCache</span><span class="PUNC">[</span><span class="NAME">num</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'string'</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>551</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>552</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">nitobi.lang.numAlphaCache</span><span class="PUNC">[</span><span class="NAME">num</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>553</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>554</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ck1</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">num</span><span class="WHIT"> </span><span class="PUNC">%</span><span class="WHIT"> </span><span class="NUMB">26</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>555</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ck2</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Math.floor</span><span class="PUNC">(</span><span class="NAME">num</span><span class="WHIT"> </span><span class="PUNC">/</span><span class="WHIT"> </span><span class="NUMB">26</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>556</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">alpha</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">ck2</span><span class="PUNC">></span><span class="NUMB">0</span><span class="PUNC">?</span><span class="NAME">String.fromCharCode</span><span class="PUNC">(</span><span class="NUMB">96</span><span class="PUNC">+</span><span class="NAME">ck2</span><span class="PUNC">)</span><span class="PUNC">:</span><span class="STRN">""</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="NAME">String.fromCharCode</span><span class="PUNC">(</span><span class="NUMB">97</span><span class="PUNC">+</span><span class="NAME">ck1</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>557</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.lang.alphaNumCache</span><span class="PUNC">[</span><span class="NAME">alpha</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">num</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>558</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.lang.numAlphaCache</span><span class="PUNC">[</span><span class="NAME">num</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">alpha</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>559</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">alpha</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>560</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>561</span> 
+<span class='line'>562</span> </span><span class="COMM">/**
+<span class='line'>563</span>  * Returns the numeric value (base-10) for the given base-26 style character string.
+<span class='line'>564</span>  * @param {String} alpha the base-26 character string ('a'-'zz')
+<span class='line'>565</span>  * @type Number
+<span class='line'>566</span>  * @private
+<span class='line'>567</span>  */</span><span class="WHIT">
+<span class='line'>568</span> </span><span class="NAME">nitobi.lang.alphaToNum</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">alpha</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>569</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>570</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">nitobi.lang.alphaNumCache</span><span class="PUNC">[</span><span class="NAME">alpha</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'number'</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>571</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>572</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">nitobi.lang.alphaNumCache</span><span class="PUNC">[</span><span class="NAME">alpha</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>573</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>574</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">j</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>575</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">num</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>576</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">alpha.length</span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">>=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">--</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>577</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>578</span> </span><span class="WHIT">		</span><span class="NAME">num</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">alpha.charCodeAt</span><span class="PUNC">(</span><span class="NAME">i</span><span class="PUNC">)</span><span class="PUNC">-</span><span class="NUMB">96</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">*</span><span class="WHIT"> </span><span class="NAME">Math.pow</span><span class="PUNC">(</span><span class="NUMB">26</span><span class="PUNC">,</span><span class="NAME">j</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>579</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>580</span> </span><span class="WHIT">	</span><span class="NAME">num</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">num</span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>581</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.lang.alphaNumCache</span><span class="PUNC">[</span><span class="NAME">alpha</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">num</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>582</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.lang.numAlphaCache</span><span class="PUNC">[</span><span class="NAME">num</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">alpha</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>583</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">num</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>584</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>585</span> 
+<span class='line'>586</span> </span><span class="COMM">/**
+<span class='line'>587</span>  * @ignore
+<span class='line'>588</span>  * @private
+<span class='line'>589</span>  */</span><span class="WHIT">
+<span class='line'>590</span> </span><span class="NAME">nitobi.lang.alphaNumCache</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>591</span> </span><span class="COMM">/**
+<span class='line'>592</span>  * @ignore
+<span class='line'>593</span>  * @private
+<span class='line'>594</span>  */</span><span class="WHIT">
+<span class='line'>595</span> </span><span class="NAME">nitobi.lang.numAlphaCache</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>596</span> 
+<span class='line'>597</span> </span><span class="COMM">/**
+<span class='line'>598</span>  * Makes the input obj an array.  This will work for many objects that are 'close' to the 
+<span class='line'>599</span>  * standard javascript array, like the &lt;CODE>arguments&lt;/CODE> variable. Your original object 
+<span class='line'>600</span>  * will be lost.
+<span class='line'>601</span>  * @param {Obect} obj an Array-like object.
+<span class='line'>602</span>  * @param {Number} ignoreFirst when this is set to &lt;code>n&lt;/code>, the returned array will 
+<span class='line'>603</span>  * not contain the first &lt;code>n&lt;/code> elements in &lt;code>obj&lt;/code>.
+<span class='line'>604</span>  * @type Array 
+<span class='line'>605</span>  */</span><span class="WHIT">
+<span class='line'>606</span> </span><span class="NAME">nitobi.lang.toArray</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">obj</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ignoreFirst</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>607</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>608</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">Array.prototype.splice.call</span><span class="PUNC">(</span><span class="NAME">obj</span><span class="PUNC">,</span><span class="NAME">ignoreFirst</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>609</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>610</span> 
+<span class='line'>611</span> </span><span class="COMM">/**
+<span class='line'>612</span>  * Merges two or more &lt;CODE>Map&lt;/CODE>s.  Any arguments after &lt;code>obj2&lt;/code> will be treated as
+<span class='line'>613</span>  * additional Maps to merge.
+<span class='line'>614</span>  * @param {Map} obj1 the base object
+<span class='line'>615</span>  * @param {Map} obj2 the second object, if &lt;code>obj2&lt;/code> has a field in common with 
+<span class='line'>616</span>  * &lt;code>obj1&lt;/code>, the value in &lt;code>obj2&lt;/code> will be used.
+<span class='line'>617</span>  * @type Map
+<span class='line'>618</span>  */</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>619</span> </span><span class="NAME">nitobi.lang.merge</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">obj1</span><span class="PUNC">,</span><span class="NAME">obj2</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>620</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>621</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">r</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>622</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">arguments.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>623</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>624</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">a</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">arguments</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>625</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">x</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">arguments</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>626</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>627</span> </span><span class="WHIT">			</span><span class="NAME">r</span><span class="PUNC">[</span><span class="NAME">x</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">a</span><span class="PUNC">[</span><span class="NAME">x</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>628</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>629</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>630</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">r</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>631</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>632</span> 
+<span class='line'>633</span> </span><span class="COMM">/**
+<span class='line'>634</span>  * Performs a logical XOR on its arguments.  XOR returns true if and only if
+<span class='line'>635</span>  * exactly one argument is true.
+<span class='line'>636</span>  * @type Boolean
+<span class='line'>637</span>  * @private
+<span class='line'>638</span>  */</span><span class="WHIT">
+<span class='line'>639</span> 
+<span class='line'>640</span> </span><span class="NAME">nitobi.lang.xor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>641</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>642</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">b</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>643</span> </span><span class="WHIT">    </span><span class="KEYW">for</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">j</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">j</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="NAME">arguments.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">j</span><span class="PUNC">++</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>644</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>645</span> </span><span class="WHIT">        </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">arguments</span><span class="PUNC">[</span><span class="WHIT"> </span><span class="NAME">j</span><span class="WHIT"> </span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">b</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">b</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>646</span> </span><span class="WHIT">        </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">arguments</span><span class="PUNC">[</span><span class="WHIT"> </span><span class="NAME">j</span><span class="WHIT"> </span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">b</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>647</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>648</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">b</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>649</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>650</span> 
+<span class='line'>651</span> </span><span class="COMM">/**
+<span class='line'>652</span>  * @ignore
+<span class='line'>653</span>  * @private
+<span class='line'>654</span>  */</span><span class="WHIT">
+<span class='line'>655</span> </span><span class="NAME">nitobi.lang.zeros</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"00000000000000000000000000000000000000000000000000000000000000000000"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>656</span> </span><span class="COMM">/**
+<span class='line'>657</span>  * adds padding zeroes
+<span class='line'>658</span>  * @private
+<span class='line'>659</span>  */</span><span class="WHIT">
+<span class='line'>660</span> </span><span class="NAME">nitobi.lang.padZeros</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">num</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">places</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>661</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>662</span> </span><span class="WHIT">	</span><span class="NAME">places</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">places</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NUMB">2</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>663</span> </span><span class="WHIT">	</span><span class="NAME">num</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">num</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>664</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">nitobi.lang.zeros.substr</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="NAME">Math.max</span><span class="PUNC">(</span><span class="NAME">places</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">num.length</span><span class="PUNC">,</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">num</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>665</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>666</span> 
+<span class='line'>667</span> </span><span class="COMM">/**
+<span class='line'>668</span>  * An empty function.  This function will do nothing if called.  It can be used as a callback
+<span class='line'>669</span>  * when no callback is desired.
+<span class='line'>670</span>  * @private
+<span class='line'>671</span>  */</span><span class="WHIT">
+<span class='line'>672</span> </span><span class="NAME">nitobi.lang.noop</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>673</span> 
+<span class='line'>674</span> </span><span class="NAME">nitobi.lang.isStandards</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>675</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">s</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">document.compatMode</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"CSS1Compat"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>676</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.SAFARI</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>677</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>678</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">elem</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.createElement</span><span class="PUNC">(</span><span class="STRN">'div'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>679</span> </span><span class="WHIT">        </span><span class="NAME">elem.style.cssText</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"width:0px;width:1"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>680</span> </span><span class="WHIT">        </span><span class="NAME">s</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">elem.style.width</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>681</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>682</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">s</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>683</span> </span><span class="PUNC">}</span></pre></body></html>

@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+
+<!--
+    This can be called like
+    "ant full" to build the components in includes.xml as a developer license with ASP backend.
+    To build a specific component
+    "ant -Dcomponent.name=grid full"
+-->
+
+<project default="installer.build" basedir=".">
+    
+    <property name="product.version" value="12"/>
+	<property name="product.year" value="2007"/>
+    <property name="product.quarter" value="q3"/>
+    <property name="platform.name" value="asp"></property>
+    <property name="license.name" value="trial"></property>
+    <property name="component.name" value="cui"></property>
+    
+    <tstamp/>
+    <echo file="history.txt" append="true">
+${TSTAMP}</echo>
+
+    <!-- Ant contrib -->    
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+        <classpath>
+            <pathelement location="ant-contrib/ant-contrib-1.0b3.jar"/>
+        </classpath>
+    </taskdef>
+
+    <!--installer.prepareremote, installer.build, installer.copyremote-->
+    <target name="fullRemoteContinue" depends="installer.prepareremote, installer.build, installer.copyremote"></target>
+    
+    <target name="installer.prepareremote">
+        <!-- Remove the file that is a signal to start the build so the scheduled process does not start it twice -->
+        <delete file="build.txt" />
+
+        <unzip src="refreshtrialdate.zip" dest="."/>
+
+        <delete dir="../output" />
+        <delete dir="../installer" />
+        <unzip src="../output.zip" dest="../"/>
+    </target>
+
+    <target name="installer.build">
+        <exec executable="cmd" dir="installanywhere">
+            <arg value="/c"/>
+            <arg value="build.exe ..\..\installer\built_suite_${license.name}.iap_xml +LV +WV +X"/>
+        </exec>
+        <echo file="c:\web\sites\nitobi.com\admin\build\status.txt">100</echo>
+    </target>
+
+    <target name="installer.copyremote" description="Copies the installers to the web site - this is run on the remote machine">
+        <antcall target="installer.copy">
+            <param name="installer.path" value="c:/web/sites/nitobi.com/download/files/"></param>			
+        </antcall>
+        <echo file="monitor.txt" message="../installers/${platform.name}/${license.name}/${component.name}"></echo>
+    </target>
+    
+    <target name="installer.copy" description="Copies the installers to {installer.path} variable">
+        
+        <copy todir="../installers/${platform.name}/${license.name}/${component.name}">
+            <fileset dir="../installer/built_suite_${license.name}_Build_Output/Web_Installers/InstData">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+
+        <!-- Rename the linux bin installer file to be correct -->
+        <copy file="../installers/${platform.name}/${license.name}/${component.name}/linux/vm/Nitobi_Complete_UI_${product.year}_${product.quarter}.bin" tofile="../installers/${platform.name}/${license.name}/${component.name}/ntb${component.name}${product.year}${product.quarter}${product.version}_${platform.name}linux_${license.name}.bin"></copy>
+        <!-- Zip up the linux bin installer file -->
+        <zip destfile="${installer.path}ntb${component.name}${product.year}${product.quarter}${product.version}_${platform.name}linux_${license.name}.zip" basedir="../installers/${platform.name}/${license.name}/${component.name}" includes="ntb${component.name}${product.year}${product.quarter}${product.version}_${platform.name}linux_${license.name}.bin"/>
+        <!-- Delete the original and copied file -->
+        <delete file="../installers/${platform.name}/${license.name}/${component.name}/ntb${component.name}${product.year}${product.quarter}${product.version}_${platform.name}linux_${license.name}.bin"></delete>
+        <delete file="../installers/${platform.name}/${license.name}/${component.name}/linux/vm/Nitobi_Complete_UI_${product.year}_${product.quarter}.bin"></delete>
+        
+        <!-- Rename the macosx zip installer file to be correct -->		
+        <copy file="../installers/${platform.name}/${license.name}/${component.name}/macosx/Nitobi Complete UI ${product.year} ${product.quarter}.zip" tofile="${installer.path}ntb${component.name}${product.year}${product.quarter}${product.version}_${platform.name}macosx_${license.name}.zip"></copy>
+        <!-- Delete the original file -->
+        <delete file="../installers/${platform.name}/${license.name}/${component.name}/macosx/Nitobi Complete UI ${product.year} ${product.quarter}.zip"></delete>
+        
+        <!-- Rename the windows exe installer file to be correct -->
+        <copy file="../installers/${platform.name}/${license.name}/${component.name}/windows/vm/Nitobi Complete UI ${product.year} ${product.quarter}.exe" tofile="../installers/${platform.name}/${license.name}/${component.name}/ntb${component.name}${product.year}${product.quarter}${product.version}_${platform.name}windows_${license.name}.exe"></copy>
+        <!-- Zip up the windows exe installer file -->
+        <zip destfile="${installer.path}ntb${component.name}${product.year}${product.quarter}${product.version}_${platform.name}windows_${license.name}.zip" basedir="../installers/${platform.name}/${license.name}/${component.name}" includes="ntb${component.name}${product.year}${product.quarter}${product.version}_${platform.name}windows_${license.name}.exe"/>
+        <!-- Delete the original and copied file -->
+        <delete file="../installers/${platform.name}/${license.name}/${component.name}/ntb${component.name}${product.year}${product.quarter}${product.version}_${platform.name}windows_${license.name}.exe"></delete>
+        <delete file="../installers/${platform.name}/${license.name}/${component.name}/windows/vm/Nitobi Complete UI ${product.year} ${product.quarter}.exe"></delete>
+        
+    </target>
+    
+</project>

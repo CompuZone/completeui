@@ -1,0 +1,278 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**************************************************************************/</span><span class="WHIT">
+<span class='line'>  2</span> </span><span class="COMM">/*					static nitobi.base.DateMath
+<span class='line'>  3</span> /* 
+<span class='line'>  4</span> /* asantoso
+<span class='line'>  5</span> /***************************************************************************/</span><span class="WHIT">
+<span class='line'>  6</span> 
+<span class='line'>  7</span> </span><span class="NAME">nitobi.lang.defineNs</span><span class="PUNC">(</span><span class="STRN">"nitobi.base"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  8</span> 
+<span class='line'>  9</span> </span><span class="COMM">/**
+<span class='line'> 10</span>  * DateMath
+<span class='line'> 11</span>  * Provides methods to deal with Date objects
+<span class='line'> 12</span>  * @static
+<span class='line'> 13</span>  */</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="NAME">nitobi.base.DateMath</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 15</span> </span><span class="WHIT">	</span><span class="NAME">DAY</span><span class="PUNC">:</span><span class="STRN">'d'</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 16</span> </span><span class="WHIT">	</span><span class="NAME">WEEK</span><span class="PUNC">:</span><span class="STRN">'w'</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 17</span> </span><span class="WHIT">	</span><span class="NAME">MONTH</span><span class="PUNC">:</span><span class="STRN">'m'</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="WHIT">	</span><span class="NAME">YEAR</span><span class="PUNC">:</span><span class="STRN">'y'</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="WHIT">	</span><span class="NAME">ONE_DAY_MS</span><span class="PUNC">:</span><span class="NUMB">86400000</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="COMM">/**
+<span class='line'> 22</span>  * Common function for add and subtract
+<span class='line'> 23</span>  * @param {Date} date The javascript date object
+<span class='line'> 24</span>  * @param {String} unit The unit 
+<span class='line'> 25</span>  * @param {Number} amount The amount of unit
+<span class='line'> 26</span>  * @return the result
+<span class='line'> 27</span>  * @type Date
+<span class='line'> 28</span>  * @private
+<span class='line'> 29</span>  */</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="NAME">nitobi.base.DateMath._add</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">,</span><span class="NAME">unit</span><span class="PUNC">,</span><span class="NAME">amount</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">unit</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">this.DAY</span><span class="PUNC">)</span><span class="WHIT">	</span><span class="NAME">date.setDate</span><span class="PUNC">(</span><span class="NAME">date.getDate</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="NAME">amount</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">unit</span><span class="PUNC">==</span><span class="NAME">this.WEEK</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">date.setDate</span><span class="PUNC">(</span><span class="NAME">date.getDate</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="NUMB">7</span><span class="PUNC">*</span><span class="NAME">amount</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">unit</span><span class="PUNC">==</span><span class="NAME">this.MONTH</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">date.setMonth</span><span class="PUNC">(</span><span class="NAME">date.getMonth</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="NAME">amount</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">unit</span><span class="PUNC">==</span><span class="NAME">this.YEAR</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">date.setFullYear</span><span class="PUNC">(</span><span class="NAME">date.getFullYear</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="NAME">amount</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">date</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="COMM">/**
+<span class='line'> 38</span>  * Adds a date by an amount
+<span class='line'> 39</span>  * @param {Date} date The javascript date object
+<span class='line'> 40</span>  * @param {String} unit The unit
+<span class='line'> 41</span>  * @param {Number} amount The amount of unit
+<span class='line'> 42</span>  * @return 
+<span class='line'> 43</span>  * @type Date
+<span class='line'> 44</span>  * @static
+<span class='line'> 45</span>  */</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="NAME">nitobi.base.DateMath.add</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">,</span><span class="NAME">unit</span><span class="PUNC">,</span><span class="NAME">amount</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 47</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this._add</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">,</span><span class="NAME">unit</span><span class="PUNC">,</span><span class="NAME">amount</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="COMM">/**
+<span class='line'> 50</span>  * Subtracts a date by an amount
+<span class='line'> 51</span>  * @param {Date} date The javascript date object
+<span class='line'> 52</span>  * @param {String} unit The unit
+<span class='line'> 53</span>  * @param {Number} amount The amount of unit
+<span class='line'> 54</span>  * @return the resulting Date
+<span class='line'> 55</span>  * @type Date
+<span class='line'> 56</span>  * @static
+<span class='line'> 57</span>  */</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="NAME">nitobi.base.DateMath.subtract</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">,</span><span class="NAME">unit</span><span class="PUNC">,</span><span class="NAME">amount</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this._add</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">,</span><span class="NAME">unit</span><span class="PUNC">,</span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">*</span><span class="NAME">amount</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 60</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="COMM">/**
+<span class='line'> 62</span>  * Determines whether a date is after another date
+<span class='line'> 63</span>  * @param {Date} date The javascript date to check
+<span class='line'> 64</span>  * @param {Date} compareTo the javascript date to compare
+<span class='line'> 65</span>  * @return the resulting Date
+<span class='line'> 66</span>  * @type Boolean
+<span class='line'> 67</span>  * @static
+<span class='line'> 68</span>  */</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="NAME">nitobi.base.DateMath.after</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">,</span><span class="NAME">compareTo</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">-</span><span class="NAME">compareTo</span><span class="PUNC">)</span><span class="PUNC">></span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 72</span> </span><span class="COMM">/**
+<span class='line'> 73</span>  * Determines whether a date is between two dates
+<span class='line'> 74</span>  * @param {Date} date The javascript Date object to check
+<span class='line'> 75</span>  * @param {Date} start The javascript Date object at the start
+<span class='line'> 76</span>  * @param {Date} end The javascript Date object at the end
+<span class='line'> 77</span>  * @return Object
+<span class='line'> 78</span>  * @type Boolean
+<span class='line'> 79</span>  * @static
+<span class='line'> 80</span>  */</span><span class="WHIT">
+<span class='line'> 81</span> </span><span class="NAME">nitobi.base.DateMath.between</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">,</span><span class="NAME">start</span><span class="PUNC">,</span><span class="NAME">end</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 82</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">-</span><span class="NAME">start</span><span class="PUNC">)</span><span class="PUNC">>=</span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">end</span><span class="PUNC">-</span><span class="NAME">date</span><span class="PUNC">)</span><span class="PUNC">>=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 83</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 84</span> </span><span class="COMM">/**
+<span class='line'> 85</span>  * Determines whether a date is before another date
+<span class='line'> 86</span>  * @param {Date} date The javascript date object to check
+<span class='line'> 87</span>  * @param {Date} compareTo The javascript date object to compare
+<span class='line'> 88</span>  * @return Object
+<span class='line'> 89</span>  * @type Boolean
+<span class='line'> 90</span>  * @static
+<span class='line'> 91</span>  */</span><span class="WHIT">
+<span class='line'> 92</span> </span><span class="NAME">nitobi.base.DateMath.before</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">,</span><span class="NAME">compareTo</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 93</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">-</span><span class="NAME">compareTo</span><span class="PUNC">)</span><span class="PUNC">&lt;</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 94</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 95</span> 
+<span class='line'> 96</span> </span><span class="COMM">/**
+<span class='line'> 97</span>  * Creates a copy of a date object
+<span class='line'> 98</span>  * @param {Date} date The javascript date object
+<span class='line'> 99</span>  * @return Object
+<span class='line'>100</span>  * @type Date
+<span class='line'>101</span>  * @static
+<span class='line'>102</span>  */</span><span class="WHIT">
+<span class='line'>103</span> </span><span class="NAME">nitobi.base.DateMath.clone</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>104</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">n</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Date</span><span class="PUNC">(</span><span class="NAME">date.toString</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>105</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">n</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>106</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="COMM">/**
+<span class='line'>108</span>  * Determines whether the year in the Date object is a leap year.
+<span class='line'>109</span>  * @param {Date} date The javascript Date object
+<span class='line'>110</span>  * @return Object
+<span class='line'>111</span>  * @type Boolean
+<span class='line'>112</span>  * @static
+<span class='line'>113</span>  */</span><span class="WHIT">
+<span class='line'>114</span> </span><span class="NAME">nitobi.base.DateMath.isLeapYear</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>115</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">y</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">date.getFullYear</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>116</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT">	</span><span class="NAME">_1</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">String</span><span class="PUNC">(</span><span class="NAME">y</span><span class="PUNC">/</span><span class="NUMB">4</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">indexOf</span><span class="PUNC">(</span><span class="STRN">'.'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>117</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">_2</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">String</span><span class="PUNC">(</span><span class="NAME">y</span><span class="PUNC">/</span><span class="NUMB">100</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">indexOf</span><span class="PUNC">(</span><span class="STRN">'.'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>118</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">_3</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">String</span><span class="PUNC">(</span><span class="NAME">y</span><span class="PUNC">/</span><span class="NUMB">400</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">indexOf</span><span class="PUNC">(</span><span class="STRN">'.'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>119</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">_3</span><span class="PUNC">)</span><span class="PUNC">?</span><span class="KEYW">true</span><span class="PUNC">:</span><span class="PUNC">(</span><span class="NAME">_1</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">_2</span><span class="PUNC">)</span><span class="PUNC">?</span><span class="KEYW">true</span><span class="PUNC">:</span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>120</span> </span><span class="PUNC">}</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>121</span> </span><span class="COMM">/**
+<span class='line'>122</span>  * Get the number of days in a month
+<span class='line'>123</span>  * @param {Date} date The javascript Date object
+<span class='line'>124</span>  * @return Object
+<span class='line'>125</span>  * @type Number
+<span class='line'>126</span>  * @static
+<span class='line'>127</span>  */</span><span class="WHIT">
+<span class='line'>128</span> </span><span class="NAME">nitobi.base.DateMath.getMonthDays</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>129</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="NUMB">31</span><span class="PUNC">,</span><span class="PUNC">(</span><span class="NAME">this.isLeapYear</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">?</span><span class="NUMB">29</span><span class="PUNC">:</span><span class="NUMB">28</span><span class="PUNC">,</span><span class="NUMB">31</span><span class="PUNC">,</span><span class="NUMB">30</span><span class="PUNC">,</span><span class="NUMB">31</span><span class="PUNC">,</span><span class="NUMB">30</span><span class="PUNC">,</span><span class="NUMB">31</span><span class="PUNC">,</span><span class="NUMB">31</span><span class="PUNC">,</span><span class="NUMB">30</span><span class="PUNC">,</span><span class="NUMB">31</span><span class="PUNC">,</span><span class="NUMB">30</span><span class="PUNC">,</span><span class="NUMB">31</span><span class="PUNC">]</span><span class="PUNC">[</span><span class="NAME">date.getMonth</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>130</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>131</span> </span><span class="COMM">/**
+<span class='line'>132</span>  * Get the date object that corresponds to the end of the month.
+<span class='line'>133</span>  * @param {Date} date The javascript Date object
+<span class='line'>134</span>  * @return Object
+<span class='line'>135</span>  * @type Date
+<span class='line'>136</span>  * @static
+<span class='line'>137</span>  */</span><span class="WHIT">
+<span class='line'>138</span> </span><span class="NAME">nitobi.base.DateMath.getMonthEnd</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>139</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Date</span><span class="PUNC">(</span><span class="NAME">date.getFullYear</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="NAME">date.getMonth</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="NAME">this.getMonthDays</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>140</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>141</span> </span><span class="COMM">/**
+<span class='line'>142</span>  * Get the date object that corresponds to the start of the month.
+<span class='line'>143</span>  * @param {Date} date The javascript Date object
+<span class='line'>144</span>  * @return Object
+<span class='line'>145</span>  * @type Date
+<span class='line'>146</span>  * @static
+<span class='line'>147</span>  */</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="NAME">nitobi.base.DateMath.getMonthStart</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>149</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Date</span><span class="PUNC">(</span><span class="NAME">date.getFullYear</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="NAME">date.getMonth</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>150</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>151</span> </span><span class="COMM">/**
+<span class='line'>152</span>  * Checks if the date is today
+<span class='line'>153</span>  * @param {Date} date The javascript Date object
+<span class='line'>154</span>  * @return Object
+<span class='line'>155</span>  * @type Boolean
+<span class='line'>156</span>  * @static
+<span class='line'>157</span>  */</span><span class="WHIT">
+<span class='line'>158</span> </span><span class="NAME">nitobi.base.DateMath.isToday</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">start</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.resetTime</span><span class="PUNC">(</span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Date</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>160</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">end</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.add</span><span class="PUNC">(</span><span class="NAME">this.clone</span><span class="PUNC">(</span><span class="NAME">start</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="NAME">this.DAY</span><span class="PUNC">,</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>161</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.between</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">,</span><span class="NAME">start</span><span class="PUNC">,</span><span class="NAME">end</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>162</span> </span><span class="PUNC">}</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>163</span> 
+<span class='line'>164</span> </span><span class="COMM">/**
+<span class='line'>165</span>  * Returns true if the two dates have the same day, month, and year (irrespective of time).
+<span class='line'>166</span>  * @param {Date} date The first date in the comparison.
+<span class='line'>167</span>  * @param {Date} compare The second date in the comparison.
+<span class='line'>168</span>  */</span><span class="WHIT">
+<span class='line'>169</span> </span><span class="NAME">nitobi.base.DateMath.isSameDay</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">compare</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>170</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>171</span> </span><span class="WHIT">	</span><span class="NAME">date</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.resetTime</span><span class="PUNC">(</span><span class="NAME">this.clone</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>172</span> </span><span class="WHIT">	</span><span class="NAME">compare</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.resetTime</span><span class="PUNC">(</span><span class="NAME">this.clone</span><span class="PUNC">(</span><span class="NAME">compare</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>173</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">date.valueOf</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">compare.valueOf</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>174</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>175</span> 
+<span class='line'>176</span> </span><span class="COMM">/**
+<span class='line'>177</span>  * Parses a string as a date
+<span class='line'>178</span>  * @param {String} str The string to be parsed
+<span class='line'>179</span>  * @return Object
+<span class='line'>180</span>  * @type Date
+<span class='line'>181</span>  * @static
+<span class='line'>182</span>  */</span><span class="WHIT">
+<span class='line'>183</span> </span><span class="NAME">nitobi.base.DateMath.parse</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">str</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>184</span> 
+<span class='line'>185</span> </span><span class="PUNC">}</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>186</span> 
+<span class='line'>187</span> </span><span class="COMM">/**
+<span class='line'>188</span>  * Calculates the week number of the given date in that year.
+<span class='line'>189</span>  * Week numbering starts from 0
+<span class='line'>190</span>  * @param {Date} date The javascript date object
+<span class='line'>191</span>  * @return Object
+<span class='line'>192</span>  * @type Number
+<span class='line'>193</span>  * @static
+<span class='line'>194</span>  */</span><span class="WHIT">
+<span class='line'>195</span> </span><span class="NAME">nitobi.base.DateMath.getWeekNumber</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>196</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">january</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.getJanuary1st</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>197</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">Math.ceil</span><span class="PUNC">(</span><span class="NAME">this.getNumberOfDays</span><span class="PUNC">(</span><span class="NAME">january</span><span class="PUNC">,</span><span class="NAME">date</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">/</span><span class="WHIT"> </span><span class="NUMB">7</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>198</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>199</span> 
+<span class='line'>200</span> </span><span class="COMM">/**
+<span class='line'>201</span>  * Calculates the number of days from start date to end date.
+<span class='line'>202</span>  * Both start and end date are inclusive.
+<span class='line'>203</span>  * @param {Date} date The javascript date object
+<span class='line'>204</span>  * @return Object
+<span class='line'>205</span>  * @type Number
+<span class='line'>206</span>  * @static
+<span class='line'>207</span>  */</span><span class="WHIT">
+<span class='line'>208</span> </span><span class="NAME">nitobi.base.DateMath.getNumberOfDays</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">start</span><span class="PUNC">,</span><span class="NAME">end</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>209</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">duration</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.resetTime</span><span class="PUNC">(</span><span class="NAME">this.clone</span><span class="PUNC">(</span><span class="NAME">end</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">getTime</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">this.resetTime</span><span class="PUNC">(</span><span class="NAME">this.clone</span><span class="PUNC">(</span><span class="NAME">start</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">getTime</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>210</span> </span><span class="COMM">//	alert(duration/this.ONE_DAY_MS+1);</span><span class="WHIT">
+<span class='line'>211</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">Math.round</span><span class="PUNC">(</span><span class="NAME">duration</span><span class="PUNC">/</span><span class="NAME">this.ONE_DAY_MS</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>212</span> </span><span class="PUNC">}</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>213</span> 
+<span class='line'>214</span> </span><span class="COMM">/**
+<span class='line'>215</span>  * Calculates the week number of the given date.
+<span class='line'>216</span>  * @param {Date} date The javascript date object
+<span class='line'>217</span>  * @return Object
+<span class='line'>218</span>  * @type Date
+<span class='line'>219</span>  * @static
+<span class='line'>220</span>  */</span><span class="WHIT">
+<span class='line'>221</span> </span><span class="NAME">nitobi.base.DateMath.getJanuary1st</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>222</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Date</span><span class="PUNC">(</span><span class="NAME">date.getFullYear</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>223</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>224</span> 
+<span class='line'>225</span> </span><span class="COMM">/**
+<span class='line'>226</span>  * Resets the time
+<span class='line'>227</span>  * @param {Date} date The javascript Date object
+<span class='line'>228</span>  * @return Object
+<span class='line'>229</span>  * @type Date
+<span class='line'>230</span>  * @static
+<span class='line'>231</span>  */</span><span class="WHIT">
+<span class='line'>232</span> </span><span class="NAME">nitobi.base.DateMath.resetTime</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>233</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.base.DateMath.invalid</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>234</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">date</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>235</span> </span><span class="WHIT">	</span><span class="NAME">date.setHours</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>236</span> </span><span class="WHIT">	</span><span class="NAME">date.setMinutes</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>237</span> </span><span class="WHIT">	</span><span class="NAME">date.setSeconds</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>238</span> </span><span class="WHIT">	</span><span class="NAME">date.setMilliseconds</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>239</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">date</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>240</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>241</span> 
+<span class='line'>242</span> </span><span class="COMM">/**
+<span class='line'>243</span>  * Returns a Javascript &lt;code>Date&lt;/code> object from a given ISO 8601 date string.
+<span class='line'>244</span>  * @param {String} date an ISO 8601 date string eg. 1980-12-21 08:30:12
+<span class='line'>245</span>  * @type Date
+<span class='line'>246</span>  */</span><span class="WHIT">
+<span class='line'>247</span> </span><span class="NAME">nitobi.base.DateMath.parseIso8601</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>248</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Date</span><span class="PUNC">(</span><span class="NAME">date.replace</span><span class="PUNC">(</span><span class="REGX">/^(....).(..).(..)(.*)$/</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"$1/$2/$3$4"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>249</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>250</span> 
+<span class='line'>251</span> </span><span class="COMM">/**
+<span class='line'>252</span>  * Returns an ISO 8601 formatted date string from a javascript Date object.
+<span class='line'>253</span>  * @param {Date} date a Javascript date object
+<span class='line'>254</span>  * @type String
+<span class='line'>255</span>  */</span><span class="WHIT">
+<span class='line'>256</span> </span><span class="NAME">nitobi.base.DateMath.toIso8601</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>257</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.base.DateMath.invalid</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>258</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">pz</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.lang.padZeros</span><span class="PUNC">;</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>259</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">date.getFullYear</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="STRN">"-"</span><span class="PUNC">+</span><span class="NAME">pz</span><span class="PUNC">(</span><span class="NAME">date.getMonth</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="STRN">"-"</span><span class="PUNC">+</span><span class="NAME">pz</span><span class="PUNC">(</span><span class="NAME">date.getDate</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="STRN">" "</span><span class="PUNC">+</span><span class="NAME">pz</span><span class="PUNC">(</span><span class="NAME">date.getHours</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="STRN">":"</span><span class="PUNC">+</span><span class="NAME">pz</span><span class="PUNC">(</span><span class="NAME">date.getMinutes</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="STRN">":"</span><span class="PUNC">+</span><span class="NAME">pz</span><span class="PUNC">(</span><span class="NAME">date.getSeconds</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>260</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>261</span> 
+<span class='line'>262</span> </span><span class="COMM">/**
+<span class='line'>263</span>  * Returns true if the given date is invalid or null.
+<span class='line'>264</span>  * @param {Date} date a Javascript date object
+<span class='line'>265</span>  * @type Boolean
+<span class='line'>266</span>  */</span><span class="WHIT">
+<span class='line'>267</span> </span><span class="NAME">nitobi.base.DateMath.invalid</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">date</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>268</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">date</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">date.toString</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">'Invalid Date'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>269</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>270</span> 
+<span class='line'>271</span> </span></pre></body></html>

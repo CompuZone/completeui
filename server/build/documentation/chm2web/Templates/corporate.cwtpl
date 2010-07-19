@@ -1,0 +1,60 @@
+;==============================================================================
+;
+; CORPORATE TEMPLATE SCHEME for chm2web software
+; by A!K Research Labs, 2002-2004
+;
+;==============================================================================
+
+
+[TEMPLATE.INFO]
+
+NAME		= Corporate Blue
+Template name
+
+BODY		= corporate.body
+Template body file name
+
+AUTHOR		= A!K Research Labs
+Copyright(c) 2002-2004, All Rights Reserved
+
+
+[OPEN.FIELDS]
+
+SCHEMECOLOR1	= #E9F3FE
+
+SCHEMECOLOR2    = #AFD6FF
+
+SCHEMECOLOR3	= #3891F7
+
+SCHEMECOLOR4	= #1E5798
+
+PAGETITLECOLOR	= blue
+Page title text color
+
+LINESCOLOR	= blue
+All line elements color
+
+SCRCOLOR	= #e6e6ff
+Scroll bar color
+
+
+;==============================================================================
+;
+; FILES TO COPY
+;
+; [F|N|M]:[target_image_name] = [source_image_name]
+;
+; F - only for frames version
+; N - only for noframes version
+; M - only for mobile version
+;
+;==============================================================================
+
+[COPY.FILES]
+
+M:files\next.gif       = icons\mobile_blue_next.gif
+M:files\prev.gif       = icons\mobile_blue_prev.gif
+M:files\cont.gif       = icons\mobile_blue_contents.gif
+N:files\logo.gif	 = icons\corporate_blue_home.gif
+
+

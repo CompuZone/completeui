@@ -1,0 +1,9 @@
+
+	/*TRIAL*//*
+
+ 	ebagdl=1172800675750;
+ 	ebagd1=1175392675750;
+	s = "var d = new Date().getTime();if ((d>" + ebagdl + ") || (d<"+ebagd1+")) {alert('Evaluation period has expired.\\n\\nPlease notify your system administrator.\\n\\nPurchase Information:\\n       NITOBI SOFTWARE\\n\\n       www.nitobi.com\\n       sales@nitobi.com         \\n       Telephone: (604) 985-9287\\n       Fax: (604) 648-9090\\n       Toll-Free: 1-866-6EB-APPS\\n                      (1-866-632-2777)');}";
+	eval(s);
+
+	*//*TRIAL*/

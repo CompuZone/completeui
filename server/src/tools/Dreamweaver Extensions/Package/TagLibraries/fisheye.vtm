@@ -1,0 +1,12 @@
+<tag name="fisheye" endtag="yes">
+	<tagformat nlbeforetag="1" nlaftertag="1"></tagformat>
+	<tagdialog file="fisheye.htm"></tagdialog>
+	<attributes>
+		<attrib name="expanddirection" type="text"></attrib>
+		<attrib name="growpercent" type="text"></attrib>
+		<attrib name="iconwidth" type="text"></attrib>
+		<attrib name="id" type="text"></attrib>
+		<attrib name="opendirection" type="text"></attrib>
+		<attrib name="theme" type="text"></attrib>
+	</attributes>
+</tag>

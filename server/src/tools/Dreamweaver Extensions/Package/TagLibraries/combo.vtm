@@ -1,0 +1,28 @@
+<tag name="combo" endtag="yes">
+	<tagformat nlbeforetag="1" nlaftertag="1"></tagformat>
+	<tagdialog file="combo.htm"></tagdialog>
+	<attributes>
+		<attrib name="cssclassname" type="text"></attrib>
+		<attrib name="datatextfield" type="text"></attrib>
+		<attrib name="datavaluefield" type="text"></attrib>
+		<attrib name="disabledwarningmessages" type="text"></attrib>
+		<attrib name="enabled" type="text"></attrib>
+		<attrib name="errorlevel" type="text"></attrib>
+		<attrib name="height" type="text"></attrib>
+		<attrib name="httprequestmethod" type="text"></attrib>
+		<attrib name="listzindex" type="text"></attrib>
+		<attrib name="mode" type="text"></attrib>
+		<attrib name="onbeforeselectevent" type="text"></attrib>
+		<attrib name="onblurevent" type="text"></attrib>
+		<attrib name="onfocusevent" type="text"></attrib>
+		<attrib name="onloadevent" type="text"></attrib>
+		<attrib name="onselectevent" type="text"></attrib>
+		<attrib name="ontabevent" type="text"></attrib>
+		<attrib name="smartlistseparator" type="text"></attrib>
+		<attrib name="tabindex" type="text"></attrib>
+		<attrib name="width" type="text"></attrib>
+		<attrib name="id" type="text"></attrib>
+		<attrib name="initialsearch" type="text"></attrib>
+		<attrib name="theme" type="text"></attrib>
+	</attributes>
+</tag>

@@ -1,0 +1,60 @@
+;==============================================================================
+;
+; CORPORATE TEMPLATE SCHEME for chm2web software
+; by A!K Research Labs, 2002-2004
+;
+;==============================================================================
+
+
+[TEMPLATE.INFO]
+
+NAME		= Corporate Red
+Template name
+
+BODY		= corporate.body
+Template body file name
+
+AUTHOR		= A!K Research Labs
+Copyright(c) 2002-2004, All Rights Reserved
+
+
+[OPEN.FIELDS]
+
+SCHEMECOLOR1	= white
+
+SCHEMECOLOR2    = #ffa6a6
+
+SCHEMECOLOR3	= #840000
+
+SCHEMECOLOR4	= #C60000
+
+PAGETITLECOLOR	= red
+Page title text color
+
+LINESCOLOR	= red
+All line elements color
+
+SCRCOLOR	= #ffe4e4
+Scroll bar color
+
+
+;==============================================================================
+;
+; FILES TO COPY
+;
+; [F|N|M]:[target_image_name] = [source_image_name]
+;
+; F - only for frames version
+; N - only for noframes version
+; M - only for mobile version
+;
+;==============================================================================
+
+[COPY.FILES]
+
+M:files\next.gif       = icons\mobile_red_next.gif
+M:files\prev.gif       = icons\mobile_red_prev.gif
+M:files\cont.gif       = icons\mobile_red_contents.gif
+N:files\logo.gif	 = icons\corporate_red_home.gif
+
+

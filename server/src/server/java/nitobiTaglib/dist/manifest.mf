@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Built-By: mhan
+
+Name: com/nitobi/jsp/
+Sealed: true
+Implementation-Title: com.nitobi.jsp
+Implementation-Vendor: Nitobi
+Specification-Title: Nitobi Complete UI Taglib
+Specification-Vendor: Nitobi

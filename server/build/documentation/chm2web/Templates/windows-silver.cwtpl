@@ -1,0 +1,84 @@
+;==============================================================================
+;
+; WINDOWS TEMPLATE SCHEME for chm2web software
+; by A!K Research Labs, 2002
+;
+;==============================================================================
+
+
+[TEMPLATE.INFO]
+
+NAME		= Windows Classic
+Template name
+
+BODY		= windows.body
+Template body file name
+
+AUTHOR		= A!K Research Labs
+Copyright(c) 2002, All Rights Reserved
+
+
+[OPEN.FIELDS]
+
+BACKCOLOR	= navy
+Header background color
+
+LEFTBACKCOLOR	= white
+Help index&contents background color
+
+LEFTFRAMECOLOR	= silver
+Left frame background color
+
+ABUTTONFACE	= #ECE9D8
+Active button face color
+
+IBUTTONFACE	= #ECE9D8
+Inactive button face color
+
+ABUTTONFACETXT 	= black
+Active button font color
+
+IBUTTONFACETXT 	= black
+Inactive button font color
+
+PAGECAPTION    = white
+Page caption text color
+
+SCHEMECOLOR1	= white
+
+SCHEMECOLOR2    = #B1CEEB
+
+SCHEMECOLOR3	= #85A4C2
+
+SCHEMECOLOR4	= #1E5798
+
+
+
+;==============================================================================
+;
+; FILES TO COPY
+;
+; [F|N|M]:[target_image_name] = [source_image_name]
+;
+; F - only for frames version
+; N - only for noframes version
+; M - only for mobile version
+;
+;==============================================================================
+
+[COPY.FILES]
+
+F:files\next.gif       	= icons\nextblue.gif
+F:files\prev.gif    	= icons\prevblue.gif
+F:files\home.gif	= icons\homeblue.gif
+F:files\print.gif	= icons\printblue.gif
+F:files\tabs\a1.gif	= windows\silver\a1.gif
+F:files\tabs\a2.gif	= windows\silver\a2.gif
+F:files\tabs\a3.gif	= windows\silver\a3.gif
+F:files\tabs\a5.gif	= windows\silver\a5.gif
+F:files\tabs\a6.gif	= windows\silver\a6.gif
+F:files\tabs\a7.gif	= windows\silver\a7.gif
+F:helpleftcon.html	= windows\silver\helpleftcon.html
+F:helpleftind.html	= windows\silver\helpleftind.html
+F:helpleftsch.html	= windows\silver\helpleftsch.html
+F:helpblankpage.html 	= windows\silver\helpblankpage.html

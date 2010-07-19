@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<project default="full" basedir=".">
+
+	<property name="component.name" value="cui"></property>
+	
+	<target name="full" depends="createOutputFolders, buildComponent"></target>
+	
+	<target name="createOutputFolders">
+		<mkdir dir="src/output"></mkdir>
+	</target>
+
+	<target name="buildComponent" description="Copies the component necessary files (eg build file) to the build folder of the component and runs it.">
+
+		<!-- Copy over all the build file -->
+		<copy file="component_build.xml" tofile="src/${component.name}/build/build.xml"></copy>
+
+		<!-- Copy over all necessary utility XSLT files for the build -->
+		<copy todir="src/${component.name}/build/">
+			<fileset dir="includes/xslt"/>
+		</copy>
+
+		<!-- Copy over all necessary utility JavaScript files for the build -->
+		<copy todir="src/${component.name}/build/">
+			<fileset dir="includes/javascript"/>
+		</copy>
+
+		<!-- Execute the build passing in the "component" property as the component name -->
+		<exec executable="cmd" dir="src/${component.name}/build/">
+			<arg value="/c"/>
+			<arg value="ant -Dcomponent.name=${component.name}"/>
+		</exec>
+	</target>
+
+</project>

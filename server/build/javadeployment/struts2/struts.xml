@@ -1,0 +1,18 @@
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="com.nitobi.struts2.example" extends="nitobi-default">
+    	<action name="GetHandler" class="examples.grid.struts2.GetHandlerAction">
+    		<result name="success" type="nitobi">
+    			<param name="handlername">gethandler</param>
+    		</result>
+    	</action>
+    	
+    	<action name="SaveHandler" class="examples.grid.struts2.SaveHandlerAction">
+    		<result name="success" type="nitobi">
+    			<param name="handlername">savehandler</param>
+    		</result>
+    	</action>
+    </package>
+</struts>

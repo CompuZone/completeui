@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>Nitobi Fisheye Tag Translator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=">
+<script language="text/javascipt" src="../Shared/Nitobi/NitobiUtility.js"></script>
+<script language="JavaScript">
+var startTag = "<ntb:fisheye>";
+var endTag = "</ntb:fisheye>"
+var DEFAULTWIDTH = "40px";
+var DEFAULTTHEME = "nitobi";
+
+function getTranslatorInfo()
+{
+	var translatorInfo = new Array(6);
+	
+	translatorInfo[0] = "NTB_FISHEYE";
+	translatorInfo[1] = "Nitobi Fisheye";
+	translatorInfo[2] = "0";
+	translatorInfo[3] = "1";
+	translatorInfo[4] = "<ntb:fisheye";
+	translatorInfo[5] = "byExpression";
+	return translatorInfo;
+}
+
+function translateMarkup(docNameStr, siteRootStr, inStr)
+{
+	var outStr = "";
+	var replCode = "";
+	var start = inStr.indexOf("<ntb:fisheye");
+	var end = inStr.indexOf("</ntb:fisheye>");
+
+	// If the string to translate is empty, do nothing.
+	if (inStr.length <= 0)
+	{
+		return "";
+	}
+	
+	while (start != -1)
+	{
+		outStr = inStr.substring(0,start);
+		replCode = constructLockedMarkup(inStr.substring(start, end + endTag.length));
+		outStr = outStr + replCode;
+		outStr = outStr + inStr.substring(end + endTag.length);
+		inStr = outStr;
+		start = inStr.indexOf("<ntb:fisheye");
+		end = inStr.indexOf("</ntb:fisheye>");
+	}
+	return outStr;
+}
+
+function constructLockedMarkup(declaration)
+{
+	var startMarkup = "<MM:BeginLock translatorClass=\"NTB_FISHEYE\" type=\"ntb:fisheye\" orig=\"" + escape(declaration) + "\">";
+	var endMarkup = "<" + "MM:EndLock>";
+	var content = "";
+	var items = nitobi.util.getTag(declaration, "ntb:menuitem");
+	var fisheye = nitobi.util.getTag(declaration, "ntb:fisheye", 0);
+	var width = nitobi.util.getAttribute(fisheye, "iconwidth");
+	var theme = nitobi.util.getAttribute(fisheye, "theme");
+	var cssclass = nitobi.util.getAttribute(fisheye, "cssclass");
+	theme = theme?theme:cssclass;
+	if (items != null)
+	{
+		content += "<div class='" + (theme?theme:DEFAULTTHEME) + " ntb-fisheye-reset' style='";
+		content += "width:" + (width?(parseInt(width) * items.length + "px"):(parseInt(DEFAULTWIDTH) * items.length + "px")) + "'>";
+		content += "<div class='ntb-fisheye-menubackground' style='border: 0px;'>";
+		for (var i = 0; i < items.length; i++)
+		{
+			var item = items[i];
+			var source = nitobi.util.getAttribute(item, "imagesrc");
+			content += "<img src='" + (source?source:"") + "' style='float:left;";
+			content += "width:" + (width?width:DEFAULTWIDTH) + ";' />";
+		}
+		content += "<div style='clear:both;width:0px;height:0px;'><!-- --></div>";
+		content += "</div></div>";
+	}
+	return startMarkup + content + endMarkup;
+}
+</script>
+</head>
+<body>
+</body>
+</html>

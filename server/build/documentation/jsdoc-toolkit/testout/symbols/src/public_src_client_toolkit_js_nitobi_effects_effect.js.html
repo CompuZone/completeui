@@ -1,0 +1,261 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="NAME">nitobi.lang.defineNs</span><span class="PUNC">(</span><span class="STRN">'nitobi.effects'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  2</span> 
+<span class='line'>  3</span> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">false</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>  4</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>  5</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>  6</span> 	 * &lt;I>This class has no constructor.&lt;/I>
+<span class='line'>  7</span> 	 * @class The &lt;code>nitobi.effects&lt;/code> namespace hosts classes that can be used for animated
+<span class='line'>  8</span> 	 * manipulation of HTML elements.  {@link nitobi.effects.Effect} is an abstract class that is 
+<span class='line'>  9</span> 	 * at the root of the Nitobi effects system, all effects extend this class.
+<span class='line'> 10</span> 	 * @constructor
+<span class='line'> 11</span> 	 */</span><span class="WHIT">
+<span class='line'> 12</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.effects</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 13</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 14</span> 
+<span class='line'> 15</span> </span><span class="COMM">/**
+<span class='line'> 16</span>  * Creates a new effect that will act on &lt;code>element&lt;/code> with the given parameters.  
+<span class='line'> 17</span>  * @class An abstract class that needs to be extended by subclasses that will provide functionality
+<span class='line'> 18</span>  * that actually modifies the appearance of an HTML element.
+<span class='line'> 19</span>  * @param {HTMLElement} element the HTML element that will be affected by this effect
+<span class='line'> 20</span>  * @param {Map} params initial values for the effect's fields - ie 
+<span class='line'> 21</span>  * &lt;code>{@link nitobi.effects.Effect#duration} = params.duration&lt;/code> 
+<span class='line'> 22</span>  * @constructor 
+<span class='line'> 23</span>  */</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="NAME">nitobi.effects.Effect</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">element</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">params</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 27</span> 	 * The HTML element this effect will act on.
+<span class='line'> 28</span> 	 * @type HTMLElement
+<span class='line'> 29</span> 	 */</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">	</span><span class="NAME">this.element</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 32</span> 	 * The transition (any function that takes any value between 0.0 and 1.0 and returns a value
+<span class='line'> 33</span> 	 * between 0.0 and 1.0) for this effect. Default: {@link nitobi.effects.Transition#sinoidal}
+<span class='line'> 34</span> 	 * @type Function
+<span class='line'> 35</span> 	 */</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">	</span><span class="NAME">this.transition</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">params.transition</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">nitobi.effects.Transition.sinoidal</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 38</span> 	 * The duration (in seconds) of the effect. Default: &lt;code>1.0&lt;/code>
+<span class='line'> 39</span> 	 * @type Number
+<span class='line'> 40</span> 	 */</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="WHIT">	</span><span class="NAME">this.duration</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">params.duration</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NUMB">1.0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 43</span> 	 * The frame rate (number of frames per second) for this effect.
+<span class='line'> 44</span> 	 * @type Number
+<span class='line'> 45</span> 	 */</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="WHIT">	</span><span class="NAME">this.fps</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">params.fps</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NUMB">50</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 47</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 48</span> 	 * The starting point for the transition. One might want to start a sin wave at 0.5. 
+<span class='line'> 49</span> 	 * Default: &lt;code>0.0&lt;/code>
+<span class='line'> 50</span> 	 * @type Number 
+<span class='line'> 51</span> 	 */</span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="WHIT">	</span><span class="NAME">this.from</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">params.from</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'number'</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">params.from</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">0.0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 54</span> 	 * The ending point for the transition. 
+<span class='line'> 55</span> 	 * Default: &lt;code>1.0&lt;/code>
+<span class='line'> 56</span> 	 * @type Number 
+<span class='line'> 57</span> 	 */</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="WHIT">	</span><span class="NAME">this.to</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">params.from</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'number'</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">params.to</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">1.0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 60</span> 	 * A delay (in seconds) from when &lt;code>start()&lt;/code> is called to when the effect actually begins.
+<span class='line'> 61</span> 	 * Default: &lt;code>0.0&lt;/code>
+<span class='line'> 62</span> 	 * @type Number
+<span class='line'> 63</span> 	 */</span><span class="WHIT">
+<span class='line'> 64</span> </span><span class="WHIT">	</span><span class="NAME">this.delay</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">params.delay</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NUMB">0.0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 65</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 66</span> 	 * A function to call when the effect finishes.
+<span class='line'> 67</span> 	 * @type Function
+<span class='line'> 68</span> 	 */</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="WHIT">	</span><span class="NAME">this.callback</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">params.callback</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'function'</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">params.callback</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">nitobi.lang.noop</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 71</span> 	 * @private
+<span class='line'> 72</span> 	 */</span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="WHIT">	</span><span class="NAME">this.queue</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">params.queue</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">nitobi.effects.EffectQueue.globalQueue</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 75</span> 	 * The event that fires just before the last render call and removal of the effect from the 
+<span class='line'> 76</span> 	 * global effect queue. {@link nitobi.base.EventArgs} are passed to any subscribed handlers.
+<span class='line'> 77</span> 	 * @type nitobi.base.Event
+<span class='line'> 78</span> 	 */</span><span class="WHIT">
+<span class='line'> 79</span> </span><span class="WHIT">	</span><span class="NAME">this.onBeforeFinish</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.base.Event</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 80</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 81</span> 	 * The event that fires after the last render call and removal of the effect from the 
+<span class='line'> 82</span> 	 * global effect queue. {@link nitobi.base.EventArgs} are passed to any subscribed handlers.
+<span class='line'> 83</span> 	 * @type nitobi.base.Event
+<span class='line'> 84</span> 	 */</span><span class="WHIT">
+<span class='line'> 85</span> </span><span class="WHIT">	</span><span class="NAME">this.onFinish</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.base.Event</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 86</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 87</span> 	 * The event that fires just before the first render call {@link nitobi.base.EventArgs} 
+<span class='line'> 88</span> 	 * are passed to any subscribed handlers.
+<span class='line'> 89</span> 	 * @type nitobi.base.Event
+<span class='line'> 90</span> 	 */</span><span class="WHIT">
+<span class='line'> 91</span> </span><span class="WHIT">	</span><span class="NAME">this.onBeforeStart</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.base.Event</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 92</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 93</span> 
+<span class='line'> 94</span> </span><span class="COMM">/**
+<span class='line'> 95</span>  * Start the effect.  Call &lt;code>start()&lt;/code> when the effect's parameters have been set 
+<span class='line'> 96</span>  * as you desire.  
+<span class='line'> 97</span>  */</span><span class="WHIT">
+<span class='line'> 98</span> </span><span class="NAME">nitobi.effects.Effect.prototype.start</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 99</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>100</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">now</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Date</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">getTime</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>101</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>102</span> 	 * @ignore
+<span class='line'>103</span> 	 */</span><span class="WHIT">
+<span class='line'>104</span> </span><span class="WHIT">	</span><span class="NAME">this.startOn</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">now</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">this.delay</span><span class="PUNC">*</span><span class="NUMB">1000</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>105</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>106</span> 	 * @ignore
+<span class='line'>107</span> 	 */</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="WHIT">	</span><span class="NAME">this.finishOn</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.startOn</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">this.duration</span><span class="PUNC">*</span><span class="NUMB">1000</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>110</span> 	 * @ignore
+<span class='line'>111</span> 	 */</span><span class="WHIT">
+<span class='line'>112</span> </span><span class="WHIT">	</span><span class="NAME">this.deltaTime</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.duration</span><span class="PUNC">*</span><span class="NUMB">1000</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>113</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>114</span> 	 * @ignore
+<span class='line'>115</span> 	 */</span><span class="WHIT">
+<span class='line'>116</span> </span><span class="WHIT">	</span><span class="NAME">this.totalFrames</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.duration</span><span class="WHIT"> </span><span class="PUNC">*</span><span class="WHIT"> </span><span class="NAME">this.fps</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>117</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>118</span> 	 * @ignore
+<span class='line'>119</span> 	 */</span><span class="WHIT">
+<span class='line'>120</span> </span><span class="WHIT">	</span><span class="NAME">this.frame</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>121</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>122</span> 	 * @ignore
+<span class='line'>123</span> 	 */</span><span class="WHIT">
+<span class='line'>124</span> </span><span class="WHIT">	</span><span class="NAME">this.delta</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.from</span><span class="PUNC">-</span><span class="NAME">this.to</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>125</span> </span><span class="WHIT">	</span><span class="NAME">this.queue.add</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>127</span> 
+<span class='line'>128</span> </span><span class="COMM">/**
+<span class='line'>129</span>  * @private
+<span class='line'>130</span>  */</span><span class="WHIT">
+<span class='line'>131</span> </span><span class="NAME">nitobi.effects.Effect.prototype.render</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">pos</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>132</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>133</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">this.running</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>134</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>135</span> </span><span class="WHIT">		</span><span class="NAME">this.onBeforeStart.notify</span><span class="PUNC">(</span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.base.EventArgs</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.onBeforeStart</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>136</span> </span><span class="WHIT">		</span><span class="NAME">this.setup</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>137</span> </span><span class="WHIT">		</span><span class="COMM">/**
+<span class='line'>138</span> 		 * @ignore
+<span class='line'>139</span> 		 */</span><span class="WHIT">
+<span class='line'>140</span> </span><span class="WHIT">		</span><span class="NAME">this.running</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>141</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>142</span> </span><span class="WHIT">	</span><span class="NAME">this.update</span><span class="PUNC">(</span><span class="NAME">this.transition</span><span class="PUNC">(</span><span class="NAME">pos</span><span class="PUNC">*</span><span class="NAME">this.delta</span><span class="PUNC">+</span><span class="NAME">this.from</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>143</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>144</span> 
+<span class='line'>145</span> </span><span class="COMM">/**
+<span class='line'>146</span>  * @private
+<span class='line'>147</span>  */</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="NAME">nitobi.effects.Effect.prototype.step</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">now</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>149</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>150</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.startOn</span><span class="WHIT"> </span><span class="PUNC">&lt;=</span><span class="WHIT"> </span><span class="NAME">now</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>151</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>152</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">now</span><span class="WHIT"> </span><span class="PUNC">>=</span><span class="WHIT"> </span><span class="NAME">this.finishOn</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>153</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>154</span> </span><span class="WHIT">			</span><span class="NAME">this.end</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>155</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>156</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>157</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">pos</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">now</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">this.startOn</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">/</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.deltaTime</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>158</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">frame</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Math.floor</span><span class="PUNC">(</span><span class="NAME">pos</span><span class="PUNC">*</span><span class="NAME">this.totalFrames</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.frame</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">frame</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>160</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>161</span> </span><span class="WHIT">			</span><span class="NAME">this.render</span><span class="PUNC">(</span><span class="NAME">pos</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>162</span> </span><span class="WHIT">			</span><span class="NAME">this.frame</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">frame</span><span class="WHIT">
+<span class='line'>163</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>164</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>165</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>166</span> 
+<span class='line'>167</span> </span><span class="COMM">/**
+<span class='line'>168</span>  * This method is executed directly before the first update is made to the element.  Extending 
+<span class='line'>169</span>  * classes use this method as an initialization step.
+<span class='line'>170</span>  */</span><span class="WHIT">
+<span class='line'>171</span> </span><span class="NAME">nitobi.effects.Effect.prototype.setup</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>172</span> 
+<span class='line'>173</span> </span><span class="COMM">/**
+<span class='line'>174</span>  * This method is executed on every frame with the position (adjusted by the &lt;code>transition&lt;/code>)
+<span class='line'>175</span>  * used as input.  Extending classes use this method to update the element's style.
+<span class='line'>176</span>  * @param {Number} pos the position (between 0.0 and 1.0) of the animation
+<span class='line'>177</span>  */</span><span class="WHIT">
+<span class='line'>178</span> </span><span class="NAME">nitobi.effects.Effect.prototype.update</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">pos</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>179</span> 
+<span class='line'>180</span> </span><span class="COMM">/**
+<span class='line'>181</span>  * This method is executed directly after the last update has been made to the element.  Extending
+<span class='line'>182</span>  * classes use this method to clean up settings on the elment that are no longer needed.
+<span class='line'>183</span>  */</span><span class="WHIT">
+<span class='line'>184</span> </span><span class="NAME">nitobi.effects.Effect.prototype.finish</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>185</span> 
+<span class='line'>186</span> </span><span class="COMM">/**
+<span class='line'>187</span>  * Ends the effect.  This method can be called at any point and will update the element to
+<span class='line'>188</span>  * how it should look at the end of the effect.  It also cancels the effect by calling 
+<span class='line'>189</span>  * {@link nitobi.effects.Effect#cancel}.
+<span class='line'>190</span>  */</span><span class="WHIT">
+<span class='line'>191</span> </span><span class="NAME">nitobi.effects.Effect.prototype.end</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>192</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>193</span> </span><span class="WHIT">	</span><span class="NAME">this.onBeforeFinish.notify</span><span class="PUNC">(</span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.base.EventArgs</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.onBeforeFinish</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>194</span> </span><span class="WHIT">	</span><span class="NAME">this.cancel</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>195</span> </span><span class="WHIT">	</span><span class="NAME">this.render</span><span class="PUNC">(</span><span class="NUMB">1.0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>196</span> </span><span class="WHIT">	</span><span class="NAME">this.running</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>197</span> </span><span class="WHIT">	</span><span class="NAME">this.finish</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>198</span> </span><span class="WHIT">	</span><span class="NAME">this.callback</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>199</span> </span><span class="WHIT">	</span><span class="NAME">this.onFinish.notify</span><span class="PUNC">(</span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.base.EventArgs</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.onAfterFinish</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>200</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>201</span> 
+<span class='line'>202</span> </span><span class="COMM">/**
+<span class='line'>203</span>  * Cancels the effect, preventing further updates to the element.  This does not return the element
+<span class='line'>204</span>  * to its original state, it simply prevents further modification.
+<span class='line'>205</span>  */</span><span class="WHIT">
+<span class='line'>206</span> </span><span class="NAME">nitobi.effects.Effect.prototype.cancel</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>207</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>208</span> </span><span class="WHIT">	</span><span class="NAME">this.queue.remove</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>209</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>210</span> 
+<span class='line'>211</span> </span><span class="COMM">/**
+<span class='line'>212</span>  * Creates a constructor for the given effect class that will take only the HTML element as
+<span class='line'>213</span>  * an argument.  For the given effect class,  we will return a constructor that takes 
+<span class='line'>214</span>  * only an element argument.  It will use this element with the &lt;code>params&lt;/code> and any further
+<span class='line'>215</span>  * arguments to this method as inputs to the constructor for &lt;code>effectClass&lt;/code>.
+<span class='line'>216</span>  * &lt;BR>For example:
+<span class='line'>217</span>  * &lt;code>&lt;pre>
+<span class='line'>218</span>  *  var effect = nitobi.effects.factory(nitobi.effects.Effect.Scale, 
+<span class='line'>219</span>  *                                      {fps:25,scaleFrom:50.0},
+<span class='line'>220</span>  *                                      75.0);
+<span class='line'>221</span>  *  var e1 = new effect($('myDiv'));
+<span class='line'>222</span>  *  var e2 = new effect($('anotherDiv'));
+<span class='line'>223</span>  *  myEffects.FiftyToSeventyFiveWithFps25 = effect;   
+<span class='line'>224</span>  * &lt;/pre>&lt;/code>
+<span class='line'>225</span>  * @param {Function} effectClass the class to use as the basis for the returned effect
+<span class='line'>226</span>  * @param {Map} params the params Map to use in the &lt;code>effectClass&lt;/code> constructor
+<span class='line'>227</span>  * @param {Object} etc the first of as many other arguments as the constructor for 
+<span class='line'>228</span>  * &lt;code>effectClass&lt;/code> takes. 
+<span class='line'>229</span>  * @type Function
+<span class='line'>230</span>  */</span><span class="WHIT">
+<span class='line'>231</span> </span><span class="NAME">nitobi.effects.factory</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">effectClass</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">params</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">etc</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>232</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>233</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">args</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.lang.toArray</span><span class="PUNC">(</span><span class="NAME">arguments</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">2</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>234</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>235</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>236</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">f</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="NAME">effectClass.apply</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="PUNC">[</span><span class="NAME">element</span><span class="PUNC">,</span><span class="NAME">params</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">concat</span><span class="PUNC">(</span><span class="NAME">args</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>237</span> </span><span class="WHIT">		</span><span class="NAME">nitobi.lang.extend</span><span class="PUNC">(</span><span class="NAME">f</span><span class="PUNC">,</span><span class="NAME">effectClass</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>238</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">f</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>239</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>240</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>241</span> 
+<span class='line'>242</span> </span><span class="COMM">/**
+<span class='line'>243</span>  * A Map of of effect family names to their respective &lt;code>show&lt;/code> and &lt;code>hide&lt;/code> effects.  ie: 
+<span class='line'>244</span>  * &lt;code>&lt;pre>
+<span class='line'>245</span>  * nitobi.effects.families.blind == {show: nitobi.effects.BlindDown, hide: nitobi.effects.BlindUp}
+<span class='line'>246</span>  * nitobi.effects.families.shade == {show: nitobi.effects.ShadeDown, hide: nitobi.effects.ShadeUp}
+<span class='line'>247</span>  * nitobi.effects.families.none == {show: null, hide: null}
+<span class='line'>248</span>  * &lt;/pre>&lt;/code>
+<span class='line'>249</span>  * @type Map
+<span class='line'>250</span>  */</span><span class="WHIT">
+<span class='line'>251</span> </span><span class="NAME">nitobi.effects.families</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>252</span> </span><span class="WHIT">	</span><span class="NAME">none</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="NAME">show</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">hide</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>253</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>254</span> </span><span class="WHIT">	</span></pre></body></html>

@@ -1,0 +1,104 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="NAME">nitobi.lang.defineNs</span><span class="PUNC">(</span><span class="STRN">"nitobi.fisheye"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  2</span> 
+<span class='line'>  3</span> </span><span class="COMM">/**
+<span class='line'>  4</span>  * Creates a menu item.
+<span class='line'>  5</span>  * @class A menu item to be used with a {@link nitobi.fisheye.FishEye} object.
+<span class='line'>  6</span>  * @constructor
+<span class='line'>  7</span>  * @param {XmlNode} node Optional. If you want to create a menu item and deserialize it from the node. 
+<span class='line'>  8</span>  * @extends nitobi.ui.Element
+<span class='line'>  9</span>  */</span><span class="WHIT">
+<span class='line'> 10</span> </span><span class="NAME">nitobi.fisheye.MenuItem</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">node</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 11</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 12</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.fisheye.MenuItem.baseConstructor.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">node</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 13</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 14</span> 	 * @private
+<span class='line'> 15</span> 	 */</span><span class="WHIT">
+<span class='line'> 16</span> </span><span class="WHIT">	</span><span class="NAME">this.src</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.getAttribute</span><span class="PUNC">(</span><span class="STRN">"imagesrc"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 17</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 18</span> 	 * @private
+<span class='line'> 19</span> 	 */</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="WHIT">	</span><span class="NAME">this.imgLabel</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.getAttribute</span><span class="PUNC">(</span><span class="STRN">"label"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 22</span> 	 * This event fires whenever the menu item is clicked.
+<span class='line'> 23</span> 	 * @type nitobi.base.Event
+<span class='line'> 24</span> 	 */</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">	</span><span class="NAME">this.onClick</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.base.Event</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">	</span><span class="NAME">this.eventMap</span><span class="PUNC">[</span><span class="STRN">"click"</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.onClick</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="WHIT">	</span><span class="NAME">this.subscribeDeclarationEvents</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 28</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="WHIT">	</span><span class="NAME">this.setAttribute</span><span class="PUNC">(</span><span class="STRN">'id'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.getId</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 31</span> 	 * @private
+<span class='line'> 32</span> 	 */</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">	</span><span class="NAME">this.bounceIt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 35</span> 	 * @private
+<span class='line'> 36</span> 	 */</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="WHIT">	</span><span class="NAME">this.mysize</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 39</span> 	 * @private
+<span class='line'> 40</span> 	 */</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="WHIT">	</span><span class="NAME">this.lastsize</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 43</span> 	 * @private
+<span class='line'> 44</span> 	 */</span><span class="WHIT">
+<span class='line'> 45</span> </span><span class="WHIT">	</span><span class="NAME">this.xoffset</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 47</span> 	 * @private
+<span class='line'> 48</span> 	 */</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="WHIT">	</span><span class="NAME">this.yoffset</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 50</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 51</span> 	 * @private
+<span class='line'> 52</span> 	 */</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">	</span><span class="NAME">this.distance</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 55</span> 	 * @private
+<span class='line'> 56</span> 	 */</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="WHIT">	</span><span class="NAME">this.myy</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 59</span> 	 * @private
+<span class='line'> 60</span> 	 */</span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="WHIT">	</span><span class="NAME">this.bounceTimer</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 62</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 63</span> 
+<span class='line'> 64</span> </span><span class="NAME">nitobi.lang.extend</span><span class="PUNC">(</span><span class="NAME">nitobi.fisheye.MenuItem</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">nitobi.ui.Element</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 65</span> 
+<span class='line'> 66</span> </span><span class="COMM">/**
+<span class='line'> 67</span>  * Information out the menuitem class.
+<span class='line'> 68</span>  * @type nitobi.base.Profile
+<span class='line'> 69</span>  * @private
+<span class='line'> 70</span>  */</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="NAME">nitobi.fisheye.MenuItem.profile</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.base.Profile</span><span class="PUNC">(</span><span class="STRN">"nitobi.fisheye.MenuItem"</span><span class="PUNC">,</span><span class="KEYW">null</span><span class="PUNC">,</span><span class="KEYW">false</span><span class="PUNC">,</span><span class="STRN">"ntb:menuitem"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 72</span> </span><span class="NAME">nitobi.base.Registry.getInstance</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">register</span><span class="PUNC">(</span><span class="NAME">nitobi.fisheye.MenuItem.profile</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 73</span> 
+<span class='line'> 74</span> </span><span class="COMM">/**
+<span class='line'> 75</span>  * Sets the image source of the menu item.  FishEye requires 32-bit PNG's with transparency. 
+<span class='line'> 76</span>  * These can be generated from applications like Adobe Fireworks, and also borrowed from icon packs found on sites like deviantArt. 
+<span class='line'> 77</span>  * Always check Copyright restrictions before using people's artwork. There are many sources of free icons (deviantArt is a good one) that 
+<span class='line'> 78</span>  * offer royalty-free use.
+<span class='line'> 79</span>  * @param {String} source The location of the image file
+<span class='line'> 80</span>  */</span><span class="WHIT">
+<span class='line'> 81</span> </span><span class="NAME">nitobi.fisheye.MenuItem.prototype.setImageSource</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">source</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 82</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 83</span> </span><span class="WHIT">	</span><span class="NAME">this.setAttribute</span><span class="PUNC">(</span><span class="STRN">"imagesrc"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">source</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 84</span> </span><span class="WHIT">	</span><span class="NAME">this.src</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">source</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 85</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 86</span> 
+<span class='line'> 87</span> </span><span class="COMM">/**
+<span class='line'> 88</span>  * Sets the label text for the menu item.  The lable is visible when the mouse is hovering
+<span class='line'> 89</span>  * over the menu item.
+<span class='line'> 90</span>  * @param {String} label The label to apply to the menu item
+<span class='line'> 91</span>  */</span><span class="WHIT">
+<span class='line'> 92</span> </span><span class="NAME">nitobi.fisheye.MenuItem.prototype.setLabel</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">label</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 93</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 94</span> </span><span class="WHIT">	</span><span class="NAME">this.setAttribute</span><span class="PUNC">(</span><span class="STRN">"label"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">label</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 95</span> </span><span class="WHIT">	</span><span class="NAME">this.imgLabel</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">label</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 96</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 97</span> </span></pre></body></html>

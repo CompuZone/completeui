@@ -1,0 +1,67 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="NAME">nitobi.lang.defineNs</span><span class="PUNC">(</span><span class="STRN">'nitobi.grid'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  2</span> 
+<span class='line'>  3</span> </span><span class="COMM">/**
+<span class='line'>  4</span>  * Constructs a ColumnEventArgs object.
+<span class='line'>  5</span>  * @class When you subscribe to Grid events through the declaration, you
+<span class='line'>  6</span>  * can optionally pass information about the event to the function
+<span class='line'>  7</span>  * registered to handle it.  You do this by using the eventArgs keyword.
+<span class='line'>  8</span>  * @constructor
+<span class='line'>  9</span>  * @param {nitobi.grid} source The object which is firing the event.
+<span class='line'> 10</span>  * @param {nitobi.grid.Cell} cell The Cell object of the cell that received focus.
+<span class='line'> 11</span>  */</span><span class="WHIT">
+<span class='line'> 12</span> </span><span class="NAME">nitobi.grid.ColumnEventArgs</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">source</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">column</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 13</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 15</span> 	 * @private
+<span class='line'> 16</span> 	 */</span><span class="WHIT">
+<span class='line'> 17</span> </span><span class="WHIT">	</span><span class="NAME">this.grid</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">source</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 19</span> 	 * @private
+<span class='line'> 20</span> 	 */</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="WHIT">	</span><span class="NAME">this.column</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">column</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 22</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 23</span> 	 * @private
+<span class='line'> 24</span> 	 */</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">	</span><span class="NAME">this.event</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Event</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 27</span> 
+<span class='line'> 28</span> </span><span class="COMM">/**
+<span class='line'> 29</span>  * Gets the Grid that fired the event.
+<span class='line'> 30</span>  * @type nitobi.grid.Grid
+<span class='line'> 31</span>  */</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="NAME">nitobi.grid.ColumnEventArgs.prototype.getSource</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.grid</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="COMM">/**
+<span class='line'> 37</span>  * Gets the Cell on which the event was fired.
+<span class='line'> 38</span>  * @type nitobi.grid.Cell
+<span class='line'> 39</span>  */</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="NAME">nitobi.grid.ColumnEventArgs.prototype.getColumn</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.column</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="COMM">/**
+<span class='line'> 45</span>  * Gets the native browser Event object that is associated with the event. 
+<span class='line'> 46</span>  * This may be null in some cases.
+<span class='line'> 47</span>  * @type nitobi.html.Event
+<span class='line'> 48</span>  */</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="NAME">nitobi.grid.ColumnEventArgs.prototype.getEvent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 50</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 51</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.event</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="COMM">/**
+<span class='line'> 54</span>  * Returns the direction that the column has been sorted in ("Asc" or "Desc").  
+<span class='line'> 55</span>  * Is only available for onbeforesortevent and onaftersortevent.
+<span class='line'> 56</span>  * @type String
+<span class='line'> 57</span>  */</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="NAME">nitobi.grid.ColumnEventArgs.prototype.getDirection</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 60</span> </span><span class="PUNC">}</span></pre></body></html>

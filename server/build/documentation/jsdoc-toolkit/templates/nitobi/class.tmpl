@@ -1,0 +1,504 @@
+<!-- ============================== class title ============================ -->
+			<div class="classTitle">
+				{!
+					var classType = "";
+					
+					if (data.isBuiltin()) {
+						classType += "Built-In ";
+					}
+					
+					if (data.isNamespace) {
+						if (data.is('FUNCTION')) {
+							classType += "Function ";
+						}
+						classType += "Namespace ";
+					}
+					else {
+						classType += "Class ";
+					}
+				!}
+				{+classType+}{+data.alias+}
+			</div>
+
+<!-- ============================== class summary ========================== -->			
+			<div class="classDescriptionContainer">
+				<if test="data.augments.length">
+					<div class="classProp extendsList">Extends:
+					{+
+						data.augments
+						.sort()
+						.map(
+							function($) { return $; }
+						)
+						.join(", ")
+					+}
+					</div>
+				</if>
+				<if test="data.interfaces.length">
+					<div class="classProp implementsList">Implements:
+						{+
+							data.interfaces
+							.sort()
+							.map(
+								function($) { return $; }
+							)
+							.join(", ")
+						+}
+					</div>
+				</if>
+				
+				<if test="!data.isBuiltin()">{# isn't defined in any file #}
+					<div class="classProp classFile">
+						Defined in: {+new Link()._makeAjaxSrcLink(data.srcFile)+}.
+					</div>
+				</if>
+					
+				<div class="classDesc">
+					{+resolveAjaxLinks(data.classDesc)+}
+				</div>
+			</div>
+
+<!-- ============================== constructor summary ==================== -->			
+			<if test="!data.isBuiltin() && (data.is('CONSTRUCTOR') && !data.isNamespace)">
+			<div class="sectionTitle">
+				<img style="vertical-align:text-bottom;" src="external/style/tree/classtree/24_constructor_icon.png"/>
+				<span>Constructor</span>
+			</div>
+			<table class="summaryTable" cellspacing="0" cellpadding="0" summary="A summary of the constructor documented in the class {+data.alias+}.">
+				<thead>
+					<tr>
+						<th scope="col">Constructor Name and Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td onmouseover="handleMouseOver(event)" onmouseout="handleMouseOut(event)" class="expandableDescription collapsed" {!if (data.comment.getTag("hilited").length){output += 'style="color: red"'}!}>
+							<div id="constructor" onclick="toggleDescription(event)">
+								<div class="signature">
+									<b>{+ data.alias +}</b><if test="classType != 'Namespace '">{+ makeSignature(data.params) +}</if>
+								</div>
+								<div class="description">
+									<div class="short visible" type="short">
+										{+resolveAjaxLinks(summarize(data.desc) + "...")+}
+									</div>
+									<div class="long hidden" type="long">
+										<div class="fullDescription">
+											{+resolveAjaxLinks(data.desc)+}
+											<if test="data.author"><br /><i>Author: </i>{+data.author+}.</if>
+										</div>
+
+										<if test="data.example.length">
+											<for each="example" in="data.example">
+												<pre class="code">{+example+}</pre>
+											</for>
+										</if>
+
+										<if test="data.params.length">
+											<dl class="detailList">
+											<dt class="heading">Parameters:</dt>
+											<for each="item" in="data.params">
+												<dt>
+													{+((item.type)?""+("<span class=\"light fixedFont\">{"+(new Link().toSymbol(item.type)._makeAjaxLink(item.type)+"}</span> ")) : "")+} <b>{+item.name+}</b>
+													<if test="item.isOptional"><i>Optional<if test="item.defaultValue">, Default: {+item.defaultValue+}</if></i></if>
+												</dt>
+													<dd>{+resolveAjaxLinks(item.desc)+}</dd>
+											</for>
+											</dl>
+										</if>
+										<if test="data.deprecated">
+											<dl class="detailList">
+											<dt class="heading">Deprecated:</dt>
+											<dt>
+												{+resolveAjaxLinks(data.deprecated)+}
+											</dt>
+											</dl>
+										</if>
+										<if test="data.since">
+											<dl class="detailList">
+											<dt class="heading">Since:</dt>
+												<dd>{+ data.since +}</dd>
+											</dl>
+										</if>
+										<if test="data.exceptions.length">
+											<dl class="detailList">
+											<dt class="heading">Throws:</dt>
+											<for each="item" in="data.exceptions">
+												<dt>
+													{+((item.type)?"<span class=\"light fixedFont\">{"+(new Link().toSymbol(item.type)._makeAjaxLink(item.type))+"}</span> " : "")+} <b>{+item.name+}</b>
+												</dt>
+													<dd>{+resolveAjaxLinks(item.desc)+}</dd>
+											</for>
+											</dl>
+										</if>
+										<if test="data.returns.length">
+											<dl class="detailList">
+											<dt class="heading">Returns:</dt>
+											<for each="item" in="data.returns">
+													<dd>{+((item.type)?"<span class=\"light fixedFont\">{"+(new Link().toSymbol(item.type)._makeAjaxLink(item.type))+"}</span> " : "")+}{+resolveAjaxLinks(item.desc)+}</dd>
+											</for>
+											</dl>
+										</if>
+										<if test="data.requires.length">
+											<dl class="detailList">
+											<dt class="heading">Requires:</dt>
+											<for each="item" in="data.requires">
+												<dd>{+ resolveAjaxLinks(item) +}</dd>
+											</for>
+											</dl>
+										</if>
+										<if test="data.see.length">
+											<dl class="detailList">
+											<dt class="heading">See:</dt>
+											<for each="item" in="data.see">
+												<dd>{+ new Link().toSymbol(item)._makeAjaxLink(item) +}</dd>
+											</for>
+											</dl>
+										</if>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</if>
+
+<!-- ============================== properties summary ===================== -->
+			<if test="data.properties.length">
+				{! 
+					var ownProperties = data.properties.filter(function($){return $.memberOf == data.alias && !$.isNamespace}).filter(function($){return !$.isStatic}).sort(makeSortby("name")); 
+					var staticProperties = data.properties.filter(function($){return $.memberOf == data.alias && !$.isNamespace}).filter(function($){return $.isStatic}).sort(makeSortby("name"));
+				!}
+				<if test="ownProperties.length || staticProperties.length">
+				<div class="sectionTitle">
+					<img style="vertical-align:text-bottom;" src="external/style/tree/classtree/24_property_icon.png"/>
+					<span>Properties</span>
+				</div>
+				<table class="summaryTable" cellspacing="0" cellpadding="0" summary="A summary of the fields documented in the class {+data.alias+}.">
+					<thead>
+						<tr>
+							<th scope="col">Field Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<if test="staticProperties.length">
+							<for each="member" in="staticProperties">
+								{!
+									var isExpandable = member.desc != summarize(member.desc) || member.example.length > 0 || member.deprecated || member.since || member.see.length > 0 || member.defaultValue;
+								!}
+								<tr>
+									<td onmouseover="handleMouseOver(event)" onmouseout="handleMouseOut(event)" class="{+ (isExpandable?output = 'expandableDescription collapsed':output = 'staticDescription') +}">
+										<div id="_{+ member.name +}" onclick="toggleDescription(event)">
+											<div class="signature">
+												<b>{+member.alias +}</b>
+												: <if test="member.type"><span class="light">{{+new Link().toSymbol(member.type)._makeAjaxLink(member.type)+}}</span></if>
+											</div>
+											<div class="description">
+												<div class="short visible" type="short">
+													{+
+														resolveAjaxLinks(summarize(member.desc) + (isExpandable?"...":""))
+													+}
+												</div>
+												<div class="long hidden" type="long">
+													<div class="fullDescription">
+														{+resolveAjaxLinks(member.desc)+}
+														<if test="member.srcFile != data.srcFile">
+															<br />
+															<i>Defined in: </i> {+new Link()._makeAjaxSrcLink(member.srcFile)+}.
+														</if>
+														<if test="member.author"><br /><i>Author: </i>{+member.author+}.</if>
+													</div>
+
+													<if test="member.example.length">
+														<for each="example" in="member.example">
+															<pre class="code">{+example+}</pre>
+														</for>
+													</if>
+
+													<if test="member.deprecated">
+														<dl class="detailList">
+														<dt class="heading">Deprecated:</dt>
+														<dt>
+															{+ member.deprecated +}
+														</dt>
+														</dl>
+													</if>
+													<if test="member.since">
+														<dl class="detailList">
+														<dt class="heading">Since:</dt>
+															<dd>{+ member.since +}</dd>
+														</dl>
+													</if>
+													<if test="member.see.length">
+														<dl class="detailList">
+														<dt class="heading">See:</dt>
+														<for each="item" in="member.see">
+														<dd>{+ new Link().toSymbol(item)._makeAjaxLink(item) +}</dd>
+														</for>
+														</dl>
+													</if>
+													<if test="member.defaultValue">
+														<dl class="detailList">
+														<dt class="heading">Default Value:</dt>
+														<dd>
+															{+resolveAjaxLinks(member.defaultValue)+}
+														</dd>
+														</dl>
+													</if>
+												</div>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</for>
+						</if>
+						<for each="member" in="ownProperties">
+							{!
+								var isExpandable = member.desc != summarize(member.desc) || member.example.length > 0 || member.deprecated || member.since || member.see.length > 0 || member.defaultValue;
+							!}
+							<tr>
+								<td onmouseover="handleMouseOver(event)" onmouseout="handleMouseOut(event)" class="{+ (isExpandable?output = 'expandableDescription collapsed':output = 'staticDescription') +}">
+									<div id="{+ member.name +}" onclick="toggleDescription(event)">
+										<div class="signature">
+											<if test="member.isStatic"><b>{+ member.memberOf +}.{+ member.name +}</b></if>
+											<if test="!member.isStatic"><b>{+ member.name +}</b></if>
+											: <if test="member.type"><span class="light">{{+new Link().toSymbol(member.type)._makeAjaxLink(member.type)+}}</span></if>
+										</div>
+										<div class="description">
+											<div class="short visible" type="short">
+												{+resolveAjaxLinks(summarize(member.desc) + (isExpandable?"...":""))+}
+											</div>
+											<div class="long hidden" type="long">
+												<div class="fullDescription">
+													{+resolveAjaxLinks(member.desc)+}
+													<if test="member.srcFile != data.srcFile">
+														<br />
+														<i>Defined in: </i> {+new Link()._makeAjaxSrcLink(member.srcFile)+}.
+													</if>
+													<if test="member.author"><br /><i>Author: </i>{+member.author+}.</if>
+												</div>
+
+												<if test="member.example.length">
+													<for each="example" in="member.example">
+														<pre class="code">{+example+}</pre>
+													</for>
+												</if>
+
+												<if test="member.deprecated">
+													<dl class="detailList">
+													<dt class="heading">Deprecated:</dt>
+													<dt>
+														{+ member.deprecated +}
+													</dt>
+													</dl>
+												</if>
+												<if test="member.since">
+													<dl class="detailList">
+													<dt class="heading">Since:</dt>
+														<dd>{+ member.since +}</dd>
+													</dl>
+												</if>
+												<if test="member.see.length">
+													<dl class="detailList">
+													<dt class="heading">See:</dt>
+													<for each="item" in="member.see">
+													<dd>{+ new Link().toSymbol(item)._makeAjaxLink(item) +}</dd>
+													</for>
+													</dl>
+												</if>
+												<if test="member.defaultValue">
+													<dl class="detailList">
+													<dt class="heading">Default Value:</dt>
+													<dd>
+														{+resolveAjaxLinks(member.defaultValue)+}
+													</dd>
+													</dl>
+												</if>
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</for>
+					</tbody>
+				</table>
+				</if>
+				
+				<if test="data.inheritsFrom.length">
+				<dl class="inheritsList">
+				{!
+					var borrowedMembers = data.properties.filter(function($) {return $.memberOf != data.alias});
+					
+					var contributers = [];
+					borrowedMembers.map(function($) {if (contributers.indexOf($.memberOf) < 0) contributers.push($.memberOf)});
+					for (var i = 0, l = contributers.length; i < l; i++) {
+						output +=
+							"<dt>Fields borrowed from class "+new Link().toSymbol(contributers[i])._makeAjaxLink(contributers[i])+": </dt>"
+							+
+							"<dd>" +
+							borrowedMembers
+							.filter(
+								function($) { return $.memberOf == contributers[i] }
+							)
+							.sort(makeSortby("name"))
+							.map(
+								function($) { return new Link().toSymbol($.alias).withText($.name)._makeAjaxLink($.alias) }
+							)
+							.join(", ")
+							+
+							"</dd>";
+					}
+				!}
+				</dl>
+				</if>
+			</if>
+
+<!-- ============================== methods summary ======================== -->
+			<if test="data.methods.length">
+				{! var ownMethods = data.methods.filter(function($){return $.memberOf == data.alias  && !$.isNamespace}).sort(makeSortby("name")); 
+				!}
+				<if test="ownMethods.length">
+				<div class="sectionTitle">
+					<img style="vertical-align:text-bottom;" src="external/style/tree/classtree/24_method_icon.png"/>
+					<span>Methods</span>
+				</div>
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class {+data.alias+}.">
+					<thead>
+						<tr>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					<for each="member" in="ownMethods">
+						{! var isExpandable = member.desc != summarize(member.desc) || member.example.length > 0 || member.params.length >0 || member.exceptions.length > 0 || member.returns.length > 0 || member.requires.length > 0 || member.deprecated || member.since || member.see.length > 0; !}
+						<tr>
+							<td onmouseover="handleMouseOver(event)" onmouseout="handleMouseOut(event)" class="{+ (isExpandable?output = 'expandableDescription collapsed':output = 'staticDescription') +}">
+								<div id="{+ member.name +}" onclick="toggleDescription(event)">
+									<div class="signature">
+										<if test="member.isStatic"><span class="light">&lt;static&gt;</span>{+ member.memberOf +}.<b>{+ member.name +}</b></if>
+										<if test="!member.isStatic"><b>{+ member.name +}</b></if>
+										{+makeSignature(member.params)+}
+										<if test="member.type"><span class="light">: {{+new Link().toSymbol(member.type)._makeAjaxLink(member.type)+}}</span></if>
+									</div>
+									<div class="description">
+										<div class="short visible" type="short">
+											{+
+												resolveAjaxLinks(summarize(member.desc) + (isExpandable?"...":""))
+											+}
+										</div>
+										<div class="long hidden" type="long">
+											<div class="fullDescription">
+												{+resolveAjaxLinks(member.desc)+}
+												<if test="member.srcFile != data.srcFile">
+													<br />
+													<i>Defined in: </i> {+new Link()._makeAjaxSrcLink(member.srcFile)+}.
+												</if>
+												<if test="member.author"><br /><i>Author: </i>{+member.author+}.</if>
+											</div>
+
+											<if test="member.example.length">
+												<for each="example" in="member.example">
+													<pre class="code">{+example+}</pre>
+												</for>
+											</if>
+
+											<if test="member.params.length">
+												<dl class="detailList">
+												<dt class="heading">Parameters:</dt>
+												<for each="item" in="member.params">
+													<dt>
+														{+((item.type)?"<span class=\"light fixedFont\">{"+(new Link().toSymbol(item.type)._makeAjaxLink(item.type))+"}</span> " : "")+}<b>{+item.name+}</b>
+														<if test="item.isOptional"><i>Optional<if test="item.defaultValue">, Default: {+item.defaultValue+}</if></i></if>
+													</dt>
+													<dd>{+resolveAjaxLinks(item.desc)+}</dd>
+												</for>
+												</dl>
+											</if>
+											<if test="member.deprecated">
+												<dl class="detailList">
+												<dt class="heading">Deprecated:</dt>
+												<dt>
+													{+member.deprecated+}
+												</dt>
+												</dl>
+											</if>
+											<if test="member.since">
+												<dl class="detailList">
+												<dt class="heading">Since:</dt>
+													<dd>{+ member.since +}</dd>
+												</dl>
+												</dl>
+											</if>
+											<if test="member.exceptions.length">
+												<dl class="detailList">
+												<dt class="heading">Throws:</dt>
+												<for each="item" in="member.exceptions">
+													<dt>
+														{+((item.type)?"<span class=\"light fixedFont\">{"+(new Link().toSymbol(item.type)._makeAjaxLink(item.type))+"}</span> " : "")+} <b>{+item.name+}</b>
+													</dt>
+													<dd>{+resolveAjaxLinks(item.desc)+}</dd>
+												</for>
+												</dl>
+											</if>
+											<if test="member.returns.length">
+												<dl class="detailList">
+												<dt class="heading">Returns:</dt>
+												<for each="item" in="member.returns">
+													<dd>{+((item.type)?"<span class=\"light fixedFont\">{"+(new Link().toSymbol(item.type)._makeAjaxLink)+"}</span> " : "")+}{+resolveAjaxLinks(item.desc)+}</dd>
+												</for>
+												</dl>
+											</if>
+											<if test="member.requires.length">
+												<dl class="detailList">
+												<dt class="heading">Requires:</dt>
+												<for each="item" in="member.requires">
+													<dd>{+ resolveAjaxLinks(item) +}</dd>
+												</for>
+												</dl>
+											</if>
+											<if test="member.see.length">
+												<dl class="detailList">
+												<dt class="heading">See:</dt>
+												<for each="item" in="member.see">
+													<dd>{+ new Link().toSymbol(item)._makeAjaxLink(item) +}</dd>
+												</for>
+												</dl>
+											</if>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</for>
+					</tbody>
+				</table>
+				</if>
+				
+				<if test="data.inheritsFrom.length">
+				<dl class="inheritsList">
+				{!
+					var borrowedMembers = data.methods.filter(function($) {return $.memberOf != data.alias});
+					var contributers = [];
+					borrowedMembers.map(function($) {if (contributers.indexOf($.memberOf) < 0) contributers.push($.memberOf)});
+					for (var i = 0, l = contributers.length; i < l; i++) {
+						output +=
+							"<dt>Methods borrowed from class "+new Link().toSymbol(contributers[i])._makeAjaxLink(contributers[i])+": </dt>"
+							+
+							"<dd>" +
+							borrowedMembers
+							.filter(
+								function($) { return $.memberOf == contributers[i] }
+							)
+							.sort(makeSortby("name"))
+							.map(
+								function($) { return new Link().toSymbol($.alias).withText($.name)._makeAjaxLink($.alias) }
+							)
+							.join(", ")
+							+
+							"</dd>";
+					}
+				
+				!}
+				</dl>
+				</if>
+			</if>

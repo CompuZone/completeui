@@ -1,0 +1,810 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="NAME">nitobi.lang.defineNs</span><span class="PUNC">(</span><span class="STRN">"nitobi.xml"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  2</span> 
+<span class='line'>  3</span> </span><span class="COMM">/**
+<span class='line'>  4</span>  * &lt;I>There is no constructor for this class.&lt;/I> 
+<span class='line'>  5</span>  * @class The nitobi.xml namespace contains static functions for dealing with XML data and performing XSLT transformations.
+<span class='line'>  6</span>  */</span><span class="WHIT">
+<span class='line'>  7</span> </span><span class="NAME">nitobi.xml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>  8</span> 
+<span class='line'>  9</span> </span><span class="COMM">/**
+<span class='line'> 10</span>  * The namespace prefix for Nitobi XML.
+<span class='line'> 11</span>  * @type String
+<span class='line'> 12</span>  */</span><span class="WHIT">
+<span class='line'> 13</span> </span><span class="NAME">nitobi.xml.nsPrefix</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"ntb:"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="COMM">/**
+<span class='line'> 15</span>  * The XML namespace URI for Nitobi XML.
+<span class='line'> 16</span>  * @type String
+<span class='line'> 17</span>  */</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="NAME">nitobi.xml.nsDecl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'xmlns:ntb="http://www.nitobi.com"'</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 19</span> 
+<span class='line'> 20</span> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 22</span> </span><span class="WHIT">	</span><span class="COMM">//	TODO: this should be pooled.</span><span class="WHIT">
+<span class='line'> 23</span> </span><span class="WHIT">	</span><span class="COMM">//Define a global XSLTemplate Object so that we dont have to create it at runtime</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="WHIT">	</span><span class="COMM">//This is used when creating an XSLT Processor </span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">inUse</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 27</span> 	 * @private
+<span class='line'> 28</span> 	 */</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.xml.XslTemplate</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ActiveXObject</span><span class="PUNC">(</span><span class="STRN">"MSXML2.XSLTemplate.3.0"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 31</span> 
+<span class='line'> 32</span> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">XMLSerializer</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="STRN">"undefined"</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">DOMParser</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="STRN">"undefined"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="WHIT">	</span><span class="COMM">//	TODO: this should be pooled.</span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="WHIT">	</span><span class="COMM">//Define a global serializer so that we don't have to create it at runtime</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 37</span> 	 * @private
+<span class='line'> 38</span> 	 */</span><span class="WHIT">
+<span class='line'> 39</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.xml.Serializer</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">XMLSerializer</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.xml.DOMParser</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">DOMParser</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 42</span> 
+<span class='line'> 43</span> </span><span class="COMM">/**
+<span class='line'> 44</span>  * Returns the child nodes of a given XML node, ignoring text nodes.
+<span class='line'> 45</span>  * @type XMLNode
+<span class='line'> 46</span>  */</span><span class="WHIT">
+<span class='line'> 47</span> </span><span class="NAME">nitobi.xml.getChildNodes</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">xmlNode</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 50</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 51</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">xmlNode.childNodes</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">xmlNode.selectNodes</span><span class="PUNC">(</span><span class="STRN">'./*'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 56</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 58</span> 
+<span class='line'> 59</span> </span><span class="COMM">/**
+<span class='line'> 60</span>  * Returns the index of the child node in the parent collection. -1 if not found.
+<span class='line'> 61</span>  * @param {XMLNode} parent The parent to search through.
+<span class='line'> 62</span>  * @param {XMLNode} child The child whose index you want to find.
+<span class='line'> 63</span>  * @type Number
+<span class='line'> 64</span>  */</span><span class="WHIT">
+<span class='line'> 65</span> </span><span class="NAME">nitobi.xml.indexOfChildNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">parent</span><span class="PUNC">,</span><span class="NAME">child</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 67</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">childNodes</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.getChildNodes</span><span class="PUNC">(</span><span class="NAME">parent</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">childNodes.length</span><span class="PUNC">;</span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">childNodes</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">child</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 72</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 75</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 76</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 77</span> 
+<span class='line'> 78</span> </span><span class="COMM">/**
+<span class='line'> 79</span>  * Creates an XML document from a string of XML.
+<span class='line'> 80</span>  * @param {String | XMLDocument} xml XML string to load into the XmlDocument object.
+<span class='line'> 81</span>  * @type XMLDocument
+<span class='line'> 82</span>  */</span><span class="WHIT">
+<span class='line'> 83</span> </span><span class="NAME">nitobi.xml.createXmlDoc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">xml</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 84</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 85</span> </span><span class="WHIT">	</span><span class="COMM">// checks for anything added to the beginning of the response, i.e. by a debugger</span><span class="WHIT">
+<span class='line'> 86</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">xml</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 87</span> </span><span class="WHIT">		</span><span class="NAME">xml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">xml.substring</span><span class="PUNC">(</span><span class="NAME">xml.indexOf</span><span class="PUNC">(</span><span class="STRN">"&lt;?xml"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 88</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 89</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">xml</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">xml.documentElement</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 90</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">xml</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 91</span> 
+<span class='line'> 92</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">doc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 93</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 94</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 95</span> </span><span class="WHIT">		</span><span class="COMM">// TODO: Do a better job of using whatever DOMDocument is available.</span><span class="WHIT">
+<span class='line'> 96</span> </span><span class="WHIT">		</span><span class="COMM">//var AX=["Msxml4.DOMDocument","Msxml3.DOMDocument","Msxml2.DOMDocument","Msxml.DOMDocument","Microsoft.XmlDom"];</span><span class="WHIT">
+<span class='line'> 97</span> </span><span class="WHIT">		</span><span class="NAME">doc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ActiveXObject</span><span class="PUNC">(</span><span class="STRN">"Msxml2.DOMDocument.3.0"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 98</span> </span><span class="WHIT">		</span><span class="NAME">doc.setProperty</span><span class="PUNC">(</span><span class="STRN">'SelectionNamespaces'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'xmlns:ntb=\'http://www.nitobi.com\''</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 99</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>100</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">document.implementation</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">document.implementation.createDocument</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>101</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>102</span> </span><span class="WHIT">		</span><span class="NAME">doc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.implementation.createDocument</span><span class="PUNC">(</span><span class="STRN">""</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>103</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>104</span> 
+<span class='line'>105</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">xml</span><span class="PUNC">!=</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">xml</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"string"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>106</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="WHIT">		</span><span class="NAME">doc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.loadXml</span><span class="PUNC">(</span><span class="NAME">doc</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">xml</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">doc</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>110</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>111</span> 
+<span class='line'>112</span> </span><span class="COMM">/**
+<span class='line'>113</span>  * Loads a string of XML data into the given XML document object.  &lt;code>loadXml&lt;/code> also
+<span class='line'>114</span>  * returns the XML document object to allow for chaining operations.
+<span class='line'>115</span>  * @param {XMLDocument} doc An xml document to receive the XML from the xml string.
+<span class='line'>116</span>  * @param {String} str XML string to load into the XmlDocument object (doc).
+<span class='line'>117</span>  * @param {Boolean} clearDoc Flag indicating if the expensive operation of clearing the XMLDocument should be performed. 
+<span class='line'>118</span>  * This is only required if the XMLDocument already has contents to be overwritten. Optional.
+<span class='line'>119</span>  * @type XMLDocument
+<span class='line'>120</span>  */</span><span class="WHIT">
+<span class='line'>121</span> </span><span class="NAME">nitobi.xml.loadXml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">doc</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">xml</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">clearDoc</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>122</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>123</span> </span><span class="WHIT">	</span><span class="NAME">doc.async</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>124</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>125</span> </span><span class="WHIT">		</span><span class="NAME">doc.loadXML</span><span class="PUNC">(</span><span class="NAME">xml</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>127</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>128</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">tempDoc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.DOMParser.parseFromString</span><span class="PUNC">(</span><span class="NAME">xml</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"text/xml"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>129</span> 
+<span class='line'>130</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">clearDoc</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>131</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>132</span> </span><span class="WHIT">			</span><span class="KEYW">while</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">doc.hasChildNodes</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>133</span> </span><span class="WHIT">				</span><span class="NAME">doc.removeChild</span><span class="PUNC">(</span><span class="NAME">doc.firstChild</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>134</span> </span><span class="WHIT">			</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">tempDoc.childNodes.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>135</span> </span><span class="WHIT">				</span><span class="NAME">doc.appendChild</span><span class="PUNC">(</span><span class="NAME">doc.importNode</span><span class="PUNC">(</span><span class="NAME">tempDoc.childNodes</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>136</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>137</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>138</span> </span><span class="WHIT">		</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>139</span> </span><span class="WHIT">			</span><span class="NAME">doc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">tempDoc</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>140</span> 
+<span class='line'>141</span> </span><span class="WHIT">		</span><span class="NAME">tempDoc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>142</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>143</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">doc</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>144</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>145</span> 
+<span class='line'>146</span> </span><span class="COMM">/**
+<span class='line'>147</span>  * Determines whether or not an XML document has a parse error. If an error
+<span class='line'>148</span>  * exists it returns true and false otherwise.
+<span class='line'>149</span>  * @param {XMLDocument} xmlDoc The xml doc that had the error.
+<span class='line'>150</span>  * @type Boolean
+<span class='line'>151</span>  */</span><span class="WHIT">
+<span class='line'>152</span> </span><span class="NAME">nitobi.xml.hasParseError</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">xmlDoc</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>153</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>154</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>155</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>156</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">xmlDoc.parseError</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>157</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>158</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>160</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">xmlDoc</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">xmlDoc.documentElement</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>161</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">roottag</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">xmlDoc.documentElement</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>162</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">(</span><span class="NAME">roottag.tagName</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"parserError"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">roottag.namespaceURI</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"http://www.mozilla.org/newlayout/xml/parsererror.xml"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>163</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>164</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>165</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>166</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>167</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>168</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>169</span> 
+<span class='line'>170</span> </span><span class="COMM">/**
+<span class='line'>171</span>  * Returns the parse error in an XML document.
+<span class='line'>172</span>  * @param {XMLDocument} xmlDoc The xml doc that had the error.
+<span class='line'>173</span>  * @type String
+<span class='line'>174</span>  */</span><span class="WHIT">
+<span class='line'>175</span> </span><span class="NAME">nitobi.xml.getParseErrorReason</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">xmlDoc</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>176</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>177</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">nitobi.xml.hasParseError</span><span class="PUNC">(</span><span class="NAME">xmlDoc</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>178</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>179</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>180</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>181</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>182</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>183</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">xmlDoc.parseError.reason</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>184</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>185</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>186</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>187</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">XMLSerializer</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">serializeToString</span><span class="PUNC">(</span><span class="NAME">xmlDoc</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>188</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>189</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>190</span> 
+<span class='line'>191</span> </span><span class="COMM">/**
+<span class='line'>192</span>  * Creates and returns an XSL document. This differs from an XML document in that in Internet Explorer we use the MSXML2.FreeThreadedDOMDocument.3.0 ActiveX object such that it can be used with an XSLProcessor.
+<span class='line'>193</span>  * @param {String} xsl XML string to load into the XmlDocument object.
+<span class='line'>194</span>  * @type XMLDocument
+<span class='line'>195</span> */</span><span class="WHIT">
+<span class='line'>196</span> </span><span class="NAME">nitobi.xml.createXslDoc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">xsl</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>197</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>198</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">doc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>199</span> 
+<span class='line'>200</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>201</span> </span><span class="WHIT">		</span><span class="NAME">doc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ActiveXObject</span><span class="PUNC">(</span><span class="STRN">"MSXML2.FreeThreadedDOMDocument.3.0"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>202</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>203</span> </span><span class="WHIT">		</span><span class="NAME">doc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.createXmlDoc</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>204</span> 
+<span class='line'>205</span> </span><span class="WHIT">	</span><span class="NAME">doc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.loadXml</span><span class="PUNC">(</span><span class="NAME">doc</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">xsl</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="STRN">'&lt;xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ntb="http://www.nitobi.com" />'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>206</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">doc</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>207</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>208</span> 
+<span class='line'>209</span> 
+<span class='line'>210</span> </span><span class="COMM">/**
+<span class='line'>211</span>  * Creates an XSL processor object that will cache compiled XSLT stylesheets.
+<span class='line'>212</span>  * @param {String|XMLDocument} xsl An XML document that conforms to the XSL dtd.
+<span class='line'>213</span>  * @type XSLProcessor
+<span class='line'>214</span>  */</span><span class="WHIT">
+<span class='line'>215</span> </span><span class="NAME">nitobi.xml.createXslProcessor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">xsl</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>216</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>217</span> </span><span class="WHIT">	</span><span class="COMM">// TODO: we use createXslDoc a lot but then re-load the XML here ... this needs to be tightened up.</span><span class="WHIT">
+<span class='line'>218</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">xslDoc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>219</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">xt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>220</span> 
+<span class='line'>221</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">xsl</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="STRN">"string"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>222</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>223</span> </span><span class="WHIT">		</span><span class="NAME">xsl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.serialize</span><span class="PUNC">(</span><span class="NAME">xsl</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>224</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>225</span> 
+<span class='line'>226</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>227</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>228</span> </span><span class="WHIT">		</span><span class="NAME">xslDoc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ActiveXObject</span><span class="PUNC">(</span><span class="STRN">"MSXML2.FreeThreadedDOMDocument.3.0"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>229</span> </span><span class="WHIT">		</span><span class="NAME">xt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ActiveXObject</span><span class="PUNC">(</span><span class="STRN">"MSXML2.XSLTemplate.3.0"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>230</span> </span><span class="WHIT">		</span><span class="NAME">xslDoc.async</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>231</span> </span><span class="WHIT">		</span><span class="NAME">xslDoc.loadXML</span><span class="PUNC">(</span><span class="NAME">xsl</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>232</span> </span><span class="WHIT">		</span><span class="NAME">xt.stylesheet</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">xslDoc</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>233</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">xt.createProcessor</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>234</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>235</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">XSLTProcessor</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>236</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>237</span> </span><span class="WHIT">		</span><span class="NAME">xslDoc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.createXmlDoc</span><span class="PUNC">(</span><span class="NAME">xsl</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>238</span> </span><span class="WHIT">		</span><span class="NAME">xt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">XSLTProcessor</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>239</span> </span><span class="WHIT">		</span><span class="NAME">xt.importStylesheet</span><span class="PUNC">(</span><span class="NAME">xslDoc</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>240</span> </span><span class="WHIT">		</span><span class="NAME">xt.stylesheet</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">xslDoc</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>241</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">xt</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>242</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>243</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>244</span> 
+<span class='line'>245</span> </span><span class="COMM">/**
+<span class='line'>246</span>  * Parses an HTML fragment and returns a valid XML document.
+<span class='line'>247</span>  * @param {HTMLElement} element An HTML element which corresponds to the documentElement
+<span class='line'>248</span>  * of the resulting XML document or a string of HTML.
+<span class='line'>249</span>  * @type XMLDocument
+<span class='line'>250</span>  */</span><span class="WHIT">
+<span class='line'>251</span> </span><span class="NAME">nitobi.xml.parseHtml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>252</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>253</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"string"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>254</span> </span><span class="WHIT">		</span><span class="NAME">element</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.getElementById</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>255</span> 
+<span class='line'>256</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.getOuterHtml</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>257</span> 
+<span class='line'>258</span> </span><span class="WHIT">	</span><span class="COMM">// In IE &lt; etc come in unencoded no matter how many times you encode - ie &amp;lt; == &lt;</span><span class="WHIT">
+<span class='line'>259</span> </span><span class="WHIT">	</span><span class="COMM">// But in FF this is not the case.</span><span class="WHIT">
+<span class='line'>260</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">fixedHtml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>261</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>262</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>263</span> </span><span class="WHIT">		</span><span class="COMM">// First things first, IE will mess with attribute values containing &quot;</span><span class="WHIT">
+<span class='line'>264</span> </span><span class="WHIT">		</span><span class="COMM">// eg attname="&quot;Value&quot;" => attname='"Value"' note the outer single quotes!!! </span><span class="WHIT">
+<span class='line'>265</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">regexpQuot</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">RegExp</span><span class="PUNC">(</span><span class="STRN">"(\\\s+.[^=]*)='(.*?)'"</span><span class="PUNC">,</span><span class="STRN">"g"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>266</span> </span><span class="WHIT">		</span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">html.replace</span><span class="PUNC">(</span><span class="NAME">regexpQuot</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">m</span><span class="PUNC">,</span><span class="NAME">_1</span><span class="PUNC">,</span><span class="NAME">_2</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">_1</span><span class="PUNC">+</span><span class="STRN">"=\""</span><span class="PUNC">+</span><span class="NAME">_2.replace</span><span class="PUNC">(</span><span class="REGX">/"/g</span><span class="PUNC">,</span><span class="STRN">"&quot;"</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="STRN">"\""</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>267</span> 
+<span class='line'>268</span> </span><span class="WHIT">		</span><span class="NAME">fixedHtml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">html.substring</span><span class="PUNC">(</span><span class="NAME">html.indexOf</span><span class="PUNC">(</span><span class="STRN">'/>'</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="NUMB">2</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/(\s+.[^\=]*)\=\s*([^\"^\s^\>]+)/g</span><span class="PUNC">,</span><span class="STRN">"$1=\"$2\" "</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/\n/gi</span><span class="PUNC">,</span><span class="STRN">''</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/(.*?:.*?\s)/i</span><span class="PUNC">,</span><span class="STRN">"$1  "</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>269</span> 
+<span class='line'>270</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">regexpLt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">RegExp</span><span class="PUNC">(</span><span class="STRN">'\="([^"]*)(\&lt;)(.*?)"'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'gi'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>271</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">regexpGt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">RegExp</span><span class="PUNC">(</span><span class="STRN">'\="([^"]*)(\>)(.*?)"'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'gi'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>272</span> 
+<span class='line'>273</span> </span><span class="WHIT">		</span><span class="COMM">// Encode any &lt; or > characters in attribute values.</span><span class="WHIT">
+<span class='line'>274</span> </span><span class="WHIT">		</span><span class="COMM">// Loop through until the match is false - cause we need to get</span><span class="WHIT">
+<span class='line'>275</span> </span><span class="WHIT">		</span><span class="COMM">// every &lt; with an attribute =".." ...</span><span class="WHIT">
+<span class='line'>276</span> </span><span class="WHIT">		</span><span class="KEYW">while</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">true</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>277</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>278</span> </span><span class="WHIT">			</span><span class="NAME">fixedHtml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">fixedHtml.replace</span><span class="PUNC">(</span><span class="NAME">regexpLt</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"=\"$1&lt;$3\" "</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>279</span> </span><span class="WHIT">			</span><span class="NAME">fixedHtml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">fixedHtml.replace</span><span class="PUNC">(</span><span class="NAME">regexpGt</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"=\"$1&gt;$3\" "</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>280</span> </span><span class="WHIT">			</span><span class="COMM">// TODO: Two tests here since IE (and maybe MOZ??) is being weird.</span><span class="WHIT">
+<span class='line'>281</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">x</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">regexpLt.test</span><span class="PUNC">(</span><span class="NAME">fixedHtml</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>282</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">regexpLt.test</span><span class="PUNC">(</span><span class="NAME">fixedHtml</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>283</span> </span><span class="WHIT">				</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>284</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>285</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>286</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>287</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>288</span> </span><span class="WHIT">		</span><span class="COMM">// The html is going to have everything escaped in firfox - ie &lt;br> == &lt;br&gt;.</span><span class="WHIT">
+<span class='line'>289</span> </span><span class="WHIT">		</span><span class="COMM">// but the & character is a problem.</span><span class="WHIT">
+<span class='line'>290</span> </span><span class="WHIT">		</span><span class="NAME">fixedHtml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">html</span><span class="PUNC">;</span><span class="COMM">//.replace(/(\s+.[^\=]*)\=\s*([^\"^\s^\>]+)/g,"$1=\"$2\" ")</span><span class="WHIT">
+<span class='line'>291</span> </span><span class="WHIT">		</span><span class="NAME">fixedHtml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">fixedHtml.replace</span><span class="PUNC">(</span><span class="REGX">/\n/gi</span><span class="PUNC">,</span><span class="STRN">''</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/\>\s*\&lt;/gi</span><span class="PUNC">,</span><span class="STRN">'>&lt;'</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/(.*?:.*?\s)/i</span><span class="PUNC">,</span><span class="STRN">"$1  "</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>292</span> </span><span class="WHIT">		</span><span class="NAME">fixedHtml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">fixedHtml.replace</span><span class="PUNC">(</span><span class="REGX">/\&/g</span><span class="PUNC">,</span><span class="STRN">'&amp;'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>293</span> </span><span class="WHIT">		</span><span class="NAME">fixedHtml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">fixedHtml.replace</span><span class="PUNC">(</span><span class="REGX">/\&amp;gt;/g</span><span class="PUNC">,</span><span class="STRN">'&gt;'</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/\&amp;lt;/g</span><span class="PUNC">,</span><span class="STRN">'&lt;'</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/\&amp;apos;/g</span><span class="PUNC">,</span><span class="STRN">'&apos;'</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/\&amp;quot;/g</span><span class="PUNC">,</span><span class="STRN">'&quot;'</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/\&amp;amp;/g</span><span class="PUNC">,</span><span class="STRN">'&amp;'</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/\&amp;eq;/g</span><span class="PUNC">,</span><span class="STRN">'&eq;'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>294</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>295</span> 
+<span class='line'>296</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">fixedHtml.indexOf</span><span class="PUNC">(</span><span class="STRN">'xmlns:ntb="http://www.nitobi.com"'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>297</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>298</span> </span><span class="WHIT">		</span><span class="COMM">// indert our namespace into this XML</span><span class="WHIT">
+<span class='line'>299</span> </span><span class="WHIT">		</span><span class="NAME">fixedHtml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">fixedHtml.replace</span><span class="PUNC">(</span><span class="REGX">/\&lt;(.*?)(\s|\>|\\)/</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'&lt;$1 xmlns:ntb="http://www.nitobi.com"$2'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>300</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>301</span> 
+<span class='line'>302</span> </span><span class="WHIT">	</span><span class="NAME">fixedHtml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">fixedHtml.replace</span><span class="PUNC">(</span><span class="REGX">/\&nbsp\;/gi</span><span class="PUNC">,</span><span class="STRN">' '</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>303</span> 
+<span class='line'>304</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.createXmlDoc</span><span class="PUNC">(</span><span class="NAME">fixedHtml</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>305</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>306</span> 
+<span class='line'>307</span> 
+<span class='line'>308</span> </span><span class="COMM">/**
+<span class='line'>309</span>  * Transforms the provided XML document using the provided XSL processor.
+<span class='line'>310</span>  * @param {XMLDocument} xml the XML document to input
+<span class='line'>311</span>  * @param {Object} xsl Either an XmlDocument or an XslProcessor
+<span class='line'>312</span>  * @type String
+<span class='line'>313</span>  * @private
+<span class='line'>314</span>  */</span><span class="WHIT">
+<span class='line'>315</span> </span><span class="NAME">nitobi.xml.transform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">xml</span><span class="PUNC">,</span><span class="NAME">xsl</span><span class="PUNC">,</span><span class="NAME">type</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>316</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>317</span> </span><span class="WHIT">	</span><span class="COMM">// Check to see if the XSL is an XML doc or not...</span><span class="WHIT">
+<span class='line'>318</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">xsl.documentElement</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>319</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>320</span> </span><span class="WHIT">		</span><span class="NAME">xsl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.createXslProcessor</span><span class="PUNC">(</span><span class="NAME">xsl</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>321</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>322</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>323</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>324</span> </span><span class="WHIT">		</span><span class="COMM">/*
+<span class='line'>325</span> 		if (typeof(xsl.xml) == "string" || type == "xml")
+<span class='line'>326</span> 		{
+<span class='line'>327</span> 			// We dont have an XSL processor - just regular XSL
+<span class='line'>328</span> 			// OR we want XML output in which case we can't use the XSLProcessor.
+<span class='line'>329</span> 			if (type == "text")
+<span class='line'>330</span> 			{
+<span class='line'>331</span> 				return xml.transformNode(xsl);
+<span class='line'>332</span> 			}
+<span class='line'>333</span> 			else
+<span class='line'>334</span> 			{
+<span class='line'>335</span> 				var output = nitobi.xml.createXmlDoc();
+<span class='line'>336</span> 				if (typeof(xsl.xml) != "string")
+<span class='line'>337</span> 				{
+<span class='line'>338</span> 					xsl = xsl.ownerTemplate.stylesheet;
+<span class='line'>339</span> 				}
+<span class='line'>340</span> 				xml.transformNodeToObject(xsl, output);
+<span class='line'>341</span> 				return output;
+<span class='line'>342</span> 			}
+<span class='line'>343</span> 		}
+<span class='line'>344</span> 		else
+<span class='line'>345</span> 		{
+<span class='line'>346</span> 		*/</span><span class="WHIT">
+<span class='line'>347</span> </span><span class="WHIT">			</span><span class="NAME">xsl.input</span><span class="PUNC">=</span><span class="NAME">xml</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>348</span> </span><span class="WHIT">			</span><span class="NAME">xsl.transform</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>349</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">xsl.output</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>350</span> </span><span class="WHIT">		</span><span class="COMM">//}</span><span class="WHIT">
+<span class='line'>351</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>352</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">XSLTProcessor</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>353</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>354</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">doc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">xsl.transformToDocument</span><span class="PUNC">(</span><span class="NAME">xml</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>355</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">firstNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">doc.documentlement</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>356</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">firstNode</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">firstNode.nodeName.indexOf</span><span class="PUNC">(</span><span class="STRN">'ntb:'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>357</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>358</span> </span><span class="WHIT">			</span><span class="NAME">firstNode.setAttributeNS</span><span class="PUNC">(</span><span class="STRN">'http://www.w3.org/2000/xmlns/'</span><span class="PUNC">,</span><span class="STRN">'xmlns:ntb'</span><span class="PUNC">,</span><span class="STRN">'http://www.nitobi.com'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>359</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>360</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">doc</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>361</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>362</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>363</span> 
+<span class='line'>364</span> </span><span class="COMM">/**
+<span class='line'>365</span>  * Transforms the provided XML document using the provided XSL processor.
+<span class='line'>366</span>  * @param {XMLDocument} xml the XML document to use as input
+<span class='line'>367</span>  * @param {Object} xsl Either an XmlDocument or an XslProcessor
+<span class='line'>368</span>  * @type String
+<span class='line'>369</span>  */</span><span class="WHIT">
+<span class='line'>370</span> </span><span class="NAME">nitobi.xml.transformToString</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">xml</span><span class="PUNC">,</span><span class="NAME">xsl</span><span class="PUNC">,</span><span class="NAME">type</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>371</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>372</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.transform</span><span class="PUNC">(</span><span class="NAME">xml</span><span class="PUNC">,</span><span class="NAME">xsl</span><span class="PUNC">,</span><span class="STRN">"text"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>373</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.MOZ</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>374</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>375</span> </span><span class="WHIT">		</span><span class="COMM">//The type attribute does nothing in the IE version of this function</span><span class="WHIT">
+<span class='line'>376</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">type</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"xml"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>377</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>378</span> </span><span class="WHIT">			</span><span class="COMM">//	This is to be used when the output type is xml ...</span><span class="WHIT">
+<span class='line'>379</span> </span><span class="WHIT">			</span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.Serializer.serializeToString</span><span class="PUNC">(</span><span class="NAME">result</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>380</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>381</span> </span><span class="WHIT">		</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>382</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>383</span> </span><span class="WHIT">			</span><span class="COMM">//	This is to be used when the output type is text ...</span><span class="WHIT">
+<span class='line'>384</span> 
+<span class='line'>385</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">result.documentElement.childNodes</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>386</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>387</span> </span><span class="WHIT">				</span><span class="NAME">nitobi.lang.throwError</span><span class="PUNC">(</span><span class="STRN">"The transformToString fn could not find any valid output"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>388</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>389</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">result.documentElement.childNodes</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">data</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>390</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>391</span> </span><span class="WHIT">				</span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">result.documentElement.childNodes</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">data</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>392</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>393</span> </span><span class="WHIT">			</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">result.documentElement.childNodes</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">textContent</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>394</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>395</span> </span><span class="WHIT">				</span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">result.documentElement.childNodes</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">textContent</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>396</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>397</span> </span><span class="WHIT">			</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>398</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>399</span> </span><span class="WHIT">				</span><span class="NAME">nitobi.lang.throwError</span><span class="PUNC">(</span><span class="STRN">"The transformToString fn could not find any valid output"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>400</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">				</span><span class="WHIT">
+<span class='line'>401</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>402</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>403</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.SAFARI</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>404</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>405</span> </span><span class="WHIT">		</span><span class="COMM">//The type attribute does nothing in the IE version of this function</span><span class="WHIT">
+<span class='line'>406</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">type</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"xml"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>407</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>408</span> </span><span class="WHIT">			</span><span class="COMM">//	This is to be used when the output type is xml ...</span><span class="WHIT">
+<span class='line'>409</span> </span><span class="WHIT">			</span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.Serializer.serializeToString</span><span class="PUNC">(</span><span class="NAME">result</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>410</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>411</span> </span><span class="WHIT">		</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>412</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>413</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">dataNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">result.documentElement</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>414</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">dataNode.nodeName</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="STRN">'transformiix:result'</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>415</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>416</span> </span><span class="WHIT">				</span><span class="COMM">// WebKit stores its "text" transformation in a pre tag.</span><span class="WHIT">
+<span class='line'>417</span> </span><span class="WHIT">				</span><span class="NAME">dataNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">dataNode.getElementsByTagName</span><span class="PUNC">(</span><span class="STRN">'pre'</span><span class="PUNC">)</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>418</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>419</span> </span><span class="WHIT">			</span><span class="KEYW">try</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>420</span> </span><span class="WHIT">				</span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">dataNode.childNodes</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">data</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>421</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">catch</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>422</span> </span><span class="WHIT">				</span><span class="COMM">// This is the case for Safari when the transformation result is ""</span><span class="WHIT">
+<span class='line'>423</span> </span><span class="WHIT">				</span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">dataNode.data</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>424</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>425</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>426</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>427</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">result</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>428</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>429</span> 
+<span class='line'>430</span> </span><span class="COMM">/**
+<span class='line'>431</span>  * Transforms the provided XML document using the provided XSL processor and returns an XML document.
+<span class='line'>432</span>  * @param {XMLDocument} xml the XML document to use as input
+<span class='line'>433</span>  * @param {XMLDocument|XSLProcessor} xsl Either an XmlDocument or an XslProcessor
+<span class='line'>434</span>  * @type XMLDocument
+<span class='line'>435</span>  */</span><span class="WHIT">
+<span class='line'>436</span> </span><span class="NAME">nitobi.xml.transformToXml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">xml</span><span class="PUNC">,</span><span class="NAME">xsl</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>437</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>438</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.transform</span><span class="PUNC">(</span><span class="NAME">xml</span><span class="PUNC">,</span><span class="NAME">xsl</span><span class="PUNC">,</span><span class="STRN">"xml"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>439</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"string"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>440</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>441</span> </span><span class="WHIT">		</span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.createXmlDoc</span><span class="PUNC">(</span><span class="NAME">result</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>442</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>443</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>444</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>445</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">result.documentElement.nodeName</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"transformiix:result"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>446</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>447</span> </span><span class="WHIT">			</span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.createXmlDoc</span><span class="PUNC">(</span><span class="NAME">result.documentElement.firstChild.data</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>448</span> </span><span class="COMM">//				result = result.documentElement.firstChild;</span><span class="WHIT">
+<span class='line'>449</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>450</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>451</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">result</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>452</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>453</span> 
+<span class='line'>454</span> </span><span class="COMM">/**
+<span class='line'>455</span>  * Converts the contents of an XMLDocument to a string.
+<span class='line'>456</span>  * @param {XMLDocument} xml the XML document to be serialized
+<span class='line'>457</span>  * @type String
+<span class='line'>458</span>  */</span><span class="WHIT">
+<span class='line'>459</span> </span><span class="NAME">nitobi.xml.serialize</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">xml</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>460</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>461</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>462</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">xml.xml</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>463</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>464</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">XMLSerializer</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">serializeToString</span><span class="PUNC">(</span><span class="NAME">xml</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>465</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>466</span> 
+<span class='line'>467</span> </span><span class="COMM">/**
+<span class='line'>468</span>  * Creates and returns an XMLHttpRequest object.
+<span class='line'>469</span>  * @type XMLHttpRequest
+<span class='line'>470</span>  * @private
+<span class='line'>471</span>  */</span><span class="WHIT">
+<span class='line'>472</span> </span><span class="NAME">nitobi.xml.createXmlHttp</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>473</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>474</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>475</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>476</span> </span><span class="WHIT">		</span><span class="COMM">//	TODO: try all the XML HTTP objects starting from 5...</span><span class="WHIT">
+<span class='line'>477</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">reservedObj</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>478</span> </span><span class="WHIT">		</span><span class="KEYW">try</span><span class="WHIT">
+<span class='line'>479</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>480</span> </span><span class="WHIT">			</span><span class="NAME">reservedObj</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ActiveXObject</span><span class="PUNC">(</span><span class="STRN">"Msxml2.XMLHTTP"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>481</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>482</span> </span><span class="WHIT">		</span><span class="KEYW">catch</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>483</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>484</span> </span><span class="WHIT">			</span><span class="KEYW">try</span><span class="WHIT">
+<span class='line'>485</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>486</span> </span><span class="WHIT">				</span><span class="NAME">reservedObj</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ActiveXObject</span><span class="PUNC">(</span><span class="STRN">"Microsoft.XMLHTTP"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>487</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>488</span> </span><span class="WHIT">			</span><span class="KEYW">catch</span><span class="PUNC">(</span><span class="NAME">ee</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>489</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>490</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>491</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>492</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">reservedObj</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>493</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>494</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>495</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>496</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">XMLHttpRequest</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>497</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>498</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>499</span> 
+<span class='line'>500</span> </span><span class="COMM">/**
+<span class='line'>501</span>  * Creates a namespaced XML element. The default namespace is "http://www.nitobi.com".
+<span class='line'>502</span>  */</span><span class="WHIT">
+<span class='line'>503</span> </span><span class="NAME">nitobi.xml.createElement</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">xmlDoc</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">elementName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ns</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>504</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>505</span> </span><span class="WHIT">	</span><span class="NAME">ns</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ns</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="STRN">"http://www.nitobi.com"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>506</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">newDataNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>507</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>508</span> </span><span class="WHIT">		</span><span class="NAME">newDataNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">xmlDoc.createNode</span><span class="PUNC">(</span><span class="NUMB">1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.nsPrefix</span><span class="PUNC">+</span><span class="NAME">elementName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ns</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>509</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">xmlDoc.createElementNS</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>510</span> </span><span class="WHIT">		</span><span class="NAME">newDataNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">xmlDoc.createElementNS</span><span class="PUNC">(</span><span class="NAME">ns</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.nsPrefix</span><span class="PUNC">+</span><span class="NAME">elementName</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>511</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">newDataNode</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>512</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>513</span> 
+<span class='line'>514</span> </span><span class="COMM">/**
+<span class='line'>515</span>  * just a little helper ...
+<span class='line'>516</span>  * @ignore
+<span class='line'>517</span>  */</span><span class="WHIT">
+<span class='line'>518</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">nitobiXmlDecodeXslt</span><span class="PUNC">(</span><span class="NAME">xsl</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>519</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>520</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">xsl.replace</span><span class="PUNC">(</span><span class="REGX">/x:c-/g</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'xsl:choose'</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>521</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/x\:wh\-/g</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'xsl:when'</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>522</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/x\:o\-/g</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'xsl:otherwise'</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>523</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/x\:n\-/g</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">' name="'</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>524</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/x\:s\-/g</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">' select="'</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>525</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/x\:va\-/g</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'xsl:variable'</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>526</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/x\:v\-/g</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'xsl:value-of'</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>527</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/x\:ct\-/g</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'xsl:call-template'</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>528</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/x\:w\-/g</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'xsl:with-param'</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>529</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/x\:p\-/g</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'xsl:param'</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>530</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/x\:t\-/g</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'xsl:template'</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>531</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/x\:at\-/g</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'xsl:apply-templates'</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>532</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">replace</span><span class="PUNC">(</span><span class="REGX">/x\:a\-/g</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'xsl:attribute'</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>533</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>534</span> 
+<span class='line'>535</span> </span><span class="COMM">//This is all the special stuff to emulate IE stuff in nitobi.browser.MOZ ...</span><span class="WHIT">
+<span class='line'>536</span> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">nitobi.browser.IE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>537</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>538</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>539</span> 	 * Mimic IE's loadXML()
+<span class='line'>540</span> 	 * @private
+<span class='line'>541</span> 	 * @ignore
+<span class='line'>542</span> 	 * @deprecated Use nitobi.xml.loadXml instead.
+<span class='line'>543</span> 	 */</span><span class="WHIT">
+<span class='line'>544</span> </span><span class="WHIT">	</span><span class="NAME">Document.prototype.loadXML</span><span class="PUNC">=</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">strXML</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>545</span> </span><span class="WHIT">		</span><span class="NAME">changeReadyState</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>546</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">p</span><span class="PUNC">=</span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">DOMParser</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>547</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">d</span><span class="PUNC">=</span><span class="NAME">p.parseFromString</span><span class="PUNC">(</span><span class="NAME">strXML</span><span class="PUNC">,</span><span class="STRN">"text/xml"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>548</span> </span><span class="WHIT">		</span><span class="KEYW">while</span><span class="PUNC">(</span><span class="NAME">this.hasChildNodes</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>549</span> </span><span class="WHIT">			</span><span class="NAME">this.removeChild</span><span class="PUNC">(</span><span class="NAME">this.lastChild</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>550</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">d.childNodes.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>551</span> </span><span class="WHIT">			</span><span class="NAME">this.appendChild</span><span class="PUNC">(</span><span class="NAME">this.importNode</span><span class="PUNC">(</span><span class="NAME">d.childNodes</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>552</span> </span><span class="WHIT">		</span><span class="NAME">changeReadyState</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="NUMB">4</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>553</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>554</span> 
+<span class='line'>555</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>556</span> 	 * Make the .xml property available on XML Document and XML Node objects.
+<span class='line'>557</span> 	 * @private
+<span class='line'>558</span> 	 * @ignore
+<span class='line'>559</span> 	 */</span><span class="WHIT">
+<span class='line'>560</span> </span><span class="WHIT">	</span><span class="NAME">Document.prototype.__defineGetter__</span><span class="PUNC">(</span><span class="STRN">"xml"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">XMLSerializer</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">serializeToString</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>561</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>562</span> 	 * Make the .xml property available on XML Document and XML Node objects.
+<span class='line'>563</span> 	 * @private
+<span class='line'>564</span> 	 * @ignore
+<span class='line'>565</span> 	 */</span><span class="WHIT">
+<span class='line'>566</span> </span><span class="WHIT">	</span><span class="NAME">Node.prototype.__defineGetter__</span><span class="PUNC">(</span><span class="STRN">"xml"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">XMLSerializer</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">serializeToString</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>567</span> 
+<span class='line'>568</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>569</span> 	 * @private
+<span class='line'>570</span> 	 * @ignore
+<span class='line'>571</span> 	 */</span><span class="WHIT">
+<span class='line'>572</span> </span><span class="WHIT">	</span><span class="NAME">XPathResult.prototype.__defineGetter__</span><span class="PUNC">(</span><span class="STRN">"length"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.snapshotLength</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>573</span> 
+<span class='line'>574</span> </span><span class="WHIT">	</span><span class="COMM">//These are important and are currently used</span><span class="WHIT">
+<span class='line'>575</span> </span><span class="WHIT">	</span><span class="COMM">//Simple emulation of IE addParameter method on the XSLT processor object</span><span class="WHIT">
+<span class='line'>576</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>577</span> 	 * Emulate the setParameter method for Firefox.
+<span class='line'>578</span> 	 * @ignore
+<span class='line'>579</span> 	 */</span><span class="WHIT">
+<span class='line'>580</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">XSLTProcessor</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>581</span> </span><span class="WHIT">		</span><span class="NAME">XSLTProcessor.prototype.addParameter</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">baseName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">parameter</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">namespaceURI</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>582</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>583</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">parameter</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>584</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>585</span> </span><span class="WHIT">				</span><span class="NAME">this.removeParameter</span><span class="PUNC">(</span><span class="NAME">namespaceURI</span><span class="PUNC">,</span><span class="NAME">baseName</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>586</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>587</span> </span><span class="WHIT">			</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>588</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>589</span> </span><span class="WHIT">				</span><span class="NAME">this.setParameter</span><span class="PUNC">(</span><span class="NAME">namespaceURI</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">baseName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">parameter</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>590</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>591</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>592</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>593</span> 
+<span class='line'>594</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>595</span> 	 * Emulates the selectNodes method that is available on XML documents Internet Explorer such that it can be used in Firefox.
+<span class='line'>596</span> 	 * @param {string} sExpr XPath expression that is evaluated to get the XMLNodeList.
+<span class='line'>597</span> 	 * @param {Element} contextNode XML element from which the XPath should be executed. Optional
+<span class='line'>598</span> 	 * @type {XMLNodeList}
+<span class='line'>599</span> 	 * @private
+<span class='line'>600</span> 	 * @ignore
+<span class='line'>601</span>      */</span><span class="WHIT">
+<span class='line'>602</span> </span><span class="WHIT">	</span><span class="NAME">XMLDocument.prototype.selectNodes</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">sExpr</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">contextNode</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>603</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>604</span> </span><span class="WHIT">		</span><span class="KEYW">try</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>605</span> </span><span class="WHIT">			</span><span class="COMM">//	TODO: we need to get some assert stuff in here ... </span><span class="WHIT">
+<span class='line'>606</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.nsResolver</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>607</span> </span><span class="WHIT">				</span><span class="NAME">this.nsResolver</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.createNSResolver</span><span class="PUNC">(</span><span class="NAME">this.documentElement</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>608</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>609</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">oResult</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.evaluate</span><span class="PUNC">(</span><span class="NAME">sExpr</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">contextNode</span><span class="PUNC">?</span><span class="NAME">contextNode</span><span class="PUNC">:</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">MyNSResolver</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">XPathResult.ORDERED_NODE_SNAPSHOT_TYPE</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>610</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nodeList</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Array</span><span class="PUNC">(</span><span class="NAME">oResult.snapshotLength</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>611</span> </span><span class="WHIT">			</span><span class="NAME">nodeList.expr</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">sExpr</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>612</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">j</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>613</span> </span><span class="WHIT">			</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">oResult.snapshotLength</span><span class="PUNC">;</span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>614</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>615</span> </span><span class="WHIT">				</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">item</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">oResult.snapshotItem</span><span class="PUNC">(</span><span class="NAME">i</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>616</span> </span><span class="WHIT">				</span><span class="COMM">//	Ignore whitespace nodes.</span><span class="WHIT">
+<span class='line'>617</span> </span><span class="WHIT">				</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">item.nodeType</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="NUMB">3</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>618</span> </span><span class="WHIT">				</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>619</span> </span><span class="WHIT">					</span><span class="NAME">nodeList</span><span class="PUNC">[</span><span class="NAME">j</span><span class="PUNC">++</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">item</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>620</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>621</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>622</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">nodeList</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>623</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="KEYW">catch</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>624</span> </span><span class="WHIT">			</span><span class="COMM">//console.log('problem in selectnodes. probably in creating NSResolver');</span><span class="WHIT">
+<span class='line'>625</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>626</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>627</span> 
+<span class='line'>628</span> </span><span class="WHIT">	</span><span class="NAME">Document.prototype.selectNodes</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XMLDocument.prototype.selectNodes</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>629</span> 
+<span class='line'>630</span> </span><span class="WHIT">    </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">MyNSResolver</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>631</span> </span><span class="WHIT">	</span><span class="NAME">MyNSResolver.prototype.lookupNamespaceURI</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">prefix</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>632</span> </span><span class="WHIT">		</span><span class="KEYW">switch</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">prefix</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>633</span> </span><span class="WHIT">			</span><span class="KEYW">case</span><span class="WHIT"> </span><span class="STRN">"xsl"</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'>634</span> </span><span class="WHIT">				</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">"http://www.w3.org/1999/XSL/Transform"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>635</span> </span><span class="WHIT">				</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>636</span> </span><span class="WHIT">			</span><span class="KEYW">case</span><span class="WHIT"> </span><span class="STRN">"ntb"</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'>637</span> </span><span class="WHIT">				</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">"http://www.nitobi.com"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>638</span> </span><span class="WHIT">				</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>639</span> </span><span class="WHIT">			</span><span class="KEYW">case</span><span class="WHIT"> </span><span class="STRN">"d"</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'>640</span> </span><span class="WHIT">				</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">"http://exslt.org/dates-and-times"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>641</span> </span><span class="WHIT">				</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>642</span> </span><span class="WHIT">			</span><span class="KEYW">case</span><span class="WHIT"> </span><span class="STRN">"n"</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'>643</span> </span><span class="WHIT">				</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">"http://www.nitobi.com/exslt/numbers"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>644</span> </span><span class="WHIT">				</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>645</span> </span><span class="WHIT">			</span><span class="KEYW">default</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'>646</span> </span><span class="WHIT">				</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>647</span> </span><span class="WHIT">				</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>648</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>649</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>650</span> 
+<span class='line'>651</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>652</span> 	 * Emulates the selectSingleNode method that is available on XML documents Internet Explorer such that it can be used in Firefox.
+<span class='line'>653</span> 	 * @param {string} sExpr XPath expression that is evaluated to get the XML element.
+<span class='line'>654</span> 	 * @param {Element} contextNode XML element from which the XPath should be executed. Optional
+<span class='line'>655</span> 	 * @type {Element}
+<span class='line'>656</span> 	 * @private
+<span class='line'>657</span> 	 * @ignore
+<span class='line'>658</span> 	 */</span><span class="WHIT">
+<span class='line'>659</span> </span><span class="WHIT">	</span><span class="NAME">XMLDocument.prototype.selectSingleNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">sExpr</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">contextNode</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>660</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>661</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">indexExpression</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">sExpr.match</span><span class="PUNC">(</span><span class="REGX">/\[\d+\]/ig</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>662</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">indexExpression</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>663</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>664</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">x</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">indexExpression</span><span class="PUNC">[</span><span class="NAME">indexExpression.length</span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>665</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">sExpr.lastIndexOf</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">x.length</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="NAME">sExpr.length</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>666</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">     </span><span class="WHIT">
+<span class='line'>667</span> </span><span class="WHIT">				</span><span class="NAME">sExpr</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"[1]"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>668</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>669</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>670</span> 
+<span class='line'>671</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nodeList</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.selectNodes</span><span class="PUNC">(</span><span class="NAME">sExpr</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">contextNode</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>672</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">(</span><span class="NAME">nodeList</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">nodeList.length</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">?</span><span class="NAME">nodeList</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">:</span><span class="KEYW">null</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>673</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>674</span> 
+<span class='line'>675</span> </span><span class="WHIT">	</span><span class="NAME">Document.prototype.selectSingleNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XMLDocument.prototype.selectSingleNode</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>676</span> 
+<span class='line'>677</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>678</span> 	 * @private
+<span class='line'>679</span> 	 * @ignore
+<span class='line'>680</span> 	 */</span><span class="WHIT">
+<span class='line'>681</span> </span><span class="WHIT">	</span><span class="NAME">Element.prototype.selectNodes</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">sExpr</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>682</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>683</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">doc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.ownerDocument</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>684</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">doc.selectNodes</span><span class="PUNC">(</span><span class="NAME">sExpr</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>685</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>686</span> 
+<span class='line'>687</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>688</span> 	 * @private
+<span class='line'>689</span> 	 * @ignore
+<span class='line'>690</span> 	 */</span><span class="WHIT">
+<span class='line'>691</span> </span><span class="WHIT">	</span><span class="NAME">Element.prototype.selectSingleNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">sExpr</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>692</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>693</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">doc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.ownerDocument</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>694</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">doc.selectSingleNode</span><span class="PUNC">(</span><span class="NAME">sExpr</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>695</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>696</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>697</span> 
+<span class='line'>698</span> </span><span class="COMM">/**
+<span class='line'>699</span>  * Returns the remainder of a string after the first appearance of a colon (':').  When
+<span class='line'>700</span>  * an XML node name is used as input this will be the local name of the node.
+<span class='line'>701</span>  * @param {String} nodeName the input string
+<span class='line'>702</span>  * @type String
+<span class='line'>703</span>  */</span><span class="WHIT">
+<span class='line'>704</span> </span><span class="NAME">nitobi.xml.getLocalName</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">nodeName</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>705</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>706</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">colon</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nodeName.indexOf</span><span class="PUNC">(</span><span class="STRN">":"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>707</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">colon</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>708</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>709</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">nodeName</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>710</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>711</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>712</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>713</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">nodeName.substr</span><span class="PUNC">(</span><span class="NAME">colon</span><span class="PUNC">+</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>714</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>715</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>716</span> 
+<span class='line'>717</span> </span><span class="NAME">nitobi.xml.importNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">doc</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">node</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">childClone</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>718</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>719</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">childClone</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>720</span> </span><span class="WHIT">		</span><span class="NAME">childClone</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>721</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">doc.importNode</span><span class="PUNC">?</span><span class="NAME">doc.importNode</span><span class="PUNC">(</span><span class="NAME">node</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">childClone</span><span class="PUNC">)</span><span class="PUNC">:</span><span class="NAME">node</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>722</span> </span><span class="WHIT">	</span><span class="COMM">//return node;</span><span class="WHIT">
+<span class='line'>723</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>724</span> 
+<span class='line'>725</span> 
+<span class='line'>726</span> </span><span class="COMM">/**
+<span class='line'>727</span>  * @private
+<span class='line'>728</span>  */</span><span class="WHIT">
+<span class='line'>729</span> </span><span class="NAME">nitobi.xml.encode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">str</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>730</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>731</span> </span><span class="WHIT">	</span><span class="NAME">str</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>732</span> </span><span class="WHIT">	</span><span class="NAME">str</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">str.replace</span><span class="PUNC">(</span><span class="REGX">/&/g</span><span class="PUNC">,</span><span class="STRN">"&amp;"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>733</span> </span><span class="WHIT">	</span><span class="NAME">str</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">str.replace</span><span class="PUNC">(</span><span class="REGX">/'/g</span><span class="PUNC">,</span><span class="STRN">"&apos;"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>734</span> </span><span class="WHIT">	</span><span class="NAME">str</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">str.replace</span><span class="PUNC">(</span><span class="REGX">/\"/g</span><span class="PUNC">,</span><span class="STRN">"&quot;"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>735</span> </span><span class="WHIT">	</span><span class="NAME">str</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">str.replace</span><span class="PUNC">(</span><span class="REGX">/&lt;/g</span><span class="PUNC">,</span><span class="STRN">"&lt;"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>736</span> </span><span class="WHIT">	</span><span class="NAME">str</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">str.replace</span><span class="PUNC">(</span><span class="REGX">/>/g</span><span class="PUNC">,</span><span class="STRN">"&gt;"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>737</span> </span><span class="WHIT">	</span><span class="NAME">str</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">str.replace</span><span class="PUNC">(</span><span class="REGX">/\n/g</span><span class="PUNC">,</span><span class="STRN">"&#xa;"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>738</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">str</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>739</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>740</span> 
+<span class='line'>741</span> </span><span class="COMM">/**
+<span class='line'>742</span>  * @private
+<span class='line'>743</span>  * Makes a valid XPATH query from a value.
+<span class='line'>744</span>  * This addresses a deficiency in XSL.A literal string can be written with either kind of quote. 
+<span class='line'>745</span>  * XPaths usually appear in attributes, and of course these have to be quoted too. 
+<span class='line'>746</span>  * You can use the usual XML entities &quot; and &apos; for quotes in your XPaths, but remember 
+<span class='line'>747</span>  * that these are expanded by the XML parser, before the XPath string is parsed. There is no way to
+<span class='line'>748</span>  * escape characters at the XPath level, so you can't have a literal XPath string 
+<span class='line'>749</span>  * containing both kinds of quote.However, you can create a concat function that tricks the processor into accepting
+<span class='line'>750</span>  * both kinds of quotes, which is what this function does.
+<span class='line'>751</span>  * @param {String} Value The value.
+<span class='line'>752</span>  * @param {Boolean} QuoteValue If true, when no concat workaround is needed, surrounds the value with quotes.
+<span class='line'>753</span>  * @type {String} A XPATH concat function.
+<span class='line'>754</span>  */</span><span class="WHIT">
+<span class='line'>755</span> </span><span class="NAME">nitobi.xml.constructValidXpathQuery</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">Value</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">QuoteValue</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>756</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>757</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">matches</span><span class="PUNC">=</span><span class="NAME">Value.match</span><span class="PUNC">(</span><span class="REGX">/(\"|\')/g</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>758</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">matches</span><span class="PUNC">!=</span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>759</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>760</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">xpath</span><span class="PUNC">=</span><span class="STRN">"concat("</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>761</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">comma</span><span class="PUNC">=</span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>762</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">quote</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>763</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">Value.length</span><span class="PUNC">;</span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>764</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>765</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">Value.substr</span><span class="PUNC">(</span><span class="NAME">i</span><span class="PUNC">,</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">==</span><span class="STRN">"\""</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>766</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>767</span> </span><span class="WHIT">				</span><span class="NAME">quote</span><span class="PUNC">=</span><span class="STRN">"&apos;"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>768</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>769</span> </span><span class="WHIT">			</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>770</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>771</span> </span><span class="WHIT">				</span><span class="NAME">quote</span><span class="PUNC">=</span><span class="STRN">"&quot;"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>772</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>773</span> </span><span class="WHIT">			</span><span class="NAME">xpath</span><span class="PUNC">+</span><span class="PUNC">=</span><span class="NAME">comma</span><span class="PUNC">+</span><span class="NAME">quote</span><span class="PUNC">+</span><span class="NAME">nitobi.xml.encode</span><span class="PUNC">(</span><span class="NAME">Value.substr</span><span class="PUNC">(</span><span class="NAME">i</span><span class="PUNC">,</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="NAME">quote</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>774</span> </span><span class="WHIT">			</span><span class="NAME">comma</span><span class="PUNC">=</span><span class="STRN">","</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>775</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>776</span> </span><span class="WHIT">		</span><span class="NAME">xpath</span><span class="PUNC">+</span><span class="PUNC">=</span><span class="NAME">comma</span><span class="PUNC">+</span><span class="STRN">"&apos;&apos;"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>777</span> </span><span class="WHIT">		</span><span class="NAME">xpath</span><span class="PUNC">+</span><span class="PUNC">=</span><span class="STRN">")"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>778</span> </span><span class="WHIT">		</span><span class="NAME">Value</span><span class="PUNC">=</span><span class="NAME">xpath</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>779</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>780</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>781</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>782</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">quot</span><span class="PUNC">=</span><span class="PUNC">(</span><span class="NAME">QuoteValue</span><span class="PUNC">?</span><span class="STRN">"'"</span><span class="PUNC">:</span><span class="STRN">""</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>783</span> </span><span class="WHIT">		</span><span class="NAME">Value</span><span class="PUNC">=</span><span class="NAME">quot</span><span class="PUNC">+</span><span class="NAME">nitobi.xml.encode</span><span class="PUNC">(</span><span class="NAME">Value</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="NAME">quot</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>784</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>785</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">Value</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>786</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>787</span> 
+<span class='line'>788</span> </span><span class="COMM">/**
+<span class='line'>789</span>  * Removes all the child nodes of some given xml node.
+<span class='line'>790</span>  * @param {Node} parentNode The node whose children to remove.
+<span class='line'>791</span>  */</span><span class="WHIT">
+<span class='line'>792</span> </span><span class="NAME">nitobi.xml.removeChildren</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">parentNode</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>793</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>794</span> </span><span class="WHIT">	</span><span class="KEYW">while</span><span class="PUNC">(</span><span class="NAME">parentNode.firstChild</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>795</span> </span><span class="WHIT">		</span><span class="NAME">parentNode.removeChild</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">parentNode.firstChild</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>796</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>797</span> 
+<span class='line'>798</span> </span><span class="COMM">/**
+<span class='line'>799</span>  * @private
+<span class='line'>800</span>  * This is an empty XML doc for use whenever you want.
+<span class='line'>801</span>  */</span><span class="WHIT">
+<span class='line'>802</span> </span><span class="NAME">nitobi.xml.Empty</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.createXmlDoc</span><span class="PUNC">(</span><span class="STRN">'&lt;root>&lt;/root>'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>803</span> </span></pre></body></html>

@@ -1,0 +1,59 @@
+h1
+{
+	font-weight: bold;
+	font-size: 12pt;
+	font-family: Verdana, Tahoma, Arial;
+}
+h2
+{
+	font-weight: bold;
+	font-size: 11pt;
+	font-family: Verdana, Tahoma, Arial;
+}
+h3
+{
+	font-weight: bold;
+	font-size: 8pt;
+	font-family: Verdana, Tahoma, Arial;
+}
+body
+{
+	font-size: 8pt;
+	font-family: Verdana, Tahoma, Arial;
+}
+td
+{
+	font-size: 8pt;
+	font-family: Verdana, Tahoma, Arial;
+	border: gray 1px solid;
+	padding: 5px;
+}
+.TagOutline
+{
+	border-right: black 1px solid;
+	border-top: black 1px solid;
+	font-size: 9pt;
+	border-left: black 1px solid;
+	border-bottom: black 1px solid;
+	font-family: 'Courier New';
+	background-color: whitesmoke;
+}
+a
+{
+	font-size: 8pt;
+	font-family: Verdana, Tahoma, Arial;
+	text-decoration: none;
+	color: blue;
+}
+a:hover
+{
+	font-size: 8pt;
+	font-family: Verdana, Tahoma, Arial;
+	color: #0033ff;
+	text-decoration: underline;
+}
+table
+{
+	border: gray 1px solid;
+	border-collapse:collapse;
+}

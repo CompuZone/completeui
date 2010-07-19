@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="build">
+	<path id="lib-path">
+		<fileset dir="../lib">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	
+	<target name="build" depends="clean, build.plugin, jar.plugin, copy.ext.libs, copy.files"/>
+	
+	<target name="build.plugin">
+		<mkdir dir="bin"/>
+		<javac destdir="bin" classpathref="lib-path"
+						source="1.3" target="1.3" debug="off"
+						srcdir="../src"/>
+	</target>
+	
+	<target name="copy.files">
+		<copy todir="lib/icons">
+			<fileset dir="../icons"/>
+		</copy>
+		
+		<copy todir="lib/libs">
+			<fileset dir="../libs"/>
+		</copy>
+		
+		<copy todir="lib/META-INF" file="../META-INF/manifest.mf"/>
+		
+		<copy todir="lib" file="../plugin.xml"/>
+	</target>
+	
+	<target name="jar.plugin">
+		<mkdir dir="lib"/>
+		<jar destfile="lib/nitobiplugin.jar">
+			<fileset dir="bin"/>
+		</jar>
+	</target>
+	
+	<target name="clean">
+		<delete dir="bin"/>
+		<delete dir="lib"/>
+	</target>
+	
+	<target name="copy.ext.libs">
+		<ant dir="../../nitobiTaglib/dist">
+			<property name="jarname" value="nitobi-cui-taglib"/>
+		</ant>
+		<copy todir="../libs">
+			<fileset dir="../../nitobiTaglib/dist/lib"/>
+		</copy>
+		
+		<ant dir="../../serverLibrary/dist">
+			<property name="jarname" value="nitobi-server-lib"/>
+		</ant>
+		<copy todir="../libs">
+			<fileset dir="../../serverLibrary/dist/lib"/>
+		</copy>
+		
+		<ant dir="../../struts2plugin/dist">
+			<property name="jarname" value="nitobi-struts2-plugin"/>
+		</ant>
+		<copy todir="../libs">
+			<fileset dir="../../struts2plugin/dist/lib"/>
+		</copy>
+	</target>
+
+</project>

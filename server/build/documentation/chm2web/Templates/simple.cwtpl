@@ -1,0 +1,38 @@
+;==============================================================================
+;
+; SIMPLE TEMPLATE SCHEME for chm2web software
+; by A!K Research Labs, 2002
+;
+;==============================================================================
+
+
+[TEMPLATE.INFO]
+
+NAME		= Simple White
+Template name
+
+BODY		= simple.body
+Template body file name
+
+AUTHOR		= A!K Research Labs
+Copyright(c) 2002, All Rights Reserved
+
+
+[OPEN.FIELDS]
+
+BACKCOLOR	= white
+Background color
+
+LEFTBACKCOLOR	= white
+Left frame background color
+
+PAGECAPTION    = black
+Page caption text color
+
+SCHEMECOLOR1	= white
+
+SCHEMECOLOR2    = silver
+
+SCHEMECOLOR3	= gray
+
+SCHEMECOLOR4	= black

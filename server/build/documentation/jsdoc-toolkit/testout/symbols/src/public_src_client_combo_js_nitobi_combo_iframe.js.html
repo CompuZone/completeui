@@ -1,0 +1,485 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">// 2005.04.18 - changed all // (xml comments) to // (normal comments)</span><span class="WHIT">
+<span class='line'>  2</span> </span><span class="COMM">// no need to create documentation (for now) for this file</span><span class="WHIT">
+<span class='line'>  3</span> 
+<span class='line'>  4</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>  5</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>  6</span> </span><span class="COMM">// * Iframe</span><span class="WHIT">
+<span class='line'>  7</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>  8</span> </span><span class="COMM">// &lt;class name='Iframe' access='private'></span><span class="WHIT">
+<span class='line'>  9</span> </span><span class="COMM">// &lt;summary></span><span class="WHIT">
+<span class='line'> 10</span> 
+<span class='line'> 11</span> 
+<span class='line'> 12</span> </span><span class="COMM">// &lt;/summary></span><span class="WHIT">
+<span class='line'> 13</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="COMM">// * Iframe Constructor</span><span class="WHIT">
+<span class='line'> 15</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'> 16</span> </span><span class="COMM">// NOTE: DOUBLE SLASHED COMMENTS SO THAT CSHARP GEN DOESN'T CREATE TWO CTORS</span><span class="WHIT">
+<span class='line'> 17</span> </span><span class="COMM">// &lt;function name='Iframe' access="private"></span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="COMM">// &lt;summary>Constructor for Iframe, a (cross-browser) object that encapsulates an absolutely positioned IFRAME.&lt;/summary></span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="COMM">// &lt;returns type="void">&lt;/returns>&lt;/function></span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="COMM">// createAttribute(), createDocumentFragment(), createElement(),</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="COMM">// createTextNode(), getElementById(), etc.: REMEMBER to call these from</span><span class="WHIT">
+<span class='line'> 22</span> </span><span class="COMM">// Iframe.document vs. document because this IFRAME is a different (new) document</span><span class="WHIT">
+<span class='line'> 23</span> </span><span class="COMM">// parameters:</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="COMM">// - attachee (required) - HTMLElement to attach this IFRAME to</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="COMM">// - h (optional) - height of IFRAME, defaults to 0 if not specified</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="COMM">// - w (optional) - width of IFRAME, defaults to offsetWidth of attachee if not specified</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="COMM">/**
+<span class='line'> 28</span>  * @private
+<span class='line'> 29</span>  * @ignore
+<span class='line'> 30</span>  */</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">Iframe</span><span class="PUNC">(</span><span class="NAME">attachee</span><span class="PUNC">,</span><span class="NAME">h</span><span class="PUNC">,</span><span class="NAME">w</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ComboHtmlTagObject</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">attachee</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">msg</span><span class="PUNC">=</span><span class="STRN">"Iframe constructor: attachee is null!"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="WHIT">		</span><span class="NAME">alert</span><span class="PUNC">(</span><span class="NAME">msg</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">		</span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="NAME">msg</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">d</span><span class="PUNC">=</span><span class="NAME">document</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 39</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">oIF</span><span class="PUNC">=</span><span class="NAME">d.createElement</span><span class="PUNC">(</span><span class="STRN">"IFRAME"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">s</span><span class="PUNC">=</span><span class="NAME">oIF.style</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="WHIT">	</span><span class="COMM">// attach() depends on this.oIFStyle so set this before calling</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">	</span><span class="COMM">// attach() depends on this.attachee so set this before calling</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="WHIT">	</span><span class="NAME">this.oIFStyle</span><span class="PUNC">=</span><span class="NAME">s</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="WHIT">	</span><span class="NAME">this.attachee</span><span class="PUNC">=</span><span class="NAME">attachee</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 45</span> </span><span class="WHIT">	</span><span class="NAME">this.attach</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="WHIT">	</span><span class="NAME">s.position</span><span class="PUNC">=</span><span class="STRN">"absolute"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 47</span> </span><span class="WHIT">	</span><span class="NAME">w</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">w</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">attachee.offsetWidth</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="WHIT">	</span><span class="NAME">s.width</span><span class="PUNC">=</span><span class="NAME">w</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="WHIT">	</span><span class="NAME">s.height</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">h</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 50</span> </span><span class="WHIT">	</span><span class="NAME">s.display</span><span class="PUNC">=</span><span class="STRN">"none"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 51</span> </span><span class="WHIT">	</span><span class="NAME">s.overflow</span><span class="PUNC">=</span><span class="STRN">"hidden"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="WHIT">	</span><span class="COMM">// .name is needed to use frames[name]; .id is not enough</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">name</span><span class="PUNC">=</span><span class="STRN">"IFRAME"</span><span class="PUNC">+</span><span class="NAME">oIF.uniqueID</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">	</span><span class="NAME">oIF.name</span><span class="PUNC">=</span><span class="NAME">name</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">	</span><span class="NAME">oIF.id</span><span class="PUNC">=</span><span class="NAME">name</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 56</span> </span><span class="WHIT">	</span><span class="NAME">oIF.frameBorder</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="WHIT">	</span><span class="COMM">// Keeps IE from complaining about unsecure items when in secure site</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="WHIT">	</span><span class="NAME">oIF.src</span><span class="PUNC">=</span><span class="STRN">"javascript:true"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 60</span> </span><span class="WHIT">	</span><span class="COMM">// Insert the iframe just before the form end if possible.</span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="WHIT">	</span><span class="COMM">// This is done to keep the iframe in any form the combo might be in</span><span class="WHIT">
+<span class='line'> 62</span> </span><span class="WHIT">	</span><span class="COMM">// If this is not done, the list causes the webpage to resize.</span><span class="WHIT">
+<span class='line'> 63</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">hostTag</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Browser_GetParentElementByTagName</span><span class="PUNC">(</span><span class="NAME">ComboHtmlTagObject</span><span class="PUNC">,</span><span class="STRN">"form"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 64</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">null</span><span class="PUNC">==</span><span class="NAME">hostTag</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 65</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="WHIT">		</span><span class="NAME">hostTag</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">d.body</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 67</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="WHIT">	</span><span class="NAME">hostTag.appendChild</span><span class="PUNC">(</span><span class="NAME">oIF</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">oF</span><span class="PUNC">=</span><span class="NAME">window.frames</span><span class="PUNC">[</span><span class="NAME">name</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">oD</span><span class="PUNC">=</span><span class="NAME">oF.document</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 72</span> </span><span class="WHIT">	</span><span class="NAME">oD.open</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="WHIT">	</span><span class="COMM">// - oD.write(...) is needed to create a body for oD; remember to access oD.body AFTER oD.write(...);</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="WHIT">	</span><span class="COMM">// - margin-* all need to be set to 0 or we'd get some default margin space;</span><span class="WHIT">
+<span class='line'> 75</span> </span><span class="WHIT">	</span><span class="COMM">// - background-color:white; needed for Mozilla to show w/o bleeding as in IE;</span><span class="WHIT">
+<span class='line'> 76</span> </span><span class="WHIT">	</span><span class="COMM">// - float:left; needed for Mozilla or else SPAN won't show;</span><span class="WHIT">
+<span class='line'> 77</span> </span><span class="WHIT">	</span><span class="COMM">// - need to put border in SPAN (vs. in IFRAME) or we'd get minor bleeding w/ SELECT elements in IE;</span><span class="WHIT">
+<span class='line'> 78</span> </span><span class="WHIT">	</span><span class="COMM">// - bodySpan's width and height are reduced by 2 pixels for Mozilla to show the same as in IE</span><span class="WHIT">
+<span class='line'> 79</span> </span><span class="WHIT">	</span><span class="COMM">//		because IE's width/height include borders whereas Mozilla's don't; so if user needs to change</span><span class="WHIT">
+<span class='line'> 80</span> </span><span class="WHIT">	</span><span class="COMM">//		border width to 0 (i.e. Iframe.bodySpan.style.border) then please adjust the width/height</span><span class="WHIT">
+<span class='line'> 81</span> </span><span class="WHIT">	</span><span class="COMM">//		according for Moz (i.e. add border pixels back); similarly, adjustments to width/height should</span><span class="WHIT">
+<span class='line'> 82</span> </span><span class="WHIT">	</span><span class="COMM">//		take into account the borders for Moz (i.e. minus border pixels);</span><span class="WHIT">
+<span class='line'> 83</span> </span><span class="WHIT">	</span><span class="COMM">// - note that inline styles below will not be overriden by css (i.e. assignment to .className);</span><span class="WHIT">
+<span class='line'> 84</span> </span><span class="WHIT">	</span><span class="COMM">//		IF it's necessary to override, then do it through DOM (i.e. Iframe.bodySpan.style.*);</span><span class="WHIT">
+<span class='line'> 85</span> </span><span class="WHIT">	</span><span class="COMM">//		user may want to override the border color, width, style (see previous note on this for Moz)</span><span class="WHIT">
+<span class='line'> 86</span> </span><span class="WHIT">	</span><span class="COMM">// BUG: TEXTAREA's cursor still bleeds through IFRAME in IE;</span><span class="WHIT">
+<span class='line'> 87</span> </span><span class="WHIT">	</span><span class="NAME">oD.write</span><span class="PUNC">(</span><span class="STRN">"&lt;html>&lt;head>&lt;/head>&lt;body style=\"margin:0;background-color:white;\">&lt;span id=\"bodySpan\" class=\"ntb-combobox-list-outer-border\" style=\"overflow:hidden;float:left;border-width:1px;border-style:solid;width:"</span><span class="PUNC">+</span><span class="PUNC">(</span><span class="NAME">w</span><span class="PUNC">-</span><span class="PUNC">(</span><span class="NAME">nitobi.browser.MOZ</span><span class="PUNC">?</span><span class="NUMB">2</span><span class="PUNC">:</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="STRN">";height:"</span><span class="PUNC">+</span><span class="PUNC">(</span><span class="NAME">h</span><span class="PUNC">-</span><span class="PUNC">(</span><span class="NAME">nitobi.browser.MOZ</span><span class="PUNC">?</span><span class="NUMB">2</span><span class="PUNC">:</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="STRN">";\">&lt;/span>&lt;/body>&lt;/html>"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 88</span> </span><span class="COMM">//	oD.write("&lt;html>&lt;head>&lt;/head>&lt;body style=\"margin:0;background-color:white;\">&lt;span id=\"bodySpan\" style=\"overflow:hidden;float:left;border:0px solid black;width:"+w+";height:0;\">&lt;/span>&lt;/body>&lt;/html>");</span><span class="WHIT">
+<span class='line'> 89</span> </span><span class="WHIT">	</span><span class="NAME">oD.close</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 90</span> </span><span class="WHIT">	</span><span class="COMM">// because this IFRAME is a new document, need to import window.document's</span><span class="WHIT">
+<span class='line'> 91</span> </span><span class="WHIT">	</span><span class="COMM">// stylesheets or else they won't be available to this IFRAME</span><span class="WHIT">
+<span class='line'> 92</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">dss</span><span class="PUNC">=</span><span class="NAME">d.styleSheets</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 93</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ss</span><span class="PUNC">=</span><span class="NAME">oD.createElement</span><span class="PUNC">(</span><span class="STRN">"LINK"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 94</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="NAME">n</span><span class="PUNC">=</span><span class="NAME">dss.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">n</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 95</span> </span><span class="WHIT">		</span><span class="COMM">// cloneNode() is faster than createElement()</span><span class="WHIT">
+<span class='line'> 96</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ss2</span><span class="PUNC">=</span><span class="NAME">ss.cloneNode</span><span class="PUNC">(</span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 97</span> </span><span class="WHIT">		</span><span class="NAME">ss2.rel</span><span class="PUNC">=</span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">dss</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">owningElement.rel</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">dss</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">ownerNode.rel</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 98</span> </span><span class="WHIT">		</span><span class="NAME">ss2.type</span><span class="PUNC">=</span><span class="STRN">"text/css"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 99</span> </span><span class="WHIT">		</span><span class="NAME">ss2.href</span><span class="PUNC">=</span><span class="NAME">dss</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">href</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>100</span> </span><span class="WHIT">		</span><span class="NAME">ss2.title</span><span class="PUNC">=</span><span class="NAME">dss</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">title</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>101</span> </span><span class="WHIT">		</span><span class="NAME">oD.body.appendChild</span><span class="PUNC">(</span><span class="NAME">ss2</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>102</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>103</span> </span><span class="WHIT">	</span><span class="COMM">// only one HEAD tag written above so [0] is our desired element</span><span class="WHIT">
+<span class='line'>104</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">head</span><span class="PUNC">=</span><span class="NAME">oD.getElementsByTagName</span><span class="PUNC">(</span><span class="STRN">"head"</span><span class="PUNC">)</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>105</span> </span><span class="WHIT">	</span><span class="COMM">// - because this IFRAME is a new document, need to import window.document's</span><span class="WHIT">
+<span class='line'>106</span> </span><span class="WHIT">	</span><span class="COMM">//		scripts or else they won't be available to this IFRAME;</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="WHIT">	</span><span class="COMM">// - document.scripts is only in IE; need to grab SCRIPT tags in Moz;</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ds</span><span class="PUNC">=</span><span class="PUNC">(</span><span class="NAME">d.scripts</span><span class="PUNC">?</span><span class="NAME">d.scripts</span><span class="PUNC">:</span><span class="NAME">d.getElementsByTagName</span><span class="PUNC">(</span><span class="STRN">"script"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">st</span><span class="PUNC">=</span><span class="NAME">oD.createElement</span><span class="PUNC">(</span><span class="STRN">"SCRIPT"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>110</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">src</span><span class="PUNC">=</span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>111</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="NAME">n</span><span class="PUNC">=</span><span class="NAME">ds.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">n</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>112</span> </span><span class="WHIT">		</span><span class="NAME">src</span><span class="PUNC">=</span><span class="NAME">ds</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">src</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>113</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="STRN">""</span><span class="PUNC">!=</span><span class="NAME">src</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>114</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>115</span> </span><span class="WHIT">			</span><span class="COMM">// cloneNode() is faster than createElement()</span><span class="WHIT">
+<span class='line'>116</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">st2</span><span class="PUNC">=</span><span class="NAME">st.cloneNode</span><span class="PUNC">(</span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>117</span> </span><span class="WHIT">			</span><span class="NAME">st2.language</span><span class="PUNC">=</span><span class="NAME">ds</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">language</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>118</span> </span><span class="WHIT">			</span><span class="NAME">st2.src</span><span class="PUNC">=</span><span class="NAME">src</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>119</span> </span><span class="WHIT">			</span><span class="NAME">head.appendChild</span><span class="PUNC">(</span><span class="NAME">st2</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>120</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>121</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>122</span> </span><span class="WHIT">	</span><span class="NAME">this.oIF</span><span class="PUNC">=</span><span class="NAME">oIF</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>123</span> </span><span class="WHIT">	</span><span class="NAME">this.oF</span><span class="PUNC">=</span><span class="NAME">oF</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>124</span> </span><span class="WHIT">	</span><span class="NAME">this.d</span><span class="PUNC">=</span><span class="NAME">oD</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>125</span> </span><span class="WHIT">	</span><span class="NAME">this.bodySpan</span><span class="PUNC">=</span><span class="NAME">oD.getElementById</span><span class="PUNC">(</span><span class="STRN">"bodySpan"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="WHIT">	</span><span class="NAME">this.bodySpanStyle</span><span class="PUNC">=</span><span class="NAME">this.bodySpan.style</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>127</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">window.addEventListener</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>128</span> </span><span class="WHIT">		</span><span class="COMM">// Moz way of moving IFRAME on body resize; onresize in Moz is called</span><span class="WHIT">
+<span class='line'>129</span> </span><span class="WHIT">		</span><span class="COMM">// once after the user releases the mouse after resizing</span><span class="WHIT">
+<span class='line'>130</span> </span><span class="WHIT">		</span><span class="NAME">window.addEventListener</span><span class="PUNC">(</span><span class="STRN">'resize'</span><span class="PUNC">,</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="KEYW">false</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>131</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">window.attachEvent</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>132</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">window.g_Iframe_oIFs</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>133</span> </span><span class="WHIT">			</span><span class="NAME">window.g_Iframe_oIFs</span><span class="PUNC">=</span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Array</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>134</span> </span><span class="WHIT">			</span><span class="NAME">window.g_Iframe_onresize</span><span class="PUNC">=</span><span class="NAME">window.onresize</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>135</span> </span><span class="WHIT">			</span><span class="NAME">Iframe_oResize</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>136</span> </span><span class="WHIT">			</span><span class="NAME">window.onresize</span><span class="PUNC">=</span><span class="NAME">window.oResize.check1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>137</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>138</span> </span><span class="WHIT">		</span><span class="NAME">window.g_Iframe_oIFs</span><span class="PUNC">[</span><span class="NAME">name</span><span class="PUNC">]</span><span class="PUNC">=</span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>139</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>140</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>141</span> 
+<span class='line'>142</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>143</span> </span><span class="COMM">// * Unload</span><span class="WHIT">
+<span class='line'>144</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>145</span> </span><span class="COMM">/// &lt;function name='Unload' access='private' obfuscate='no'>&lt;summary></span><span class="WHIT">
+<span class='line'>146</span> </span><span class="COMM">/// Actively unloads the object, and destroys owned objects.</span><span class="WHIT">
+<span class='line'>147</span> </span><span class="COMM">/// &lt;/summary>&lt;/function></span><span class="WHIT">
+<span class='line'>148</span> </span><span class="COMM">/**
+<span class='line'>149</span>  * @private
+<span class='line'>150</span>  * @ignore
+<span class='line'>151</span>  */</span><span class="WHIT">
+<span class='line'>152</span> </span><span class="NAME">Iframe.prototype.Unload</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Iframe_Unload</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>153</span> </span><span class="COMM">/**
+<span class='line'>154</span>  * @private
+<span class='line'>155</span>  * @ignore
+<span class='line'>156</span>  */</span><span class="WHIT">
+<span class='line'>157</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">Iframe_Unload</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>158</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.oIF</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>160</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>161</span> </span><span class="WHIT">		</span><span class="KEYW">delete</span><span class="WHIT"> </span><span class="NAME">this.oIF</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>162</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>163</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>164</span> 
+<span class='line'>165</span> </span><span class="COMM">// the IE solution to Moz's handleEvent</span><span class="WHIT">
+<span class='line'>166</span> </span><span class="COMM">// TODO: perhaps find a way to do this w/o injecting global variables?</span><span class="WHIT">
+<span class='line'>167</span> </span><span class="COMM">/**
+<span class='line'>168</span>  * @private
+<span class='line'>169</span>  * @ignore
+<span class='line'>170</span>  */</span><span class="WHIT">
+<span class='line'>171</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">g_Iframe_oIFs</span><span class="PUNC">=</span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>172</span> </span><span class="COMM">/**
+<span class='line'>173</span>  * @private
+<span class='line'>174</span>  * @ignore
+<span class='line'>175</span>  */</span><span class="WHIT">
+<span class='line'>176</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">g_Iframe_onresize</span><span class="PUNC">=</span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>177</span> </span><span class="COMM">/**
+<span class='line'>178</span>  * @private
+<span class='line'>179</span>  * @ignore
+<span class='line'>180</span>  */</span><span class="WHIT">
+<span class='line'>181</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">Iframe_onafterresize</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>182</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">f</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">window.g_Iframe_oIFs</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>183</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">oIF</span><span class="PUNC">=</span><span class="NAME">window.g_Iframe_oIFs</span><span class="PUNC">[</span><span class="NAME">f</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>184</span> </span><span class="WHIT">		</span><span class="NAME">oIF.attach</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>185</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>186</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">window.g_Iframe_onresize</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>187</span> </span><span class="WHIT">		</span><span class="NAME">window.g_Iframe_onresize</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>188</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>189</span> </span><span class="COMM">/**
+<span class='line'>190</span>  * @private
+<span class='line'>191</span>  * @ignore
+<span class='line'>192</span>  */</span><span class="WHIT">
+<span class='line'>193</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">Iframe_dfxWinXY</span><span class="PUNC">(</span><span class="NAME">w</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>194</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">b</span><span class="PUNC">,</span><span class="NAME">d</span><span class="PUNC">,</span><span class="NAME">x</span><span class="PUNC">,</span><span class="NAME">y</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>195</span> </span><span class="WHIT">	</span><span class="NAME">x</span><span class="PUNC">=</span><span class="NAME">y</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>196</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">d</span><span class="PUNC">=</span><span class="NAME">window.document</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>197</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">d.body</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>198</span> </span><span class="WHIT">		</span><span class="NAME">b</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">d.documentElement.clientWidth</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">d.documentElement</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">d.body</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>199</span> </span><span class="WHIT">		</span><span class="NAME">x</span><span class="PUNC">=</span><span class="NAME">b.clientWidth</span><span class="PUNC">||</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>200</span> </span><span class="WHIT">		</span><span class="NAME">y</span><span class="PUNC">=</span><span class="NAME">b.clientHeight</span><span class="PUNC">||</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>201</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>202</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="NAME">x</span><span class="PUNC">:</span><span class="NAME">x</span><span class="PUNC">,</span><span class="NAME">y</span><span class="PUNC">:</span><span class="NAME">y</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>203</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>204</span> </span><span class="COMM">/**
+<span class='line'>205</span>  * @private
+<span class='line'>206</span>  * @ignore
+<span class='line'>207</span>  */</span><span class="WHIT">
+<span class='line'>208</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">Iframe_oResize</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>209</span> </span><span class="WHIT">	</span><span class="NAME">window.oResize</span><span class="PUNC">=</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>210</span> </span><span class="WHIT">		</span><span class="NAME">CHECKTIME</span><span class="PUNC">:</span><span class="NUMB">500</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>211</span> </span><span class="WHIT">		</span><span class="NAME">oldXY</span><span class="PUNC">:</span><span class="NAME">Iframe_dfxWinXY</span><span class="PUNC">(</span><span class="NAME">window</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>212</span> </span><span class="WHIT">		</span><span class="NAME">timerId</span><span class="PUNC">:</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>213</span> </span><span class="WHIT">		</span><span class="NAME">check1</span><span class="PUNC">:</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="NAME">window.oResize.check2</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>214</span> </span><span class="WHIT">		</span><span class="NAME">check2</span><span class="PUNC">:</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>215</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">this.timerId</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>216</span> </span><span class="WHIT">				</span><span class="NAME">window.clearTimeout</span><span class="PUNC">(</span><span class="NAME">this.timerId</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>217</span> </span><span class="WHIT">			</span><span class="NAME">this.timerId</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">setTimeout</span><span class="PUNC">(</span><span class="STRN">"window.oResize.check3()"</span><span class="PUNC">,</span><span class="NAME">this.CHECKTIME</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>218</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>219</span> </span><span class="WHIT">		</span><span class="NAME">check3</span><span class="PUNC">:</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>220</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">newXY</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Iframe_dfxWinXY</span><span class="PUNC">(</span><span class="NAME">window</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>221</span> </span><span class="WHIT">			</span><span class="NAME">this.timerId</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>222</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="PUNC">(</span><span class="NAME">newXY.x</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="NAME">this.oldXY.x</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">newXY.y</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="NAME">this.oldXY.y</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>223</span> </span><span class="WHIT">				</span><span class="NAME">this.oldXY</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">newXY</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>224</span> </span><span class="WHIT">				</span><span class="NAME">Iframe_onafterresize</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>225</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>226</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>227</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>228</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>229</span> 
+<span class='line'>230</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>231</span> </span><span class="COMM">// * handleEvent</span><span class="WHIT">
+<span class='line'>232</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>233</span> </span><span class="COMM">// &lt;function name="handleEvent" access="private"></span><span class="WHIT">
+<span class='line'>234</span> </span><span class="COMM">// &lt;summary>Internal function for handling events in the context of this Iframe object.&lt;/summary></span><span class="WHIT">
+<span class='line'>235</span> </span><span class="COMM">// &lt;/function></span><span class="WHIT">
+<span class='line'>236</span> </span><span class="COMM">// works for Moz only</span><span class="WHIT">
+<span class='line'>237</span> </span><span class="COMM">/**
+<span class='line'>238</span>  * @private
+<span class='line'>239</span>  * @ignore
+<span class='line'>240</span>  */</span><span class="WHIT">
+<span class='line'>241</span> </span><span class="NAME">Iframe.prototype.handleEvent</span><span class="PUNC">=</span><span class="NAME">Iframe_handleEvent</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>242</span> </span><span class="COMM">/**
+<span class='line'>243</span>  * @private
+<span class='line'>244</span>  * @ignore
+<span class='line'>245</span>  */</span><span class="WHIT">
+<span class='line'>246</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">Iframe_handleEvent</span><span class="PUNC">(</span><span class="NAME">evt</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>247</span> </span><span class="WHIT">	</span><span class="KEYW">switch</span><span class="PUNC">(</span><span class="NAME">evt.type</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>248</span> </span><span class="WHIT">		</span><span class="KEYW">case</span><span class="WHIT"> </span><span class="STRN">'resize'</span><span class="PUNC">:</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>249</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">this.isVisible</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>250</span> </span><span class="WHIT">				</span><span class="NAME">this.attach</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>251</span> </span><span class="WHIT">			</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>252</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>253</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>254</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>255</span> 
+<span class='line'>256</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>257</span> </span><span class="COMM">// * offset</span><span class="WHIT">
+<span class='line'>258</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>259</span> </span><span class="COMM">// &lt;function name="offset" access="private"></span><span class="WHIT">
+<span class='line'>260</span> </span><span class="COMM">// &lt;summary>Calculates the offset(Left|Top) of an object on a page.&lt;/summary></span><span class="WHIT">
+<span class='line'>261</span> </span><span class="COMM">// &lt;/function></span><span class="WHIT">
+<span class='line'>262</span> </span><span class="COMM">// parameters:</span><span class="WHIT">
+<span class='line'>263</span> </span><span class="COMM">// o = object to find offset*</span><span class="WHIT">
+<span class='line'>264</span> </span><span class="COMM">// attr = either "offsetLeft" or "offsetTop"</span><span class="WHIT">
+<span class='line'>265</span> </span><span class="COMM">// a = true if absolute positioning, false otherwise</span><span class="WHIT">
+<span class='line'>266</span> </span><span class="COMM">/**
+<span class='line'>267</span>  * @private
+<span class='line'>268</span>  * @ignore
+<span class='line'>269</span>  */</span><span class="WHIT">
+<span class='line'>270</span> </span><span class="NAME">Iframe.prototype.offset</span><span class="PUNC">=</span><span class="NAME">Iframe_offset</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>271</span> </span><span class="COMM">/**
+<span class='line'>272</span>  * @private
+<span class='line'>273</span>  * @ignore
+<span class='line'>274</span>  */</span><span class="WHIT">
+<span class='line'>275</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">Iframe_offset</span><span class="PUNC">(</span><span class="NAME">o</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">attr</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">a</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>276</span> </span><span class="COMM">// for absolutely positioned 'o', only take its offset* and add</span><span class="WHIT">
+<span class='line'>277</span> </span><span class="COMM">// table border pixels back in;</span><span class="WHIT">
+<span class='line'>278</span> </span><span class="COMM">// for relatively positioned 'o', also add in its ancestor's offset*</span><span class="WHIT">
+<span class='line'>279</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">x</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">a</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">o</span><span class="PUNC">[</span><span class="NAME">attr</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>280</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">_o</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">o</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>281</span> </span><span class="WHIT">	</span><span class="KEYW">while</span><span class="PUNC">(</span><span class="NAME">o</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>282</span> </span><span class="WHIT">		</span><span class="NAME">x</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">a</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">o</span><span class="PUNC">[</span><span class="NAME">attr</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>283</span> 
+<span class='line'>284</span> </span><span class="WHIT">		</span><span class="COMM">// seems to fix a bug in IE where if the element is inside a TABLE</span><span class="WHIT">
+<span class='line'>285</span> </span><span class="WHIT">		</span><span class="COMM">// with a border != 0, the offset* is off by one</span><span class="WHIT">
+<span class='line'>286</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="STRN">"TABLE"</span><span class="PUNC">==</span><span class="NAME">o.tagName</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="STRN">"0"</span><span class="PUNC">!=</span><span class="NAME">o.border</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">!=</span><span class="NAME">o.border</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>287</span> </span><span class="WHIT">			</span><span class="NAME">x</span><span class="PUNC">++</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>288</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>289</span> </span><span class="WHIT">		</span><span class="NAME">o</span><span class="PUNC">=</span><span class="NAME">o.offsetParent</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>290</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>291</span> </span><span class="COMM">// no longer necessary because we've fixed the textbox+button position issues;</span><span class="WHIT">
+<span class='line'>292</span> </span><span class="COMM">// but leave here just in case; comments get stripped out at build-time anyway</span><span class="WHIT">
+<span class='line'>293</span> </span><span class="COMM">//	// IE hack-like code to deal w/ TR's w/ VALIGN of 'middle' and 'bottom',</span><span class="WHIT">
+<span class='line'>294</span> </span><span class="COMM">//	// which mess up the offsetTop calculated for the object 'o'</span><span class="WHIT">
+<span class='line'>295</span> </span><span class="COMM">//	if(nitobi.browser.IE && "offsetTop"==attr){</span><span class="WHIT">
+<span class='line'>296</span> </span><span class="COMM">//		o=_o;</span><span class="WHIT">
+<span class='line'>297</span> </span><span class="COMM">//		while(o){</span><span class="WHIT">
+<span class='line'>298</span> </span><span class="COMM">//			if("TR"==o.tagName && "TD"==_o.tagName){</span><span class="WHIT">
+<span class='line'>299</span> </span><span class="COMM">//				// either "middle" or "" (because default is "middle")</span><span class="WHIT">
+<span class='line'>300</span> </span><span class="COMM">//				// NOTE: known bug: the minus one is there to round down (in case</span><span class="WHIT">
+<span class='line'>301</span> </span><span class="COMM">//				// the difference is odd); most of the time, this is the desired</span><span class="WHIT">
+<span class='line'>302</span> </span><span class="COMM">//				// behavior; some other times, the top is off by one (i.e. didn't</span><span class="WHIT">
+<span class='line'>303</span> </span><span class="COMM">//				// subtract enough); however, not subtract enough (by one pixel) is</span><span class="WHIT">
+<span class='line'>304</span> </span><span class="COMM">//				// better than subtracting by too much (by one pixel); so the final</span><span class="WHIT">
+<span class='line'>305</span> </span><span class="COMM">//				// decision is to leave it as minus one to always round down</span><span class="WHIT">
+<span class='line'>306</span> </span><span class="COMM">//				if("middle"==o.vAlign)</span><span class="WHIT">
+<span class='line'>307</span> </span><span class="COMM">//					x -= (_o.clientHeight - _o.scrollHeight - 1) / 2;</span><span class="WHIT">
+<span class='line'>308</span> </span><span class="COMM">//				else if("bottom"==o.vAlign)</span><span class="WHIT">
+<span class='line'>309</span> </span><span class="COMM">//					x -= _o.clientHeight - _o.scrollHeight;</span><span class="WHIT">
+<span class='line'>310</span> </span><span class="COMM">//			}</span><span class="WHIT">
+<span class='line'>311</span> </span><span class="COMM">//			// save previous element in chain</span><span class="WHIT">
+<span class='line'>312</span> </span><span class="COMM">//			_o=o;</span><span class="WHIT">
+<span class='line'>313</span> </span><span class="COMM">//			o=o.parentElement;</span><span class="WHIT">
+<span class='line'>314</span> </span><span class="COMM">//		}</span><span class="WHIT">
+<span class='line'>315</span> </span><span class="COMM">//	}</span><span class="WHIT">
+<span class='line'>316</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">x</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>317</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>318</span> 
+<span class='line'>319</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>320</span> </span><span class="COMM">// * setHeight</span><span class="WHIT">
+<span class='line'>321</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>322</span> </span><span class="COMM">// &lt;function name="setHeight" access="private"></span><span class="WHIT">
+<span class='line'>323</span> </span><span class="COMM">// &lt;summary>Sets the height of the IFRAME&lt;/summary></span><span class="WHIT">
+<span class='line'>324</span> </span><span class="COMM">// &lt;/function></span><span class="WHIT">
+<span class='line'>325</span> </span><span class="COMM">/**
+<span class='line'>326</span>  * @private
+<span class='line'>327</span>  * @ignore
+<span class='line'>328</span>  */</span><span class="WHIT">
+<span class='line'>329</span> </span><span class="NAME">Iframe.prototype.setHeight</span><span class="PUNC">=</span><span class="NAME">Iframe_setHeight</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>330</span> </span><span class="COMM">/**
+<span class='line'>331</span>  * @private
+<span class='line'>332</span>  * @ignore
+<span class='line'>333</span>  */</span><span class="WHIT">
+<span class='line'>334</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">Iframe_setHeight</span><span class="PUNC">(</span><span class="NAME">h</span><span class="PUNC">,</span><span class="NAME">workaround</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>335</span> </span><span class="WHIT">	</span><span class="NAME">h</span><span class="PUNC">=</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">h</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>336</span> </span><span class="WHIT">	</span><span class="NAME">this.oIFStyle.height</span><span class="PUNC">=</span><span class="NAME">h</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>337</span> </span><span class="WHIT">	</span><span class="COMM">// bodySpan's height is reduced by ? border pixels for Mozilla to show the same as in IE</span><span class="WHIT">
+<span class='line'>338</span> </span><span class="WHIT">	</span><span class="COMM">//	because IE's width/height include borders whereas Mozilla's don't</span><span class="WHIT">
+<span class='line'>339</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">workaround</span><span class="PUNC">!=</span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>340</span> </span><span class="WHIT">		</span><span class="NAME">this.bodySpanStyle.height</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT">
+<span class='line'>341</span> </span><span class="WHIT">			</span><span class="PUNC">(</span><span class="NAME">h</span><span class="PUNC">-</span><span class="PUNC">(</span><span class="NAME">nitobi.browser.MOZ</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">this.bodySpanStyle.borderTopWidth</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">this.bodySpanStyle.borderBottomWidth</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>342</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>343</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>344</span> 
+<span class='line'>345</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>346</span> </span><span class="COMM">// * setWidth</span><span class="WHIT">
+<span class='line'>347</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>348</span> </span><span class="COMM">// &lt;function name="setWidth" access="private"></span><span class="WHIT">
+<span class='line'>349</span> </span><span class="COMM">// &lt;summary>Sets the width of the IFRAME&lt;/summary></span><span class="WHIT">
+<span class='line'>350</span> </span><span class="COMM">// &lt;/function></span><span class="WHIT">
+<span class='line'>351</span> </span><span class="COMM">/**
+<span class='line'>352</span>  * @private
+<span class='line'>353</span>  * @ignore
+<span class='line'>354</span>  */</span><span class="WHIT">
+<span class='line'>355</span> </span><span class="NAME">Iframe.prototype.setWidth</span><span class="PUNC">=</span><span class="NAME">Iframe_setWidth</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>356</span> </span><span class="COMM">/**
+<span class='line'>357</span>  * @private
+<span class='line'>358</span>  * @ignore
+<span class='line'>359</span>  */</span><span class="WHIT">
+<span class='line'>360</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">Iframe_setWidth</span><span class="PUNC">(</span><span class="NAME">w</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>361</span> </span><span class="WHIT">	</span><span class="NAME">w</span><span class="PUNC">=</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">w</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>362</span> </span><span class="WHIT">	</span><span class="NAME">this.oIFStyle.width</span><span class="PUNC">=</span><span class="NAME">w</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>363</span> </span><span class="WHIT">	</span><span class="COMM">// bodySpan's width is reduced by ? border pixels for Mozilla to show the same as in IE</span><span class="WHIT">
+<span class='line'>364</span> </span><span class="WHIT">	</span><span class="COMM">//	because IE's width/height include borders whereas Mozilla's don't</span><span class="WHIT">
+<span class='line'>365</span> </span><span class="WHIT">	</span><span class="NAME">this.bodySpanStyle.width</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT">
+<span class='line'>366</span> </span><span class="WHIT">		</span><span class="PUNC">(</span><span class="NAME">w</span><span class="PUNC">-</span><span class="PUNC">(</span><span class="NAME">nitobi.browser.MOZ</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">this.bodySpanStyle.borderLeftWidth</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">this.bodySpanStyle.borderRightWidth</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>367</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>368</span> 
+<span class='line'>369</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>370</span> </span><span class="COMM">// * show</span><span class="WHIT">
+<span class='line'>371</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>372</span> </span><span class="COMM">// &lt;function name="show" access="private"></span><span class="WHIT">
+<span class='line'>373</span> </span><span class="COMM">// &lt;summary>Shows the IFRAME&lt;/summary></span><span class="WHIT">
+<span class='line'>374</span> </span><span class="COMM">// &lt;/function></span><span class="WHIT">
+<span class='line'>375</span> </span><span class="COMM">/**
+<span class='line'>376</span>  * @private
+<span class='line'>377</span>  * @ignore
+<span class='line'>378</span>  */</span><span class="WHIT">
+<span class='line'>379</span> </span><span class="NAME">Iframe.prototype.show</span><span class="PUNC">=</span><span class="NAME">Iframe_show</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>380</span> </span><span class="COMM">/**
+<span class='line'>381</span>  * @private
+<span class='line'>382</span>  * @ignore
+<span class='line'>383</span>  */</span><span class="WHIT">
+<span class='line'>384</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">Iframe_show</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>385</span> </span><span class="COMM">// in Moz & IE, resizing window when IFRAME is not shown and then</span><span class="WHIT">
+<span class='line'>386</span> </span><span class="COMM">// showing the IFRAME can cause the IFRAME to be off, position-wise; solve by</span><span class="WHIT">
+<span class='line'>387</span> </span><span class="COMM">// calling attach() every time show() is called</span><span class="WHIT">
+<span class='line'>388</span> </span><span class="WHIT">	</span><span class="NAME">this.attach</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>389</span> </span><span class="WHIT">	</span><span class="NAME">this.oIFStyle.display</span><span class="PUNC">=</span><span class="STRN">"inline"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>390</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>391</span> 
+<span class='line'>392</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>393</span> </span><span class="COMM">// * hide</span><span class="WHIT">
+<span class='line'>394</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>395</span> </span><span class="COMM">// &lt;function name="hide" access="private"></span><span class="WHIT">
+<span class='line'>396</span> </span><span class="COMM">// &lt;summary>Hides the IFRAME&lt;/summary></span><span class="WHIT">
+<span class='line'>397</span> </span><span class="COMM">// &lt;/function></span><span class="WHIT">
+<span class='line'>398</span> </span><span class="COMM">/**
+<span class='line'>399</span>  * @private
+<span class='line'>400</span>  * @ignore
+<span class='line'>401</span>  */</span><span class="WHIT">
+<span class='line'>402</span> </span><span class="NAME">Iframe.prototype.hide</span><span class="PUNC">=</span><span class="NAME">Iframe_hide</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>403</span> </span><span class="COMM">/**
+<span class='line'>404</span>  * @private
+<span class='line'>405</span>  * @ignore
+<span class='line'>406</span>  */</span><span class="WHIT">
+<span class='line'>407</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">Iframe_hide</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>408</span> </span><span class="WHIT">	</span><span class="NAME">this.oIFStyle.display</span><span class="PUNC">=</span><span class="STRN">"none"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>409</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>410</span> 
+<span class='line'>411</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>412</span> </span><span class="COMM">// * toggle</span><span class="WHIT">
+<span class='line'>413</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>414</span> </span><span class="COMM">// &lt;function name="toggle" access="private"></span><span class="WHIT">
+<span class='line'>415</span> </span><span class="COMM">// &lt;summary>Shows the IFRAME if hidden; hides the IFRAME if shown&lt;/summary></span><span class="WHIT">
+<span class='line'>416</span> </span><span class="COMM">// &lt;/function></span><span class="WHIT">
+<span class='line'>417</span> </span><span class="COMM">/**
+<span class='line'>418</span>  * @private
+<span class='line'>419</span>  * @ignore
+<span class='line'>420</span>  */</span><span class="WHIT">
+<span class='line'>421</span> </span><span class="NAME">Iframe.prototype.toggle</span><span class="PUNC">=</span><span class="NAME">Iframe_toggle</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>422</span> </span><span class="COMM">/**
+<span class='line'>423</span>  * @private
+<span class='line'>424</span>  * @ignore
+<span class='line'>425</span>  */</span><span class="WHIT">
+<span class='line'>426</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">Iframe_toggle</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>427</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">this.isVisible</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>428</span> </span><span class="WHIT">		</span><span class="NAME">this.hide</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>429</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>430</span> </span><span class="WHIT">		</span><span class="NAME">this.show</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>431</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>432</span> 
+<span class='line'>433</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>434</span> </span><span class="COMM">// * isVisible</span><span class="WHIT">
+<span class='line'>435</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>436</span> </span><span class="COMM">// &lt;function name="isVisible" access="private"></span><span class="WHIT">
+<span class='line'>437</span> </span><span class="COMM">// &lt;summary>Returns whether or not the IFRAME if visible&lt;/summary></span><span class="WHIT">
+<span class='line'>438</span> </span><span class="COMM">// &lt;/function></span><span class="WHIT">
+<span class='line'>439</span> </span><span class="COMM">/**
+<span class='line'>440</span>  * @private
+<span class='line'>441</span>  * @ignore
+<span class='line'>442</span>  */</span><span class="WHIT">
+<span class='line'>443</span> </span><span class="NAME">Iframe.prototype.isVisible</span><span class="PUNC">=</span><span class="NAME">Iframe_isVisible</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>444</span> </span><span class="COMM">/**
+<span class='line'>445</span>  * @private
+<span class='line'>446</span>  * @ignore
+<span class='line'>447</span>  */</span><span class="WHIT">
+<span class='line'>448</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">Iframe_isVisible</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>449</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">"inline"</span><span class="PUNC">==</span><span class="NAME">this.oIFStyle.display</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>450</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>451</span> 
+<span class='line'>452</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>453</span> </span><span class="COMM">// * attach</span><span class="WHIT">
+<span class='line'>454</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>455</span> </span><span class="COMM">// &lt;function name="attach" access="private"></span><span class="WHIT">
+<span class='line'>456</span> </span><span class="COMM">// &lt;summary>Attaches this IFRAME to the bottom of 'attachee', matching its left border.&lt;/summary></span><span class="WHIT">
+<span class='line'>457</span> </span><span class="COMM">// &lt;/function></span><span class="WHIT">
+<span class='line'>458</span> </span><span class="COMM">// attach() depends on this.oIFSytle so set this before calling attach()</span><span class="WHIT">
+<span class='line'>459</span> </span><span class="COMM">// attach() depends on this.attachee so set this before calling attach()</span><span class="WHIT">
+<span class='line'>460</span> </span><span class="COMM">/**
+<span class='line'>461</span>  * @private
+<span class='line'>462</span>  * @ignore
+<span class='line'>463</span>  */</span><span class="WHIT">
+<span class='line'>464</span> </span><span class="NAME">Iframe.prototype.attach</span><span class="PUNC">=</span><span class="NAME">Iframe_attach</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>465</span> </span><span class="COMM">/**
+<span class='line'>466</span>  * @private
+<span class='line'>467</span>  * @ignore
+<span class='line'>468</span>  */</span><span class="WHIT">
+<span class='line'>469</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">Iframe_attach</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>470</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">attachee</span><span class="PUNC">=</span><span class="NAME">this.attachee</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>471</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">a</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">attachee.offsetParent</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="STRN">"absolute"</span><span class="PUNC">==</span><span class="NAME">attachee.offsetParent.style.position</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>472</span> </span><span class="WHIT">	</span><span class="COMM">// oIF.style.top: minus 1 to match f's top border w/ attachee's bottom border</span><span class="WHIT">
+<span class='line'>473</span> </span><span class="WHIT">	</span><span class="COMM">// attachees w/ absolutely positioned parents need to be handled differently</span><span class="WHIT">
+<span class='line'>474</span> </span><span class="WHIT">	</span><span class="NAME">this.oIFStyle.top</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.offset</span><span class="PUNC">(</span><span class="NAME">attachee</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"offsetTop"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">a</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">attachee.offsetHeight</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">a</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">attachee.offsetParent.style.top</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>475</span> </span><span class="WHIT">	</span><span class="NAME">this.oIFStyle.left</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.offset</span><span class="PUNC">(</span><span class="NAME">attachee</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"offsetLeft"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">a</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">a</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">attachee.offsetParent.style.left</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>476</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>477</span> </span><span class="COMM">// &lt;/class></span><span class="WHIT">
+<span class='line'>478</span> </span></pre></body></html>

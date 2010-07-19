@@ -1,0 +1,128 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<span class='line'>  2</span>  * Text is a text editor class that is implemented using an HTML input tag
+<span class='line'>  3</span>  * @class
+<span class='line'>  4</span>  * @constructor
+<span class='line'>  5</span>  */</span><span class="WHIT">
+<span class='line'>  6</span> </span><span class="NAME">nitobi.form.Text</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>  7</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>  8</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.form.Text.baseConstructor.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  9</span> 
+<span class='line'> 10</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ph</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.placeholder</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 11</span> </span><span class="WHIT">	</span><span class="NAME">ph.setAttribute</span><span class="PUNC">(</span><span class="STRN">"id"</span><span class="PUNC">,</span><span class="STRN">"text_span"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 12</span> </span><span class="WHIT">	</span><span class="COMM">// TODO: this is required for proper aligment of the editor</span><span class="WHIT">
+<span class='line'> 13</span> </span><span class="WHIT">	</span><span class="NAME">ph.style.top</span><span class="PUNC">=</span><span class="STRN">"-3000px"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="WHIT">	</span><span class="NAME">ph.style.left</span><span class="PUNC">=</span><span class="STRN">"-3000px"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 15</span> 
+<span class='line'> 16</span> </span><span class="WHIT">	</span><span class="COMM">// width is required to be able to fit the textbox to its parent width the first time</span><span class="WHIT">
+<span class='line'> 17</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">tc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.control</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.createElement</span><span class="PUNC">(</span><span class="STRN">'input'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="STRN">"id"</span><span class="PUNC">:</span><span class="STRN">"ntb-textbox"</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="NAME">width</span><span class="PUNC">:</span><span class="STRN">"100px"</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="WHIT">	</span><span class="COMM">//align</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="WHIT">	</span><span class="COMM">//maxlength</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="WHIT">	</span><span class="NAME">tc.setAttribute</span><span class="PUNC">(</span><span class="STRN">"maxlength"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">255</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 21</span> 
+<span class='line'> 22</span> </span><span class="WHIT">	</span><span class="NAME">this.events</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="PUNC">{</span><span class="NAME">type</span><span class="PUNC">:</span><span class="STRN">"keydown"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">handler</span><span class="PUNC">:</span><span class="NAME">this.handleKey</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 23</span> </span><span class="WHIT">					</span><span class="PUNC">{</span><span class="NAME">type</span><span class="PUNC">:</span><span class="STRN">"keyup"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">handler</span><span class="PUNC">:</span><span class="NAME">this.handleKeyUp</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="WHIT">					</span><span class="PUNC">{</span><span class="NAME">type</span><span class="PUNC">:</span><span class="STRN">"keypress"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">handler</span><span class="PUNC">:</span><span class="NAME">this.handleKeyPress</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">					</span><span class="PUNC">{</span><span class="NAME">type</span><span class="PUNC">:</span><span class="STRN">"change"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">handler</span><span class="PUNC">:</span><span class="NAME">this.handleChange</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">					</span><span class="PUNC">{</span><span class="NAME">type</span><span class="PUNC">:</span><span class="STRN">"blur"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">handler</span><span class="PUNC">:</span><span class="NAME">this.deactivate</span><span class="PUNC">}</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 28</span> 
+<span class='line'> 29</span> </span><span class="NAME">nitobi.lang.extend</span><span class="PUNC">(</span><span class="NAME">nitobi.form.Text</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">nitobi.form.Control</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 30</span> 
+<span class='line'> 31</span> </span><span class="COMM">/**
+<span class='line'> 32</span>  * @private
+<span class='line'> 33</span>  */</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="NAME">nitobi.form.Text.prototype.initialize</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">	</span><span class="COMM">// The text control needs to be attached here such that the password editor can change the input field type in the constructor</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">container</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.placeholder.rows</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">cells</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="WHIT">	</span><span class="NAME">container.appendChild</span><span class="PUNC">(</span><span class="NAME">this.control</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 39</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.html.attachEvents</span><span class="PUNC">(</span><span class="NAME">this.control</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.events</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 41</span> 
+<span class='line'> 42</span> </span><span class="COMM">//cell, xModel, xData, initialKeyChar</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="COMM">/**
+<span class='line'> 44</span>  * @private
+<span class='line'> 45</span>  */</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="NAME">nitobi.form.Text.prototype.bind</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">owner</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">cell</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">initialKeyChar</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 47</span> </span><span class="PUNC">{</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.form.Text.base.bind.apply</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">arguments</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 49</span> 
+<span class='line'> 50</span> </span><span class="WHIT">	</span><span class="COMM">// All these events are complicated in the different browsers ... understand this better when we have time.</span><span class="WHIT">
+<span class='line'> 51</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">initialKeyChar</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">initialKeyChar</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="STRN">''</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="WHIT">		</span><span class="NAME">this.control.value</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">initialKeyChar</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">		</span><span class="NAME">this.control.value</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">cell.getValue</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 56</span> 
+<span class='line'> 57</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">columnModel</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.cell.getColumnObject</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">getModel</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 58</span> 
+<span class='line'> 59</span> </span><span class="WHIT">	</span><span class="NAME">this.eSET</span><span class="PUNC">(</span><span class="STRN">"onKeyPress"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="NAME">columnModel.getAttribute</span><span class="PUNC">(</span><span class="STRN">'OnKeyPressEvent'</span><span class="PUNC">)</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 60</span> </span><span class="WHIT">	</span><span class="NAME">this.eSET</span><span class="PUNC">(</span><span class="STRN">"onKeyDown"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="NAME">columnModel.getAttribute</span><span class="PUNC">(</span><span class="STRN">'OnKeyDownEvent'</span><span class="PUNC">)</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="WHIT">	</span><span class="NAME">this.eSET</span><span class="PUNC">(</span><span class="STRN">"onKeyUp"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="NAME">columnModel.getAttribute</span><span class="PUNC">(</span><span class="STRN">'OnKeyUpEvent'</span><span class="PUNC">)</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 62</span> </span><span class="WHIT">	</span><span class="NAME">this.eSET</span><span class="PUNC">(</span><span class="STRN">"onChange"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="NAME">columnModel.getAttribute</span><span class="PUNC">(</span><span class="STRN">'OnChangeEvent'</span><span class="PUNC">)</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 63</span> 
+<span class='line'> 64</span> </span><span class="WHIT">	</span><span class="NAME">this.control.setAttribute</span><span class="PUNC">(</span><span class="STRN">"maxlength"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">columnModel.getAttribute</span><span class="PUNC">(</span><span class="STRN">'MaxLength'</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 65</span> 
+<span class='line'> 66</span> </span><span class="WHIT">	</span><span class="COMM">// Add the column specific styles to the editor</span><span class="WHIT">
+<span class='line'> 67</span> </span><span class="WHIT">	</span><span class="COMM">// Remember to remove it when we deactivate</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.html.Css.addClass</span><span class="PUNC">(</span><span class="NAME">this.control</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"ntb-column-data"</span><span class="PUNC">+</span><span class="NAME">this.owner.uid</span><span class="PUNC">+</span><span class="STRN">"_"</span><span class="PUNC">+</span><span class="PUNC">(</span><span class="NAME">this.cell.getColumn</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 70</span> 
+<span class='line'> 71</span> </span><span class="COMM">/**
+<span class='line'> 72</span>  * Mimic is responsible for placing and sizing the editor control
+<span class='line'> 73</span>  * to the desired position on the screen.
+<span class='line'> 74</span>  */</span><span class="WHIT">
+<span class='line'> 75</span> </span><span class="NAME">nitobi.form.Text.prototype.mimic</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 76</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 77</span> </span><span class="WHIT">	</span><span class="NAME">this.align</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 78</span> 
+<span class='line'> 79</span> </span><span class="WHIT">	</span><span class="COMM">// Now we need to adjust the editor width for padding / borders etc</span><span class="WHIT">
+<span class='line'> 80</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.html.fitWidth</span><span class="PUNC">(</span><span class="NAME">this.placeholder</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.control</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 81</span> 
+<span class='line'> 82</span> </span><span class="WHIT">	</span><span class="NAME">this.selectText</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 83</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 84</span> 
+<span class='line'> 85</span> </span><span class="COMM">/**
+<span class='line'> 86</span>  * Sets the focus to the editor.
+<span class='line'> 87</span>  */</span><span class="WHIT">
+<span class='line'> 88</span> </span><span class="NAME">nitobi.form.Text.prototype.focus</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 89</span> </span><span class="WHIT">	</span><span class="NAME">this.control.focus</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 90</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 91</span> 
+<span class='line'> 92</span> </span><span class="COMM">/**
+<span class='line'> 93</span>  * @private
+<span class='line'> 94</span>  */</span><span class="WHIT">
+<span class='line'> 95</span> </span><span class="NAME">nitobi.form.Text.prototype.deactivate</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">evt</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 96</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 97</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.form.Text.base.deactivate.apply</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">arguments</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 98</span> 
+<span class='line'> 99</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.html.Css.removeClass</span><span class="PUNC">(</span><span class="NAME">this.control</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"ntb-column-data"</span><span class="PUNC">+</span><span class="NAME">this.owner.uid</span><span class="PUNC">+</span><span class="STRN">"_"</span><span class="PUNC">+</span><span class="PUNC">(</span><span class="NAME">this.cell.getColumn</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>100</span> 
+<span class='line'>101</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.afterDeactivate</span><span class="PUNC">(</span><span class="NAME">this.control.value</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>102</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>103</span> 
+<span class='line'>104</span> </span><span class="COMM">//	setEditCompleteHandler is implemented in the super class ....</span><span class="WHIT">
+<span class='line'>105</span> </span><span class="COMM">/**
+<span class='line'>106</span>  * @private
+<span class='line'>107</span>  */</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="NAME">nitobi.form.Text.prototype.dispose</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>110</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.html.detachEvents</span><span class="PUNC">(</span><span class="NAME">this.control</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.events</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>111</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">parent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.placeholder.parentNode</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>112</span> </span><span class="WHIT">	</span><span class="NAME">parent.removeChild</span><span class="PUNC">(</span><span class="NAME">this.placeholder</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>113</span> </span><span class="WHIT">	</span><span class="NAME">this.control</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>114</span> </span><span class="WHIT">	</span><span class="NAME">this.owner</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>115</span> </span><span class="WHIT">	</span><span class="NAME">this.cell</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>116</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>117</span> 
+<span class='line'>118</span> 
+<span class='line'>119</span> 
+<span class='line'>120</span> 
+<span class='line'>121</span> </span></pre></body></html>

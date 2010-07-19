@@ -1,0 +1,14 @@
+-------------------
+--- Nitobi Grid V3
+-------------------
+
+If you aren't running Apache on Windows You will need to set up a few datatables in MYSQL for some of these demos to run (including this one). Please use the SQL syntax file "NitobiSampleDatabases.sql" in the root of the demo folder. 
+
+Then in each of 
+- load_data.jsp
+- save_data.jsp
+- lookuphandler.jsp (for grids with lookup fields)
+- getnextrecord.jsp (in some of the demos that use key handlers)
+- allocaterecord.jsp (in the remotedata/ sample)
+
+you will need to change the database connection string.

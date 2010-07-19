@@ -1,0 +1,11 @@
+<tag name="combomenu" endtag="yes">
+	<tagformat nlbeforetag="1" nlaftertag="1"></tagformat>
+	<tagdialog file="combomenu.htm"></tagdialog>
+	<attributes>
+		<attrib name="icon" type="text"></attrib>
+		<attrib name="onclickevent" type="text"></attrib>
+		<attrib name="onmouseoutevent" type="text"></attrib>
+		<attrib name="onmouseoverevent" type="text"></attrib>
+		<attrib name="text" type="text"></attrib>
+	</attributes>
+</tag>

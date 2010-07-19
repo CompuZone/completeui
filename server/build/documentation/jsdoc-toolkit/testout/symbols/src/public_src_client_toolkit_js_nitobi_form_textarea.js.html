@@ -1,0 +1,85 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<span class='line'>  2</span>  * @class
+<span class='line'>  3</span>  * @constructor
+<span class='line'>  4</span>  * @extends nitobi.form.Text
+<span class='line'>  5</span>  */</span><span class="WHIT">
+<span class='line'>  6</span> </span><span class="NAME">nitobi.form.TextArea</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>  7</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>  8</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.form.TextArea.baseConstructor.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  9</span> 
+<span class='line'> 10</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">div</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.createElement</span><span class="PUNC">(</span><span class="STRN">'div'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 11</span> </span><span class="WHIT">	</span><span class="NAME">div.innerHTML</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 12</span> </span><span class="WHIT">			</span><span class="STRN">"&lt;table border='0' cellpadding='0' cellspacing='0' class='ntb-input-border'>&lt;tr>&lt;td>&lt;/td>&lt;/table>"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 13</span> 
+<span class='line'> 14</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ph</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.placeholder</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">div.firstChild</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 15</span> </span><span class="WHIT">	</span><span class="NAME">ph.style.top</span><span class="PUNC">=</span><span class="STRN">"-3000px"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 16</span> </span><span class="WHIT">	</span><span class="NAME">ph.style.left</span><span class="PUNC">=</span><span class="STRN">"-3000px"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 17</span> 
+<span class='line'> 18</span> </span><span class="WHIT">	</span><span class="COMM">// We need this initial width so that we can fit the textarea to it's parent node width</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="WHIT">	</span><span class="NAME">this.control</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.createElement</span><span class="PUNC">(</span><span class="STRN">'textarea'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="NAME">width</span><span class="PUNC">:</span><span class="STRN">"100px"</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 21</span> 
+<span class='line'> 22</span> </span><span class="NAME">nitobi.lang.extend</span><span class="PUNC">(</span><span class="NAME">nitobi.form.TextArea</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">nitobi.form.Text</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 23</span> 
+<span class='line'> 24</span> </span><span class="COMM">/**
+<span class='line'> 25</span>  * @private
+<span class='line'> 26</span>  */</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="NAME">nitobi.form.TextArea.prototype.initialize</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 28</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="WHIT">	</span><span class="NAME">this.placeholder.rows</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">cells</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">appendChild</span><span class="PUNC">(</span><span class="NAME">this.control</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">	</span><span class="NAME">document.body.appendChild</span><span class="PUNC">(</span><span class="NAME">this.placeholder</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 31</span> 
+<span class='line'> 32</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.html.attachEvents</span><span class="PUNC">(</span><span class="NAME">this.control</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.events</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 34</span> 
+<span class='line'> 35</span> </span><span class="COMM">/**
+<span class='line'> 36</span>  * @private
+<span class='line'> 37</span>  */</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="NAME">nitobi.form.TextArea.prototype.mimic</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 39</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.form.TextArea.base.mimic.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="WHIT">	</span><span class="COMM">// TODO: this needs to be parameterized...</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">phs</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.placeholder.style</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 44</span> 
+<span class='line'> 45</span> </span><span class="COMM">/**
+<span class='line'> 46</span>  * @private
+<span class='line'> 47</span>  */</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="NAME">nitobi.form.TextArea.prototype.handleKey</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">evt</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 50</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">k</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">evt.keyCode</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 51</span> 
+<span class='line'> 52</span> </span><span class="WHIT">	</span><span class="COMM">// Textarea needs to support arrow keys to navigate through the text</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">k</span><span class="PUNC">==</span><span class="NUMB">40</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">k</span><span class="PUNC">==</span><span class="NUMB">38</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">k</span><span class="PUNC">==</span><span class="NUMB">37</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">k</span><span class="PUNC">==</span><span class="NUMB">39</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">k</span><span class="PUNC">==</span><span class="NUMB">13</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">evt.shiftKey</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">		</span><span class="COMM">//not sure why we were doing this, but it causes the event to get fired twice</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">		</span><span class="COMM">/*
+<span class='line'> 56</span> 		if (k==13 && evt.shiftKey) {
+<span class='line'> 57</span> 			if (nitobi.browser.MOZ) // We are using Mozilla and the keyCode is read-only
+<span class='line'> 58</span> 				nitobi.html.createEvent("KeyEvents", "keypress", evt, {'keyCode':13, 'charCode':0});
+<span class='line'> 59</span> 			if(this.control.createTextRange)
+<span class='line'> 60</span> 			{
+<span class='line'> 61</span> 				// Make sure the object has the focus, otherwise you select the whole page.
+<span class='line'> 62</span> 				this.control.focus();
+<span class='line'> 63</span> 				var textarea = document.selection.createRange(); //.duplicate();
+<span class='line'> 64</span> 				textarea.text = "\n";
+<span class='line'> 65</span> 				textarea.collapse(false);
+<span class='line'> 66</span> 				textarea.select();
+<span class='line'> 67</span> 			}
+<span class='line'> 68</span> 		}
+<span class='line'> 69</span> 		*/</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT"> </span><span class="COMM">// If it was not a special textarea key then just call the parent handleKey method</span><span class="WHIT">
+<span class='line'> 72</span> </span><span class="WHIT">		</span><span class="NAME">nitobi.form.TextArea.base.handleKey.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">evt</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 75</span> 
+<span class='line'> 76</span> 
+<span class='line'> 77</span> </span><span class="COMM">//	setEditCompleteHandler is implemented in the super class ....</span><span class="WHIT">
+<span class='line'> 78</span> </span><span class="COMM">//	dispose is in the base class</span></pre></body></html>

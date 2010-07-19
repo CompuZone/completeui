@@ -1,0 +1,26 @@
+﻿<%--
+Default skin template. The following skins are provided as examples only.
+
+1. Named control skin. The SkinId should be uniquely defined because
+   duplicate SkinId's per control type are not allowed in the same theme.
+
+<asp:GridView runat="server" SkinId="gridviewSkin" BackColor="White" >
+   <AlternatingRowStyle BackColor="Blue" />
+</asp:GridView>
+
+2. Default skin. The SkinId is not defined. Only one default 
+   control skin per control type is allowed in the same theme.
+
+<asp:Image runat="server" ImageUrl="~/images/image1.jpg" />
+--%>
+<%@ Register Assembly="NitobiControls" Namespace="Nitobi" TagPrefix="ntb" %>
+<ntb:Grid runat="server" Theme="Plastik" />
+<ntb:Combo runat="server" Theme="Ice" />
+<ntb:Calendar runat="server" Theme="Gloss" />
+<ntb:Callout runat="server" Theme="Impact" />
+<ntb:Spotlight runat="server" Theme="Impact" />
+<ntb:ButtonSpotlight runat="server" Theme="Impact" />
+<ntb:ButtonCallout runat="server" Theme="Impact" ImageUrl="images/information.gif" CssStyle="width:12px;height:12px;vertical-align:top"/>
+<ntb:YouTubeCallout runat="server" Theme="Impact" ImageUrl="images/information.gif" CssStyle="width:12px;height:12px;vertical-align:top"/>
+<ntb:TabStrip runat="server" Theme="Plastik" />
+<ntb:Fisheye runat="server" Theme="Plastik" />

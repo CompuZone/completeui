@@ -1,0 +1,354 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="NAME">nitobi.lang.defineNs</span><span class="PUNC">(</span><span class="STRN">"nitobi.combo"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  2</span> </span><span class="COMM">/**
+<span class='line'>  3</span>  * Defines a column of the list
+<span class='line'>  4</span>  * @class Describes the appearance and functioning of a column in the combo list.
+<span class='line'>  5</span>  * @constructor
+<span class='line'>  6</span>  * @param {HTMLElement} oNewListColumn The HTML object that represents ListColumnDefinition
+<span class='line'>  7</span>  * @see nitobi.combo.Combo
+<span class='line'>  8</span>  */</span><span class="WHIT">
+<span class='line'>  9</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">oNewListColumn</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 10</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 11</span> </span><span class="WHIT">	</span><span class="COMM">// in case we're passing in a user created oNewListColumn object vs. a HTML tag</span><span class="WHIT">
+<span class='line'> 12</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">oNewListColumn.getAttribute</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 13</span> </span><span class="WHIT">		</span><span class="NAME">oNewListColumn.getAttribute</span><span class="PUNC">=</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">a</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">[</span><span class="NAME">a</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 14</span> 
+<span class='line'> 15</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">DEFAULTWIDTH</span><span class="PUNC">=</span><span class="STRN">"50px"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 16</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">DEFAULTCSSCLASSNAME</span><span class="PUNC">=</span><span class="STRN">"ntb-combobox-list-column-definition"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 17</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">DEFAULTCOLUMNTYPE</span><span class="PUNC">=</span><span class="STRN">"text"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">DEFAULTIMAGEHANDLERURL</span><span class="PUNC">=</span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">DEFAULTALIGN</span><span class="PUNC">=</span><span class="STRN">"left"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">DEFAULTTEXTCOLOR</span><span class="PUNC">=</span><span class="STRN">"#000"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 21</span> 
+<span class='line'> 22</span> 
+<span class='line'> 23</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">textcolor</span><span class="PUNC">=</span><span class="PUNC">(</span><span class="NAME">oNewListColumn</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">oNewListColumn.getAttribute</span><span class="PUNC">(</span><span class="STRN">"TextColor"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="WHIT">	</span><span class="PUNC">(</span><span class="PUNC">(</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">textcolor</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">textcolor</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">		</span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">this.SetTextColor</span><span class="PUNC">(</span><span class="NAME">DEFAULTTEXTCOLOR</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">		</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">this.SetTextColor</span><span class="PUNC">(</span><span class="NAME">textcolor</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 27</span> 
+<span class='line'> 28</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">align</span><span class="PUNC">=</span><span class="PUNC">(</span><span class="NAME">oNewListColumn</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">oNewListColumn.getAttribute</span><span class="PUNC">(</span><span class="STRN">"Align"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="WHIT">	</span><span class="PUNC">(</span><span class="PUNC">(</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">align</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">align</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">		</span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">this.SetAlign</span><span class="PUNC">(</span><span class="NAME">DEFAULTALIGN</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">		</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">this.SetAlign</span><span class="PUNC">(</span><span class="NAME">align</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 32</span> 
+<span class='line'> 33</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">width</span><span class="PUNC">=</span><span class="PUNC">(</span><span class="NAME">oNewListColumn</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">oNewListColumn.getAttribute</span><span class="PUNC">(</span><span class="STRN">"Width"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="WHIT">	</span><span class="PUNC">(</span><span class="PUNC">(</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">width</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">width</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="WHIT">		</span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">this.SetWidth</span><span class="PUNC">(</span><span class="NAME">DEFAULTWIDTH</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">		</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">this.SetWidth</span><span class="PUNC">(</span><span class="NAME">width</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 37</span> 
+<span class='line'> 38</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ihu</span><span class="PUNC">=</span><span class="PUNC">(</span><span class="NAME">oNewListColumn</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">oNewListColumn.getAttribute</span><span class="PUNC">(</span><span class="STRN">"ImageHandlerURL"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 39</span> </span><span class="WHIT">	</span><span class="PUNC">(</span><span class="PUNC">(</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">ihu</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">ihu</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">		</span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">this.SetImageHandlerURL</span><span class="PUNC">(</span><span class="NAME">DEFAULTIMAGEHANDLERURL</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="WHIT">		</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">this.SetImageHandlerURL</span><span class="PUNC">(</span><span class="NAME">ihu</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 42</span> 
+<span class='line'> 43</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ct</span><span class="PUNC">=</span><span class="PUNC">(</span><span class="NAME">oNewListColumn</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">oNewListColumn.getAttribute</span><span class="PUNC">(</span><span class="STRN">"ColumnType"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="WHIT">	</span><span class="PUNC">(</span><span class="PUNC">(</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">ct</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">ct</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 45</span> </span><span class="WHIT">		</span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">this.SetColumnType</span><span class="PUNC">(</span><span class="NAME">DEFAULTCOLUMNTYPE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="WHIT">		</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">this.SetColumnType</span><span class="PUNC">(</span><span class="NAME">ct.toLowerCase</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 47</span> 
+<span class='line'> 48</span> </span><span class="COMM">//		if ((this.GetColumnType() == "image") && ((null == ihu) || ("" == ihu)))</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="COMM">//			alert("EBA Combo Error: You cannot have an image column without specifying the ImageHandlerURL");</span><span class="WHIT">
+<span class='line'> 50</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 51</span> 	 * @private
+<span class='line'> 52</span> 	 */</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">	</span><span class="NAME">this.ImageUrlFromData</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">(</span><span class="NAME">this.GetColumnType</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"image"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">(</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">ihu</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">ihu</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 54</span> 
+<span class='line'> 55</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ccn</span><span class="PUNC">=</span><span class="PUNC">(</span><span class="NAME">oNewListColumn</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">oNewListColumn.getAttribute</span><span class="PUNC">(</span><span class="STRN">"CSSClassName"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 56</span> </span><span class="WHIT">	</span><span class="PUNC">(</span><span class="PUNC">(</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">ccn</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">ccn</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="WHIT">		</span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">this.SetCSSClassName</span><span class="PUNC">(</span><span class="NAME">DEFAULTCSSCLASSNAME</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="WHIT">		</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">this.SetCSSClassName</span><span class="PUNC">(</span><span class="NAME">ccn</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 59</span> 
+<span class='line'> 60</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">hp</span><span class="PUNC">=</span><span class="PUNC">(</span><span class="NAME">oNewListColumn</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">oNewListColumn.getAttribute</span><span class="PUNC">(</span><span class="STRN">"HTMLPrefix"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="WHIT">	</span><span class="PUNC">(</span><span class="PUNC">(</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">hp</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">hp</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 62</span> </span><span class="WHIT">		</span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">this.SetHTMLPrefix</span><span class="PUNC">(</span><span class="STRN">""</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 63</span> </span><span class="WHIT">		</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">this.SetHTMLPrefix</span><span class="PUNC">(</span><span class="NAME">hp</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 64</span> 
+<span class='line'> 65</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">hs</span><span class="PUNC">=</span><span class="PUNC">(</span><span class="NAME">oNewListColumn</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">oNewListColumn.getAttribute</span><span class="PUNC">(</span><span class="STRN">"HTMLSuffix"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="WHIT">	</span><span class="PUNC">(</span><span class="PUNC">(</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">hs</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">hs</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 67</span> </span><span class="WHIT">		</span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">this.SetHTMLSuffix</span><span class="PUNC">(</span><span class="STRN">""</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="WHIT">		</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">this.SetHTMLSuffix</span><span class="PUNC">(</span><span class="NAME">hs</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 69</span> 
+<span class='line'> 70</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">hl</span><span class="PUNC">=</span><span class="PUNC">(</span><span class="NAME">oNewListColumn</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">oNewListColumn.getAttribute</span><span class="PUNC">(</span><span class="STRN">"HeaderLabel"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="WHIT">	</span><span class="PUNC">(</span><span class="PUNC">(</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">hl</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">hl</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 72</span> </span><span class="WHIT">		</span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">this.SetHeaderLabel</span><span class="PUNC">(</span><span class="STRN">""</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="WHIT">		</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">this.SetHeaderLabel</span><span class="PUNC">(</span><span class="NAME">hl</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 74</span> 
+<span class='line'> 75</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">dfi</span><span class="PUNC">=</span><span class="PUNC">(</span><span class="NAME">oNewListColumn</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">oNewListColumn.getAttribute</span><span class="PUNC">(</span><span class="STRN">"DataFieldIndex"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 76</span> </span><span class="WHIT">	</span><span class="PUNC">(</span><span class="PUNC">(</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">dfi</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">dfi</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 77</span> </span><span class="WHIT">		</span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">this.SetDataFieldIndex</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 78</span> </span><span class="WHIT">		</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">this.SetDataFieldIndex</span><span class="PUNC">(</span><span class="NAME">dfi</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 79</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 80</span> 
+<span class='line'> 81</span> </span><span class="COMM">/**
+<span class='line'> 82</span>  * Returns the alignment of text in this column as one of left, right, or center.
+<span class='line'> 83</span>  * If this property is changed after the Combo has loaded its records, future records will be
+<span class='line'> 84</span>  * rendered according to the new ListColumnDefinition, but already rendered records will not change. 
+<span class='line'> 85</span>  * If you want to re-render the list, you will have to call the {@link nitobi.combo.List#Clear} and the {@link nitobi.combo.XmlDatasource#Clear} methods.
+<span class='line'> 86</span>  * @type String
+<span class='line'> 87</span>  * @see #SetAlign
+<span class='line'> 88</span>  */</span><span class="WHIT">
+<span class='line'> 89</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition.prototype.GetAlign</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 90</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.m_Align</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 91</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 92</span> 
+<span class='line'> 93</span> </span><span class="COMM">/**
+<span class='line'> 94</span>  * Sets the alignment of text in this column as one of left, right, or center.
+<span class='line'> 95</span>  * If this property is changed after the Combo has loaded its records, future records will be
+<span class='line'> 96</span>  * rendered according to the new ListColumnDefinition, but already rendered records will not change. 
+<span class='line'> 97</span>  * If you want to re-render the list, you will have to call the {@link nitobi.combo.List#Clear} and the {@link nitobi.combo.XmlDatasource#Clear} methods.
+<span class='line'> 98</span>  * @param {String} Align Alignment of text in this column. It can be one of left, right, or center.
+<span class='line'> 99</span>  * @see #GetAlign
+<span class='line'>100</span>  */</span><span class="WHIT">
+<span class='line'>101</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition.prototype.SetAlign</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">Align</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>102</span> </span><span class="WHIT">	</span><span class="NAME">Align</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Align.toLowerCase</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>103</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="STRN">"right"</span><span class="PUNC">!=</span><span class="NAME">Align</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="STRN">"left"</span><span class="PUNC">!=</span><span class="NAME">Align</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="STRN">"center"</span><span class="PUNC">!=</span><span class="NAME">Align</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>104</span> </span><span class="WHIT">		</span><span class="NAME">Align</span><span class="PUNC">=</span><span class="STRN">"left"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>105</span> </span><span class="WHIT">	</span><span class="NAME">this.m_Align</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Align</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>106</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>107</span> 
+<span class='line'>108</span> </span><span class="COMM">/**
+<span class='line'>109</span>  * Returns the color of the text in this column.
+<span class='line'>110</span>  * @type String
+<span class='line'>111</span>  */</span><span class="WHIT">
+<span class='line'>112</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition.prototype.GetTextColor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>113</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.m_TextColor</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>114</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>115</span> 
+<span class='line'>116</span> </span><span class="COMM">/**
+<span class='line'>117</span>  * Sets the color of the text in this column.
+<span class='line'>118</span>  * The default is #000; this can be any valid HTML color. If this property is changed after the
+<span class='line'>119</span>  * Combo has loaded its records, future records will be rendered according to the new value,
+<span class='line'>120</span>  * but already rendered records will not change. If you want to re-render the list, you will have to first
+<span class='line'>121</span>  * clear the List and the XmlDatasource using the Clear methods.
+<span class='line'>122</span>  * @param {String} TextColor Any valid HTML color.
+<span class='line'>123</span>  */</span><span class="WHIT">
+<span class='line'>124</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition.prototype.SetTextColor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">TextColor</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>125</span> </span><span class="WHIT">	</span><span class="NAME">this.m_TextColor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">TextColor</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>127</span> 
+<span class='line'>128</span> </span><span class="COMM">/**
+<span class='line'>129</span>  * Returns the HTML code that will be added after each row value in this column.
+<span class='line'>130</span>  * This is HTML code that is added after each value in each row of this column. This
+<span class='line'>131</span>  * can include any valid HTML code including closing tags that were written using the HTMLPrefix
+<span class='line'>132</span>  * property. If this property is changed after the
+<span class='line'>133</span>  * Combo has loaded its records, future records will be rendered according to the new value,
+<span class='line'>134</span>  * but already rendered records will not change. If you want to re-render the list, 
+<span class='line'>135</span>  * you will have to call the {@link nitobi.combo.List#Clear} and the {@link nitobi.combo.XmlDatasource#Clear} methods.
+<span class='line'>136</span>  * @type String
+<span class='line'>137</span>  * @see #GetHTMLPrefix
+<span class='line'>138</span>  * @see #SetHTMLSuffix
+<span class='line'>139</span>  * @see nitobi.combo.List.GetCustomHTMLDefinition
+<span class='line'>140</span>  */</span><span class="WHIT">
+<span class='line'>141</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition.prototype.GetHTMLSuffix</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>142</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.m_HTMLSuffix</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>143</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>144</span> 
+<span class='line'>145</span> </span><span class="COMM">/**
+<span class='line'>146</span>  * Sets the HTML code that will be added after each row value in this column.
+<span class='line'>147</span>  * This is HTML code that is added after each value in each row of this column. This
+<span class='line'>148</span>  * can include any valid HTML code including closing tags that were written using the HTMLPrefix
+<span class='line'>149</span>  * property. If this property is changed after the
+<span class='line'>150</span>  * Combo has loaded its records, future records will be rendered according to the new value,
+<span class='line'>151</span>  * but already rendered records will not change. If you want to re-render the list, 
+<span class='line'>152</span>  * you will have to call the {@link nitobi.combo.List#Clear} and the {@link nitobi.combo.XmlDatasource#Clear} methods.
+<span class='line'>153</span>  * @param {String} HTMLSuffix The HTML code that will be added after each row value in this column
+<span class='line'>154</span>  * @see #SetHTMLPrefix
+<span class='line'>155</span>  * @see #GetHTMLSuffix
+<span class='line'>156</span>  * @see nitobi.combo.List#GetCustomHTMLDefinition
+<span class='line'>157</span>  */</span><span class="WHIT">
+<span class='line'>158</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition.prototype.SetHTMLSuffix</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">HTMLSuffix</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="WHIT">	</span><span class="NAME">this.m_HTMLSuffix</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">HTMLSuffix</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>160</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>161</span> 
+<span class='line'>162</span> </span><span class="COMM">/**
+<span class='line'>163</span>  * Returns the HTML code that will be added before each row value in this column.
+<span class='line'>164</span>  * This is HTML code that is added before each value in each row of this column. This
+<span class='line'>165</span>  * can include any valid HTML code including closing tags that were written using the HTMLSuffix
+<span class='line'>166</span>  * property. If this property is changed after the
+<span class='line'>167</span>  * Combo has loaded its records, future records will be rendered according to the new value,
+<span class='line'>168</span>  * but already rendered records will not change. If you want to re-render the list, 
+<span class='line'>169</span>  * you will have to call the {@link nitobi.combo.List#Clear} and the {@link nitobi.combo.XmlDatasource#Clear} methods.
+<span class='line'>170</span>  * @type String
+<span class='line'>171</span>  * @see #SetHTMLPrefix
+<span class='line'>172</span>  * @see #GetHTMLSuffix
+<span class='line'>173</span>  * @see nitobi.combo.List.GetCustomHTMLDefinition
+<span class='line'>174</span>  */</span><span class="WHIT">
+<span class='line'>175</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition.prototype.GetHTMLPrefix</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>176</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.m_HTMLPrefix</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>177</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>178</span> 
+<span class='line'>179</span> </span><span class="COMM">/**
+<span class='line'>180</span>  * Sets the HTML code that will be added before each row value in this column.
+<span class='line'>181</span>  * This is HTML code that is added before each value in each row of this column. This
+<span class='line'>182</span>  * can include any valid HTML code including closing tags that were written using the HTMLSuffix
+<span class='line'>183</span>  * property. If this property is changed after the
+<span class='line'>184</span>  * Combo has loaded its records, future records will be rendered according to the new value,
+<span class='line'>185</span>  * but already rendered records will not change. If you want to re-render the list, 
+<span class='line'>186</span>  * you will have to call the {@link nitobi.combo.List#Clear} and the {@link nitobi.combo.XmlDatasource#Clear} methods.
+<span class='line'>187</span>  * @param {String} HTMLPrefix Any valid HTML code
+<span class='line'>188</span>  * @see #GetHTMLPrefix
+<span class='line'>189</span>  * @see #SetHTMLSuffix
+<span class='line'>190</span>  * @see nitobi.combo.List.SetCustomHTMLDefinition
+<span class='line'>191</span>  */</span><span class="WHIT">
+<span class='line'>192</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition.prototype.SetHTMLPrefix</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">HTMLPrefix</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>193</span> </span><span class="WHIT">	</span><span class="NAME">this.m_HTMLPrefix</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">HTMLPrefix</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>194</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>195</span> 
+<span class='line'>196</span> </span><span class="COMM">/**
+<span class='line'>197</span>  * Returns the name of the CSS class that defines the style for this column.
+<span class='line'>198</span>  * The default CSS class that all ListColumnDefinitions in all Combos is ComboBoxListColumnDefinition, which is stored in the CSS file. 
+<span class='line'>199</span>  * If you want to modify all combos on the page, you can modify this class. If you only want to affect one combo
+<span class='line'>200</span>  * you can copy this class and then set CSSClassName to the copy.
+<span class='line'>201</span>  * @type String
+<span class='line'>202</span>  * @see #SetCSSClassName
+<span class='line'>203</span>  */</span><span class="WHIT">
+<span class='line'>204</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition.prototype.GetCSSClassName</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>205</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.m_CSSClassName</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>206</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>207</span> 
+<span class='line'>208</span> </span><span class="COMM">/**
+<span class='line'>209</span>  * Sets the name of the CSS class that defines the style for this column.
+<span class='line'>210</span>  * The default CSS class that all ListColumnDefinitions in all Combos is ComboBoxListColumnDefinition, which is stored in the CSS file. 
+<span class='line'>211</span>  * If you want to modify all combos on the page, you can modify this class. If you only want to affect one combo
+<span class='line'>212</span>  * you can copy this class and then set CSSClassName to the copy.  If this property is changed after the Combo has loaded its records, future records will be
+<span class='line'>213</span>  * rendered according to the new ListColumnDefinition, but already rendered records will not change. If you want to re-render the list, 
+<span class='line'>214</span>  * you will have to call the {@link nitobi.combo.List#Clear} and the {@link nitobi.combo.XmlDatasource#Clear} methods.
+<span class='line'>215</span>  * @param {String} CSSClassName The name of the CSS class that defines the style for this column. Do not include the dot
+<span class='line'>216</span>  * @see #GetCSSClassName
+<span class='line'>217</span>  */</span><span class="WHIT">
+<span class='line'>218</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition.prototype.SetCSSClassName</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">CSSClassName</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>219</span> </span><span class="WHIT">	</span><span class="NAME">this.m_CSSClassName</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">CSSClassName</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>220</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>221</span> 
+<span class='line'>222</span> </span><span class="COMM">/** 
+<span class='line'>223</span>  * Returns the type of the column. It can be one of TEXT or IMAGE.
+<span class='line'>224</span>  * If IMAGE is used, you must also specify the ImageHandlerURL property.
+<span class='line'>225</span>  * @type String
+<span class='line'>226</span>  * @see #GetImageHandlerURL
+<span class='line'>227</span>  * @see #SetColumnType
+<span class='line'>228</span>  */</span><span class="WHIT">
+<span class='line'>229</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition.prototype.GetColumnType</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>230</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.m_ColumnType</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>231</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>232</span> 
+<span class='line'>233</span> </span><span class="COMM">/** 
+<span class='line'>234</span>  * Sets the type of the column. It can be one of TEXT or IMAGE.
+<span class='line'>235</span>  * If IMAGE is used, you must also specify the ImageHandlerURL property.
+<span class='line'>236</span>  * @param {String} ColumnType The type of the column. It can be one of 'TEXT' or 'IMAGE'
+<span class='line'>237</span>  * @see #SetImageHandlerURL
+<span class='line'>238</span>  * @see #GetColumnType
+<span class='line'>239</span>  */</span><span class="WHIT">
+<span class='line'>240</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition.prototype.SetColumnType</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">ColumnType</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>241</span> </span><span class="WHIT">	</span><span class="NAME">this.m_ColumnType</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ColumnType</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>242</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>243</span> 
+<span class='line'>244</span> </span><span class="COMM">/**
+<span class='line'>245</span>  * Returns the string displayed as the header for this column.
+<span class='line'>246</span>  * This allows you define headers for each column of data in the list. Use CustomHTMLHeader if you only want one header that spans all columns.
+<span class='line'>247</span>  * @type String
+<span class='line'>248</span>  * @see #SetHeaderLabel
+<span class='line'>249</span>  * @see nitobi.combo.List#GetCustomHTMLHeader
+<span class='line'>250</span>  */</span><span class="WHIT">
+<span class='line'>251</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition.prototype.GetHeaderLabel</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>252</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.m_HeaderLabel</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>253</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>254</span> 
+<span class='line'>255</span> </span><span class="COMM">/**
+<span class='line'>256</span>  * Sets the string displayed as the header for this column.
+<span class='line'>257</span>  * This allows you define headers for each column of data in the list. Use CustomHTMLHeader if you only want one header that spans all columns.
+<span class='line'>258</span>  * @param {String} HeaderLabel The string displayed as the header for this column
+<span class='line'>259</span>  * @see #GetHeaderLabel
+<span class='line'>260</span>  */</span><span class="WHIT">
+<span class='line'>261</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition.prototype.SetHeaderLabel</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">HeaderLabel</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>262</span> </span><span class="WHIT">	</span><span class="NAME">this.m_HeaderLabel</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">HeaderLabel</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>263</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>264</span> 
+<span class='line'>265</span> </span><span class="COMM">/**
+<span class='line'>266</span>  * Returns the width of the column. This can be an absolute pixel value, e.g., 15px or a percentage of the list width, e.g., 50%.
+<span class='line'>267</span>  * Wrapping is determined by the CSS class used to render the column. If you set this value to
+<span class='line'>268</span>  * a px value, you should ensure that the list width will be big enough to fit it.
+<span class='line'>269</span>  * @type String
+<span class='line'>270</span>  * @see #SetWidth
+<span class='line'>271</span>  * @see #GetCSSClassName
+<span class='line'>272</span>  * @see nitobi.combo.List#GetWidth
+<span class='line'>273</span>  */</span><span class="WHIT">
+<span class='line'>274</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition.prototype.GetWidth</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>275</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.m_Width</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>276</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>277</span> 
+<span class='line'>278</span> </span><span class="COMM">/**
+<span class='line'>279</span>  * Sets the width of the column. This can be an absolute pixel value, e.g., 15px or a percentage of the list width, e.g., 50%.
+<span class='line'>280</span>  * Wrapping is determined by the CSS class used to render the column. If you set this value to
+<span class='line'>281</span>  * a px value, you should ensure that the list width will be big enough to fit it.
+<span class='line'>282</span>  * @param {String} Width The width of the column in HTML units
+<span class='line'>283</span>  * @see #GetWidth
+<span class='line'>284</span>  * @see #SetCSSClassName
+<span class='line'>285</span>  * @see nitobi.combo.List#SetWidth
+<span class='line'>286</span>  */</span><span class="WHIT">
+<span class='line'>287</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition.prototype.SetWidth</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">Width</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>288</span> </span><span class="WHIT">	</span><span class="NAME">this.m_Width</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Width</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>289</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>290</span> 
+<span class='line'>291</span> </span><span class="COMM">/**
+<span class='line'>292</span>  * Returns the index of the data field that populates this column. If you leave this field
+<span class='line'>293</span>  * empty, it will use the ordinal position of the ListColumnDefinition within the List.ListColumnDefinitions collection.
+<span class='line'>294</span>  * @type Number
+<span class='line'>295</span>  * @see #SetDataFieldIndex
+<span class='line'>296</span>  * @see nitobi.combo.Combo#GetDataTextField
+<span class='line'>297</span>  * @see nitobi.combo.Combo#GetDataValueField
+<span class='line'>298</span>  * @see nitobi.combo.TextBox#GetDataFieldIndex
+<span class='line'>299</span>  */</span><span class="WHIT">
+<span class='line'>300</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition.prototype.GetDataFieldIndex</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>301</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.m_DataFieldIndex</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>302</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>303</span> 
+<span class='line'>304</span> </span><span class="COMM">/**
+<span class='line'>305</span>  * Sets the index of the data field that populates this column. If you leave this field
+<span class='line'>306</span>  * empty, it will use the ordinal position of the ListColumnDefinition within the List.ListColumnDefinitions collection.
+<span class='line'>307</span>  * @param {Number} DataFieldIndex The index of the data field that populates this column
+<span class='line'>308</span>  * @see #GetDataFieldIndex
+<span class='line'>309</span>  * @see nitobi.combo.TextBox#SetDataFieldIndex
+<span class='line'>310</span>  */</span><span class="WHIT">
+<span class='line'>311</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition.prototype.SetDataFieldIndex</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">DataFieldIndex</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>312</span> </span><span class="WHIT">	</span><span class="NAME">this.m_DataFieldIndex</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">DataFieldIndex</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>313</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>314</span> 
+<span class='line'>315</span> </span><span class="COMM">/**
+<span class='line'>316</span>  * Returns the image url of the column.
+<span class='line'>317</span>  * If the ColumnType is IMAGE this property must be specfied. It contains the URL of a page that will serve up an image given an argument. 
+<span class='line'>318</span>  * The database column will contain image identifiers; this identifier will be used as an argument to the page, e.g. if the URL is
+<span class='line'>319</span>  * http://localhost/ImageServer.aspx?, then  combo will call it as follows http://localhost/ImageServer.aspx?Image=DataFromColumn.  
+<span class='line'>320</span>  * It will expect a binary image to be written out by the page. For example, the values in this column could be the id's of people
+<span class='line'>321</span>  * stored in the database.  When the combo is loaded the row value sends a request to the 
+<span class='line'>322</span>  * image handler, e.g. by calling http://localhost/ImageServer.aspx?Image=shiggens.  ImageServer.aspx
+<span class='line'>323</span>  * will check if shiggens is online, and, if so, send back an image specifying so.
+<span class='line'>324</span>  * @type String 
+<span class='line'>325</span>  * @see #GetColumnType
+<span class='line'>326</span>  * @see #SetImageHandlerURL
+<span class='line'>327</span>  */</span><span class="WHIT">
+<span class='line'>328</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition.prototype.GetImageHandlerURL</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>329</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.m_ImageHandlerURL</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>330</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>331</span> 
+<span class='line'>332</span> </span><span class="COMM">/**
+<span class='line'>333</span>  * Sets the image url of the column.
+<span class='line'>334</span>  * If the ColumnType is IMAGE this property must be specfied. It contains the URL of a page that will serve up an image given an argument. 
+<span class='line'>335</span>  * The database column will contain image identifiers; this identifier will be used as an argument to the page, e.g. if the URL is
+<span class='line'>336</span>  * http://localhost/ImageServer.aspx?, then  combo will call it as follows http://localhost/ImageServer.aspx?Image=DataFromColumn.  
+<span class='line'>337</span>  * It will expect a binary image to be written out by the page. For example, the values in this column could be the id's of people
+<span class='line'>338</span>  * stored in the database.  When the combo is loaded the row value sends a request to the 
+<span class='line'>339</span>  * image handler, e.g. by calling http://localhost/ImageServer.aspx?Image=shiggens.  ImageServer.aspx
+<span class='line'>340</span>  * will check if shiggens is online, and, if so, send back an image specifying so.
+<span class='line'>341</span>  * @param {String} ImageHandlerURL A URL to a page that supplies images
+<span class='line'>342</span>  * @see #SetColumnType
+<span class='line'>343</span>  * @see #GetImageHandlerURL
+<span class='line'>344</span>  */</span><span class="WHIT">
+<span class='line'>345</span> </span><span class="NAME">nitobi.combo.ListColumnDefinition.prototype.SetImageHandlerURL</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">ImageHandlerURL</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>346</span> </span><span class="WHIT">	</span><span class="NAME">this.m_ImageHandlerURL</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ImageHandlerURL</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>347</span> </span><span class="PUNC">}</span></pre></body></html>

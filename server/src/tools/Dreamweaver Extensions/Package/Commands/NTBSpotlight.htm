@@ -1,0 +1,486 @@
+<!-- MENU-LOCATION=NONE -->
+<!DOCTYPE HTML SYSTEM "-//Macromedia//DWExtension layout-engine 5.0//dialog">
+<html>
+<head>
+<title>Nitobi Spotlight</title>
+<script type="text/javascript" src="NTBSpotlight.js"></script>
+<script type="text/javascript" src="../Shared/Nitobi/NitobiUtility.js"></script>
+<script type="text/javascript" src="../Shared/Nitobi/NitobiSpotlightStep.js"></script>
+
+<style>
+.page {
+	position:absolute;
+	padding:10px;
+	left:0px;
+	top:1px;
+	visibility: hidden;
+	width:600px;
+	height:600px;
+}
+.stepOptions
+{
+	position:relative;
+	width:400px;
+	height:280px;
+}
+.hiddenOptions
+{
+	margin-top:15px;
+	display:none;
+}
+.visibleOptions
+{
+	display:block;
+}
+.hiddenWarning
+{
+	display:none;
+}
+
+.visibleWarning
+{
+	display:inline;
+}
+.nav
+{
+	visibility: hidden;
+	position:absolute;
+	bottom:20px;
+}
+.propField
+{
+	width:200px;
+}
+
+.attrDescription
+{
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+.stepDescription
+{
+	margin-bottom:5px;
+}
+
+.stepTable
+{
+	width:400px;
+}
+
+.pageTitle
+{
+	padding-left:5px;
+}
+
+.pageDescription
+{
+	padding-left:5px;
+	margin-bottom:10px;
+}
+
+.banner
+{
+}
+</style>
+</head>
+<body onLoad="init()">
+<form>
+
+<div id="page1" class="page" style="">
+<img src="../Shared/Nitobi/images/banners/spotlight.png" class="banner"/>
+<table border="0">
+	<tbody>
+    	<tr>
+        	<td colspan="2">
+                <div class="pageTitle">
+                    <strong>Spotlight Tour Options (1 of 2)</strong>
+                </div>
+            </td>
+        </tr>
+        <tr>
+        	<td colspan="4">
+            	<div class="pageDescription">
+                    Specify general Spotlight tour options.
+                </div>
+            </td>
+        </tr>
+    	<tr>
+        	<td style="width:40px;">
+            	<span></span>
+            </td>
+            <td colspan="1">
+            	<span>Starting Effect:</span><br/>
+            	<select id="starteffect_list" name="starteffect_list" class="propField">
+                    <option value="GREYSWIPE" selected="true">Greyswipe</option>
+                    <option value="NONE">None</option>
+                </select>
+                <div class="attrDescription">
+                	The starting effect describes how the Spotlight component will transition into the tour.
+                </div>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	<span></span>
+            </td>
+            <td colspan="1">
+            	<span>Callout Style:</span><br/>
+            	<select id="calloutstyle_list" name="calloutstyle_list" class="propField" onChange="switchCalloutPreview(this.options[this.selectedIndex].value)">
+                	<option value="clean" selected="true">Clean</option>
+                    <option value="impact">Impact</option>
+                    <option value="peanut_exclam">Peanut (Exclaim)</option>
+                    <option value="peanut_info">Peanut (Info)</option>
+                    <option value="peanut_noaccess">Peanut (No Access)</option>
+                    <option value="peanut_talkbubble">Peanut (Talkbubble)</option>
+                    <option value="vista">Vista</option>
+                    <option value="xp">Xp</option>
+                </select>
+                <div class="attrDescription">
+                	The Callout style is the style applied to tour Callouts.
+                </div>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	<span></span>
+            </td>
+            <td colspan="1">
+            	<span>Lens Type:</span><br/>
+            	<select id="lenstype_list" name="lenstype_list" class="propField">
+                	<option value="round" selected="true">Round</option>
+                    <option value="square">Square</option>
+                    <option value="burst">Burst</option>
+                    <option value="none">None</option>
+                </select>
+                <div class="attrDescription">
+                	The lens type determines the style of vignette when the tour focuses on a page element.
+                </div>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	<span style=""></span>
+            </td>
+            <td colspan="1">
+            <span style="">Lens Oversize:</span><br/>
+            	<input type="text" name="lensoversize_input" class="propField" value="0.2"/>
+                <div class="attrDescription" style="margin-bottom:0px;">
+                	The lens oversize specifies how much bigger to make the lens than the object it is focused on. 
+                    The default value is 0.2.
+                </div>
+            </td>
+        </tr>
+		<tr>
+			<td></td>
+			<td>
+				<label><strong>Run Tour On Page Load:</strong> <input type="checkbox" checked="checked" name="onload_checkbox" style="margin-bottom:8px;margin-top:8px;"/></label>
+			</td>
+		</tr>
+        <tr>
+        	<td></td>
+            <td><div style="font-weight:bold;">Callout Preview:</div></td>
+        </tr>
+        <tr>
+        	<td>
+            	
+            </td>
+            <td valign="top">
+            	<img name="callout_image" src="../Shared/Nitobi/images/calloutsamples/clean.gif" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+<div id="page2" class="page">
+	<table border="0" cellpadding="5">
+    	<tbody>
+        	<tr>
+                <td colspan="4">
+              		<div class="pageTitle">
+                        <strong>Tour Steps (2 of 2)</strong>
+                    </div>
+                </td>
+          </tr>
+            <tr>
+                <td colspan="4">
+                    <div class="pageDescription">
+                    	Now we need to specify each Spotlight tour step.  The tour will run the steps in the list from top
+                        to bottom.  Click the "Add" button below to begin adding steps to this Tour.
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-left:20px;">
+                	<span style="font-weight:bold;">Steps:</span><br/>
+                    <input style="float:left;" type="image" src="../Shared/MM/Images/btnAdd.gif" name="add_button" id="add_button" value="Add" onClick="addStep()"/>
+                    <input style="float:left;" type="image" src="../Shared/MM/Images/btnDel_dis.gif" name="remove_button" id="remove_button" value="Remove" onClick="removeStep()"/>
+                     <input style="float:left;" type="image" src="../Shared/MM/Images/btnUp_dis.gif" name="up_button" id="up_button" value="Up" onClick="moveUp()"/>
+                     <input style="float:left;" type="image" src="../Shared/MM/Images/btnDown_dis.gif" name="down_button" id="down_button" value="Down" onClick="moveDown()"/>
+                      <div style="float:right;font-weight:bold;color:red;" class="hiddenWarning" name="stepserror_div" id="stepserror_div">
+                     	There must be at least one step in the tour.
+                     </div>
+                     <div style="clear:both;">
+               		<mm:treecontrol name="toursteps_tree" style="height:125px;width:525px;" onchange="displayOptions()">
+                    	<mm:treecolumn name="col1" value="Step Type:" width="200px">
+                    </mm:treecontrol>
+					</div>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-left:20px;" valign="top">
+                	<span style="font-weight:bold;">Tour Step Options:</span>
+                    <div id="options_div" name="options_div" class="stepOptions">
+                        <div id="createCalloutStep_div" name="createCalloutStep_div" class="hiddenOptions">
+                        	<div class="stepDescription">A Callout Step will focus on an element and attach a Callout to it.</div>
+                            <table border="0" style="width:400px;">
+                                <tbody>
+                                    <tr>
+                                        <td align="right" valign="top" style="width:75px;">
+                                            <span>Element ID:</span>
+                                        </td>
+                                        <td>
+                                            <select id="calloutid_list" name="calloutid_list" class="propField idList">
+                                            	<option value="null">None</option>
+                                            </select>
+                                            <div class="attrDescription">
+                                            	The id of the dom element to attach the Callout to.  You can choose "None" to have
+                                                a Callout be unattached and centered on the page.
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" align="right">
+                                            <span>Title:</span>
+                                        </td>
+                                        <td>
+                                            <input id="steptitle_input" name="steptitle_input" style="width:400px;"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" align="right">
+                                            <span>Body:</span>
+                                        </td>
+                                        <td>
+                                            <textarea style="width:400px;height:85px;" name="stepbody_text"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    	<td></td>
+                                    	<td>
+                                        	<input type="button" value="Set Options" onClick="updateStep('callout')"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="createCodeStep_div" name="createCodeStep_div" class="hiddenOptions">
+                        	<div class="stepDescription">A Code step will execute some javascript code.</div>
+                            <table border="0" class="stepTable">
+                                <tbody>
+                                    <tr>
+                                        <td align="right" valign="top" style="width:75px;">
+                                            <span>Delay:</span>
+                                        </td>
+                                        <td>
+                                            <input name="codedelay_input" style="width:400px;" value="0"/>
+                                            <div class="attrDescription">
+                                            	Determines how long to wait after the step is complete before advancing
+                                                to the next step.  Specified in <strong>milliseconds</strong>.
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" align="right">
+                                            <span>Code:</span>
+                                        </td>
+                                        <td>
+                                            <textarea name="code_text" style="width:400px;height:85px;"/>
+                                            <div class="attrDescription">
+                                            	The javascript code block to execute.
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    	<td></td>
+                                    	<td>
+                                        	<input type="button" value="Set Options" onClick="updateStep('code')"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="createFocusStep_div" name="createFocusStep_div" class="hiddenOptions">
+                        	<div class="stepDescription">A Focus step will send the lens focus to an element on the page.</div>
+                            <table border="0" class="stepTable">
+                                <tbody>
+                                    <tr>
+                                        <td align="right" valign="top" style="width:75px;">
+                                            <span>Element ID:</span>
+                                        </td>
+                                        <td valign="top">
+                                            <select id="focusid_list" name="focusid_list" class="propField idList"></select>
+                                            <div class="attrDescription">
+                                            	The id of the dom element to attach the Callout to.
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" align="right">
+                                            <span>Delay:</span>
+                                        </td>
+                                        <td valign="top">
+                                            <input id="focusdelay_input" name="focusdelay_input" style="width:400px;" value="0"/>
+                                            <div class="attrDescription">
+                                            	Determines how long to wait after the step is complete before advancing
+                                                to the next step.  Specified in <strong>milliseconds</strong>.
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    	<td></td>
+                                    	<td>
+                                        	<input type="button" value="Set Options" onClick="updateStep('focus')"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="createMouseStep_div" name="createMouseStep_div" class="hiddenOptions">
+                        	<div class="stepDescription">A Mouse step simulates a mouse movement to a specified element.</div>
+                            <table border="0" class="stepTable">
+                                <tbody>
+                                    <tr>
+                                        <td align="right" valign="top" style="width:75px;">
+                                            <span>Element ID:</span>
+                                        </td>
+                                        <td>
+                                            <select id="mouseid_list" name="mouseid_list" class="propField idList"></select>
+                                            <div class="attrDescription">
+                                            	The id of the dom element to attach the Callout to.
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right" valign="top">
+                                            <span>Mouse move type:</span>
+                                        </td>
+                                        <td>
+                                            <select id="mousemove_list" name="mousemove_list" class="propField">
+                                                <option value="APPEARONOBJECT">Appear on element</option>
+                                                <option value="MOVETOOBJECT">Move to element</option>
+                                                <option value="CLICKONOBJECT">Click on element</option>
+                                            </select>
+                                            <div class="attrDescription">
+                                            	The mouse move type specifies how the simulated mouse arrives at the specified
+                                                element.
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" align="right">
+                                            <span>Delay:</span>
+                                        </td>
+                                        <td>
+                                            <input id="mousedelay_input" name="mousedelay_input" style="width:100px;" value="0"/>
+                                            <div class="attrDescription">
+                                            	Determines how long to wait after the step is complete before advancing
+                                                to the next step.  Specified in <strong>milliseconds</strong>.
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    	<td></td>
+                                    	<td>
+                                        	<input type="button" value="Set Options" onClick="updateStep('mouse')"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="createFormHelperStep_div" name="createFormHelperStep_div" class="hiddenOptions">
+                        	<div class="stepDescription">A Form Helper step focuses on a form element and can simulate 
+                            		typing into that element.</div>
+                            <table border="0" class="stepTable">
+                                <tbody>
+                                    <tr>
+                                        <td align="right" valign="top" style="width:75px;">
+                                            <span>Form Field:</span>
+                                        </td>
+                                        <td>
+                                             <select id="formhelperid_list" name="formhelperid_list" class="propField inputList">
+                                            	<option value="null">None</option>
+                                            </select>
+                                            <div class="attrDescription">
+                                            	Choose which input or textarea you'd like to manipulate.
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    	<td align="right" valign="top">
+                                        	<span>Action:</span>
+                                        </td>
+                                        <td>
+                                        	<select name="formaction_list" class="propField">
+                                            	<option value="TYPETEXT">Type Text</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right" valign="top">
+                                            <span>Delay:</span>
+                                        </td>
+                                        <td>
+                                            <input id="formdelay_input" name="formdelay_input" style="width:400px;" value="0"/>
+                                            <div class="attrDescription">
+                                            	Determines how long to wait after the step is complete before advancing
+                                                to the next step.  Specified in <strong>milliseconds</strong>.
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" align="right">
+                                            <span>Text to type:</span>
+                                        </td>
+                                        <td>
+                                            <textarea name="formtexttype_text" style="width:400px;height:70px;"/>
+                                            <div class="attrDescription">
+                                            	Specify the text to type into the form element.
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    	<td></td>
+                                    	<td>
+                                        	<input type="button" value="Set Options" onClick="updateStep('form')"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</form>
+<div id="buttons" class="nav">
+	<table border="0" style="width:300px;">
+    	<tbody>
+        	<tr>
+                <td>
+                    <input type="button" value="Cancel" onClick="window.close()" id="cancel_button" name="cancel_button" style="float:left;"/>
+                    <input type="button" disabled="true" value="Previous" onClick="doPrevious()" id="previous_button" name="previous_button" style="float:left;"/>
+                    <input type="button" value="Next" onClick="doNext()" id="next_button" name="next_button" />
+					<input type="button" value="Help" onClick="doHelp()" id="help_button" name="help_button" style="margin-left:15px;"/>
+            	</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</form>
+</body>
+</html>

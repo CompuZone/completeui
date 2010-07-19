@@ -1,0 +1,237 @@
+<!-- MENU-LOCATION=NONE -->
+<!DOCTYPE HTML SYSTEM "-//Macromedia//DWExtension layout-engine 5.0//dialog">
+<html>
+<head>
+<title>Nitobi Combo Datasource Wizard</title>
+<script type="text/javascript" src="NTBComboData.js"></script>
+<script type="text/javascript" src="../Shared/Nitobi/NitobiUtility.js"></script>
+<script type="text/javascript" src="../Shared/Nitobi/NitobiWizard.js"></script>
+<script type="text/javascript" src="../Shared/Nitobi/NitobiComboWizard.js"></script>
+<style>
+.page {
+	position:absolute;
+	padding:10px;
+	left:0px;
+	top:1px;
+	visibility: hidden;
+	width:600px;
+	height:325px;
+}
+.nav
+{
+	visibility: hidden;
+	position:absolute;
+	bottom:30px;
+}
+select.pulldown
+{
+	width:200px;
+}
+
+</style>
+</head>
+<body onLoad="init()">
+<form>
+
+<div id="page1" class="page" style="">
+<table border="0" style="width:100%;" cellpadding="5">
+	<tbody>
+    	<tr>
+        	<td colspan="2">
+                <div style="padding-left:5px;">
+                    <strong>Database Connectivity (1 of 2)</strong>
+                </div>
+            </td>
+        </tr>
+        <tr>
+        	<td colspan="4">
+            	<div style="margin:5px 0px;padding:5px;">
+                    Specify the database connection information.
+                </div>
+            </td>
+        </tr>
+    	<tr>
+        	<td style="width:60px;">
+            	<span></span>
+            </td>
+            <td colspan="1">
+            	<span>Server Model:</span><br/>
+            	<select id="server_list" name="server_list" class="pulldown" onChange="populateDatabaseList()">
+                	<option value="cold fusion">Cold Fusion</option>
+                    <option value="php">PHP</option>
+                    <option value="asp">ASP</option>
+                    <option value="jsp">JSP</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	<span></span>
+            </td>
+            <td colspan="1">
+            	<span>Connection:</span><br/>
+            	<select id="connection_list" name="connection_list" class="pulldown" onChange="populateTableList()">
+                </select>
+                <input type="button" value="Define" onClick="showConnectionManager()" style="width:50px;"/>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	<span></span>
+            </td>
+            <td colspan="1">
+            	<span>Table:</span><br/>
+            	<select id="table_list" name="table_list" class="pulldown" onChange="populateColumnLists()">
+                	<option value=""></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	<span style=""></span>
+            </td>
+            <td colspan="1">
+            <span style="">Database Type:</span><br/>
+            	<select id="database_list" name="database_list" class="pulldown" 
+                	onChange="toggleCustomArea(this.options[this.selectedIndex].value)">
+                	<option value="mysql">MySQL</option>
+                    <option value="access">MS Access</option>
+                    <option value="sqlserver">SQL Server</option>
+                    <option value="oracle">Oracle</option>
+                    <option value="db2">DB2</option>
+                    <option value="other">Other</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	<div></div>
+            </td>
+            <td>
+            	<div id="custom_sql_label" style="display:none;">Custom SQL:</div>
+            	<div id="custom_sql_area" style="display:none;">
+            		<textarea rows="4" cols="60" style="width:250px;"/>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+<div id="page2" class="page" style="width:600px;height:325px;">
+	<table border="0" style="width:100%;" cellpadding="5">
+    	<tbody>
+        	<tr>
+                <td colspan="4">
+              		<div style="padding-left:5px;">
+                        <strong>Result Set (2 of 2)</strong>
+                    </div>
+                </td>
+          </tr>
+            <tr>
+                <td colspan="4">
+                    <div style="margin:5px 0px;padding:5px;">
+                    	The column selected as the <strong>key</strong> column is used by the component to uniquely identify
+                        a row.<br/><br/>
+                        Choose which <strong>columns</strong> of data will be returned to the component.  The columns 
+                        specified here should correspond with the columns specified in the declaration 
+                        of the component.
+                    </div>
+                </td>
+            </tr>
+            <tr>
+           	  <td style="width:60px;">
+                    <span></span>              </td>
+                <td width="200">
+               		<span>Key:</span><br/>
+                    <select id="key_list" name="key_list" class="columnsList pulldown">
+                    </select>
+              </td>
+              <td>
+              
+              </td>
+              <td>
+              	<span>Search Column:</span><br/>
+                    <select id="search_list" name="search_list" class="columnsList pulldown">
+                    </select>
+              </td>
+       	  </tr>
+          
+            <tr>
+            	<td>
+                    <span></span>
+                </td>
+                <td>
+                    <span>Included Columns</span>
+                    <select id="include_columns_list" name="include_columns_list" disabled="false" size="6" 
+                        style="width:200px;height:100px;margin-right:0px;" class="columnsList">
+                    </select>
+                </td>
+                <td>
+      				<input type="button" value="<<" onClick="addColumn()"/>
+                    <input type="button" value=">>" onClick="removeColumn()"/>
+              </td>
+              <td>
+                    <span>Excluded Columns</span>
+					<select id="exclude_columns_list" name="exclude_columns_list" disabled="false" size="6" 
+                        style="width:200px;height:100px;" class="">
+           			</select>
+              </td>
+          </tr>
+        </tbody>
+    </table>
+</div>
+<div id="page3" class="page" style="width:600px;height:325px;">
+	<table border="0" style="width:100%;" cellpadding="5">
+    	<tbody>
+        	<tr>
+                <td colspan="2">
+                    <div style="padding-left:5px;">
+                        <strong>Result Set Options (3 of 3)</strong>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div style="margin:5px 0px;padding:5px;">
+                        Use the sort column and sort direction fields to customize the dataset 
+                        returned to the component.
+                    </div>
+                </td>
+            </tr>
+            <tr>
+            	<td width="12%">                </td>
+          <td width="88%">
+           	<span>Sort Column:</span><br/>
+                	<select class="columnsList pulldown" id="sortColumn">
+                    </select>
+                </td>
+          </tr>
+            <tr>
+            	<td>
+                </td>
+                <td>
+                    <span>Sort Direction:</span><br/>
+                    <label><input type="radio" name="sort_dir" id="sortAsc" value="ASC" checked="true"/>Ascending</label>
+                    <label><input type="radio" name="sort_dir" id="sortDesc" value="DESC"/>Descending</label>
+                </td>
+            </tr>
+    	</tbody>
+    </table>
+</div>
+<div id="buttons" class="nav">
+	<table border="0" style="width:200px;">
+    	<tbody>
+        	<tr>
+                <td>
+                    <input type="button" value="Cancel" onClick="window.close()" id="cancel_button"/>
+                    <input type="button" disabled="true" value="Previous" onClick="doPrevious()" id="previous_button"/>
+                    <input type="button" value="Next" onClick="doNext()" id="next_button"/>
+            	</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</form>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!-- tag:*LOCKED*,priority:9,selection:within -->
+<!DOCTYPE HTML SYSTEM "-//Macromedia//DWExtension layout-engine 5.0//pi">
+<HTML>
+<HEAD>
+<TITLE>Nitobi Grid Inspector</TITLE>
+<SCRIPT src="nitobi_grid.js"></SCRIPT>
+</HEAD>
+<BODY>
+<div style="position:absolute; left:4px; top:5px;">
+	<IMG SRC="nitobi_grid.png" HEIGHT="36" NAME="nitobiImage">
+</div>
+<div id="id_div" style="position:absolute; left:46px; top:5px;">
+  <div id="piTitle"><strong>Nitobi Grid</strong></div>
+</div>
+<div id="mode_div" style="position:absolute; left:3px; top:44px;">
+  <div id="piTitle"><strong>Mode</strong></div>
+  <select id="mode_select" onChange="updateTag('mode', this.options[this.selectedIndex].value, 'ntb:grid')" name="mode_list">
+	<option value="standard">Standard</option>
+	<option value="livescrolling">Livescrolling</option>
+	<option value="pagedlivescrolling">Paged Livescrolling</option>
+  </select>
+</div>
+
+<div id="columns_div" style="position:absolute; left:325px; top: 5px;">
+<table cellspacing="0" cellpadding="0" border="0">
+    	<tbody>
+        	<tr>
+            	<td>
+                	<span style="float:left;margin-right:5px;">Columns</span>
+                	<!--<input style="float:right;" type="image" border="0" alt="Remove Column" 
+                    	src="../Shared/MM/Images/btnDel.gif" 
+                    	onclick="removeColumn()" id="elemDel1" name="elemDel1"/>-->
+                </td>
+</tr>
+            <tr>
+            	<td>
+                	<select id="columns_list" size="4" style="width:100px;" onChange="populateColumnInfo(this)">
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+  </table>
+</div>
+<!-- Specify the image that will appear in the Property inspector -->
+<!--<div style="position:absolute; left:354px; top:16px;">
+<table cellspacing="0" cellpadding="0" border="0">
+    	<tbody>
+        	<tr>
+            	<td>
+            		<span style="float:left;">Text</span>
+                    <input style="float:right;" type="image" border="0" alt="Add Text Column" src="../Shared/MM/Images/btnAdd.gif" 
+                    	onclick="addColumn('text')" id="elemAdd1" name="elemAdd1"/>
+                </td>
+            </tr>
+           <tr>
+            	<td>
+            		<span style="float:left;">Number</span>
+                    <input style="float:right;" type="image" border="0" alt="Add Number Column" src="../Shared/MM/Images/btnAdd.gif"
+                    	onclick="addColumn('number')" id="elemAdd1" name="elemAdd1"/>
+                </td>
+          </tr>
+            <tr>
+           	  <td>            		
+              	<span style="float:left;">Date</span>
+                <input style="float:right;" type="image" border="0" alt="Add Date Column" 
+                	src="../Shared/MM/Images/btnAdd.gif" onClick="addColumn('date')" id="elemAdd1" name="elemAdd1"/>
+              </td>
+            </tr>
+        </tbody>
+  </table>
+</div>
+-->
+<div id="column_props" style="position:absolute; left:431px; top:5px;">
+<table cellspacing="0" cellpadding="0" border="0">
+	<tbody>
+    	<tr>
+        	<td>
+            	<div align="right">Selected Column Info</div>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	<span style="float:left;">Label:</span>  
+                <div style="float:right;">
+                	<input id="column_label" type="text" style="width:60px" name="label_input"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	<span style="float:left;">Xdatafld:</span>
+                <div style="float:right;">
+                	<input id="column_xdatafld" type="text" style="width:60px" name="xdatafld_input"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	<span style="float:left;">Width:</span>
+                <div style="float:right;">
+                	<input id="column_width" type="text" style="width:60px" name="width_input"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	<div style="float:right;">
+            		<input type="button" value="Apply Changes" onClick="applyColumnAttributes()"/>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<div id="grid_props" style="position:absolute; left:145px; top:5px;">
+<table cellspacing="0" cellpadding="0" border="0" width="170px">
+	<tbody>
+      <tr>
+		<td style="padding-left:3px;"> 
+            	<span style="float:left;">Width:</span>
+                <div style="float:right;">
+                	<input id="width_input" type="text" style="width:85px" 
+                    	onBlur="updateTag('width', this.value, 'ntb:grid')" name="width_input"/>
+                </div>
+        </td>
+	  </tr>
+		<tr>
+          <td style="padding-left:3px;">
+            	<span style="float:left;">Height:</span>
+                <div style="float:right;">
+               	  <input id="height_input" type="text" style="width:85px" 
+                  	onBlur="updateTag('height', this.value, 'ntb:grid')" name="height_input"/>
+                </div>
+          </td>
+		</tr>
+          <tr>
+            <td style="padding-left:3px;">
+            	<span style="float:left;">GetHandler:</span>
+                <div style="float:right;">
+               	  <input id="gethandler_input" type="text" style="width:85px" 
+                  	onBlur="updateTag('gethandler', this.value, 'ntb:grid')" name="gethandler_input"/>
+                </div>
+            </td>
+		</tr>
+		<tr>
+            <td style="padding-left:3px;">
+            	<span style="float:left;">SaveHandler:</span>
+                <div style="float:right;">
+               	  <input id="savehandler_input" type="text" style="width:85px" 
+                  	onBlur="updateTag('savehandler', this.value, 'ntb:grid')" name="savehandler_input"/>
+                </div>
+            </td>    
+        </tr>
+    </tbody>
+</table>
+</div>
+</BODY>
+</HTML>

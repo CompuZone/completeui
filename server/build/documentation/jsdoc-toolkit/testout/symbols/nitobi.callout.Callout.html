@@ -1,0 +1,869 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="JsDoc Toolkit" />
+		
+		<title>JsDoc Reference - nitobi.callout.Callout</title>
+
+		<style type="text/css">
+			/* default.css */
+body
+{
+	font: 12px "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+	width: 800px;
+}
+
+.header
+{
+	clear: both;
+	background-color: #ccc;
+	padding: 8px;
+}
+
+h1
+{
+	font-size: 150%;
+	font-weight: bold;
+	padding: 0;
+	margin: 1em 0 0 .3em;
+}
+
+hr
+{
+	border: none 0;
+	border-top: 1px solid #7F8FB1;
+	height: 1px;
+}
+
+pre.code
+{
+	display: block;
+	padding: 8px;
+	border: 1px dashed #ccc;
+}
+
+#index
+{
+	margin-top: 24px;
+	float: left;
+	width: 160px;
+	position: absolute;
+	left: 8px;
+	background-color: #F3F3F3;
+	padding: 8px;
+}
+
+#content
+{
+	margin-left: 190px;
+	width: 600px;
+}
+
+.classList
+{
+	list-style-type: none;
+	padding: 0;
+	margin: 0 0 0 8px;
+	font-family: arial, sans-serif;
+	font-size: 1em;
+	overflow: auto;
+}
+
+.classList li
+{
+	padding: 0;
+	margin: 0 0 8px 0;
+}
+
+.summaryTable { width: 100%; }
+
+h1.classTitle
+{
+	font-size:170%;
+	line-height:130%;
+}
+
+h2 { font-size: 110%; }
+caption, div.sectionTitle
+{
+	background-color: #7F8FB1;
+	color: #fff;
+	font-size:130%;
+	text-align: left;
+	padding: 2px 6px 2px 6px;
+	border: 1px #7F8FB1 solid;
+}
+
+div.sectionTitle { margin-bottom: 8px; }
+.summaryTable thead { display: none; }
+
+.summaryTable td
+{
+	vertical-align: top;
+	padding: 4px;
+	border-bottom: 1px #7F8FB1 solid;
+	border-right: 1px #7F8FB1 solid;
+}
+
+/*col#summaryAttributes {}*/
+.summaryTable td.attributes
+{
+	border-left: 1px #7F8FB1 solid;
+	width: 140px;
+	text-align: right;
+}
+
+td.attributes, .fixedFont
+{
+	line-height: 15px;
+	color: #002EBE;
+	font-family: "Courier New",Courier,monospace;
+	font-size: 13px;
+}
+
+.summaryTable td.nameDescription
+{
+	text-align: left;
+	font-size: 13px;
+	line-height: 15px;
+}
+
+.summaryTable td.nameDescription, .description
+{
+	line-height: 15px;
+	padding: 4px;
+	padding-left: 4px;
+}
+
+.summaryTable { margin-bottom: 8px; }
+
+ul.inheritsList
+{
+	list-style: square;
+	margin-left: 20px;
+	padding-left: 0;
+}
+
+.detailList {
+	margin-left: 20px; 
+	line-height: 15px;
+}
+.detailList dt { margin-left: 20px; }
+
+.detailList .heading
+{
+	font-weight: bold;
+	padding-bottom: 6px;
+	margin-left: 0;
+}
+
+.light, td.attributes, .light a:link, .light a:visited
+{
+	color: #777;
+	font-style: italic;
+}
+
+.fineprint
+{
+	text-align: right;
+	font-size: 10px;
+}
+		</style>
+	</head>
+
+	<body>
+<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<div id="header">
+</div>
+		<!-- end static/header.html -->
+
+<!-- ============================== classes index ============================ -->
+		<div id="index">
+			<!-- begin publish.classesIndex -->
+			<div align="center"><a href="../index.html">Class Index</a>
+| <a href="../files.html">File Index</a></div>
+<hr />
+<h2>Classes</h2>
+<ul class="classList">
+	
+	<li><i><a href="../symbols/_global_.html">_global_</a></i></li>
+	
+	<li><a href="../symbols/nitobi.calendar.Calendar.html">nitobi.calendar.Calendar</a></li>
+	
+	<li><a href="../symbols/nitobi.calendar.CalRenderer.html">nitobi.calendar.CalRenderer</a></li>
+	
+	<li><a href="../symbols/nitobi.calendar.DateInput.html">nitobi.calendar.DateInput</a></li>
+	
+	<li><a href="../symbols/nitobi.calendar.DatePicker.html">nitobi.calendar.DatePicker</a></li>
+	
+	<li><a href="../symbols/nitobi.calendar.EventsManager.html">nitobi.calendar.EventsManager</a></li>
+	
+	<li><a href="../symbols/nitobi.callout.html">nitobi.callout</a></li>
+	
+	<li><a href="../symbols/nitobi.callout.Callout.html">nitobi.callout.Callout</a></li>
+	
+</ul>
+<hr />
+			<!-- end publish.classesIndex -->
+		</div>
+		
+		<div id="content">
+<!-- ============================== class title ============================ -->
+			<h1 class="classTitle">
+				
+				Class nitobi.callout.Callout
+			</h1>
+
+<!-- ============================== class summary ========================== -->			
+			<p class="description">
+				
+			
+				The nitobi.callout.Callout class is used to create a visual indicator on your page much like a tooltip.<br><br><code>var myCallout = new nitobi.callout.Callout("vista");<br>myCallout.setCalloutDirection(3);<br>myCallout.moveTo(100, 200);<br>myCallout.setTitle('This is a test title');<br>myCallout.setBody('This is the test contents');<br>	myCallout.show();<br></code>
+				
+				
+					<br /><i>Defined in: </i> <a href="../symbols/src/public_src_client_callout_js_nitobi_callout_callout.js.html">callout.js</a>.
+				
+			</p>
+
+<!-- ============================== constructor summary ==================== -->			
+			
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class nitobi.callout.Callout.">
+				<caption>Class Summary</caption>
+				<thead>
+					<tr>
+						<th scope="col">Constructor Attributes</th>
+						<th scope="col">Constructor Name and Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="attributes">&nbsp;</td>
+						<td class="nameDescription" >
+							<div class="fixedFont">
+								<b><a href="../symbols/nitobi.callout.Callout.html#constructor">nitobi.callout.Callout</a></b>(stylesheet)
+							</div>
+							<div class="description">Creates a new nitobi.callout.Callout.</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+
+<!-- ============================== properties summary ===================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class nitobi.callout.Callout.">
+					<caption>Field Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Field Attributes</th>
+							<th scope="col">Field Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/nitobi.callout.Callout.html#ver">ver</a></b>
+								</div>
+								<div class="description">The current version number.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
+
+<!-- ============================== methods summary ======================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class nitobi.callout.Callout.">
+					<caption>Method Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Method Attributes</th>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.callout.Callout.html#attachToElement">attachToElement</a></b>(elementid)
+								</div>
+								<div class="description">Will attach a callout to an HTML element on the page, identified by it's unique ID.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.callout.Callout.html#destroy">destroy</a></b>()
+								</div>
+								<div class="description">Removes the callout.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.callout.Callout.html#getPosition">getPosition</a></b>()
+								</div>
+								<div class="description">Get the current rendered position of the callout.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.callout.Callout.html#moveTo">moveTo</a></b>(x, y)
+								</div>
+								<div class="description">Moves the callout to a particular set of coordinates.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.callout.Callout.html#setBody">setBody</a></b>(BodyHTML)
+								</div>
+								<div class="description">Sets the Body text of the callout.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.callout.Callout.html#setExpire">setExpire</a></b>(timout)
+								</div>
+								<div class="description">Will cause a callout to disappear after so many miliseconds.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.callout.Callout.html#setOnAppear">setOnAppear</a></b>(onAppearCode)
+								</div>
+								<div class="description">Lets you attach some JavaScript to the the onAppear event.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.callout.Callout.html#setOnDestroy">setOnDestroy</a></b>(onDestroyCode)
+								</div>
+								<div class="description">Lets you attach some JavaScript to the the onDestroy event.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.callout.Callout.html#setSize">setSize</a></b>(newWidth, newHeight)
+								</div>
+								<div class="description">Sets the width and height of the callout content.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.callout.Callout.html#setTitle">setTitle</a></b>(TitleHTML)
+								</div>
+								<div class="description">Sets the Title text of the callout.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">nitobi.callout.Callout.<b><a href="../symbols/nitobi.callout.Callout.html#.update">update</a></b>()
+								</div>
+								<div class="description">Forced the callout to redraw all the callouts at the correct position.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
+
+<!-- ============================== constructor details ==================== -->		
+			
+			<div class="details"><a name="constructor"> </a>
+				<div class="sectionTitle">
+					Class Detail
+				</div>
+				
+				<div class="fixedFont">
+						<b>nitobi.callout.Callout</b>(stylesheet)
+				</div>
+				
+				<div class="description">
+					Creates a new nitobi.callout.Callout.
+					
+				</div>
+				
+				
+				
+				
+					
+						<dl class="detailList">
+						<dt class="heading">Parameters:</dt>
+						
+							<dt>
+								<span class="light fixedFont">{string}</span>  <b>stylesheet</b>
+								
+							</dt>
+								<dd>Which stylesheet to use for this callout. Eg: "xp", "impact", "vista".</dd>
+						
+						</dl>
+					
+					
+					
+					
+					
+					
+					
+
+			</div>
+			
+
+<!-- ============================== field details ========================== -->		
+			
+				<div class="sectionTitle">
+					Field Detail
+				</div>
+				
+					<a name="ver"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>ver</b>
+					
+					</div>
+					<div class="description">
+						The current version number.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					
+				
+			
+
+<!-- ============================== method details ========================= -->		
+			
+				<div class="sectionTitle">
+					Method Detail
+				</div>
+				
+					<a name="attachToElement"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>attachToElement</b>(elementid)
+					
+					</div>
+					<div class="description">
+						Will attach a callout to an HTML element on the page, identified by it's unique ID. For example if there is a DIV on the page with ID myDiv then you could attach a calloutto it by saying myCalloutObject.attachToElement('myDiv');
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{string}</span> <b>elementid</b>
+									
+								</dt>
+								<dd>The ID of the element to attach a callout to.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="destroy"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>destroy</b>()
+					
+					</div>
+					<div class="description">
+						Removes the callout.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getPosition"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Map}</span>
+					<b>getPosition</b>()
+					
+					</div>
+					<div class="description">
+						Get the current rendered position of the callout. Returns x,y
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="moveTo"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>moveTo</b>(x, y)
+					
+					</div>
+					<div class="description">
+						Moves the callout to a particular set of coordinates. The pointer of the callout will be centered on these coordinates.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{int}</span> <b>x</b>
+									
+								</dt>
+								<dd>The x position (left).</dd>
+							
+								<dt>
+									<span class="light fixedFont">{int}</span> <b>y</b>
+									
+								</dt>
+								<dd>The y position (top).</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setBody"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setBody</b>(BodyHTML)
+					
+					</div>
+					<div class="description">
+						Sets the Body text of the callout. If only the body text is set, then the callout will size to fit just the body.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{string}</span> <b>BodyHTML</b>
+									
+								</dt>
+								<dd>The text for the body.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setExpire"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setExpire</b>(timout)
+					
+					</div>
+					<div class="description">
+						Will cause a callout to disappear after so many miliseconds.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{int}</span> <b>timout</b>
+									
+								</dt>
+								<dd>Number of miliseconds to wait before disappearing. 1000 miliseconds = 1 second.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setOnAppear"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setOnAppear</b>(onAppearCode)
+					
+					</div>
+					<div class="description">
+						Lets you attach some JavaScript to the the onAppear event.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>onAppearCode</b>
+									
+								</dt>
+								<dd>Some JavaScript to execute when a callout appears.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setOnDestroy"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setOnDestroy</b>(onDestroyCode)
+					
+					</div>
+					<div class="description">
+						Lets you attach some JavaScript to the the onDestroy event.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>onDestroyCode</b>
+									
+								</dt>
+								<dd>Some JavaScript to execute when a callout is destroyed.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setSize"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setSize</b>(newWidth, newHeight)
+					
+					</div>
+					<div class="description">
+						Sets the width and height of the callout content.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{int}</span> <b>newWidth</b>
+									
+								</dt>
+								<dd>The width in pixels.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{int}</span> <b>newHeight</b>
+									
+								</dt>
+								<dd>The height in pixels.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setTitle"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setTitle</b>(TitleHTML)
+					
+					</div>
+					<div class="description">
+						Sets the Title text of the callout. If only the title text is set, then the callout will size to fit just the title.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{string}</span> <b>TitleHTML</b>
+									
+								</dt>
+								<dd>The text for the title.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".update"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">nitobi.callout.Callout.</span><b>update</b>()
+					
+					</div>
+					<div class="description">
+						Forced the callout to redraw all the callouts at the correct position. Worth calling if it is attachedto an element and that element has moved.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					
+				
+			
+			
+			<hr />
+		</div>
+		
+<!-- ============================== footer ================================= -->
+		<div class="fineprint" style="clear:both">
+			
+			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Thu Sep 11 2008 11:41:01 GMT-0700 (PDT)
+		</div>
+	</body>
+</html>

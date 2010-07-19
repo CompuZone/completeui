@@ -1,0 +1,60 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="NAME">nitobi.lang.defineNs</span><span class="PUNC">(</span><span class="STRN">'nitobi.effects'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  2</span> 
+<span class='line'>  3</span> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">false</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>  4</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>  5</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>  6</span> 	 * &lt;I>This class has no constructor.&lt;/I>
+<span class='line'>  7</span> 	 * @class This class hosts static functions that take values between zero and one and return
+<span class='line'>  8</span> 	 * values between zero and one.  They can be used as the transition property in subclasses of 
+<span class='line'>  9</span> 	 * {@link nitobi.effects.Effect} to make animation look smoother.
+<span class='line'> 10</span> 	 * @constructor
+<span class='line'> 11</span> 	 */</span><span class="WHIT">
+<span class='line'> 12</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.effects.Transition</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 13</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="NAME">nitobi.effects.Transition</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 15</span> 
+<span class='line'> 16</span> </span><span class="COMM">/**
+<span class='line'> 17</span>  * A sinoidal curve with its valley at 0.0 and peak at 1.0.
+<span class='line'> 18</span>  * @param {Number} x a number between 0.0 and 1.0
+<span class='line'> 19</span>  */</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="NAME">nitobi.effects.Transition.sinoidal</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 22</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">-</span><span class="NAME">Math.cos</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">*</span><span class="NAME">Math.PI</span><span class="PUNC">)</span><span class="PUNC">/</span><span class="NUMB">2</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="NUMB">0.5</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 23</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 24</span> 
+<span class='line'> 25</span> </span><span class="COMM">/**
+<span class='line'> 26</span>  * This function just returns &lt;code>x&lt;/code>.
+<span class='line'> 27</span>  * @param {Number} x a number between 0.0 and 1.0
+<span class='line'> 28</span>  */</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="NAME">nitobi.effects.Transition.linear</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">x</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 33</span> 
+<span class='line'> 34</span> </span><span class="COMM">/**
+<span class='line'> 35</span>  * Returns &lt;code>1-x&lt;/code>.
+<span class='line'> 36</span>  * @param {Number} x a number between 0.0 and 1.0
+<span class='line'> 37</span>  */</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="NAME">nitobi.effects.Transition.reverse</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 39</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">-</span><span class="NAME">x</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 42</span> 
+<span class='line'> 43</span> 
+<span class='line'> 44</span> </span><span class="COMM">/*
+<span class='line'> 45</span>  	  pulse: function(x, pulses) {
+<span class='line'> 46</span>  	    pulses = pulses || 5;
+<span class='line'> 47</span>  	    return (
+<span class='line'> 48</span>  	      Math.round((x % (1/pulses)) * pulses) == 0 ?
+<span class='line'> 49</span>  	            ((x * pulses * 2) - Math.floor(x * pulses * 2)) :
+<span class='line'> 50</span>  	        1 - ((x * pulses * 2) - Math.floor(x * pulses * 2))
+<span class='line'> 51</span>  	      );
+<span class='line'> 52</span>  	  },
+<span class='line'> 53</span> */</span></pre></body></html>

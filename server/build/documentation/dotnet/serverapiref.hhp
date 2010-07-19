@@ -1,0 +1,21 @@
+
+
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=serverapiref.chm
+Contents file=serverapiref.hhc
+Default Window=Main
+Default topic=index.htm
+Full-text search=Yes        
+Display compile progress=No
+Language=0x409 English (United States)
+Title=Nitobi ASP.NET Server API Reference
+
+[WINDOWS]
+Main="Nitobi ASP.NET Server API Reference","serverapiref.hhc",,,,,,,,0x2520,,0x386e,[0,0,800,600],,,,,,,0        
+
+[MERGE FILES]
+grid-server.chm
+combo-server.chm
+
+[INFOTYPES]

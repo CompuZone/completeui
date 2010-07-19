@@ -1,0 +1,74 @@
+;==============================================================================
+;
+; DEFAULT TEMPLATE SCHEME for chm2web software
+; by A!K Research Labs, 2002-2004
+;
+;==============================================================================
+
+
+[TEMPLATE.INFO]
+
+NAME		= Default Sunny
+Template name
+
+BODY		= default.body
+Template body file name
+
+AUTHOR		= A!K Research Labs
+Copyright(c) 2002-2004, All Rights Reserved
+
+
+[OPEN.FIELDS]
+
+SCHEMECOLOR1	= white
+
+SCHEMECOLOR2    = #FFD200
+
+SCHEMECOLOR3	= #FFD200
+
+SCHEMECOLOR4	= #A88A00
+
+
+ABUTTONTEXT	= white
+Active button text color
+
+ABUTTONFRAME    = #006600
+Active button frame color
+
+IBUTTONFACE	= #E5D200
+Inactive button color
+
+IBUTTONTEXT	= gray
+Inactive button text color
+
+IBUTTONFRAME	= gray
+Inactive button frame color
+
+PAGECAPTION    = #403500
+Page caption text color
+
+
+
+;==============================================================================
+;
+; FILES TO COPY
+;
+; [F|N|M]:[target_image_name] = [source_image_name]
+;
+; F - only for frames version
+; N - only for noframes version
+; M - only for mobile version
+;
+;==============================================================================
+
+[COPY.FILES]
+
+N:files\next.gif       = icons\nextsunny.gif
+N:files\prev.gif       = icons\prevsunny.gif
+F:files\home.gif       = icons\homesunny.gif
+F:files\next.gif       = icons\nextsunny.gif
+F:files\prev.gif       = icons\prevsunny.gif
+F:files\print.gif      = icons\printsunny.gif
+M:files\next.gif       = icons\mobile_sunny_next.gif
+M:files\prev.gif       = icons\mobile_sunny_prev.gif
+M:files\cont.gif       = icons\mobile_sunny_contents.gif

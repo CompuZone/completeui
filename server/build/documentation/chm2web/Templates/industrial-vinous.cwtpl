@@ -1,0 +1,75 @@
+;==============================================================================
+;
+; INDUSTRIAL TEMPLATE SCHEME for chm2web software
+; by A!K Research Labs, 2002-2004
+;
+;==============================================================================
+
+
+[TEMPLATE.INFO]
+
+NAME		= Industrial Vinous
+
+Template name
+
+BODY		= industrial.body
+Template body file name
+
+AUTHOR		= A!K Research Labs
+Copyright(c) 2002-2004, All Rights Reserved
+
+
+[OPEN.FIELDS]
+
+SCHEMECOLOR1	= #FCF5F9
+
+SCHEMECOLOR2    = #DAC2CD
+
+SCHEMECOLOR3	= #B38198
+
+SCHEMECOLOR4	= #7D5B6B
+
+SCHEMECOLOR5	= #C60000
+Used for hyperlinks
+                        
+SCHEMECOLOR6	= #840000
+Used for highlighted hyperlinks
+
+ABUTTONTEXT	= white
+Active button text color
+
+ABUTTONFRAME    = white
+Active button frame color
+
+IBUTTONFACE	= #CCCCCC
+Inactive button color
+
+IBUTTONTEXT	= black
+Inactive button text color
+
+IBUTTONFRAME	= gray
+Inactive button frame color
+
+PAGECAPTION    = white
+Page caption text color
+
+
+
+;==============================================================================
+;
+; FILES TO COPY
+;
+; [F|N|M]:[target_image_name] = [source_image_name]
+;
+; F - only for frames version
+; N - only for noframes version
+; M - only for mobile version
+;
+;==============================================================================
+
+[COPY.FILES]
+
+files\       		= industrial\vinous\*.*
+F:.\			= industrial\vinous\html\*.*
+
+

@@ -1,0 +1,9 @@
+D:\dev2008\Nitobi\DotNet\NitobiControls\test\bin\test.dll
+D:\dev2008\Nitobi\DotNet\NitobiControls\test\bin\test.pdb
+D:\dev2008\Nitobi\DotNet\NitobiControls\test\bin\EndUserExtensions.dll
+D:\dev2008\Nitobi\DotNet\NitobiControls\test\bin\NitobiControls.dll
+D:\dev2008\Nitobi\DotNet\NitobiControls\test\bin\NitobiControls.pdb
+D:\dev2008\Nitobi\DotNet\NitobiControls\test\bin\EndUserExtensions.pdb
+D:\dev2008\Nitobi\DotNet\NitobiControls\test\obj\Release\ResolveAssemblyReference.cache
+D:\dev2008\Nitobi\DotNet\NitobiControls\test\obj\Release\test.dll
+D:\dev2008\Nitobi\DotNet\NitobiControls\test\obj\Release\test.pdb

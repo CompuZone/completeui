@@ -1,0 +1,371 @@
+;==============================================================================
+;
+; SIMPLE TEMPLATE BODY for chm2web software
+; by A!K Research Labs, 2002-2004
+; 
+; Supported help versions:
+; 
+;  Frames version :       supported
+:  No frames version :    supported
+;  Mobile version :       supported
+;
+;==============================================================================
+
+
+
+;====================================================
+;
+; Current template body information
+;
+;====================================================
+[BODY.INFO]
+
+NAME		= Simple Body
+Template body for chm2web software.
+
+AUTHOR		= A!K Research Labs
+Copyright(c) 2002, All Rights Reserved
+
+TARGETS		= NOFRAMES,FRAMES,MOBILE
+Supported targets
+
+FORBUILD	= 120
+Required chm2web version (build)
+
+
+;====================================================
+;
+; Custom Fields
+; 
+; VARxxxxx - user can edit this fields
+; xxxxxxxx - fields with fixed values
+;
+;====================================================
+[OPEN.FIELDS]
+
+VARPAGECAPTION	= Web Online Help
+Help page caption
+
+VARCONTENTS	= Contents
+Contents button caption
+
+VARSEARCH 	= Search
+Search button caption
+
+VARINDEX	= Index
+Index button caption
+
+VARHOME		= Home
+Home button caption
+
+VARHOMEURL	= http://www.mycoolproduct.com
+Home page url
+
+VARPREVBUT	= Prev
+Home button caption
+
+VARNEXTBUT	= Next
+Home button caption
+
+VARPRINTBUT	= Print
+Print button caption
+
+VARCONTENTSWIDTH= 220
+Left frame width
+
+HEADER.HEIGHT	= 28
+Header frame height
+
+
+;====================================================
+;
+; Template for Configuration Manager 
+; ("Template" chm2web tab)
+; 
+; All field names should begins with "var" keyword.
+;
+;============+========================================
+
+[CONFIG.MANAGER]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+
+<META HTTP-EQUIV="MSThemeCompatible" CONTENT="yes">
+
+<HEAD>
+ <STYLE>
+   TD { font-family: Tahoma; font-size: 8pt}
+   SELECT { font-family: Tahoma; font-size: 8pt}
+   INPUT { font-family: Tahoma; font-size: 8pt}
+   .TRCAP { background-color: #000080; color: white }
+ </STYLE>
+</HEAD>
+
+<BODY BGCOLOR="#FBFAFB" SCROLL="no" topmargin="2" leftmargin="2">
+
+<table cellpadding="2" style="border-collapse: collapse" width="100%" BGCOLOR="#FBFAFB">
+    <tr class="TRCAP">
+     <td width="100%" nowrap ><b>Supported Targets:</td>
+     <td align="right" bgcolor="white" width=100 height=35 rowspan="2" valign="top" nowrap>
+       <img src="#TEMPLATES.FOLDER#logo/valid-html401.png" 
+       alt="Valid HTML 4.01!" height="31" width="88" border=0></td>
+    </tr>
+    <tr>
+      <td height="25">All</td>
+    </tr>
+</table>
+
+<table cellpadding="2" style="border-collapse: collapse" width="100%" BGCOLOR="#FBFAFB">
+    <tr class="TRCAP">
+      <td width="100%" colspan="2"><b>
+      General:</td>
+    </tr>
+    <tr>
+      <td width="16%">Help Title:</td>
+      <td width="84%"><input type="text" name="varPageCaption" size="75"></td>
+    </tr>
+    <tr>
+      <td colspan="2" width="100%">
+        Contents Frame Width:&nbsp;&nbsp;
+        <input type="text" name="varContentswidth" size="5"> pixels
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" width="100%">
+      Home url:&nbsp;&nbsp;
+      <input type="text" name="varHomeUrl" size="70"></td>
+      </td>
+    </tr>
+          
+    <tr class="TRCAP">
+      <td colspan="2"><b>
+      Captions:</td>
+    </tr>
+
+    <tr>
+      <td colspan="2"> 
+        <table width="100%">
+        <tr>
+         <td> Contents button:&nbsp;&nbsp;
+          <input type="text" name="varContents" size="20"></td>
+         <td> Index button:&nbsp;&nbsp;
+          <input type="text" name="varIndex" size="20"></td>
+        </tr>
+        <tr>
+         <td> Search button:&nbsp;&nbsp;
+          <input type="text" name="varSearch" size="20"></td>
+         <td> Home button:&nbsp;&nbsp;
+          <input type="text" name="varHome" size="20"></td>
+        </tr>
+        <tr>
+         <td> Prev button:&nbsp;&nbsp;
+          <input type="text" name="varPrevBut" size="20"></td>
+         <td> Next button:&nbsp;&nbsp;
+          <input type="text" name="varNextBut" size="20"></td>
+        </tr>
+        <tr>
+         <td> Print button:&nbsp;&nbsp;
+          <input type="text" name="varPrintBut" size="20"></td>
+         <td></td>
+        </tr>
+        </table>
+      </td>
+    </tr>
+
+
+
+</table>
+  
+</BODY>
+
+</HTML>
+
+;==============================================================================
+;==============================================================================
+;==============================================================================
+;====================================================
+;
+; FRAMES VERSION TEMPLATES
+;
+;====================================================
+
+
+;====================================================
+;
+; Top Frame HTML Template
+;
+;====================================================
+
+[HEADER.BODY]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+
+<HEAD>
+ <TITLE>#VARPAGECAPTION#</TITLE>
+ <STYLE type="text/css">
+  BODY { margin: 0; border: none; padding: 2px }
+  TABLE { border-collapse: collapse; border: 0 }
+ </STYLE>
+</HEAD>
+
+<BODY bgcolor="#BACKCOLOR#">   
+<TABLE cellpadding="2" cellspacing="0" bgcolor="#BACKCOLOR#" width="100%">
+ <TR>
+  <TD align="left" width="300" nowrap>
+   <a href="#CONTENTS.FILE.NAME#" target="toc">#VARCONTENTS#</a> &nbsp;&nbsp;
+##INDEX_EXISTS_BEGIN##
+   <a href="#INDEX.FILE.NAME#" target="toc">#VARINDEX#</a> &nbsp;&nbsp;
+##INDEX_EXISTS_END##
+   <a href="#SEARCH.FILE.NAME#" target="toc">#VARSEARCH#</a> &nbsp;&nbsp;&nbsp;
+   {<a href="#VARHOMEURL#" target="_top">#VARHOME#</a>} &nbsp;&nbsp;
+  </TD>
+  <TD align="center"  nowrap>
+   <b><font size="3pt" color="#PAGECAPTION#">#VARPAGECAPTION#</font></b>
+  </TD>
+  <TD align="right" width="200" nowrap>
+   <a href="#" onClick="#SCRIPT.PRINT#">#VARPRINTBUT#</a>&nbsp;&nbsp;
+   <a href="#" onClick="#SCRIPT.NAVIGATE.PREVPAGE#">#VARPREVBUT#</a>
+   <a href="#" onClick="#SCRIPT.NAVIGATE.NEXTPAGE#">#VARNEXTBUT#</a>
+  </TD>
+ </TR>
+</TABLE>
+</BODY>
+
+</HTML>
+
+;====================================================
+;
+; MAINFRAMESET.BODY
+;
+; This code is used as the main frame template. A frame 
+; with the name "content" in which the current help page
+; will be displayed should be present in the code.
+; 
+;====================================================
+
+[MAINFRAMESET.BODY]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+ <head>
+  <title>#VARPAGECAPTION#</title>
+ </head>
+
+ <frameset rows="#HEADER.HEIGHT#,*" frameborder="yes" framespacing="2" border="0" bordercolor="#SCHEMECOLOR3#">
+   <frame name="header" src="#HEADER.CONTENTS.NAME#" scrolling="no">
+   <frameset cols="#VARCONTENTSWIDTH#,*" frameborder="yes" border="4">
+     <frame name="toc" src="#CONTENTS.FILE.NAME#" >
+     <frame name="content" src="#START.FILE.NAME#" >
+   </frameset>
+ </frameset>
+
+</html>
+
+
+;==============================================================================
+;==============================================================================
+;==============================================================================
+;====================================================
+;
+; NOFRAMES VERSION TEMPLATE
+;
+;====================================================
+
+[NOFRAMES.BODY]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+
+<HEAD>
+ <TITLE>#VARPAGECAPTION# - #PAGE.TITLE#</TITLE>
+</HEAD>
+
+<BODY bgcolor="#LEFTBACKCOLOR#" style="margin: 0; border: none; padding: 0px">   
+
+<TABLE bgcolor="#BACKCOLOR#" width="100%" border="0" cellpadding="3">
+ <TR>
+  <TD align="left" width="100" nowrap>
+   <a href="#VARHOMEURL#" target="_top">#VARHOME#</a> &nbsp;&nbsp;
+  </TD>
+  <TD align="center"  nowrap>
+   <b><font size="3pt" color="#PAGECAPTION#">#VARPAGECAPTION#</font></b>
+  </TD>
+  <TD align="right" width="120" nowrap>
+   <a href="#PREV.URL#">#VARPREVBUT#</a>
+   <a href="#NEXT.URL#">#VARNEXTBUT#</a>
+  </TD>
+ </TR>
+</TABLE>
+
+<TABLE width="100%" border="1" cellpadding="5">
+<TR valign="top">
+  <TD width="#VARCONTENTSWIDTH#" bgcolor="#LEFTBACKCOLOR#" nowrap>#CONTENTS.TREE#</TD>
+  <TD bgcolor="white">
+  #PAGE.BODY#
+  </TD>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>
+
+
+;==============================================================================
+;==============================================================================
+;==============================================================================
+;====================================================
+;
+; MOBILE VERSION TEMPLATES
+;
+;====================================================
+
+;====================================================
+;
+; Help Contents Page Template
+;
+;====================================================
+
+[MOBILE.CONTENTS.BODY]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+  <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+  <TITLE>#VARPAGECAPTION#</TITLE>
+ </HEAD>
+ <BODY bgcolor="#LEFTBACKCOLOR#">
+##SPLIT_CONTENTS_BEGIN##
+  <b>#PAGE.CURRENT#:</b>&nbsp;
+  #CONTENTS.PAGEN#
+  - <a href="#PAGE.PREV.URL#">#VARPREVBUT#</a>
+  <a href="#PAGE.NEXT.URL#">#VARNEXTBUT#</a><br><br>
+##SPLIT_CONTENTS_END##
+    #CONTENTS.TREE#  
+ </BODY>
+</HTML>
+
+;====================================================
+;
+; Help Page Template
+;
+;====================================================
+
+[MOBILE.BODY]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+  <META http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+  <TITLE>#VARPAGECAPTION#</TITLE>
+ </HEAD>
+ <BODY bgcolor="white">
+  <a href="#MOBILEC.URL#">#VARCONTENTS#</a> -&nbsp;
+  <a href="#PREV.URL#">#VARPREVBUT#</A>
+  <a href="#NEXT.URL#">#VARNEXTBUT#</A><hr>
+  #PAGE.BODY#
+ </BODY>
+</HTML>
+
+

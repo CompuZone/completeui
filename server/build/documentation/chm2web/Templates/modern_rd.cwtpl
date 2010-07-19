@@ -1,0 +1,58 @@
+;==============================================================================
+;
+; MODERN TEMPLATE SCHEME for chm2web software
+; by A!K Research Labs, 2003-2004
+;
+;==============================================================================
+
+
+[TEMPLATE.INFO]
+
+NAME		= Modern Red
+Template name
+
+BODY		= modern.body
+Template body file name
+
+AUTHOR		= A!K Research Labs
+Copyright(c) 2003-2004, All Rights Reserved
+
+
+[OPEN.FIELDS]
+
+SCHEMECOLOR1	= #FAE9F3
+
+SCHEMECOLOR2    = #F5AFC1
+
+SCHEMECOLOR3	= #E53368
+
+SCHEMECOLOR4	= #741C36
+
+PAGECAPTION    = white
+Page caption text color
+
+TREEICONSFOLDER= modern\rd\treeicons
+This folder contains tree images.
+
+;==============================================================================
+;
+; FILES TO COPY
+;
+; [F|N|M]:[target_image_name] = [source_image_name]
+;
+; F - only for frames version
+; N - only for noframes version
+; M - only for mobile version
+;
+;==============================================================================
+
+[COPY.FILES]
+
+files\			= modern\rd\*.*
+
+F:helpleftcon.html	= modern\rd\html\helpleftcon.html
+F:helpleftind.html	= modern\rd\html\helpleftind.html
+F:helpleftsch.html	= modern\rd\html\helpleftsch.html
+F:space_page.html	= modern\rd\html\space_page.html
+F:helpblankpage.html 	= modern\rd\html\helpblankpage.html
+                     	

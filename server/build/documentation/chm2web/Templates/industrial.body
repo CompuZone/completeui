@@ -1,0 +1,529 @@
+;==============================================================================
+;
+; DEFAULT TEMPLATE BODY for chm2web software
+; by A!K Research Labs, 2002-2004
+; 
+; Supported help versions:
+; 
+;  Frames version :       supported
+:  No frames version :    supported
+;  Mobile version :       supported
+;
+;==============================================================================
+
+
+
+;====================================================
+;
+; Current template body information
+;
+;====================================================
+[BODY.INFO]
+
+NAME		= Industrial Style Body
+Template body for chm2web software.
+
+AUTHOR		= A!K Research Labs
+Copyright(c) 2002-2004, All Rights Reserved
+
+TARGETS		= NOFRAMES,FRAMES
+Supported targets
+
+FORBUILD	= 140
+Required chm2web version (build)
+
+;====================================================
+;
+; Custom Fields
+; 
+; VARxxxxx - user can edit this fields
+; xxxxxxxx - fields with fixed values
+;
+;====================================================
+[OPEN.FIELDS]
+
+VARPAGECAPTION	= Web Online Help
+Help page caption
+
+VARHOMEURL	= http://www.mycoolproduct.com
+Home page url
+                                     
+VARHOMECAP	= Home
+Home button tool tip
+
+VARNEXTCAP	= Next Page
+Next page button tool tip
+
+VARPREVCAP	= Prev Page
+Prev page button tool tip
+
+VARPRINTCAP	= Print
+Print current page
+
+VARCONTENTSWIDTH= 250
+Left frame width
+
+VARLOGOIMAGE	= files/logotype.gif
+Default logo
+
+HEADER.HEIGHT	= 116
+Header frame height
+
+
+;====================================================
+;
+; Template for Configuration Manager 
+; ("Template" chm2web tab)
+; 
+; All field names must start with "var". Default values 
+; for such fields are taken from the OPEN.FIELDS section.
+;
+;====================================================
+
+[CONFIG.MANAGER]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <META HTTP-EQUIV="MSThemeCompatible" CONTENT="yes">
+ <TITLE>#VARPAGECAPTION#</TITLE>
+ <STYLE type="text/css">
+   TD { font-family: Tahoma; font-size: 8pt}
+   SELECT { font-family: Tahoma; font-size: 8pt}
+   INPUT { font-family: Tahoma; font-size: 8pt}
+   .TRCAP { background-color: #000080; color: white }
+ </STYLE>
+</HEAD>
+
+<BODY BGCOLOR="#FBFAFB" SCROLL="no" topmargin="2" leftmargin="2">
+
+
+<table cellpadding="2" style="border-collapse: collapse" width="100%" BGCOLOR="#FBFAFB">
+    <tr class="TRCAP">
+     <td width="100%" nowrap ><b>Supported Targets:</td>
+     <td align="right" bgcolor="white" width=100 height=35 rowspan="2" valign="top" nowrap>
+       <img src="#TEMPLATES.FOLDER#logo/valid-html401.png" 
+       alt="Valid HTML 4.01!" height="31" width="88" border=0></td>
+    </tr>
+    <tr>
+      <td height="25">Frames and No frames version only</td>
+    </tr>
+</table>
+
+<table cellpadding="2" style="border-collapse: collapse" width="100%" BGCOLOR="#FBFAFB">
+    <tr class="TRCAP">
+      <td width="100%" colspan="2"><b>
+      General:</td>
+    </tr>
+    <tr>
+      <td width="16%">Help Title:</td>
+      <td width="84%"><input type="text" name="varPageCaption" size="75"></td>
+    </tr>
+    <tr>
+      <td colspan="2" width="100%">
+        Contents Frame Width:&nbsp;&nbsp;
+        <input type="text" name="varContentswidth" size="5"> pixels
+      </td>
+    </tr>
+
+    <tr>
+      <td> Home url:&nbsp;&nbsp;</td>
+      <td><input type="text" name="varHomeUrl" size="30"></td>
+    </tr>
+
+    <tr valign=top>
+      <td> Logo Image:&nbsp;&nbsp;</td>
+      <td><input type="text" name="varLogoImage" size="50">&nbsp;<input name="dbutton" type="button" value="Default" onClick="varLogoImage.value='files/logotype.gif'"></td>
+    <tr>
+      <td></td><td>
+      *Relative path to your company or product logo image (195x72 max).<br>&nbsp;(example: ../images/logo.gif)<br><br>
+     </td>
+    </tr>
+
+    <tr class="TRCAP">
+      <td colspan="2"><b>
+      Tool Tips:</td>
+    </tr>
+
+    <tr>
+      <td colspan="2"> 
+        <table width="100%">
+        <tr width="50%">
+         <td colspan="2"> Home button:&nbsp;&nbsp;
+          <input type="text" name="varHomeCap" size="20"></td>
+         <td colspan="2"> Print button:&nbsp;&nbsp;
+          <input type="text" name="varPrintCap" size="20"></td>
+        </tr>
+        <tr width="50%">
+         <td colspan="2"> Prev button:&nbsp;&nbsp;
+          <input type="text" name="varPrevCap" size="20"></td>
+         <td colspan="2"> Next button:&nbsp;&nbsp;
+          <input type="text" name="varNextCap" size="20"></td>
+        </tr>
+        </table>
+      </td>
+    </tr>
+
+
+</table>
+ 
+</BODY>
+</HTML>
+
+;==============================================================================
+;==============================================================================
+;==============================================================================
+;====================================================
+;
+; STYLES
+;
+; These styles will be added to Help files instead of the 
+; original ones, when the "Use template defined style sheets" 
+; option is disabled.
+;
+;====================================================
+
+[STYLESHEET]
+
+a:link,a:active,a:visited,a.postlink {color:#SCHEMECOLOR5#;text-decoration:none;}
+a:hover {color:#SCHEMECOLOR6#;}
+body {
+	background-color: #FFFFFF;
+	font-family: Tahoma, Arial;
+	text-align : justify;
+	line-height: 1.5em;
+	scrollbar-3dlight-color: #SCHEMECOLOR3#; 
+	scrollbar-arrow-color: #SCHEMECOLOR3#; scrollbar-base-color: #SCHEMECOLOR3#; 
+	scrollbar-darkshadow-color: #SCHEMECOLOR3#; scrollbar-face-color: #SCHEMECOLOR2#; 
+	scrollbar-highlight-color: #SCHEMECOLOR2#; scrollbar-shadow-color: #SCHEMECOLOR2#; 
+	scrollbar-track-color : #SCHEMECOLOR1#;
+}
+body, {
+	font-size: 10pt;
+	background-attachment: fixed;
+	background-image: url(files/bg_page.gif);
+	background-repeat: no-repeat;
+	background-position: top right;
+}
+.chitemsel { background-color:#SCHEMECOLOR2#; color: black; padding:2px; }
+
+
+;==============================================================================
+;==============================================================================
+;==============================================================================
+;====================================================
+;
+; FRAMES VERSION TEMPLATES
+;
+;====================================================
+
+
+;====================================================
+;
+; HEADER.BODY
+;
+; This code is used to display the frame located above 
+; the other frames. The switching buttons between the
+; Table of contents, index and help search, help caption
+; and the help navigation buttons are shown in it.
+; 
+; Frame name: header
+;
+;====================================================
+
+[HEADER.BODY]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+
+<HEAD>
+ <TITLE>#VARPAGECAPTION#</TITLE>
+ <STYLE type="text/css">
+  BODY { margin: 2; border: none; padding: 0 }
+  TABLE { border-collapse: collapse; border: 0 }    
+  .ti { font-family: Tahoma, Verdana; font-size: 8pt; font-weight: bold; text-decoration: none}
+  BODY { margin: 0px; border: none; background-color: #FFF; background-image: url(files/bg_header.gif); background-repeat: repeat-x; }
+  .industrialsect { font-family: Verdana, Arial, Helvetica, sans-serif;	font-size: 18px; color: #FFFFFF; }
+ </STYLE>
+</HEAD>
+
+<BODY style="margin:0; padding:0">
+ <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+   <td bgcolor="#FFFFFF" valign="middle"><div align="center"><a href="#VARHOMEURL#" target=_top><img alt="#VARHOMECAP#"
+     src="#VARLOGOIMAGE#" border="0"></a></div></td>
+   <td width="100%">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+      <td width="100%"><img src="files/up_bg_start.gif" width="51" height="72" alt=""></td>
+      <td><img src="files/pic_1.gif" width="168" height="72" alt=""></td>
+     </tr>
+    </table>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     <tr> 
+##INDEX_EXISTS_BEGIN##
+##CONTENTS_SELECTED_BEGIN##
+          <td><img src="files/cn_start.gif" width="23" height="44" alt=""></td>
+          <td><img src="files/cn_on_01.gif" width="78" height="44" alt="Contents"></td>
+          <td onClick="window.open('#INDEX.FILE.NAME#', 'toc'); document.location ='#HEADER.INDEX.NAME#';"> 
+            <a href="helpleftind.html" target="pleft"><img src="files/cn_on_01end.gif" width="56" height="44" border="0" alt="Index"></a></td>
+          <td onClick="window.open('helpleftsch.html', 'toc'); document.location ='#HEADER.SEARCH.NAME#';"><a href="helpleftsch.html" 
+            target="pleft"><img src="files/cn_search.gif" width="61" height="44" border="0" alt="Search"></a></td>
+          <td><img src="files/cn_end.gif" width="34" height="44" alt=""></td>
+##CONTENTS_SELECTED_END##
+##INDEX_SELECTED_BEGIN##
+          <td><img src="files/cn_start.gif" width="23" height="44" alt=""></td>
+          <td onClick="window.open('#CONTENTS.FILE.NAME#', 'toc'); document.location ='#HEADER.CONTENTS.NAME#';"><a 
+            href="helpleftcon.html" target="pleft"><img src="files/cn_content.gif" width="78" height="44" border="0" alt="Contents"></a></td>
+          <td> <img src="files/cn_on_02.gif" width="56" height="44" border="0" alt="Index"></td>
+          <td onClick="window.open('#SEARCH.FILE.NAME#', 'toc'); document.location ='#HEADER.SEARCH.NAME#';"><a href="helpleftsch.html" 
+            target="pleft"><img src="files/cn_on_02end.gif" width="61" height="44" border="0" alt="Search"></a></td>
+          <td><img src="files/cn_end.gif" width="34" height="44" alt=""></td>
+##INDEX_SELECTED_END##
+##SEARCH_SELECTED_BEGIN##
+          <td><img src="files/cn_start.gif" width="23" height="44" alt=""></td>
+          <td onClick="window.open('#CONTENTS.FILE.NAME#', 'toc'); document.location ='#HEADER.CONTENTS.NAME#';"><a 
+           href="helpleftcon.html" target="pleft"><img src="files/cn_content.gif" width="78" height="44" border="0" alt="Contents"></a></td>
+          <td onClick="window.open('#INDEX.FILE.NAME#', 'toc'); document.location ='#HEADER.INDEX.NAME#';"> 
+            <a href="helpleftind.html" target="pleft"><img src="files/cn_index.gif" width="56" height="44" border="0" alt="Index"></a></td>
+          <td><img src="files/cn_on_03.gif" width="61" height="44" border="0" alt="Search"></td>
+          <td><img src="files/cn_on_03end.gif" width="34" height="44" alt=""></td>
+##SEARCH_SELECTED_END##
+##INDEX_EXISTS_END##
+
+##INDEX_NOTEXISTS_BEGIN##
+##CONTENTS_SELECTED_BEGIN##
+          <td><img src="files/cn_start.gif" width="23" height="44" alt=""></td>
+          <td><img src="files/cn_on_01.gif" width="78" height="44" alt="Contents"></td>
+          <td onClick="window.open('helpleftsch.html', 'toc'); document.location ='#HEADER.SEARCH.NAME#';"><a href="helpleftsch.html" 
+            target="pleft"><img src="files/cn_on_02end.gif" width="61" height="44" border="0" alt="Search"></a></td>
+          <td><img src="files/cn_end.gif" width="34" height="44" alt=""></td>
+##CONTENTS_SELECTED_END##
+##SEARCH_SELECTED_BEGIN##
+          <td><img src="files/cn_start.gif" width="23" height="44" alt=""></td>
+          <td onClick="window.open('#CONTENTS.FILE.NAME#', 'toc'); document.location ='#HEADER.CONTENTS.NAME#';"><a 
+           href="helpleftcon.html" target="pleft"><img src="files/cn_content.gif" width="78" height="44" border="0" alt="Contents"></a></td>
+          <td><img src="files/cn_on_03.gif" width="61" height="44" border="0" alt="Search"></td>
+          <td><img src="files/cn_on_03end.gif" width="34" height="44" alt=""></td>
+##SEARCH_SELECTED_END##
+##INDEX_NOTEXISTS_END##
+     </tr>
+    </table>
+   </td>
+   <td style="background-image: url(files/bg_sect.gif)">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+      <td width="100%">
+       <p class="industrialsect">#VARPAGECAPTION#</p></td>
+      <td>
+       <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+         <td width=60 nowrap><a href="#" onClick="#SCRIPT.PRINT#"><img src="files/btn_print.gif" width="53" height="20" border="0" alt="#VARPRINTCAP#"></a></td>
+         <td><a href="#" onClick="#SCRIPT.NAVIGATE.PREVPAGE#"><img src="files/arr_back.gif" width="50" height="20" border="0" alt="#VARPREVCAP#"></a></td>
+         <td><a href="#" onClick="#SCRIPT.NAVIGATE.NEXTPAGE#"><img src="files/arr_next.gif" width="49" height="20" border="0" alt="#VARNEXTCAP#"></a></td>
+         <td><img src="files/spacer.gif" width="30" height="1" alt=""></td>
+        </tr>
+       </table>
+      </td>
+     </tr>
+    </table>
+   </td>
+  </tr>
+ </table>
+</BODY>
+</HTML>
+
+
+;====================================================
+;
+; CONTENTS.BODY
+;
+; This code is used to display the frame containing the 
+; Table of Contents.
+; 
+; Frame name: toc
+;
+;====================================================
+
+[CONTENTS.BODY]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE>#VARPAGECAPTION#</TITLE>
+ </HEAD>
+ <BODY bgcolor="#SCHEMECOLOR1#" style="scrollbar-3dlight-color: #SCHEMECOLOR3#; 
+  scrollbar-arrow-color: #SCHEMECOLOR3#; scrollbar-base-color: #SCHEMECOLOR3#; 
+  scrollbar-darkshadow-color: #SCHEMECOLOR3#; scrollbar-face-color: #SCHEMECOLOR2#; 
+  scrollbar-highlight-color: #SCHEMECOLOR2#; scrollbar-shadow-color: #SCHEMECOLOR2#; 
+  scrollbar-track-color : #SCHEMECOLOR1#;">
+    #CONTENTS.TREE#
+ </BODY>
+</HTML>
+
+;====================================================
+;
+; INDEX.BODY
+;
+; This code is used to display the frame containing the 
+; Help index.
+; 
+; Frame name: toc
+;
+;====================================================
+
+[INDEX.BODY]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE>#VARPAGECAPTION#</TITLE>
+ </HEAD>
+ <BODY bgcolor="#SCHEMECOLOR1#">
+  <p style="font-family: Tahoma, Verdana; font-size: 8pt"><b>Type in the keyword to find:</b></p>
+    #INDEX.TREE#
+ </BODY>
+</HTML>
+
+
+;====================================================
+;
+; SEARCH.BODY
+;
+; This code is used to display the frame containing 
+; Help search.
+; 
+; Frame name: toc
+;
+;====================================================
+
+[SEARCH.BODY]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE>#VARPAGECAPTION#</TITLE>
+ </HEAD>
+ <BODY bgcolor="#SCHEMECOLOR1#">
+  <p style="font-family: Tahoma, Verdana; font-size: 8pt"><b>Type in the word(s) to search for:</b></p>
+    #SEARCH.PAGE#
+ </BODY>
+</HTML>
+
+
+;====================================================
+;
+; MAINFRAMESET.BODY
+;
+; This code is used as the main frame template. A frame 
+; with the name "content" in which the current help page
+; will be displayed should be present in the code.
+; 
+;====================================================
+
+[MAINFRAMESET.BODY]
+
+<html>
+ <head>
+  <title>#VARPAGECAPTION#</title>
+ </head>
+
+ <frameset rows="#HEADER.HEIGHT#,*" frameborder="no" framespacing="0" border="0" >
+   <frame name="header" src="#HEADER.CONTENTS.NAME#" scrolling="no">
+   <frameset cols="#VARCONTENTSWIDTH#,*" frameborder="no" border="0">
+     <frame name="pleft" src="helpleftcon.html" scrolling="auto">
+     <frame name="content" src="#START.FILE.NAME#" >
+   </frameset>
+ </frameset>
+
+</html>
+
+
+;==============================================================================
+;==============================================================================
+;==============================================================================
+;====================================================
+;
+; NOFRAMES VERSION TEMPLATE
+;
+;====================================================
+
+[NOFRAMES.BODY]
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<TITLE>#VARPAGECAPTION# - #PAGE.TITLE#</TITLE>
+<style type="text/css">
+  .industrialsect { font-size: 18px; color: #FFFFFF; }
+</style>
+</head>
+
+<body bgcolor="#FFFFFF" style="margin:0; padding:0">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>  
+    <td bgcolor="#FFFFFF" valign="middle">  <div align="center"><a href="#VARHOMEURL#"><img src="#ROOT##VARLOGOIMAGE#" border="0" alt="#VARHOMECAP#"></a></div></td>
+    <td width="100%"> <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          <td width="100%" style="background-image: url(#ROOT#files/bg_header.gif)"><img src="#ROOT#files/up_bg_start.gif" width="51" height="72" alt=""></td>
+          <td><img src="#ROOT#files/pic_1.gif" width="168" height="72" alt=""></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          <td><img src="#ROOT#files/cn_start.gif" width="23" height="44" alt=""></td>
+          <td><img src="#ROOT#files/cn_on_01.gif" width="78" height="44" alt="Contents"></td>
+          <td> <img src="#ROOT#files/mul_01.gif" width="56" height="44" border="0" alt=""></td>
+          <td><img src="#ROOT#files/mul_02.gif" width="61" height="44" border="0" alt=""></td>
+          <td><img src="#ROOT#files/cn_end.gif" width="34" height="44" alt=""></td>
+        </tr>
+      </table></td>
+    <td style="background-image: url(#ROOT#files/bg_sect.gif)"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          <td width="100%"> <p class="industrialsect">#VARPAGECAPTION#</p></td>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr> 
+                <td><a href="#PREV.URL#"><img src="#ROOT#files/arr_back.gif" width="50" height="20" border="0" alt="#VARPREVCAP#"></a></td>
+                <td><a href="#NEXT.URL#"><img src="#ROOT#files/arr_next.gif" width="49" height="20" border="0" alt="#VARNEXTCAP#"></a></td>
+                <td><img src="#ROOT#files/spacer.gif" width="30" height="1" alt=""></td>
+              </tr>
+            </table></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td bgcolor="#SCHEMECOLOR2#" valign="top"> <table width="250" border="0" align="center" cellpadding="0" cellspacing="0" style="height:95%">
+        <tr> 
+          <td rowspan="2" bgcolor="#SCHEMECOLOR2#"><img src="#ROOT#files/spacer.gif" width="10" height="8" alt=""></td>
+          <td width="100%" nowrap bgcolor="#SCHEMECOLOR2#">&nbsp;</td>
+          <td rowspan="2" bgcolor="#SCHEMECOLOR2#"><img src="#ROOT#files/spacer.gif" width="10" height="8" alt=""></td>
+        </tr>
+        <tr style="height:95%" > 
+          <td height="100%" valign="top" bgcolor="#SCHEMECOLOR1#" style="border: 1px solid #SCHEMECOLOR3#"> 
+            <div style="margin: 10pt;"> 
+             #CONTENTS.TREE#
+            </div></td>
+        </tr>
+        <tr bgcolor="#SCHEMECOLOR2#"> 
+          <td height="0%" colspan="3"><img src="#ROOT#files/spacer.gif" width="1" height="20" alt=""></td>
+        </tr>
+      </table></td>
+    <td valign="top" bgcolor="#SCHEMECOLOR3#"><img src="#ROOT#files/spacer.gif" width="1" height="1" alt=""></td>
+    <td width="100%" valign="top" style="background-image: url(#ROOT#files/bg_page.gif); background-position: right top; background-repeat: no-repeat;">
+	<div style="padding: 15px">
+         #PAGE.BODY#  
+        </div>
+      </td>
+  </tr>
+</table>
+</body>
+</html>
+

@@ -1,0 +1,78 @@
+;==============================================================================
+;
+; DEFAULT TEMPLATE SCHEME for chm2web software
+; by A!K Research Labs, 2002-2004
+;
+;==============================================================================
+
+
+[TEMPLATE.INFO]
+
+NAME		= Default Blue
+Template name
+
+BODY		= default.body
+Template body file name
+
+AUTHOR		= A!K Research Labs
+Copyright(c) 2002-2004, All Rights Reserved
+
+
+[OPEN.FIELDS]
+
+SCHEMECOLOR1	= white
+
+SCHEMECOLOR2    = #B1CEEB
+
+SCHEMECOLOR3	= #85A4C2
+
+SCHEMECOLOR4	= #1E5798
+
+LEFTBACKCOLOR	= white
+Left frame background color
+
+ABUTTONTEXT	= white
+Active button text color
+
+ABUTTONFRAME    = white
+Active button frame color
+
+IBUTTONFACE	= #CCCCCC
+Inactive button color
+
+IBUTTONTEXT	= black
+Inactive button text color
+
+IBUTTONFRAME	= gray
+Inactive button frame color
+
+PAGECAPTION    = white
+Page caption text color
+
+
+
+;==============================================================================
+;
+; FILES TO COPY
+;
+; [F|N|M]:[target_image_name] = [source_image_name]
+;
+; F - only for frames version
+; N - only for noframes version
+; M - only for mobile version
+;
+;==============================================================================
+
+[COPY.FILES]
+
+N:files\next.gif       = icons\nextblue.gif
+N:files\prev.gif       = icons\prevblue.gif
+F:files\home.gif       = icons\homeblue.gif
+F:files\next.gif       = icons\nextblue.gif
+F:files\prev.gif       = icons\prevblue.gif
+F:files\print.gif      = icons\printblue.gif
+M:files\next.gif       = icons\mobile_blue_next.gif
+M:files\prev.gif       = icons\mobile_blue_prev.gif
+M:files\cont.gif       = icons\mobile_blue_contents.gif
+
+

@@ -1,0 +1,17 @@
+<project>
+
+	<!-- generic target for building CHM files -->
+    <target name="CHM" description="Compiles a CHM help doc.">
+        <echo message="Trying to build CHM help ${workingdir}/${src}.hhp to ${dest}. The helpdir is ${helpdir}"></echo>
+        <available property="docFile" file="${workingdir}/${src}.hhp"></available>
+        <if><equals arg1="${docFile}" arg2="true"></equals>
+            <then>
+                <exec executable="cmd" dir="${workingdir}">
+                    <arg value="/c"/>
+                    <arg value="${helpdir}\hhc.exe ${src}.hhp"/>
+                </exec>
+                <copy file="${workingdir}/${src}.chm" tofile="${dest}/${src}.chm"></copy>
+            </then></if>
+    </target>
+    
+</project>

@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ntb="http://www.nitobi.com" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset={+IO.encoding+}"" />
+		
+		<title>Nitobi Javascript API</title>
+		<meta name="generator" content="JsDoc Toolkit" />
+		
+		<link type="text/css" rel="stylesheet" href="external/style/nitobi.tree.css"></link>
+		<link type="text/css" rel="stylesheet" href="external/style/nitobi.css"></link>
+		<script src="external/nitobi.toolkit.js"></script>
+		<script src="external/nitobi.tree.js"></script>
+		<script src="external/scroll.js"></script>
+		<script src="external/geometry.js"></script>
+		<script>
+			var respCache = {};
+			var classLoaded = new nitobi.base.Event();
+			function loadClass(clazz)
+			{
+				if (typeof(respCache[clazz]) == "undefined")
+				{
+					var pool = nitobi.ajax.HttpRequestPool.getInstance();
+					var req = pool.reserve();
+					req.params = {"className": clazz};
+					clazz = "symbols/" + clazz + ".html";
+					req.handler = clazz;
+					req.onGetComplete.subscribeOnce(handleLoad);
+					req.get();
+				}
+				else
+				{
+					var resp = respCache[clazz];
+					$("mainContent").innerHTML = resp;
+					$("mainContent").scrollTop = 0;
+					classLoaded.notify();
+				}
+			}
+			
+			function handleLoad(eventArgs)
+			{
+				var resp = eventArgs.response;
+				respCache[eventArgs.params.className] = resp;
+				$("mainContent").innerHTML = resp;
+				$("mainContent").scrollTop = 0;
+				classLoaded.notify();
+			}
+			
+			function handleAjaxLink(eventArgs)
+			{
+				// Replace content pane with a throbber
+				$("mainContent").innerHTML = "";
+				document.documentElement.scrollTop = 0;
+				if (nitobi.browser.IE)
+					var elem = eventArgs.fromElement;
+				else
+					var elem = eventArgs.target;
+				nitobi.html.stopPropagation(eventArgs);
+				var alias = elem.getAttribute("alias");
+				var clazz;
+				var prop;
+				if (alias.indexOf("#") >= 0)
+				{
+					clazz = alias.substring(0, alias.indexOf("#"));
+					prop = alias.substr(alias.indexOf("#") + 1);
+				}
+				else
+				{
+					clazz = alias;
+				}
+				classLoaded.subscribeOnce(nitobi.lang.close(window, scrollToElement, [prop]));
+				var tree = nitobi.getComponent("classesTree");
+				tree.setSelected(tree.find("symbol", clazz));
+				
+				// Once the node is selected and the page is rendered, we need to scroll down to the appropriate method.
+				return false;
+			}
+			
+			function handleSrcLink(eventArgs)
+			{
+				if (nitobi.browser.IE)
+					var elem = eventArgs.fromElement;
+				else
+					var elem = eventArgs.target;
+					
+				window.open(elem.href);
+			}
+			
+			function scrollToElement(e, id)
+			{
+				var elem = $(id);
+				if (elem)
+				{
+					var fx = new nitobi.effects.Scroll(elem, {duration: 0.4, elemRelative:$("mainContent")});
+					fx.start();
+				}
+				nitobi.html.stopPropagation(e);
+				return false;
+			}
+			
+			function init(eventArgs)
+			{
+				var tree = nitobi.loadComponent("classesTree");
+				var bodyArea = nitobi.html.getBodyArea();
+				// Bug with getBodyArea requires us to subtract 25 from the calculated clientHeight
+				nitobi.html.Css.setStyle($("treeContent"), "height", bodyArea.clientHeight - 100 + "px");
+				nitobi.html.Css.setStyle($("mainContent"), "height", bodyArea.clientHeight - 100 + "px");
+				
+				var width = bodyArea.clientWidth;
+				nitobi.html.Css.setStyle($("layout"), "width", width -16 + "px");
+				
+				// Load the appropriate class file, if specified
+				if (window.location.search)
+				{
+					var clazz = window.location.search.substr(7);
+					//loadClass(clazz);
+					var nodes = tree.find("symbol", clazz);
+					if (nodes.length > 0)
+					{
+						var node = nodes[0];
+						var parent = node.getParent();
+						if (!parent.getChildren().isVisible())
+							node.getParent().toggleChildren();
+						tree.setSelected(nodes);
+					}
+				}
+			}
+			
+			function handleWindowResize(eventArgs)
+			{
+				var bodyArea = nitobi.html.getBodyArea();
+				// Bug with getBodyArea requires us to subtract 25 from the calculated clientHeight
+				nitobi.html.Css.setStyle($("treeContent"), "height", bodyArea.clientHeight - 100 + "px");
+				nitobi.html.Css.setStyle($("mainContent"), "height", bodyArea.clientHeight - 100 + "px");
+				
+				var width = bodyArea.clientWidth;
+				nitobi.html.Css.setStyle($("layout"), "width", width -16 + "px");
+			}
+			
+			function toggleDescription(e)
+			{
+				if (nitobi.browser.IE)
+					var elem = e.fromElement;
+				else
+					var elem = e.currentTarget;
+					
+				var short = nitobi.html.getChildNodeByAttribute(elem, "type", "short", true);
+				var long = nitobi.html.getChildNodeByAttribute(elem, "type", "long", true);
+				var cell = elem.parentNode;
+				
+				if (nitobi.html.Css.hasClass(short, "visible"))
+				{
+					nitobi.html.Css.swapClass(short, "visible", "hidden");
+					nitobi.html.Css.swapClass(long, "hidden", "visible");
+					nitobi.html.Css.swapClass(cell, "collapsed", "expanded");
+					
+				}
+				else
+				{
+					nitobi.html.Css.swapClass(short, "hidden", "visible");
+					nitobi.html.Css.swapClass(long, "visible", "hidden");
+					nitobi.html.Css.swapClass(cell, "expanded", "collapsed");
+				}
+				// Also need to change the background highlight
+			}
+			
+			function handleMouseOver(e)
+			{
+				if (nitobi.browser.IE)
+					var elem = e.fromElement;
+				else
+					var elem = e.currentTarget;
+					
+				nitobi.html.Css.addClass(elem, "hovered");
+			}
+			
+			function handleMouseOut(e)
+			{
+				if (nitobi.browser.IE)
+					var elem = e.fromElement;
+				else
+					var elem = e.currentTarget;
+					
+				nitobi.html.Css.removeClass(elem, "hovered");
+				
+			}
+			
+			nitobi.html.attachEvent(window, "load", init);
+			nitobi.html.attachEvent(window, "resize", handleWindowResize);
+			//nitobi.html.attachEvent(window, "load", robotreplay.Geometry.init);
+		</script>
+	</head>
+	
+	<body>
+		<div id="header">
+	    <a href="http://www.nitobi.com/products/completeui/" id="nitobi-logo">
+	    	<img style="border: medium none;" src="external/style/tree/classtree/logo.png"/></a>
+		<div id="subheader-text">nitobi</div>
+		<div id="header-text">javascript API</div>
+	</div>
+		<table id="layout" cellspacing="0" cellpadding="0">
+			<tr>
+				<td style="width:300px;">
+					<div id="treeContent" style="padding-top:5px;padding-left:2px;height: 500px;width: 300px;overflow-y:scroll;">
+						{+publish.classesIndex+}
+					</div>
+				</td>
+				
+				<td>
+					<div id="mainContent" style="height:500px;overflow:scroll;">
+					
+
+						
+					</div>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

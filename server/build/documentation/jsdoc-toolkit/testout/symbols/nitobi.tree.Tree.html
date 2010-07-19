@@ -1,0 +1,1922 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="JsDoc Toolkit" />
+		
+		<title>JsDoc Reference - nitobi.tree.Tree</title>
+
+		<style type="text/css">
+			/* default.css */
+body
+{
+	font: 12px "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+	width: 800px;
+}
+
+.header
+{
+	clear: both;
+	background-color: #ccc;
+	padding: 8px;
+}
+
+h1
+{
+	font-size: 150%;
+	font-weight: bold;
+	padding: 0;
+	margin: 1em 0 0 .3em;
+}
+
+hr
+{
+	border: none 0;
+	border-top: 1px solid #7F8FB1;
+	height: 1px;
+}
+
+pre.code
+{
+	display: block;
+	padding: 8px;
+	border: 1px dashed #ccc;
+}
+
+#index
+{
+	margin-top: 24px;
+	float: left;
+	width: 160px;
+	position: absolute;
+	left: 8px;
+	background-color: #F3F3F3;
+	padding: 8px;
+}
+
+#content
+{
+	margin-left: 190px;
+	width: 600px;
+}
+
+.classList
+{
+	list-style-type: none;
+	padding: 0;
+	margin: 0 0 0 8px;
+	font-family: arial, sans-serif;
+	font-size: 1em;
+	overflow: auto;
+}
+
+.classList li
+{
+	padding: 0;
+	margin: 0 0 8px 0;
+}
+
+.summaryTable { width: 100%; }
+
+h1.classTitle
+{
+	font-size:170%;
+	line-height:130%;
+}
+
+h2 { font-size: 110%; }
+caption, div.sectionTitle
+{
+	background-color: #7F8FB1;
+	color: #fff;
+	font-size:130%;
+	text-align: left;
+	padding: 2px 6px 2px 6px;
+	border: 1px #7F8FB1 solid;
+}
+
+div.sectionTitle { margin-bottom: 8px; }
+.summaryTable thead { display: none; }
+
+.summaryTable td
+{
+	vertical-align: top;
+	padding: 4px;
+	border-bottom: 1px #7F8FB1 solid;
+	border-right: 1px #7F8FB1 solid;
+}
+
+/*col#summaryAttributes {}*/
+.summaryTable td.attributes
+{
+	border-left: 1px #7F8FB1 solid;
+	width: 140px;
+	text-align: right;
+}
+
+td.attributes, .fixedFont
+{
+	line-height: 15px;
+	color: #002EBE;
+	font-family: "Courier New",Courier,monospace;
+	font-size: 13px;
+}
+
+.summaryTable td.nameDescription
+{
+	text-align: left;
+	font-size: 13px;
+	line-height: 15px;
+}
+
+.summaryTable td.nameDescription, .description
+{
+	line-height: 15px;
+	padding: 4px;
+	padding-left: 4px;
+}
+
+.summaryTable { margin-bottom: 8px; }
+
+ul.inheritsList
+{
+	list-style: square;
+	margin-left: 20px;
+	padding-left: 0;
+}
+
+.detailList {
+	margin-left: 20px; 
+	line-height: 15px;
+}
+.detailList dt { margin-left: 20px; }
+
+.detailList .heading
+{
+	font-weight: bold;
+	padding-bottom: 6px;
+	margin-left: 0;
+}
+
+.light, td.attributes, .light a:link, .light a:visited
+{
+	color: #777;
+	font-style: italic;
+}
+
+.fineprint
+{
+	text-align: right;
+	font-size: 10px;
+}
+		</style>
+	</head>
+
+	<body>
+<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<div id="header">
+</div>
+		<!-- end static/header.html -->
+
+<!-- ============================== classes index ============================ -->
+		<div id="index">
+			<!-- begin publish.classesIndex -->
+			<div align="center"><a href="../index.html">Class Index</a>
+| <a href="../files.html">File Index</a></div>
+<hr />
+<h2>Classes</h2>
+<ul class="classList">
+	
+	<li><i><a href="../symbols/_global_.html">_global_</a></i></li>
+	
+	<li><a href="../symbols/nitobi.html">nitobi</a></li>
+	
+	<li><a href="../symbols/nitobi.ajax.html">nitobi.ajax</a></li>
+	
+	<li><a href="../symbols/nitobi.ajax.HttpRequest.html">nitobi.ajax.HttpRequest</a></li>
+	
+	<li><a href="../symbols/nitobi.ajax.HttpRequestPool.html">nitobi.ajax.HttpRequestPool</a></li>
+	
+	<li><a href="../symbols/nitobi.base.html">nitobi.base</a></li>
+	
+	<li><a href="../symbols/nitobi.base.Date.html">nitobi.base.Date</a></li>
+	
+	<li><a href="../symbols/nitobi.base.Event.html">nitobi.base.Event</a></li>
+	
+	<li><a href="../symbols/nitobi.base.EventArgs.html">nitobi.base.EventArgs</a></li>
+	
+	<li><a href="../symbols/nitobi.base.Factory.html">nitobi.base.Factory</a></li>
+	
+	<li><a href="../symbols/nitobi.base.ISerializable.html">nitobi.base.ISerializable</a></li>
+	
+	<li><a href="../symbols/nitobi.base.Profile.html">nitobi.base.Profile</a></li>
+	
+	<li><a href="../symbols/nitobi.base.Schema.html">nitobi.base.Schema</a></li>
+	
+	<li><a href="../symbols/nitobi.base.Time.html">nitobi.base.Time</a></li>
+	
+	<li><a href="../symbols/nitobi.browser.html">nitobi.browser</a></li>
+	
+	<li><a href="../symbols/nitobi.browser.History.html">nitobi.browser.History</a></li>
+	
+	<li><a href="../symbols/nitobi.calendar.html">nitobi.calendar</a></li>
+	
+	<li><a href="../symbols/nitobi.calendar.Calendar.html">nitobi.calendar.Calendar</a></li>
+	
+	<li><a href="../symbols/nitobi.calendar.CalRenderer.html">nitobi.calendar.CalRenderer</a></li>
+	
+	<li><a href="../symbols/nitobi.calendar.DateInput.html">nitobi.calendar.DateInput</a></li>
+	
+	<li><a href="../symbols/nitobi.calendar.DatePicker.html">nitobi.calendar.DatePicker</a></li>
+	
+	<li><a href="../symbols/nitobi.callout.html">nitobi.callout</a></li>
+	
+	<li><a href="../symbols/nitobi.callout.Callout.html">nitobi.callout.Callout</a></li>
+	
+	<li><a href="../symbols/nitobi.collections.html">nitobi.collections</a></li>
+	
+	<li><a href="../symbols/nitobi.collections.CellSet.html">nitobi.collections.CellSet</a></li>
+	
+	<li><a href="../symbols/nitobi.collections.IEnumerable.html">nitobi.collections.IEnumerable</a></li>
+	
+	<li><a href="../symbols/nitobi.collections.IList.html">nitobi.collections.IList</a></li>
+	
+	<li><a href="../symbols/nitobi.collections.List.html">nitobi.collections.List</a></li>
+	
+	<li><a href="../symbols/nitobi.combo.html">nitobi.combo</a></li>
+	
+	<li><a href="../symbols/nitobi.combo.Button.html">nitobi.combo.Button</a></li>
+	
+	<li><a href="../symbols/nitobi.combo.Combo.html">nitobi.combo.Combo</a></li>
+	
+	<li><a href="../symbols/nitobi.combo.List.html">nitobi.combo.List</a></li>
+	
+	<li><a href="../symbols/nitobi.combo.ListColumnDefinition.html">nitobi.combo.ListColumnDefinition</a></li>
+	
+	<li><a href="../symbols/nitobi.combo.TextBox.html">nitobi.combo.TextBox</a></li>
+	
+	<li><a href="../symbols/nitobi.combo.XmlDataSource.html">nitobi.combo.XmlDataSource</a></li>
+	
+	<li><a href="../symbols/nitobi.data.html">nitobi.data</a></li>
+	
+	<li><a href="../symbols/nitobi.data.DataTableEventArgs.html">nitobi.data.DataTableEventArgs</a></li>
+	
+	<li><a href="../symbols/nitobi.data.FormatConverter.html">nitobi.data.FormatConverter</a></li>
+	
+	<li><a href="../symbols/nitobi.data.GetCompleteEventArgs.html">nitobi.data.GetCompleteEventArgs</a></li>
+	
+	<li><a href="../symbols/nitobi.effects.html">nitobi.effects</a></li>
+	
+	<li><a href="../symbols/nitobi.effects.BlindDown.html">nitobi.effects.BlindDown</a></li>
+	
+	<li><a href="../symbols/nitobi.effects.BlindUp.html">nitobi.effects.BlindUp</a></li>
+	
+	<li><a href="../symbols/nitobi.effects.Effect.html">nitobi.effects.Effect</a></li>
+	
+	<li><a href="../symbols/nitobi.effects.Scale.html">nitobi.effects.Scale</a></li>
+	
+	<li><a href="../symbols/nitobi.effects.ShadeDown.html">nitobi.effects.ShadeDown</a></li>
+	
+	<li><a href="../symbols/nitobi.effects.ShadeUp.html">nitobi.effects.ShadeUp</a></li>
+	
+	<li><a href="../symbols/nitobi.effects.Transition.html">nitobi.effects.Transition</a></li>
+	
+	<li><a href="../symbols/nitobi.error.html">nitobi.error</a></li>
+	
+	<li><a href="../symbols/nitobi.error.ErrorEventArgs.html">nitobi.error.ErrorEventArgs</a></li>
+	
+	<li><a href="../symbols/nitobi.fisheye.html">nitobi.fisheye</a></li>
+	
+	<li><a href="../symbols/nitobi.fisheye.FishEye.html">nitobi.fisheye.FishEye</a></li>
+	
+	<li><a href="../symbols/nitobi.fisheye.MenuItem.html">nitobi.fisheye.MenuItem</a></li>
+	
+	<li><a href="../symbols/nitobi.form.html">nitobi.form</a></li>
+	
+	<li><a href="../symbols/nitobi.form.Calendar.html">nitobi.form.Calendar</a></li>
+	
+	<li><a href="../symbols/nitobi.form.Checkbox.html">nitobi.form.Checkbox</a></li>
+	
+	<li><a href="../symbols/nitobi.form.Control.html">nitobi.form.Control</a></li>
+	
+	<li><a href="../symbols/nitobi.form.ControlFactory.html">nitobi.form.ControlFactory</a></li>
+	
+	<li><a href="../symbols/nitobi.form.Date.html">nitobi.form.Date</a></li>
+	
+	<li><a href="../symbols/nitobi.form.IBlurable.html">nitobi.form.IBlurable</a></li>
+	
+	<li><a href="../symbols/nitobi.form.Link.html">nitobi.form.Link</a></li>
+	
+	<li><a href="../symbols/nitobi.form.ListBox.html">nitobi.form.ListBox</a></li>
+	
+	<li><a href="../symbols/nitobi.form.Lookup.html">nitobi.form.Lookup</a></li>
+	
+	<li><a href="../symbols/nitobi.form.Number.html">nitobi.form.Number</a></li>
+	
+	<li><a href="../symbols/nitobi.form.Text.html">nitobi.form.Text</a></li>
+	
+	<li><a href="../symbols/nitobi.form.TextArea.html">nitobi.form.TextArea</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.html">nitobi.grid</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.Cell.html">nitobi.grid.Cell</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.CellEventArgs.html">nitobi.grid.CellEventArgs</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.Column.html">nitobi.grid.Column</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.ColumnEventArgs.html">nitobi.grid.ColumnEventArgs</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.DateColumn.html">nitobi.grid.DateColumn</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.Grid.html">nitobi.grid.Grid</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.GridLiveScrolling.html">nitobi.grid.GridLiveScrolling</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.GridLocalPage.html">nitobi.grid.GridLocalPage</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.GridNonpaging.html">nitobi.grid.GridNonpaging</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.GridStandard.html">nitobi.grid.GridStandard</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.NumberColumn.html">nitobi.grid.NumberColumn</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.OnAfterRowDeleteEventArgs.html">nitobi.grid.OnAfterRowDeleteEventArgs</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.OnAfterRowInsertEventArgs.html">nitobi.grid.OnAfterRowInsertEventArgs</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.OnAfterSortEventArgs.html">nitobi.grid.OnAfterSortEventArgs</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.OnBeforeRowDeleteEventArgs.html">nitobi.grid.OnBeforeRowDeleteEventArgs</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.OnBeforeRowInsertEventArgs.html">nitobi.grid.OnBeforeRowInsertEventArgs</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.OnBeforeSortEventArgs.html">nitobi.grid.OnBeforeSortEventArgs</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.RowEventArgs.html">nitobi.grid.RowEventArgs</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.Selection.html">nitobi.grid.Selection</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.SelectionEventArgs.html">nitobi.grid.SelectionEventArgs</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.TextColumn.html">nitobi.grid.TextColumn</a></li>
+	
+	<li><a href="../symbols/nitobi.grid.TreeGrid.html">nitobi.grid.TreeGrid</a></li>
+	
+	<li><a href="../symbols/nitobi.html.html">nitobi.html</a></li>
+	
+	<li><a href="../symbols/nitobi.html.Css.html">nitobi.html.Css</a></li>
+	
+	<li><a href="../symbols/nitobi.html.Event.html">nitobi.html.Event</a></li>
+	
+	<li><a href="../symbols/nitobi.html.IRenderer.html">nitobi.html.IRenderer</a></li>
+	
+	<li><a href="../symbols/nitobi.html.Url.html">nitobi.html.Url</a></li>
+	
+	<li><a href="../symbols/nitobi.html.XslRenderer.html">nitobi.html.XslRenderer</a></li>
+	
+	<li><a href="../symbols/nitobi.lang.html">nitobi.lang</a></li>
+	
+	<li><a href="../symbols/nitobi.lang.Compiler.html">nitobi.lang.Compiler</a></li>
+	
+	<li><a href="../symbols/nitobi.lang.StringBuilder.html">nitobi.lang.StringBuilder</a></li>
+	
+	<li><a href="../symbols/nitobi.Object.html">nitobi.Object</a></li>
+	
+	<li><a href="../symbols/nitobi.spotlight.html">nitobi.spotlight</a></li>
+	
+	<li><a href="../symbols/nitobi.spotlight.Spotlight.html">nitobi.spotlight.Spotlight</a></li>
+	
+	<li><a href="../symbols/nitobi.tabstrip.html">nitobi.tabstrip</a></li>
+	
+	<li><a href="../symbols/nitobi.tabstrip.Tab.html">nitobi.tabstrip.Tab</a></li>
+	
+	<li><a href="../symbols/nitobi.tabstrip.TabChangeEventArgs.html">nitobi.tabstrip.TabChangeEventArgs</a></li>
+	
+	<li><a href="../symbols/nitobi.tabstrip.Tabs.html">nitobi.tabstrip.Tabs</a></li>
+	
+	<li><a href="../symbols/nitobi.tabstrip.TabStrip.html">nitobi.tabstrip.TabStrip</a></li>
+	
+	<li><a href="../symbols/nitobi.templating.html">nitobi.templating</a></li>
+	
+	<li><a href="../symbols/nitobi.tree.html">nitobi.tree</a></li>
+	
+	<li><a href="../symbols/nitobi.tree.Children.html">nitobi.tree.Children</a></li>
+	
+	<li><a href="../symbols/nitobi.tree.Node.html">nitobi.tree.Node</a></li>
+	
+	<li><a href="../symbols/nitobi.tree.Tree.html">nitobi.tree.Tree</a></li>
+	
+	<li><a href="../symbols/nitobi.ui.html">nitobi.ui</a></li>
+	
+	<li><a href="../symbols/nitobi.ui.BinaryStateButton.html">nitobi.ui.BinaryStateButton</a></li>
+	
+	<li><a href="../symbols/nitobi.ui.Button.html">nitobi.ui.Button</a></li>
+	
+	<li><a href="../symbols/nitobi.ui.Container.html">nitobi.ui.Container</a></li>
+	
+	<li><a href="../symbols/nitobi.ui.DragDrop.html">nitobi.ui.DragDrop</a></li>
+	
+	<li><a href="../symbols/nitobi.ui.Effects.html">nitobi.ui.Effects</a></li>
+	
+	<li><a href="../symbols/nitobi.ui.Element.html">nitobi.ui.Element</a></li>
+	
+	<li><a href="../symbols/nitobi.ui.ElementEventArgs.html">nitobi.ui.ElementEventArgs</a></li>
+	
+	<li><a href="../symbols/nitobi.ui.EventNotificationEventArgs.html">nitobi.ui.EventNotificationEventArgs</a></li>
+	
+	<li><a href="../symbols/nitobi.ui.InteractiveUiElement.html">nitobi.ui.InteractiveUiElement</a></li>
+	
+	<li><a href="../symbols/nitobi.ui.IScrollable.html">nitobi.ui.IScrollable</a></li>
+	
+	<li><a href="../symbols/nitobi.ui.IStyleable.html">nitobi.ui.IStyleable</a></li>
+	
+	<li><a href="../symbols/nitobi.ui.StyleEventArgs.html">nitobi.ui.StyleEventArgs</a></li>
+	
+	<li><a href="../symbols/nitobi.xml.html">nitobi.xml</a></li>
+	
+</ul>
+<hr />
+			<!-- end publish.classesIndex -->
+		</div>
+		
+		<div id="content">
+<!-- ============================== class title ============================ -->
+			<h1 class="classTitle">
+				
+				Class nitobi.tree.Tree
+			</h1>
+
+<!-- ============================== class summary ========================== -->			
+			<p class="description">
+				<br />Extends
+					<a href="../symbols/nitobi.ui.Element.html#constructor">nitobi.ui.Element</a>.<br />
+				
+			
+				The nitobi tree. A tree declaration takes this form:<div class="code"><pre><code>&lt;ntb:tree id="tree1" cssclass="folders" expanded="false"&gt;	&lt;ntb:children&gt;		&lt;ntb:node label="United States"&gt;			&lt;ntb:children&gt;				&lt;ntb:node label="New York City" &gt;&lt;/ntb:node&gt;				&lt;ntb:node label="Washington" &gt;&lt;/ntb:node&gt;				&lt;ntb:node label="Los Angeles" &gt;&lt;/ntb:node&gt;			&lt;/ntb:children&gt;		&lt;/ntb:node&gt;		&lt;ntb:node label="Canada" &gt;			&lt;ntb:children&gt;				&lt;ntb:node label="Toronto"&gt;&lt;/ntb:node&gt;				&lt;ntb:node label="Vancouver"&gt;&lt;/ntb:node&gt;				&lt;ntb:node label="Calgary"&gt;&lt;/ntb:node&gt;			&lt;/ntb:children&gt;		&lt;/ntb:node&gt;	&lt;/ntb:children&gt;&lt;/ntb:tree&gt;</code></pre></div>Calling <code>nitobi.loadComponent('tree1');</code> will render a tree at the location of that XML declaration in your web page. To access this API you get the tree object from its node in the HTML document. We can, for example, add a parameter to the gethandler:<div class="code"><pre><code>var tree = $('tree1').jsObject;var gethandler = tree.getGetHandler();gethandler = nitobi.html.Url.addParameter(gethandler, 'testname', 'testvalue');tree.setGetHandler(gethandler);</code></pre></div>
+				
+				
+					<br /><i>Defined in: </i> <a href="../symbols/src/public_src_client_tree_js_nitobi_tree_tree.js.html">tree.js</a>.
+				
+			</p>
+
+<!-- ============================== constructor summary ==================== -->			
+			
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class nitobi.tree.Tree.">
+				<caption>Class Summary</caption>
+				<thead>
+					<tr>
+						<th scope="col">Constructor Attributes</th>
+						<th scope="col">Constructor Name and Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="attributes">&nbsp;</td>
+						<td class="nameDescription" >
+							<div class="fixedFont">
+								<b><a href="../symbols/nitobi.tree.Tree.html#constructor">nitobi.tree.Tree</a></b>(element, onLoadCallback)
+							</div>
+							<div class="description">Creates a nitobi tree.</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+
+<!-- ============================== properties summary ===================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class nitobi.tree.Tree.">
+					<caption>Field Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Field Attributes</th>
+							<th scope="col">Field Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/nitobi.tree.Tree.html#hideEffect">hideEffect</a></b>
+								</div>
+								<div class="description">The effect class to use when collapsing a node in the tree.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								nitobi.tree.Tree.<b><a href="../symbols/nitobi.tree.Tree.html#.keyMap">keyMap</a></b>
+								</div>
+								<div class="description">The US keyboard keyMap for the tree.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/nitobi.tree.Tree.html#onClick">onClick</a></b>
+								</div>
+								<div class="description">Fires when any node in the tree is clicked on.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/nitobi.tree.Tree.html#onDataReady">onDataReady</a></b>
+								</div>
+								<div class="description">Fires when data has been loaded by the tree and the tree is ready to be rendered.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/nitobi.tree.Tree.html#onDeselect">onDeselect</a></b>
+								</div>
+								<div class="description">Fires when any node is deselected.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/nitobi.tree.Tree.html#onMouseOut">onMouseOut</a></b>
+								</div>
+								<div class="description">Fires when the mouse exits the area that a node occupies.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/nitobi.tree.Tree.html#onMouseOver">onMouseOver</a></b>
+								</div>
+								<div class="description">Fires when any node in the tree is hovered over.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/nitobi.tree.Tree.html#onNodeToggled">onNodeToggled</a></b>
+								</div>
+								<div class="description">Fires when any node is expanded or collapsed.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/nitobi.tree.Tree.html#onSelect">onSelect</a></b>
+								</div>
+								<div class="description">Fires when any node is selected.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/nitobi.tree.Tree.html#showEffect">showEffect</a></b>
+								</div>
+								<div class="description">The effect class to use when expanding a node in the tree.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+				<dl class="inheritsList">
+				<dt>Fields borrowed from class <a href="../symbols/nitobi.ui.Element.html#constructor">nitobi.ui.Element</a>: </dt><dd><a href="../symbols/nitobi.ui.Element.html#onBeforeRender">onBeforeRender</a>, <a href="../symbols/nitobi.ui.Element.html#onBeforeSetVisible">onBeforeSetVisible</a>, <a href="../symbols/nitobi.ui.Element.html#onCreated">onCreated</a>, <a href="../symbols/nitobi.ui.Element.html#onRender">onRender</a>, <a href="../symbols/nitobi.ui.Element.html#onSetVisible">onSetVisible</a>, <a href="../symbols/nitobi.ui.Element.html#renderer">renderer</a></dd><dt>Fields borrowed from class <a href="../symbols/nitobi.Object.html#constructor">nitobi.Object</a>: </dt><dd><a href="../symbols/nitobi.Object.html#disposal">disposal</a>, <a href="../symbols/nitobi.Object.html#modelNodes">modelNodes</a></dd>
+				</dl>
+				
+			
+
+<!-- ============================== methods summary ======================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class nitobi.tree.Tree.">
+					<caption>Method Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Method Attributes</th>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#find">find</a></b>(key, value)
+								</div>
+								<div class="description">Returns an <CODE>Array</CODE> of the nodes matching the given key/value pair.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#getChildren">getChildren</a></b>()
+								</div>
+								<div class="description">Returns the <CODE>children</CODE> collection for the tree.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#getCssClass">getCssClass</a></b>()
+								</div>
+								<div class="description">Returns the theme class of the tree.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#getGetHandler">getGetHandler</a></b>()
+								</div>
+								<div class="description">Returns this tree's gethandler URL.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#getHoverHighlight">getHoverHighlight</a></b>()
+								</div>
+								<div class="description">Returns whether or not a <CODE>hover</CODE> class is added to nodes when they are hovered over.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#getRoot">getRoot</a></b>()
+								</div>
+								<div class="description">Returns the root node of the tree.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#getRootEnabled">getRootEnabled</a></b>()
+								</div>
+								<div class="description">Returns <code>true</code> if a special root style is applied to the root nodes.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#getSelected">getSelected</a></b>()
+								</div>
+								<div class="description">Returns an <CODE>Array</CODE> of the currently selected nodes as <a href="../symbols/nitobi.tree.Node.html#constructor">nitobi.tree.Node</a>objects.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#getTabIndex">getTabIndex</a></b>()
+								</div>
+								<div class="description">Returns the tree's tab index.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#getTargetFrame">getTargetFrame</a></b>()
+								</div>
+								<div class="description">Returns the tree's target frame, if one is set.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#getTheme">getTheme</a></b>()
+								</div>
+								<div class="description">Returns the theme class of the tree.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#handlePropagate">handlePropagate</a></b>(eventArgs)
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#loadData">loadData</a></b>()
+								</div>
+								<div class="description">Load data from the gethandler.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">nitobi.tree.Tree.<b><a href="../symbols/nitobi.tree.Tree.html#.precacheImages">precacheImages</a></b>(url)
+								</div>
+								<div class="description">Precaches images found in the tree's stylesheets.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#render">render</a></b>()
+								</div>
+								<div class="description">Render the object</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#setChildren">setChildren</a></b>(children)
+								</div>
+								<div class="description">Sets the <CODE>children</CODE> collection for the tree.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#setCssClass">setCssClass</a></b>(cssClass)
+								</div>
+								<div class="description">Sets the theme class of the tree.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#setGetHandler">setGetHandler</a></b>(getHandler)
+								</div>
+								<div class="description">Sets the URL for the tree's gethandler.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#setHoverHighlight">setHoverHighlight</a></b>(hoverHighlight)
+								</div>
+								<div class="description">If the HoverHighlight attribute is set to <CODE>true</CODE> a <CODE>hover</CODE> class is added to nodes when they are hovered over.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#setRootEnabled">setRootEnabled</a></b>(root)
+								</div>
+								<div class="description">Sets whether or not a special root style should be applied to the root nodes.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#setTabIndex">setTabIndex</a></b>(tabIndex)
+								</div>
+								<div class="description">Sets the tab index for the tree component.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#setTargetFrame">setTargetFrame</a></b>(frame)
+								</div>
+								<div class="description">Sets the id of the target frame.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.tree.Tree.html#setTheme">setTheme</a></b>(cssClass)
+								</div>
+								<div class="description">Sets the theme class of the tree.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">nitobi.tree.Tree.<b><a href="../symbols/nitobi.tree.Tree.html#.translateData">translateData</a></b>(xmlDocument)
+								</div>
+								<div class="description">Translates data from the old backend format to the <CODE>children->node</CODE> formatused by Tree.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+				<dl class="inheritsList">
+				<dt>Methods borrowed from class <a href="../symbols/nitobi.ui.Element.html#constructor">nitobi.ui.Element</a>: </dt><dd><a href="../symbols/nitobi.ui.Element.html#getContainer">getContainer</a>, <a href="../symbols/nitobi.ui.Element.html#getHtmlNode">getHtmlNode</a>, <a href="../symbols/nitobi.ui.Element.html#getId">getId</a>, <a href="../symbols/nitobi.ui.Element.html#hide">hide</a>, <a href="../symbols/nitobi.ui.Element.html#isEnabled">isEnabled</a>, <a href="../symbols/nitobi.ui.Element.html#isVisible">isVisible</a>, <a href="../symbols/nitobi.ui.Element.html#.parseId">parseId</a>, <a href="../symbols/nitobi.ui.Element.html#setContainer">setContainer</a>, <a href="../symbols/nitobi.ui.Element.html#setEnabled">setEnabled</a>, <a href="../symbols/nitobi.ui.Element.html#setId">setId</a>, <a href="../symbols/nitobi.ui.Element.html#setVisible">setVisible</a>, <a href="../symbols/nitobi.ui.Element.html#show">show</a></dd><dt>Methods borrowed from class <a href="../symbols/nitobi.Object.html#constructor">nitobi.Object</a>: </dt><dd><a href="../symbols/nitobi.Object.html#dispose">dispose</a>, <a href="../symbols/nitobi.Object.html#fire">fire</a>, <a href="../symbols/nitobi.Object.html#setValues">setValues</a>, <a href="../symbols/nitobi.Object.html#subscribe">subscribe</a>, <a href="../symbols/nitobi.Object.html#subscribeOnce">subscribeOnce</a>, <a href="../symbols/nitobi.Object.html#unsubscribe">unsubscribe</a></dd>
+				</dl>
+				
+			
+
+<!-- ============================== constructor details ==================== -->		
+			
+			<div class="details"><a name="constructor"> </a>
+				<div class="sectionTitle">
+					Class Detail
+				</div>
+				
+				<div class="fixedFont">
+						<b>nitobi.tree.Tree</b>(element, onLoadCallback)
+				</div>
+				
+				<div class="description">
+					Creates a nitobi tree.  Optionally, creates a tree at the given declaration.
+					
+				</div>
+				
+				
+				
+				
+					
+						<dl class="detailList">
+						<dt class="heading">Parameters:</dt>
+						
+							<dt>
+								<span class="light fixedFont">{String}</span>  <b>element</b>
+								
+							</dt>
+								<dd>The id of the control's declaration, or an xml node that describes the tree. If you do not specify an id, one is created for you. (Optional)</dd>
+						
+							<dt>
+								<span class="light fixedFont">{Function}</span>  <b>onLoadCallback</b>
+								
+							</dt>
+								<dd>A function to call once the tree has loaded.  This can be used in case data is loaded asynchronously (by a gethandler) and you cannot rely on the tree being fully initializedin the next line of code.</dd>
+						
+						</dl>
+					
+					
+					
+					
+					
+					
+					
+						<dl class="detailList">
+						<dt class="heading">See:</dt>
+						
+							<dd><a href="../symbols/nitobi.tree.Children.html#constructor">nitobi.tree.Children</a></dd>
+						
+							<dd><a href="../symbols/nitobi.tree.Node.html#constructor">nitobi.tree.Node</a></dd>
+						
+						</dl>
+					
+
+			</div>
+			
+
+<!-- ============================== field details ========================== -->		
+			
+				<div class="sectionTitle">
+					Field Detail
+				</div>
+				
+					<a name="hideEffect"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Class}</span>
+					<b>hideEffect</b>
+					
+					</div>
+					<div class="description">
+						The effect class to use when collapsing a node in the tree.  Use the<code>effect</code> attribute in the XML declaration to set an effect family.Default: <a href="../symbols/nitobi.effects.ShadeUp.html#constructor">nitobi.effects.ShadeUp</a>
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">See:</dt>
+							
+							<dd><a href="../symbols/nitobi.effects.html#.families">nitobi.effects.families</a></dd>
+							
+							</dl>
+						
+						
+
+					<hr />
+				
+					<a name=".keyMap"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Map}</span>
+					<span class="light">nitobi.tree.Tree.</span><b>keyMap</b>
+					
+					</div>
+					<div class="description">
+						The US keyboard keyMap for the tree.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="onClick"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/nitobi.base.Event.html#constructor">nitobi.base.Event</a>}</span>
+					<b>onClick</b>
+					
+					</div>
+					<div class="description">
+						Fires when any node in the tree is clicked on.  The clickable area includes the icon and the label of the node. <a href="../symbols/nitobi.ui.EventNotificationEventArgs.html#constructor">nitobi.ui.EventNotificationEventArgs</a> are passed to any subscribed handlers.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="onDataReady"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/nitobi.base.Event.html#constructor">nitobi.base.Event</a>}</span>
+					<b>onDataReady</b>
+					
+					</div>
+					<div class="description">
+						Fires when data has been loaded by the tree and the tree is ready to be rendered. <a href="../symbols/nitobi.base.EventArgs.html#constructor">nitobi.base.EventArgs</a> are passed to any subscribed handlers.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="onDeselect"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/nitobi.base.Event.html#constructor">nitobi.base.Event</a>}</span>
+					<b>onDeselect</b>
+					
+					</div>
+					<div class="description">
+						Fires when any node is deselected. <a href="../symbols/nitobi.ui.ElementEventArgs.html#constructor">nitobi.ui.ElementEventArgs</a> are passed to any subscribed handlers.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="onMouseOut"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/nitobi.base.Event.html#constructor">nitobi.base.Event</a>}</span>
+					<b>onMouseOut</b>
+					
+					</div>
+					<div class="description">
+						Fires when the mouse exits the area that a node occupies.  This area includes the entire width of the tree. <a href="../symbols/nitobi.ui.EventNotificationEventArgs.html#constructor">nitobi.ui.EventNotificationEventArgs</a> are passed to any subscribed handlers.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="onMouseOver"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/nitobi.base.Event.html#constructor">nitobi.base.Event</a>}</span>
+					<b>onMouseOver</b>
+					
+					</div>
+					<div class="description">
+						Fires when any node in the tree is hovered over.  The hover area includes the entire width of the tree. <a href="../symbols/nitobi.ui.EventNotificationEventArgs.html#constructor">nitobi.ui.EventNotificationEventArgs</a> are passed to any subscribed handlers.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="onNodeToggled"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/nitobi.base.Event.html#constructor">nitobi.base.Event</a>}</span>
+					<b>onNodeToggled</b>
+					
+					</div>
+					<div class="description">
+						Fires when any node is expanded or collapsed. <a href="../symbols/nitobi.ui.ElementEventArgs.html#constructor">nitobi.ui.ElementEventArgs</a> are passed to any subscribed handlers.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="onSelect"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/nitobi.base.Event.html#constructor">nitobi.base.Event</a>}</span>
+					<b>onSelect</b>
+					
+					</div>
+					<div class="description">
+						Fires when any node is selected. <a href="../symbols/nitobi.ui.ElementEventArgs.html#constructor">nitobi.ui.ElementEventArgs</a> are passed to any subscribed handlers.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="showEffect"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Class}</span>
+					<b>showEffect</b>
+					
+					</div>
+					<div class="description">
+						The effect class to use when expanding a node in the tree.  Use the<code>effect</code> attribute in the XML declaration to set an effect family.Default: <a href="../symbols/nitobi.effects.ShadeDown.html#constructor">nitobi.effects.ShadeDown</a>
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">See:</dt>
+							
+							<dd><a href="../symbols/nitobi.effects.html#.families">nitobi.effects.families</a></dd>
+							
+							</dl>
+						
+						
+
+					
+				
+			
+
+<!-- ============================== method details ========================= -->		
+			
+				<div class="sectionTitle">
+					Method Detail
+				</div>
+				
+					<a name="find"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>find</b>(key, value)
+					
+					</div>
+					<div class="description">
+						Returns an <CODE>Array</CODE> of the nodes matching the given key/value pair.Typical usage would be to find a node with a known id:<div class="code"><pre><CODE>	var myNode = tree.find('id','myNodeId')[0];</CODE></pre></div>Or to find all the nodes of a specific type:<div clas="code"><pre><CODE>	var fooNodes = tree.find('type','foo');</CODE></pre></div>Note: The running time for this method increases linearly with the number of nodes found.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>key</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>value</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getChildren"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/nitobi.tree.Children.html#constructor">nitobi.tree.Children</a>}</span>
+					<b>getChildren</b>()
+					
+					</div>
+					<div class="description">
+						Returns the <CODE>children</CODE> collection for the tree.  A tree's <CODE>children</CODE>object contains the root-level nodes of the tree.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getCssClass"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>getCssClass</b>()
+					
+					</div>
+					<div class="description">
+						Returns the theme class of the tree.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getGetHandler"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>getGetHandler</b>()
+					
+					</div>
+					<div class="description">
+						Returns this tree's gethandler URL.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getHoverHighlight"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>getHoverHighlight</b>()
+					
+					</div>
+					<div class="description">
+						Returns whether or not a <CODE>hover</CODE> class is added to nodes when they are hovered over.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getRoot"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/nitobi.tree.Node.html#constructor">nitobi.tree.Node</a>}</span>
+					<b>getRoot</b>()
+					
+					</div>
+					<div class="description">
+						Returns the root node of the tree.  If the tree has multiple root nodes, this methodreturns the first of those.A synonym for <CODE>tree.getChildren().get(0)</CODE>.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getRootEnabled"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>getRootEnabled</b>()
+					
+					</div>
+					<div class="description">
+						Returns <code>true</code> if a special root style is applied to the root nodes.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getSelected"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Array}</span>
+					<b>getSelected</b>()
+					
+					</div>
+					<div class="description">
+						Returns an <CODE>Array</CODE> of the currently selected nodes as <a href="../symbols/nitobi.tree.Node.html#constructor">nitobi.tree.Node</a>objects.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">See:</dt>
+							
+								<dd><a href="../symbols/nitobi.tree.Node.html#constructor">nitobi.tree.Node</a></dd>
+							
+							</dl>
+						
+
+					<hr />
+				
+					<a name="getTabIndex"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Number}</span>
+					<b>getTabIndex</b>()
+					
+					</div>
+					<div class="description">
+						Returns the tree's tab index. A tab index is used to specify at what pointin your web page's tab order the tree will assume focus.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getTargetFrame"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>getTargetFrame</b>()
+					
+					</div>
+					<div class="description">
+						Returns the tree's target frame, if one is set. When a frame target is set, the tree subscribes a function to its own <CODE>onSelect</CODE> event.  The function changes the source of the frame to the URL specified by the selected node's <CODE>url</CODE> attribute.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getTheme"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>getTheme</b>()
+					
+					</div>
+					<div class="description">
+						Returns the theme class of the tree.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="handlePropagate"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>handlePropagate</b>(eventArgs)
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>eventArgs</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="loadData"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>loadData</b>()
+					
+					</div>
+					<div class="description">
+						Load data from the gethandler.  The tree will use the url specified by <a href="../symbols/nitobi.tree.Tree.html#setGetHandler">nitobi.tree.Tree#setGetHandler</a>with the tree's id added to the query string as the parameter <CODE>treeId</CODE>.  The event <a href="../symbols/nitobi.tree.Tree.html#onDataReady">nitobi.tree.Tree#onDataReady</a> will be notified when the loaded data has been added to the tree, and before rendering.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".precacheImages"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">nitobi.tree.Tree.</span><b>precacheImages</b>(url)
+					
+					</div>
+					<div class="description">
+						Precaches images found in the tree's stylesheets.  Calling this function before loadinga tree component will ensure that all the tree's images are loaded before the tree is rendered.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>url</b>
+									
+								</dt>
+								<dd>an optional url for your own tree css file (just the filename)</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="render"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>render</b>()
+					
+					</div>
+					<div class="description">
+						Render the object
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setChildren"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setChildren</b>(children)
+					
+					</div>
+					<div class="description">
+						Sets the <CODE>children</CODE> collection for the tree.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/nitobi.tree.Children.html#constructor">nitobi.tree.Children</a>}</span> <b>children</b>
+									
+								</dt>
+								<dd>the new <CODE>children</CODE> collection</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setCssClass"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setCssClass</b>(cssClass)
+					
+					</div>
+					<div class="description">
+						Sets the theme class of the tree.Note: Remember to include the CSS file for this class in your page.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>cssClass</b>
+									
+								</dt>
+								<dd>the class name for the theme</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setGetHandler"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setGetHandler</b>(getHandler)
+					
+					</div>
+					<div class="description">
+						Sets the URL for the tree's gethandler.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>getHandler</b>
+									
+								</dt>
+								<dd>the URL for the tree's gethandler</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setHoverHighlight"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setHoverHighlight</b>(hoverHighlight)
+					
+					</div>
+					<div class="description">
+						If the HoverHighlight attribute is set to <CODE>true</CODE> a <CODE>hover</CODE> class is added to nodes when they are hovered over.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Boolean}</span> <b>hoverHighlight</b>
+									
+								</dt>
+								<dd>the new value for hoverHighlight</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setRootEnabled"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setRootEnabled</b>(root)
+					
+					</div>
+					<div class="description">
+						Sets whether or not a special root style should be applied to the root nodes.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Boolean}</span> <b>root</b>
+									
+								</dt>
+								<dd>if true, the root node(s) will have a special style applied to them</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setTabIndex"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setTabIndex</b>(tabIndex)
+					
+					</div>
+					<div class="description">
+						Sets the tab index for the tree component.  A tab index is used to specify at what pointin your web page's tab order the tree will assume focus.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>tabIndex</b>
+									
+								</dt>
+								<dd>the new tab index for the component</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setTargetFrame"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setTargetFrame</b>(frame)
+					
+					</div>
+					<div class="description">
+						Sets the id of the target frame.  When a frame target is set, the tree subscribes a function to its own<CODE>onSelect</CODE> event.  The function changes the source of the frame to the URL specified by the selected node's <CODE>url</CODE> attribute.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>frame</b>
+									
+								</dt>
+								<dd>the id of the frame to change</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setTheme"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setTheme</b>(cssClass)
+					
+					</div>
+					<div class="description">
+						Sets the theme class of the tree.Note: Remember to include the CSS file for this class in your page.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>cssClass</b>
+									
+								</dt>
+								<dd>the class name for the theme</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".translateData"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{XMLDocument}</span>
+					<span class="light">nitobi.tree.Tree.</span><b>translateData</b>(xmlDocument)
+					
+					</div>
+					<div class="description">
+						Translates data from the old backend format to the <CODE>children->node</CODE> formatused by Tree.  This is used by the tree to transform data returned from the server into theXML format used by the tree (ntb:children -> ntb:node ...).  If this function is re-implemented it can serveas a translator for any kind of XML data as long as it returns a document in the tree's native XML format.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{XMLDocument}</span> <b>xmlDocument</b>
+									
+								</dt>
+								<dd>the old-backend formatted XML document.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd>the translated XMLDocument</dd>
+							
+							</dl>
+						
+						
+						
+
+					
+				
+			
+			
+			<hr />
+		</div>
+		
+<!-- ============================== footer ================================= -->
+		<div class="fineprint" style="clear:both">
+			
+			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Thu Sep 11 2008 11:05:09 GMT-0700 (PDT)
+		</div>
+	</body>
+</html>

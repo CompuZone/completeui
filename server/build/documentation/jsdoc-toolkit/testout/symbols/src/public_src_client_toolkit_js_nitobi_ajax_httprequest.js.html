@@ -1,0 +1,419 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="NAME">nitobi.lang.defineNs</span><span class="PUNC">(</span><span class="STRN">"nitobi.ajax"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  2</span> 
+<span class='line'>  3</span> 
+<span class='line'>  4</span> </span><span class="COMM">/**
+<span class='line'>  5</span>  * Creates a HttpRequest object.  After calling the constructor you can set up the object by setting
+<span class='line'>  6</span>  * particular fields to the values you desire. 
+<span class='line'>  7</span>  * @class Makes a cross browser XMLHttpRequest object and processes responses from the server.&lt;br>&lt;br>
+<span class='line'>  8</span>  * &lt;code>var xhr = new nitobi.ajax.HttpRequest();&lt;br>
+<span class='line'>  9</span>  * xhr.handler = path + "data.xml";&lt;br>
+<span class='line'> 10</span>  * xhr.async = true; // async is true by default&lt;br>
+<span class='line'> 11</span>  * xhr.responseType = "xml"; // by default the appropriate responseType will be used - ie XML if the data is valid XML otherwise "text".&lt;br>
+<span class='line'> 12</span>  * xhr.onGetComplete.subscribeOnce(function(evtArgs) {alert("In onGetComplete:\n" + nitobi.xml.serialize(evtArgs.response))});&lt;br>
+<span class='line'> 13</span>  * xhr.completeCallback = function(evtArgs) {alert("In completeCallback:\n" + nitobi.xml.serialize(evtArgs.response))};&lt;br>
+<span class='line'> 14</span>  * xhr.get();&lt;/code>
+<span class='line'> 15</span>  * @constructor
+<span class='line'> 16</span>  */</span><span class="WHIT">
+<span class='line'> 17</span> </span><span class="NAME">nitobi.ajax.HttpRequest</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 20</span> 	 * This is the URL of the server resource that data is being posted to or
+<span class='line'> 21</span> 	 * retrieved from.
+<span class='line'> 22</span> 	 * @type String
+<span class='line'> 23</span> 	 */</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="WHIT">  	</span><span class="NAME">this.handler</span><span class="WHIT"> 		</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">''</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">  	</span><span class="COMM">/**
+<span class='line'> 26</span>   	 * This specifies if the requests should be made in an asynchronous or synchronous manner.
+<span class='line'> 27</span>   	 * @type Boolean
+<span class='line'> 28</span>   	 */</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="WHIT">	</span><span class="NAME">this.async</span><span class="WHIT"> 	</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 31</span> 	 * This specifies if XML data or general text data is being retrieved from the server. 
+<span class='line'> 32</span> 	 * Valid values are "xml", "text" or "". Using "text" can be used for returning JSON data or any other
+<span class='line'> 33</span> 	 * data format including XML. The data passed to the callback method will be an XMLDocument if "xml" is
+<span class='line'> 34</span> 	 * specified as the responseType, it will be a String if "text" is specified.
+<span class='line'> 35</span> 	 * @type String
+<span class='line'> 36</span> 	 */</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="WHIT">	</span><span class="NAME">this.responseType</span><span class="WHIT">	</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 39</span> 	 * This is the underlying XMLHttpRequest object.
+<span class='line'> 40</span> 	 * @type XMLHttpRequest
+<span class='line'> 41</span> 	 * @private
+<span class='line'> 42</span> 	 */</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="WHIT">	</span><span class="NAME">this.httpObj</span><span class="WHIT">      	</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.ajax.createXmlHttp</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 45</span> 	 * This is the Event that is fired when a POST request returns from the server.
+<span class='line'> 46</span> 	 * @type nitobi.base.Event
+<span class='line'> 47</span> 	 */</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="WHIT">	</span><span class="NAME">this.onPostComplete</span><span class="WHIT">	</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.base.Event</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 50</span> 	 * This is the Event that is fired when a GET request returns from the server.
+<span class='line'> 51</span> 	 * @type nitobi.base.Event
+<span class='line'> 52</span> 	 */</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">	</span><span class="NAME">this.onGetComplete</span><span class="WHIT">	</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.base.Event</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 55</span> 	 * This is the Event that is fired when any request returns from the server.
+<span class='line'> 56</span> 	 * @type nitobi.base.Event
+<span class='line'> 57</span> 	 */</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="WHIT">	</span><span class="NAME">this.onRequestComplete</span><span class="WHIT">	</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.base.Event</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 60</span> 	 * This is a function reference to a function that is executed if there is an error during or after the request.
+<span class='line'> 61</span> 	 * @type nitobi.base.Event
+<span class='line'> 62</span> 	 */</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 63</span> </span><span class="WHIT">	</span><span class="NAME">this.onError</span><span class="WHIT">		</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.base.Event</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 64</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 65</span> 	 * The length of time that can pass before the request is cancelled. A value of 0 indicates there is no timeout.
+<span class='line'> 66</span> 	 * @type Number
+<span class='line'> 67</span> 	 */</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="WHIT">	</span><span class="NAME">this.timeout</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 70</span> 	 * The ID of the window.setTimeout registration.
+<span class='line'> 71</span> 	 * @type Number
+<span class='line'> 72</span> 	 */</span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="WHIT">	</span><span class="NAME">this.timeoutId</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 75</span> 	 * This is a parameter object that can contain any information needed to be passed
+<span class='line'> 76</span> 	 * to the postComplete or getComplete functions after an asynchronous request has returned.
+<span class='line'> 77</span> 	 * This can be used to maintain state across an asynchronous request.
+<span class='line'> 78</span> 	 * @type Object
+<span class='line'> 79</span> 	 */</span><span class="WHIT">
+<span class='line'> 80</span> </span><span class="WHIT">	</span><span class="NAME">this.params</span><span class="WHIT">			</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 81</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 82</span> 	 * A copy of the data that is sent to the server in a post
+<span class='line'> 83</span> 	 * @type String
+<span class='line'> 84</span> 	 */</span><span class="WHIT">
+<span class='line'> 85</span> </span><span class="WHIT">	</span><span class="NAME">this.data</span><span class="WHIT">		</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 86</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 87</span> 	 * A function to execute when the request completes.
+<span class='line'> 88</span> 	 * @type Function
+<span class='line'> 89</span> 	 */</span><span class="WHIT">
+<span class='line'> 90</span> </span><span class="WHIT">	</span><span class="NAME">this.completeCallback</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 91</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 92</span> 	 * The status. Either 'pending' or 'complete'.
+<span class='line'> 93</span> 	 * @type String
+<span class='line'> 94</span> 	 */</span><span class="WHIT">
+<span class='line'> 95</span> </span><span class="WHIT">	</span><span class="NAME">this.status</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"complete"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 96</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 97</span> 	 * Specifies if a unique querystring value should be sent with GET requests to prevent page caching.
+<span class='line'> 98</span> 	 * Default value is true.
+<span class='line'> 99</span> 	 */</span><span class="WHIT">
+<span class='line'>100</span> </span><span class="WHIT">	</span><span class="NAME">this.preventCache</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>101</span> 
+<span class='line'>102</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>103</span> 	 * The username to be sent to the server with the HTTP request.
+<span class='line'>104</span> 	 */</span><span class="WHIT">
+<span class='line'>105</span> </span><span class="WHIT">	</span><span class="NAME">this.username</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>106</span> 
+<span class='line'>107</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>108</span> 	 * The password to be sent to the server with the HTTP request.
+<span class='line'>109</span> 	 */</span><span class="WHIT">
+<span class='line'>110</span> </span><span class="WHIT">	</span><span class="NAME">this.password</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>111</span> 
+<span class='line'>112</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>113</span> 	 * This is used for keeping track of the method used when the HttpRequest open and send methods are used.
+<span class='line'>114</span> 	 * @private
+<span class='line'>115</span> 	 */</span><span class="WHIT">
+<span class='line'>116</span> </span><span class="WHIT">	</span><span class="NAME">this.requestMethod</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"get"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>117</span> 
+<span class='line'>118</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>119</span> 	 * @private
+<span class='line'>120</span> 	 */</span><span class="WHIT">
+<span class='line'>121</span> </span><span class="WHIT">	</span><span class="NAME">this.requestHeaders</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>122</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>123</span> 
+<span class='line'>124</span> </span><span class="NAME">nitobi.lang.extend</span><span class="PUNC">(</span><span class="NAME">nitobi.ajax.HttpRequest</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">nitobi.Object</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>125</span> 
+<span class='line'>126</span> </span><span class="COMM">/**
+<span class='line'>127</span>  * Maximum number of concurrent connections. The default is 64.
+<span class='line'>128</span>  * @type Number
+<span class='line'>129</span>  */</span><span class="WHIT">
+<span class='line'>130</span> </span><span class="NAME">nitobi.ajax.HttpRequestPool_MAXCONNECTIONS</span><span class="PUNC">=</span><span class="NUMB">64</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>131</span> 
+<span class='line'>132</span> </span><span class="COMM">/**
+<span class='line'>133</span>  * This method takes the response from the server and checks the HTTP status 
+<span class='line'>134</span>  * to ensure that the server did not have any errors and returned valid XML.
+<span class='line'>135</span>  * @type {String | XMLDocument}
+<span class='line'>136</span>  * @private
+<span class='line'>137</span>  */</span><span class="WHIT">
+<span class='line'>138</span> </span><span class="NAME">nitobi.ajax.HttpRequest.prototype.handleResponse</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>139</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>140</span> </span><span class="WHIT">  	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>141</span> </span><span class="WHIT">  	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">error</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>142</span> 
+<span class='line'>143</span> </span><span class="WHIT">   </span><span class="WHIT">
+<span class='line'>144</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">(</span><span class="NAME">this.httpObj.responseXML</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">this.httpObj.responseXML.documentElement</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">this.responseType</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="STRN">"text"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>145</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>146</span> </span><span class="WHIT">		</span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.httpObj.responseXML</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>147</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">this.responseType</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"xml"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>149</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>150</span> </span><span class="WHIT">    	</span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.createXmlDoc</span><span class="PUNC">(</span><span class="NAME">this.httpObj.responseText</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>151</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>152</span> </span><span class="WHIT">    </span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>153</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>154</span> </span><span class="WHIT">        </span><span class="NAME">result</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.httpObj.responseText</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>155</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>156</span> </span><span class="WHIT">    </span><span class="WHIT">
+<span class='line'>157</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.httpObj.status</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="NUMB">200</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>158</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="WHIT">		</span><span class="NAME">this.onError.notify</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="STRN">"source"</span><span class="PUNC">:</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="STRN">"status"</span><span class="PUNC">:</span><span class="NAME">this.httpObj.status</span><span class="PUNC">,</span><span class="STRN">"message"</span><span class="PUNC">:</span><span class="STRN">"An error occured retrieving the data from the server. "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT">
+<span class='line'>160</span> </span><span class="WHIT">				</span><span class="STRN">"Expected response type was '"</span><span class="PUNC">+</span><span class="NAME">this.responseType</span><span class="PUNC">+</span><span class="STRN">"'."</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>161</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>162</span> 
+<span class='line'>163</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">result</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>164</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>165</span> 
+<span class='line'>166</span> </span><span class="COMM">/**
+<span class='line'>167</span>  * This method posts some data to the given url using the XMLHttpRequest object.
+<span class='line'>168</span>  * Various parameters such as asynchronous and handler should have already been set.
+<span class='line'>169</span>  * @param {String} data The only argument passed to this method is some data to post
+<span class='line'>170</span>  * to the server. It can be in any format such as XML or JSON.
+<span class='line'>171</span>  * @param {String} url The URL where the data is to be posted to. This is option and can also be specified using the handler property.
+<span class='line'>172</span>  * @return if the request is synchronous, the content of the server response is 
+<span class='line'>173</span>  * returned as either XML data or plain text, depending on the response type
+<span class='line'>174</span>  * @type XMLDocument|String
+<span class='line'>175</span>  */</span><span class="WHIT">
+<span class='line'>176</span> </span><span class="NAME">nitobi.ajax.HttpRequest.prototype.post</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">url</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>177</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>178</span> </span><span class="WHIT">	</span><span class="NAME">this.data</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">data</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>179</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this._send</span><span class="PUNC">(</span><span class="STRN">"POST"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">url</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">data</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.postComplete</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>180</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>181</span> 
+<span class='line'>182</span> </span><span class="COMM">/**
+<span class='line'>183</span>  * This is used to retrieve data from the server.
+<span class='line'>184</span>  * It will retrieve data from the URL specified by the handler property of the Callback object.
+<span class='line'>185</span>  * @return if the request is synchronous, the content of the server response is 
+<span class='line'>186</span>  * returned as either XML data or plain text, depending on the response type
+<span class='line'>187</span>  * @param {String} url The URL to request the data from. This is an alternative to setting the handler parameter.
+<span class='line'>188</span>  * @type String|XMLDocument
+<span class='line'>189</span>  */</span><span class="WHIT">
+<span class='line'>190</span> </span><span class="NAME">nitobi.ajax.HttpRequest.prototype.get</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">url</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>191</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>192</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this._send</span><span class="PUNC">(</span><span class="STRN">"GET"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">url</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.getComplete</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>193</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>194</span> 
+<span class='line'>195</span> </span><span class="COMM">/**
+<span class='line'>196</span>  * @ignore
+<span class='line'>197</span>  */</span><span class="WHIT">
+<span class='line'>198</span> </span><span class="NAME">nitobi.ajax.HttpRequest.prototype.postComplete</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>199</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>200</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">this.httpObj.readyState</span><span class="PUNC">==</span><span class="NUMB">4</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>201</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>202</span> </span><span class="WHIT">    	</span><span class="NAME">this.status</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"complete"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>203</span> </span><span class="WHIT">    	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">callbackParams</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="STRN">'response'</span><span class="PUNC">:</span><span class="NAME">this.handleResponse</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="STRN">'params'</span><span class="PUNC">:</span><span class="NAME">this.params</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>204</span> </span><span class="WHIT">    	</span><span class="NAME">this.responseXml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.responseText</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">callbackParams.response</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>205</span> </span><span class="WHIT">    	</span><span class="NAME">this.onPostComplete.notify</span><span class="PUNC">(</span><span class="NAME">callbackParams</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>206</span> </span><span class="WHIT">    	</span><span class="NAME">this.onRequestComplete.notify</span><span class="PUNC">(</span><span class="NAME">callbackParams</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>207</span> </span><span class="WHIT">    	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.completeCallback</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>208</span> </span><span class="WHIT">    	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>209</span> </span><span class="WHIT">    		</span><span class="NAME">this.completeCallback.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">callbackParams</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>210</span> </span><span class="WHIT">    	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>211</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>212</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>213</span> 
+<span class='line'>214</span> </span><span class="COMM">/**
+<span class='line'>215</span>  * This does various assertions on XMLData then calls postData.
+<span class='line'>216</span>  * If xmlData is has no valid child nodes the just return
+<span class='line'>217</span>  * @param {XmlNode} xmlData The single argument passed to this method is a valid XML DOM object.
+<span class='line'>218</span>  * @return if the request is synchronous, the content of the server response is 
+<span class='line'>219</span>  * returned as either XML data or plain text, depending on the response type
+<span class='line'>220</span>  * @type XMLDocument|String
+<span class='line'>221</span>  */</span><span class="WHIT">
+<span class='line'>222</span> </span><span class="NAME">nitobi.ajax.HttpRequest.prototype.postXml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">xmlData</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>223</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>224</span> </span><span class="WHIT">	</span><span class="NAME">this.setTimeout</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>225</span> 
+<span class='line'>226</span> </span><span class="WHIT">    </span><span class="COMM">// validate the XML data parameter</span><span class="WHIT">
+<span class='line'>227</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="PUNC">(</span><span class="STRN">"undefined"</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">xmlData.documentElement</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>228</span> </span><span class="WHIT">       </span><span class="PUNC">(</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">xmlData.documentElement</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>229</span> </span><span class="WHIT">       </span><span class="PUNC">(</span><span class="STRN">"undefined"</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">xmlData.documentElement.childNodes</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT">
+<span class='line'>230</span> </span><span class="WHIT">       </span><span class="PUNC">(</span><span class="NUMB">1</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NAME">xmlData.documentElement.childNodes.length</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>231</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>232</span> </span><span class="WHIT">        </span><span class="NAME">ebaErrorReport</span><span class="PUNC">(</span><span class="STRN">"updategram is empty. No request sent. xmlData["</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">xmlData</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"]\nxmlData.xml["</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">xmlData.xml</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"]"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>233</span> </span><span class="WHIT">        </span><span class="COMM">// not sure that return is best here.</span><span class="WHIT">
+<span class='line'>234</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>235</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>236</span> 
+<span class='line'>237</span> </span><span class="WHIT">    </span><span class="COMM">//  get data from xml (null == xmlData.xml)</span><span class="WHIT">
+<span class='line'>238</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">xmlData.xml</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>239</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>240</span> </span><span class="WHIT">            </span><span class="COMM">// looks like we are not running nitobi.browser.IE</span><span class="WHIT">
+<span class='line'>241</span> </span><span class="WHIT">            </span><span class="COMM">// lets try to get xml data            </span><span class="WHIT">
+<span class='line'>242</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">xmlSerializer</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">XMLSerializer</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>243</span> </span><span class="WHIT">            </span><span class="NAME">xmlData.xml</span><span class="WHIT">     </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">xmlSerializer.serializeToString</span><span class="PUNC">(</span><span class="NAME">xmlData</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>244</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>245</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.post</span><span class="PUNC">(</span><span class="NAME">xmlData.xml</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>246</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>247</span> 
+<span class='line'>248</span> </span><span class="COMM">/**
+<span class='line'>249</span>  * @private
+<span class='line'>250</span>  * Actually makes the Ajax request whether it is called through 
+<span class='line'>251</span>  * &lt;code>post&lt;/code>, &lt;code>get&lt;/code>, or &lt;code>send&lt;/code>.
+<span class='line'>252</span>  */</span><span class="WHIT">
+<span class='line'>253</span> </span><span class="NAME">nitobi.ajax.HttpRequest.prototype._send</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">method</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">url</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">data</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">completeHandler</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>254</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>255</span> </span><span class="WHIT">	</span><span class="NAME">this.handler</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">url</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">this.handler</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>256</span> </span><span class="WHIT">	</span><span class="NAME">this.setTimeout</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>257</span> 
+<span class='line'>258</span> </span><span class="WHIT">	</span><span class="NAME">this.status</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"pending"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>259</span> 
+<span class='line'>260</span> </span><span class="WHIT">	</span><span class="NAME">this.httpObj.open</span><span class="PUNC">(</span><span class="NAME">method</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.preventCache</span><span class="PUNC">?</span><span class="NAME">this.cacheBust</span><span class="PUNC">(</span><span class="NAME">this.handler</span><span class="PUNC">)</span><span class="PUNC">:</span><span class="NAME">this.handler</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.async</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.username</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.password</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>261</span> 
+<span class='line'>262</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.async</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>263</span> </span><span class="WHIT">	    </span><span class="NAME">this.httpObj.onreadystatechange</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.lang.close</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">completeHandler</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>264</span> 
+<span class='line'>265</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">item</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">this.requestHeaders</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>266</span> </span><span class="WHIT">		</span><span class="NAME">this.httpObj.setRequestHeader</span><span class="PUNC">(</span><span class="NAME">item</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.requestHeaders</span><span class="PUNC">[</span><span class="NAME">item</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>267</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>268</span> 
+<span class='line'>269</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.responseType</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"xml"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>270</span> </span><span class="WHIT">	    </span><span class="NAME">this.httpObj.setRequestHeader</span><span class="PUNC">(</span><span class="STRN">"Content-Type"</span><span class="PUNC">,</span><span class="STRN">"text/xml"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>271</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">method.toLowerCase</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"post"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>272</span> </span><span class="WHIT">		</span><span class="NAME">this.httpObj.setRequestHeader</span><span class="PUNC">(</span><span class="STRN">"Content-Type"</span><span class="PUNC">,</span><span class="STRN">"application/x-www-form-urlencoded"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>273</span> 
+<span class='line'>274</span> </span><span class="WHIT">	</span><span class="COMM">// TODO: check if the data is a form. if so then serialize it</span><span class="WHIT">
+<span class='line'>275</span> </span><span class="WHIT">	</span><span class="COMM">/*
+<span class='line'>276</span> 	if (data.tagName == "form") {
+<span class='line'>277</span> 		var s = "";
+<span class='line'>278</span> 		for (var i=0; i&lt;data.elements; i++) {
+<span class='line'>279</span> 			var e = data.elements[i];
+<span class='line'>280</span> 			s += e.name + "=" + e.value + "&";
+<span class='line'>281</span> 		}
+<span class='line'>282</span> 		data = s;
+<span class='line'>283</span> 	}
+<span class='line'>284</span> 	 */</span><span class="WHIT">
+<span class='line'>285</span> 
+<span class='line'>286</span> </span><span class="WHIT">    </span><span class="NAME">this.httpObj.send</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>287</span> 
+<span class='line'>288</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">this.async</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>289</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.handleResponse</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>290</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.httpObj</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>291</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>292</span> 
+<span class='line'>293</span> </span><span class="COMM">/**
+<span class='line'>294</span>  * Compatibility with the native XMLHttpRequest object. Opens the connection to the server.
+<span class='line'>295</span>  * After calling open headers can be set and the request can be sent using the &lt;code>send&lt;/code> method.
+<span class='line'>296</span>  */</span><span class="WHIT">
+<span class='line'>297</span> </span><span class="NAME">nitobi.ajax.HttpRequest.prototype.open</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">method</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">url</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">async</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">username</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">password</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>298</span> </span><span class="WHIT">	</span><span class="NAME">this.requestMethod</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">method</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>299</span> </span><span class="WHIT">	</span><span class="NAME">this.async</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">async</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>300</span> </span><span class="WHIT">	</span><span class="NAME">this.username</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">username</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>301</span> </span><span class="WHIT">	</span><span class="NAME">this.password</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">password</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>302</span> </span><span class="WHIT">	</span><span class="NAME">this.handler</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">url</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>303</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>304</span> 
+<span class='line'>305</span> </span><span class="COMM">/**
+<span class='line'>306</span>  * Compatibility with the native XMLHttpRequest object. Sends the request to the server.
+<span class='line'>307</span>  */</span><span class="WHIT">
+<span class='line'>308</span> </span><span class="NAME">nitobi.ajax.HttpRequest.prototype.send</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>309</span> </span><span class="WHIT">	</span><span class="COMM">// TODO: Do we want to ensure that the url is specified?</span><span class="WHIT">
+<span class='line'>310</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">response</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>311</span> </span><span class="WHIT">	</span><span class="KEYW">switch</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.requestMethod.toUpperCase</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>312</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>313</span> </span><span class="WHIT">		</span><span class="KEYW">case</span><span class="WHIT"> </span><span class="STRN">"POST"</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'>314</span> </span><span class="WHIT">			</span><span class="NAME">response</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.post</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>315</span> </span><span class="WHIT">			</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>316</span> </span><span class="WHIT">		</span><span class="KEYW">default</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'>317</span> </span><span class="WHIT">			</span><span class="NAME">response</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.get</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>318</span> </span><span class="WHIT">			</span><span class="KEYW">break</span><span class="WHIT">
+<span class='line'>319</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>320</span> </span><span class="WHIT">	</span><span class="NAME">this.responseXml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.responseText</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">response</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>321</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>322</span> 
+<span class='line'>323</span> </span><span class="COMM">/**
+<span class='line'>324</span>  * @private
+<span class='line'>325</span>  */</span><span class="WHIT">
+<span class='line'>326</span> </span><span class="NAME">nitobi.ajax.HttpRequest.prototype.setTimeout</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>327</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>328</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.timeout</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>329</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>330</span> </span><span class="WHIT">		</span><span class="NAME">this.timeoutId</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">window.setTimeout</span><span class="PUNC">(</span><span class="NAME">nitobi.lang.close</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.abort</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.timeout</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>331</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>332</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>333</span> 
+<span class='line'>334</span> </span><span class="COMM">/**
+<span class='line'>335</span>  * The onReadyStateChange event is used internally for monitoring the 
+<span class='line'>336</span>  * readyState of the XMLHttpRequest when data is being retrieved from the server.
+<span class='line'>337</span>  * When the readyState is 4 then it will call the function pointer onGetComplete.
+<span class='line'>338</span>  * @private
+<span class='line'>339</span>  */</span><span class="WHIT">
+<span class='line'>340</span> </span><span class="NAME">nitobi.ajax.HttpRequest.prototype.getComplete</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>341</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>342</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">this.httpObj.readyState</span><span class="PUNC">==</span><span class="NUMB">4</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>343</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>344</span> </span><span class="WHIT">    	</span><span class="NAME">this.status</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"complete"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>345</span> 
+<span class='line'>346</span> </span><span class="WHIT">    	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">callbackParams</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="STRN">'response'</span><span class="PUNC">:</span><span class="NAME">this.handleResponse</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="STRN">'params'</span><span class="PUNC">:</span><span class="NAME">this.params</span><span class="PUNC">,</span><span class="STRN">'status'</span><span class="PUNC">:</span><span class="NAME">this.httpObj.status</span><span class="PUNC">,</span><span class="STRN">'statusText'</span><span class="PUNC">:</span><span class="NAME">this.httpObj.statusText</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>347</span> </span><span class="WHIT">    	</span><span class="NAME">this.responseXml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.responseText</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">callbackParams.response</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>348</span> </span><span class="WHIT">    	</span><span class="NAME">this.onGetComplete.notify</span><span class="PUNC">(</span><span class="NAME">callbackParams</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>349</span> </span><span class="WHIT">    	</span><span class="NAME">this.onRequestComplete.notify</span><span class="PUNC">(</span><span class="NAME">callbackParams</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>350</span> </span><span class="WHIT">    	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.completeCallback</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>351</span> </span><span class="WHIT">    	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>352</span> </span><span class="WHIT">    		</span><span class="NAME">this.completeCallback.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">callbackParams</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>353</span> </span><span class="WHIT">    	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>354</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>355</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>356</span> 
+<span class='line'>357</span> </span><span class="COMM">/**
+<span class='line'>358</span>  * Sets a request header on the XMLHttpRequest. The header name-value pair is added to the &lt;code>requestHeaders&lt;/code> hash.
+<span class='line'>359</span>  * @param {String} header The header name.
+<span class='line'>360</span>  * @param {String} val The header value.
+<span class='line'>361</span>  */</span><span class="WHIT">
+<span class='line'>362</span> </span><span class="NAME">nitobi.ajax.HttpRequest.prototype.setRequestHeader</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">header</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">val</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>363</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>364</span> </span><span class="WHIT">	</span><span class="NAME">this.requestHeaders</span><span class="PUNC">[</span><span class="NAME">header</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">val</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>365</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>366</span> 
+<span class='line'>367</span> </span><span class="COMM">/**
+<span class='line'>368</span>  * Indicates whether or not the specified status code indicates an error.
+<span class='line'>369</span>  * @param {Number} code The status code.
+<span class='line'>370</span>  * @type Boolean
+<span class='line'>371</span>  */</span><span class="WHIT">
+<span class='line'>372</span> </span><span class="NAME">nitobi.ajax.HttpRequest.prototype.isError</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">code</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>373</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>374</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">code</span><span class="WHIT"> </span><span class="PUNC">>=</span><span class="WHIT"> </span><span class="NUMB">400</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">code</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NUMB">600</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>375</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>376</span> 
+<span class='line'>377</span> </span><span class="COMM">/**
+<span class='line'>378</span>  * Cancels the server request.
+<span class='line'>379</span>  */</span><span class="WHIT">
+<span class='line'>380</span> </span><span class="NAME">nitobi.ajax.HttpRequest.prototype.abort</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>381</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>382</span> </span><span class="WHIT">	</span><span class="NAME">this.httpObj.onreadystatechange</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>383</span> </span><span class="WHIT">	</span><span class="NAME">this.httpObj.abort</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>384</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>385</span> 
+<span class='line'>386</span> </span><span class="COMM">/**
+<span class='line'>387</span>  * This method clears the state of the Callback object to its initial state.
+<span class='line'>388</span>  * @private
+<span class='line'>389</span>  */</span><span class="WHIT">
+<span class='line'>390</span> </span><span class="NAME">nitobi.ajax.HttpRequest.prototype.clear</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>391</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>392</span> </span><span class="WHIT">  	</span><span class="NAME">this.handler</span><span class="WHIT"> 		</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">''</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>393</span> </span><span class="WHIT">	</span><span class="NAME">this.async</span><span class="WHIT"> 	</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>394</span> </span><span class="WHIT">	</span><span class="NAME">this.onPostComplete.dispose</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>395</span> </span><span class="WHIT">	</span><span class="NAME">this.onGetComplete.dispose</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>396</span> </span><span class="WHIT">	</span><span class="NAME">this.params</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>397</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>398</span> 
+<span class='line'>399</span> </span><span class="COMM">/**
+<span class='line'>400</span>  * Adds a cache-busting querystring parameter to the request.
+<span class='line'>401</span>  * @private
+<span class='line'>402</span>  */</span><span class="WHIT">
+<span class='line'>403</span> </span><span class="NAME">nitobi.ajax.HttpRequest.prototype.cacheBust</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">url</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>404</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>405</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">urlArray</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">url.split</span><span class="PUNC">(</span><span class="STRN">'?'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>406</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">param</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'nitobi_cachebust='</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Date</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">getTime</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>407</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">urlArray.length</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>408</span> </span><span class="WHIT">		</span><span class="NAME">url</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'?'</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">param</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>409</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>410</span> </span><span class="WHIT">		</span><span class="NAME">url</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'&'</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">param</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>411</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">url</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>412</span> </span><span class="PUNC">}</span></pre></body></html>

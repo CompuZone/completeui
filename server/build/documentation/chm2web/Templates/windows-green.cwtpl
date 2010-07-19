@@ -1,0 +1,86 @@
+;==============================================================================
+;
+; WINDOWS TEMPLATE SCHEME for chm2web software
+; by A!K Research Labs, 2002
+;
+;==============================================================================
+
+
+[TEMPLATE.INFO]
+
+NAME		= Windows Green
+Template name
+
+BODY		= windows.body
+Template body file name
+
+AUTHOR		= A!K Research Labs
+Copyright(c) 2002, All Rights Reserved
+
+
+[OPEN.FIELDS]
+
+BACKCOLOR	= green
+Header background color
+
+LEFTBACKCOLOR	= white
+Help index&contents background color
+
+LEFTFRAMECOLOR	= #FEF266
+Left frame background color 
+
+ABUTTONFACE	= #008000
+Active button face color
+
+IBUTTONFACE	= #008000
+Inactive button face color
+
+ABUTTONFACETXT 	= white
+Active button font color
+
+IBUTTONFACETXT 	= #A6FFA6
+Inactive button font color
+
+PAGECAPTION    = white
+Page caption text color
+
+SCHEMECOLOR1	= #ECF8F4
+
+SCHEMECOLOR2    = #BAE7D7
+
+SCHEMECOLOR3	= #4EBE9D
+
+SCHEMECOLOR4	= #285B4C
+
+
+
+;==============================================================================
+;
+; FILES TO COPY
+;
+; [F|N|M]:[target_image_name] = [source_image_name]
+;
+; F - only for frames version
+; N - only for noframes version
+; M - only for mobile version
+;
+;==============================================================================
+
+[COPY.FILES]
+
+F:files\next.gif       	= icons\nextgreen.gif
+F:files\prev.gif    	= icons\prevgreen.gif
+F:files\home.gif	= icons\homegreen.gif
+F:files\print.gif	= icons\printgreen.gif
+F:files\tabs\a1.gif	= windows\green\a1.gif
+F:files\tabs\a2.gif	= windows\green\a2.gif
+F:files\tabs\a3.gif	= windows\green\a3.gif
+F:files\tabs\a5.gif	= windows\green\a5.gif
+F:files\tabs\a6.gif	= windows\green\a6.gif
+F:files\tabs\a7.gif	= windows\green\a7.gif
+F:helpleftcon.html	= windows\green\helpleftcon.html
+F:helpleftind.html	= windows\green\helpleftind.html
+F:helpleftsch.html	= windows\green\helpleftsch.html
+F:helpblankpage.html 	= windows\green\helpblankpage.html
+
+

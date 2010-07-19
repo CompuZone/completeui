@@ -1,0 +1,10 @@
+<project>
+	<property name="output.basedir" 								value="${nant.project.basedir}\Output" />
+	<property name="output.buildtemplate" 							value="${output.basedir}\temp" />
+	<property name="output.buildtemplate.src" 						value="${output.buildtemplate}\src" />
+	<property name="output.buildtemplate.src.js" 					value="${output.buildtemplate}\src\nitobi.grid.js" />
+	<property name="output.buildtemplate.lib.js" 					value="${output.buildtemplate}\lib\js"/>
+	<property name="output.buildtemplate.styles.js" 				value="${output.buildtemplate}\styles\js"/>
+	<property name="output.buildtemplate.doc" 						value="${output.buildtemplate}\doc"/>
+	<property name="output.buildtemplate.src.reference.js" 			value="${output.buildtemplate.src}\nitobi.grid_src.js" />
+</project>

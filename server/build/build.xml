@@ -1,0 +1,1467 @@
+<?xml version="1.0"?>
+
+<!--
+This can be called like
+"ant full" to build the components in includes.xml as a developer license with ASP backend.
+To build a specific component
+"ant -Dcomponent.name=grid full"
+fullLocal target will do the installers on the local computer
+fullRemote target will do the installers on the server
+partial will do everything up to installers on the local computer
+-->
+<project default="full" basedir=".">
+	
+	<property name="platform.name" value="java"></property>
+	
+	<target name="clean">
+		<delete dir="../output"></delete>
+	</target>
+	
+	<target name="createOutputFolders" depends="clean">
+		<!-- make all the output folders first -->
+		<mkdir dir="../output"></mkdir>
+		<mkdir dir="../output/javascript_css"></mkdir>
+		<mkdir dir="../output/javascript_css/dist"></mkdir>
+		<mkdir dir="../output/javascript_css/dist/script"></mkdir>
+		<mkdir dir="../output/javascript_css/dist/style"></mkdir>
+		<mkdir dir="../output/javascript_css/src"></mkdir>
+		<if>
+			<equals arg1="${platform.name}" arg2="java"/>
+			<then>
+				<mkdir dir="../output/lib"/>
+			</then>
+		</if>
+	</target>
+	
+	<target name="jsdoc" depends="buildjs">
+		<delete dir="../temp/docs" />
+		<mkdir dir="../temp/docs" />
+		<java
+			jar="documentation/jsdoc-toolkit/jsrun.jar"
+			fork="true">
+			<arg line="documentation/jsdoc-toolkit/app/run.js ../../public/src/client/tree ../../public/src/client/toolkit ../../public/src/client/calendar ../../public/src/client/callout ../../public/src/client/combo ../../public/src/client/fisheye ../../public/src/client/grid ../../public/src/client/spotlight ../../public/src/client/tabstrip -r=10 -d=../temp/docs -t=documentation/jsdoc-toolkit/templates/nitobi"/>
+		</java>
+		
+		<!-- Copy the style stuff into the temp folder holding the docs -->
+		<copy todir="../temp/docs/external">
+			<fileset dir="documentation/jsdoc-toolkit/templates/nitobi/external"/>
+		</copy>
+		<copy file="../../public/dist/nitobi.toolkit.js" tofile="../temp/docs/external/nitobi.toolkit.js"/>
+		<copy file="../../public/dist/nitobi.tree.js" tofile="../temp/docs/external/nitobi.tree.js"/>
+	</target>
+	
+	<!-- Main targets for open source cui -->
+	<property name="os.path" value="../temp"/>
+	<!-- Uncomment this on nitobi.com 
+	<property name="os.path" value="c:/web/sites/nitobi.com/download/files/"/>
+	-->
+	
+	<target name="sdk" description="assembles the components, themes, samples, and jsdoc together into one download" depends="buildjs, jsdoc">
+		<mkdir dir="../output"/>
+		<mkdir dir="../output/docs"/>
+		<copy todir="../output">
+			<fileset dir="../../public/dist"/>
+		</copy>
+
+		<ant dir="../../public/build" inheritAll="false" target="clean">
+		</ant>
+		<copy todir="../output">
+			<fileset dir="../../public"/>
+		</copy>
+		<!-- Copy jsdoc too -->
+		<copy todir="../output/docs">
+			<fileset dir="../temp/docs"/>
+		</copy>
+		
+		<!-- Copy themes to root level of output -->
+		<mkdir dir="../output/themes"/>
+		<copy todir="../output/themes/calendar">
+			<fileset dir="../../public/src/client/calendar/css"/>
+		</copy>
+		<copy todir="../output/themes/callout">
+			<fileset dir="../../public/src/client/callout/css"/>
+		</copy>
+		<copy todir="../output/themes/combo">
+			<fileset dir="../../public/src/client/combo/css"/>
+		</copy>
+		<copy todir="../output/themes/fisheye">
+			<fileset dir="../../public/src/client/fisheye/css"/>
+		</copy>
+		<copy todir="../output/themes/grid">
+			<fileset dir="../../public/src/client/grid/css"/>
+		</copy>
+		<copy todir="../output/themes/spotlight">
+			<fileset dir="../../public/src/client/spotlight/css"/>
+			<fileset dir="../../public/src/client/callout/css"/>
+		</copy>
+		<copy todir="../output/themes/tabstrip">
+			<fileset dir="../../public/src/client/tabstrip/css"/>
+		</copy>
+		<copy todir="../output/themes/tree">
+			<fileset dir="../../public/src/client/tree/css"/>
+		</copy>
+		<copy todir="../output/themes/treegrid">
+			<fileset dir="../../public/src/client/treegrid/css"/>
+		</copy>
+		
+		<antcall target="makeCss">
+			<param name="component" value="calendar"/>
+		</antcall>
+		<antcall target="makeCss">
+			<param name="component" value="callout"/>
+		</antcall>
+		<antcall target="makeCss">
+			<param name="component" value="combo"/>
+		</antcall>
+		<antcall target="makeCss">
+			<param name="component" value="fisheye"/>
+		</antcall>
+		<antcall target="makeCss">
+			<param name="component" value="grid"/>
+		</antcall>
+		<antcall target="makeCss">
+			<param name="component" value="spotlight"/>
+		</antcall>
+		<antcall target="makeCss">
+			<param name="component" value="tabstrip"/>
+		</antcall>
+		<antcall target="makeCss">
+			<param name="component" value="tree"/>
+		</antcall>
+		<antcall target="makeCss">
+			<param name="component" value="treegrid"/>
+		</antcall>
+		
+		<antcall target="prepareSamples">
+			<param name="component" value="calendar"/>
+		</antcall>
+		<antcall target="prepareSamples">
+			<param name="component" value="callout"/>
+		</antcall>
+		<antcall target="prepareSamples">
+			<param name="component" value="combo"/>
+		</antcall>
+		<antcall target="prepareSamples">
+			<param name="component" value="fisheye"/>
+		</antcall>
+		<antcall target="prepareSamples">
+			<param name="component" value="grid"/>
+		</antcall>
+		<antcall target="prepareSamples">
+			<param name="component" value="spotlight"/>
+		</antcall>
+		<antcall target="prepareSamples">
+			<param name="component" value="tabstrip"/>
+		</antcall>
+		<antcall target="prepareSamples">
+			<param name="component" value="tree"/>
+		</antcall>
+		<antcall target="prepareSamples">
+			<param name="component" value="treegrid"/>
+		</antcall>
+	</target>
+	
+	<target name="prepareSamples">
+				<replaceregexp byline="true">
+					<regexp pattern="&lt;!-- EBA_REMOVE_START.*EBA_REMOVE_END -->"/>
+					<substitution expression="&lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;../../../../../themes/nitobi.${component}.css&quot;&gt;&lt;/link&gt;
+						&lt;script src=&quot;../../../../../nitobi.toolkit.js&quot;&gt;&lt;/script&gt;
+						&lt;script src=&quot;../../../../../nitobi.${component}.js&quot;&gt;&lt;/script&gt;" />
+					<fileset dir="../output/samples/client/${component}">
+						<include name="**/*"/>
+					</fileset>
+				</replaceregexp>
+	</target>
+	
+	<target name="makeCss" description="Makes a single CSS file that imports all the other CSS's">
+		<!-- Generate a single CSS file that uses @import to get all the required stylesheets -->
+		<xslt in="../../public/src/client/${component}/includes.xml" out="../output/themes/nitobi.${component}.css" style="xslt/makecss.xslt">
+			<param name="component" expression="${component}"></param>
+		</xslt>
+		
+		<concat destfile="../output/themes/nitobi.${component}.css" append="true">
+			<fileset dir="../../public/src/client/toolkit/css">
+				<include name="**/*.css"></include>
+				<exclude name="**/toolbar.css"></exclude>
+			</fileset>
+		</concat>
+	</target>
+	
+	<target name="buildjs">
+		<ant dir="../../public/build" inheritAll="false">
+		</ant>
+	</target>
+	
+	<target name="cleanPublic">
+		<ant dir="../../public/build" inheritAll="false" target="clean">
+		</ant>
+	</target>
+	
+	<target name="jsfordownload" depends="buildjs">
+		<copy todir="${os.path}">
+			<fileset dir="../../public/dist"/>
+		</copy>
+	</target>
+	
+	<target name="preparethemes" depends="clean">
+		
+		<copy todir="../output/themes/calendar">
+			<fileset dir="../../public/src/client/calendar/css"/>
+		</copy>
+		<copy todir="../output/themes/callout">
+			<fileset dir="../../public/src/client/callout/css"/>
+		</copy>
+		<copy todir="../output/themes/combo">
+			<fileset dir="../../public/src/client/combo/css"/>
+		</copy>
+		<copy todir="../output/themes/fisheye">
+			<fileset dir="../../public/src/client/fisheye/css"/>
+		</copy>
+		<copy todir="../output/themes/grid">
+			<fileset dir="../../public/src/client/grid/css"/>
+		</copy>
+		<copy todir="../output/themes/grid">
+			<fileset dir="../../public/src/client/calendar/css"/>
+		</copy>
+		<copy todir="../output/themes/grid/nitobi/toolbar">
+			<fileset dir="../../public/src/client/toolkit/css/nitobi/toolbar/default"/>
+		</copy>
+		<copy todir="../output/themes/grid/nitobi/effects">
+			<fileset dir="../../public/src/client/toolkit/css/nitobi/effects"/>
+		</copy>
+		<copy todir="../output/themes/treegrid/nitobi/toolbar">
+			<fileset dir="../../public/src/client/toolkit/css/nitobi/toolbar/default"/>
+		</copy>
+		<copy todir="../output/themes/treegrid/nitobi/effects">
+			<fileset dir="../../public/src/client/toolkit/css/nitobi/effects"/>
+		</copy>
+		<copy todir="../output/themes/spotlight">
+			<fileset dir="../../public/src/client/callout/css"/>
+		</copy>
+		<copy todir="../output/themes/tabstrip">
+			<fileset dir="../../public/src/client/tabstrip/css"/>
+		</copy>
+		<copy todir="../output/themes/tree">
+			<fileset dir="../../public/src/client/tree/css"/>
+		</copy>
+		<copy todir="../output/themes/treegrid">
+			<fileset dir="../../public/src/client/treegrid/css"/>
+		</copy>
+		
+		<antcall target="makeCss">
+			<param name="component" value="calendar"/>
+		</antcall>
+		<antcall target="makeCss">
+			<param name="component" value="callout"/>
+		</antcall>
+		<antcall target="makeCss">
+			<param name="component" value="combo"/>
+		</antcall>
+		<antcall target="makeCss">
+			<param name="component" value="fisheye"/>
+		</antcall>
+		<antcall target="makeCss">
+			<param name="component" value="grid"/>
+		</antcall>
+		<antcall target="makeCss">
+			<param name="component" value="spotlight"/>
+		</antcall>
+		
+		<antcall target="makeCss">
+			<param name="component" value="tabstrip"/>
+		</antcall>
+		<antcall target="makeCss">
+			<param name="component" value="tree"/>
+		</antcall>
+		<antcall target="makeCss">
+			<param name="component" value="treegrid"/>
+		</antcall>
+	</target>
+	
+	<target name="builddw" depends="clean, buildjs, preparethemes">
+		<copy todir="../src/tools/Dreamweaver Extensions/Package/Shared/Assets/script">
+			<fileset dir="../../public/dist"/>
+		</copy>
+		
+		<copy todir="../src/tools/Dreamweaver Extensions/Package/Shared/Assets/style">
+			<fileset dir="../output/themes"/>
+		</copy>
+		
+		<java
+			jar="js.jar"
+			fork="true">
+			<arg line="-f dwbuild.js" />
+		</java>
+		
+		<!-- Once we have CS4, we can run the extension manager from here, but 'til then, we need to package the extension manually -->
+	</target>
+	
+	<target name="themesfordownload" depends="preparethemes">
+		<mkdir dir="../temp"/>
+	
+		<mkdir dir="../output/themes/clndr"/>
+		<mkdir dir="../output/themes/clndr/calendar"/>
+		<copy todir="../output/themes/cldnr">
+			<fileset file="../output/themes/nitobi.calendar.css"/>
+		</copy>
+		<copy todir="../output/themes/cldnr/calendar">
+			<fileset dir="../output/themes/calendar"/>
+		</copy>
+		<zip basedir="../output/themes/cldnr" destfile="${os.path}/nitobi.calendar.themes.zip"/>
+		
+		<mkdir dir="../output/themes/cllt"/>
+		<mkdir dir="../output/themes/cllt/callout"/>
+		<copy todir="../output/themes/cllt">
+
+			<fileset file="../output/themes/nitobi.callout.css"/>
+		</copy>
+		<copy todir="../output/themes/cllt/callout">
+			<fileset dir="../output/themes/callout"/>
+		</copy>
+		<zip basedir="../output/themes/cllt" destfile="${os.path}/nitobi.callout.themes.zip"/>
+		
+		<mkdir dir="../output/themes/cmb"/>
+		<mkdir dir="../output/themes/cmb/combo"/>
+		<copy todir="../output/themes/cmb">
+			<fileset file="../output/themes/nitobi.combo.css"/>
+		</copy>
+		<copy todir="../output/themes/cmb/combo">
+			<fileset dir="../output/themes/combo"/>
+		</copy>
+		<zip basedir="../output/themes/cmb" destfile="${os.path}/nitobi.combo.themes.zip"/>
+		
+		<mkdir dir="../output/themes/fsh"/>
+		<mkdir dir="../output/themes/fsh/fisheye"/>
+		<copy todir="../output/themes/fsh">
+			<fileset file="../output/themes/nitobi.fisheye.css"/>
+		</copy>
+		<copy todir="../output/themes/fsh/fisheye">
+			<fileset dir="../output/themes/fisheye"/>
+		</copy>
+		<zip basedir="../output/themes/fsh" destfile="${os.path}/nitobi.fisheye.themes.zip"/>
+		
+		<mkdir dir="../output/themes/grd"/>
+		<mkdir dir="../output/themes/grd/grid"/>
+		<copy todir="../output/themes/grd">
+			<fileset file="../output/themes/nitobi.grid.css"/>
+		</copy>
+		<copy todir="../output/themes/grd/grid">
+			<fileset dir="../output/themes/grid"/>
+		</copy>
+		<zip basedir="../output/themes/grd" destfile="${os.path}/nitobi.grid.themes.zip"/>
+		
+		<mkdir dir="../output/themes/tbstrp"/>
+		<mkdir dir="../output/themes/tbstrp/tabstrip"/>
+		<copy todir="../output/themes/tbstrp">
+			<fileset file="../output/themes/nitobi.tabstrip.css"/>
+		</copy>
+		<copy todir="../output/themes/tbstrp/tabstrip">
+			<fileset dir="../output/themes/tabstrip"/>
+		</copy>
+		<zip basedir="../output/themes/tbstrp" destfile="${os.path}/nitobi.tabstrip.themes.zip"/>
+		
+		<mkdir dir="../output/themes/tr"/>
+		<mkdir dir="../output/themes/tr/tree"/>
+		<copy todir="../output/themes/tr">
+			<fileset file="../output/themes/nitobi.tree.css"/>
+		</copy>
+		<copy todir="../output/themes/tr/tree">
+			<fileset dir="../output/themes/tree"/>
+		</copy>
+		<zip basedir="../output/themes/tr" destfile="${os.path}/nitobi.tree.themes.zip"/>
+		
+		<mkdir dir="../output/themes/trgrd"/>
+		<mkdir dir="../output/themes/trgrd/treegrid"/>
+		<copy todir="../output/themes/trgrd">
+			<fileset file="../output/themes/nitobi.treegrid.css"/>
+		</copy>
+		<copy todir="../output/themes/trgrd/treegrid">
+			<fileset dir="../output/themes/treegrid"/>
+		</copy>
+		<zip basedir="../output/themes/trgrd" destfile="${os.path}/nitobi.treegrid.themes.zip"/>
+  </target>
+	
+	<target name="serverlibfordownload">
+		<zip basedir="../../public/src/server/asp" destfile="${os.path}/nitobi.xml.inc.zip"/>
+		<zip basedir="../../public/src/server/php" destfile="${os.path}/nitobi.xml.php.zip"/>
+		<zip basedir="../../public/src/server/cfm" destfile="${os.path}/nitobi.xml.cfm.zip"/>
+	</target>
+	
+	<target name="fullsdkdownload" depends="sdk">
+		<zip basedir="../output" destfile="${os.path}/cui_sdk.zip"/>
+	</target>
+	
+	<target name="sdkfordownload" depends="sdk">
+		<delete dir="../output/src/" />
+		<zip basedir="../output" destfile="${os.path}/cui_sdk.zip"/>
+	</target>
+	
+	<target name="cuifordownload" depends="jsfordownload, themesfordownload, serverlibfordownload, sdkfordownload">
+	</target>
+	
+	<target name="assemblecomponents" depends="clean, createOutputFolders, buildjs" description="Builds the javascript and copies it and the css into one folder">
+		<copy todir="../output/javascript_css/dist/script">
+			<fileset dir="../../public/dist"/>
+		</copy>
+
+		<copy todir="../output/javascript_css/dist/style/calendar">
+			<fileset dir="../../public/src/client/calendar/css"/>
+		</copy>
+		<copy todir="../output/javascript_css/dist/style/callout">
+			<fileset dir="../../public/src/client/callout/css"/>
+		</copy>
+		<copy todir="../output/javascript_css/dist/style/combo">
+			<fileset dir="../../public/src/client/combo/css"/>
+		</copy>
+		<copy todir="../output/javascript_css/dist/style/fisheye">
+			<fileset dir="../../public/src/client/fisheye/css"/>
+		</copy>
+		<copy todir="../output/javascript_css/dist/style/grid">
+			<fileset dir="../../public/src/client/grid/css"/>
+		</copy>
+		<copy todir="../output/javascript_css/dist/style/spotlight">
+			<fileset dir="../../public/src/client/spotlight/css"/>
+		</copy>
+		<copy todir="../output/javascript_css/dist/style/tabstrip">
+			<fileset dir="../../public/src/client/tabstrip/css"/>
+		</copy>
+		<copy todir="../output/javascript_css/dist/style/tree">
+			<fileset dir="../../public/src/client/tree/css"/>
+		</copy>
+		<copy todir="../output/javascript_css/dist/style/treegrid">
+			<fileset dir="../../public/src/client/treegrid/css"/>
+		</copy>
+	</target>
+	
+	<target name="copysrc">
+		<copy todir="../output/javascript_css/src">
+			<fileset dir="../../public/"/>
+		</copy>
+	</target>
+	
+	<target name="copyreadme" >
+		<copy file="readme.html" todir="../output"/>
+	</target>
+	
+	<target name="buildjava">
+	</target>
+	
+  <target name="builddotnet" depends="buildjs">
+    <copy todir="../src/server/dotnet/NitobiControls/scripts">
+      <fileset dir="../../public/dist/" />
+    </copy>
+    <exec executable="msbuild">
+      <arg value="../src/server/dotnet/nitobicontrols/nitobicontrols.vs2005.csproj" />
+      <arg value="/ToolsVersion:2.0" />
+    </exec>
+    <exec executable="msbuild">
+      <arg value="../src/server/dotnet/nitobicontrols/nitobicontrols.vs2008.csproj" />
+      <arg value="/ToolsVersion:3.5" />
+    </exec>
+  </target>
+	<!--when we do webassist builds set the webassist param to _webassist-->
+	<property name="helpdir" value="${basedir}\documentation\helpworkshop"></property>
+
+	<property name="license.name" value="trial"></property>
+	
+	<property name="JSDOC" value="documentation/jsdoc-toolkit"/>
+
+	<property name="installer.path" value="c:/web/sites/nitobi.com/download/files/"/>
+
+	
+	<!-- Ant contrib -->
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath>
+			<pathelement location="ant-contrib/ant-contrib-1.0b3.jar"/>
+		</classpath>
+	</taskdef>
+	
+	<target name="full" depends="partial, installer.prepare, installer.build, installer.copy"></target>	
+
+	<!-- <target name="partial" depends="clean, createOutputFolders, toolkit, components.build, components.copy, samples.copy, server, assemble.java.samples, docs, buildTools">
+		<sound>
+			<success source="success.wav"/>
+			<fail source="failure.wav"/>
+		</sound>
+	</target>-->
+	
+	<target name="partial" depends="clean, createOutputFolders, assemblecomponents, copysrc, copyreadme">
+		<if>
+			<equals arg1="${platform.name}" arg2="dotnet"/>
+			<then>
+				<antcall target="builddotnet"/>
+        <!-- copy built assembiles into the output dir -->
+        <copy todir="../output">
+          <fileset dir="../src/server/dotnet/bin.net2.0" />
+          <fileset dir="../src/server/dotnet/bin.net3.5" />
+          <fileset dir="../src/server/dotnet/EndUserExtensions" />
+          <fileset dir="../src/server/dotnet/NitobiAspNetSample" />
+        </copy>
+			</then>
+			<elseif>
+				<equals arg1="${platform.name}" arg2="java"/>
+				<then>
+					<antcall target="buildjava"/>
+					<!-- copy build libraries into the output dir -->
+				</then>
+			</elseif>
+		</if>
+	</target>
+	
+	<!-- This is the twilight zone!  I have no idea what happens past here! -->
+	
+	
+	<target name="docsonly" depends="clean, createOutputFolders, toolkit, docs"></target>
+
+	<target name="xmldocs" depends="clean, createOutputFolders, toolkit.xmldocs, components.build.xmldocs, components.copy.xmldocs">
+		<sound>
+			<success source="success.wav"/>
+			<fail source="failure.wav"/>
+		</sound>
+	</target>	
+
+	<target name="debug" depends="clean, createOutputFolders, toolkit, components.build, components.copy" 
+		description="Performs a simple build with no installers etc">
+		<sound>
+			<success source="success.wav"/>
+			<fail source="failure.wav"/>
+		</sound>
+	</target>	
+
+	<target name="toolkit" depends="toolkit.build, toolkit.copy"></target>
+
+	<target name="toolkit.xmldocs" depends="toolkit.build.xmldocs, toolkit.copy.xmldocs"></target>
+  
+	<target name="components.build" description="Builds all the components in their respective directories.">
+		<!-- Build all components as specified in trunk\includes.xml -->
+		<foreach list="${components.list}" target="component.build" param="component.build.name"></foreach>
+	</target>
+
+	<target name="components.build.xmldocs" description="Builds all the components XML docs.">
+		<!-- Build all components as specified in trunk\includes.xml -->
+		<foreach list="${components.list}" target="component.build.xmldocs" param="component.build.name"></foreach>
+	</target>
+
+	<target name="components.copy" description="Copies the built components to the complete UI output folder.">
+		<!-- Copy all components -->
+		<foreach list="${components.list}" target="component.copy" param="component.copy.name"></foreach>
+	</target>
+
+	<target name="components.copy.xmldocs" description="Copies the built components XML docs.">
+		<!-- Copy all components -->
+		<foreach list="${components.list}" target="component.copy.xmldocs" param="component.copy.name"></foreach>
+	</target>
+
+	<target name="toolkit.copy" description="copies the toolkit source to the complete UI folder. We give away this source to everyone.">
+		<antcall target="component.copy">
+			<param name="component.copy.name" value="toolkit" />
+		</antcall>
+	</target>
+
+	<target name="toolkit.copy.xmldocs" description="copies the toolkit XML docs.">
+		<antcall target="component.copy.xmldocs">
+			<param name="component.copy.name" value="toolkit" />
+		</antcall>
+	</target>	
+
+	<target name="toolkit.build" description="builds the toolkit.  This is separate from regular component building because it is included in all versions">
+		<antcall target="component.build">
+			<param name="component.build.name" value="toolkit" />
+		</antcall>
+	</target>
+	
+	<target name="toolkit.build.xmldocs" description="builds the toolkit XML docs.">
+		<antcall target="component.build.xmldocs">
+			<param name="component.build.name" value="toolkit" />
+		</antcall>
+	</target>
+
+	<target name="component.build" depends="component.build.initialize" description="Copies the component necessary files (eg build file) to the build folder of the component and runs it.">
+
+		<if>
+			<equals arg1="${debug}" arg2="false" />
+			<then>
+				<property name="target" value="${license.name}"></property>				
+			</then>
+			<else>
+				<!-- build the component in debug mode -->
+				<property name="target" value="debug"></property>
+			</else>
+		</if>
+
+		<!-- Execute the build passing in the "component" property as the component name -->
+		<exec executable="cmd" dir="../${component.build.name}/build/">
+			<arg value="/c"/>
+			<arg value="ant -Dcomponent.name=${component.build.name} -Dplatform.name=${platform.name} -Dsrc.revision=${src.revision} ${target}"/>
+		</exec>
+
+	</target>
+
+	<target name="component.build.xmldocs" depends="component.build.initialize" description="Builds just the XML files from JSDoc">
+		<!-- Execute the build passing in the "component" property as the component name -->
+		<exec executable="cmd" dir="../${component.build.name}/build/">
+			<arg value="/c"/>
+			<arg value="ant -Dcomponent.name=${component.build.name} -Dplatform.name=${platform.name} jsdoc.xml"/>
+		</exec>
+
+	</target>
+
+	<target name="component.copy" description="">
+
+		<!-- Copy the built JS file for the particular component -->		
+		<copy todir="../output/javascript_css/script">
+			<fileset dir="../${component.copy.name}/output/bin"></fileset>
+		</copy>
+
+		<!-- Copy the CSS -->
+		<copy todir="../output/javascript_css/style/${component.copy.name}">
+			<fileset dir="../${component.copy.name}/output/style">
+				<exclude name="nitobi.${component.copy.name}.css" />
+			</fileset>
+		</copy>
+		<copy todir="../output/javascript_css/style">
+			<fileset file="../${component.copy.name}/output/style/nitobi.${component.copy.name}.css"></fileset>
+		</copy>
+
+		<!-- If this is toolkit then don't remove the styles stuff for now ... -->
+		<if>
+			<equals arg1="${component.copy.name}" arg2="toolkit" />
+			<then>
+				<delete file="../output/javascript_css/style/nitobi.${component.copy.name}.css" />
+				<delete dir="../output/javascript_css/style/${component.copy.name}" />
+			</then>
+		</if>
+
+		<if>
+			<equals arg1="${debug}" arg2="false"/>
+			<then>
+				<!-- Copy the samples -->
+				<!-- Java builds will ship with numerous deployable wars:  servlets, struts1, struts2, and spring. -->
+				<if>
+					<equals arg1="${platform.name}" arg2="jsp"/>
+					<then>
+						<if>
+							<available file="servlet" filepath="../${component.copy.name}/output/samples" type="dir"/>
+							<then>
+								<copy todir="../temp/java/servlet-samples/${component.copy.name}/java">
+									<fileset dir="../${component.copy.name}/output/samples/servlet/client">
+										<exclude name="*src/"/>
+									</fileset>
+								</copy>
+								
+								<copy todir="../temp/java/servlet-samples/src/examples/${component.copy.name}" failonerror="false">
+									<fileset dir="../${component.copy.name}/output/samples/servlet/src/examples/${component.copy.name}"/>
+								</copy>
+								
+								<copy todir="../temp/java/servlet-samples/WEB-INF/classes">
+									<fileset dir="../${component.copy.name}/output/samples/servlet/classes"/>
+								</copy>
+							</then>
+						</if>
+						<if>
+							<available file="html" filepath="../${component.copy.name}/output/samples" type="dir"/>
+							<then>
+								<copy todir="../temp/java/servlet-samples/${component.copy.name}/html">
+									<fileset dir="../${component.copy.name}/output/samples/html"/>
+								</copy>
+							</then>
+						</if>
+						
+						<if>
+							<available file="struts1" filepath="../${component.copy.name}/output/samples" type="dir"/>
+							<then>
+								<copy todir="../temp/java/struts1-samples/${component.copy.name}/java">
+									<fileset dir="../${component.copy.name}/output/samples/struts1/client">
+										<exclude name="*src/"/>
+									</fileset>
+								</copy>
+								
+								<copy todir="../temp/java/struts1-samples/src/examples/${component.copy.name}" failonerror="false">
+									<fileset dir="../${component.copy.name}/output/samples/struts1/src/examples/${component.copy.name}"/>
+								</copy>
+								
+								<copy todir="../temp/java/struts1-samples/WEB-INF/classes">
+									<fileset dir="../${component.copy.name}/output/samples/struts1/classes"/>
+								</copy>
+							</then>
+						</if>
+						<if>
+							<available file="struts2" filepath="../${component.copy.name}/output/samples" type="dir"/>
+							<then>
+								<copy todir="../temp/java/struts2-samples/${component.copy.name}/java">
+									<fileset dir="../${component.copy.name}/output/samples/struts2/client">
+										<exclude name="*src/"/>
+									</fileset>
+								</copy>
+								
+								<copy todir="../temp/java/struts2-samples/src/examples/${component.copy.name}" failonerror="false">
+									<fileset dir="../${component.copy.name}/output/samples/struts2/src/examples/${component.copy.name}"/>
+								</copy>
+								
+								<copy todir="../temp/java/struts2-samples/WEB-INF/classes">
+									<fileset dir="../${component.copy.name}/output/samples/struts2/classes"/>
+								</copy>
+							</then>
+						</if>
+						
+						<if>
+							<available file="spring" filepath="../${component.copy.name}/output/samples" type="dir"/>
+							<then>
+								<copy todir="../temp/java/spring-samples/${component.copy.name}/java">
+									<fileset dir="../${component.copy.name}/output/samples/spring/client">
+										<exclude name="*src/"/>
+									</fileset>
+								</copy>
+								
+								<copy todir="../temp/java/spring-samples/src/examples/${component.copy.name}" failonerror="false">
+									<fileset dir="../${component.copy.name}/output/samples/spring/src/examples/${component.copy.name}"/>
+								</copy>
+								
+								<copy todir="../temp/java/spring-samples/WEB-INF/classes">
+									<fileset dir="../${component.copy.name}/output/samples/spring/classes"/>
+								</copy>
+							</then>
+						</if>
+					</then>
+					<else>
+						<copy todir="../output/samples/${component.copy.name}">
+							<fileset dir="../${component.copy.name}/output/samples"></fileset>
+						</copy>
+					</else>
+				</if>
+				
+				<!-- Copy the samples -->
+				<!-- Don't copy java samples.  Java samples will be packaged as a war for deployment 
+					<if>
+					<equals arg1="${platform.name}" arg2="jsp"/>
+					<then>
+					<copy todir="../temp/java/complete-ui-samples/${component.copy.name}">
+					<fileset dir="../${component.copy.name}/output/samples">
+					<exclude name="src/"/>
+					</fileset>
+					</copy>
+					
+					<copy todir="../temp/java/complete-ui-samples/src/examples/${component.copy.name}">
+					<fileset dir="../${component.copy.name}/output/samples/src/examples/${component.copy.name}"/>
+					</copy>
+					</then>
+					<else>
+					<copy todir="../output/samples/${component.copy.name}">
+					<fileset dir="../${component.copy.name}/output/samples"></fileset>
+					</copy>
+					</else>
+					</if>-->
+				
+				<!-- Copy the CHM documentation -->
+				<!--
+				<copy todir="../output/docs/chm">
+					<fileset dir="../${component.copy.name}/output/docs"></fileset>
+				</copy>
+
+				<copy todir="../temp/documentation">
+					<fileset dir="../${component.copy.name}/output/docs"></fileset>
+				</copy>		
+				-->
+				
+				<!-- Copies the source for the component to the output folder -->
+				<!-- In the case of toolkit just copy it right over -->
+				<!-- For other components copy their source into _src in output and let the installer sort it out -->
+				<if>
+					<equals arg1="${component.copy.name}" arg2="toolkit" />
+					<then>
+						<copy todir="../output/build/src">
+							<fileset dir="../${component.copy.name}/output/src"></fileset>
+						</copy>
+					</then>
+					<else>
+						<mkdir dir="../output/build/_src/${component.copy.name}" />
+						<copy todir="../output/build/_src/${component.copy.name}" failonerror="false">
+							<fileset dir="../${component.copy.name}/output/src/${component.copy.name}"></fileset>
+						</copy>
+					</else>
+				</if>
+			</then>
+		</if>
+	</target>
+
+	<target name="component.copy.xmldocs" description="">
+		<copy file="../${component.copy.name}/temp/documentation/${component.copy.name}-client-api/jsdoc.xml" tofile="../output/${component.copy.name}-jsdoc.xml"></copy>
+	</target>
+	
+
+	<target name="component.build.initialize">
+		<!-- Copy over all the build file -->
+		<copy file="component_build.xml" tofile="../${component.build.name}/build/build.xml"></copy>
+		<copy file="component_build.server.xml" tofile="../${component.build.name}/build/build.server.xml"></copy>
+		<!--<copy file="build.chm.xml" tofile="../${component.build.name}/build/build.chm.xml"></copy>-->
+		<!--<copy file="documentation/chm2web.xslt" tofile="../${component.build.name}/build/documentation/chm2web.xslt"></copy>-->
+		<copy file="xslt/srcincludes.xslt" tofile="../${component.build.name}/build/xslt/srcincludes.xslt"></copy>
+		
+		<!-- Copy over all necessary untility XSLT files for the build -->
+		<copy todir="../${component.build.name}/build/">
+			<fileset dir="xslt"/>
+		</copy>
+		
+		<!-- Copy over all necessary untility JavaScript files for the build -->
+		<copy todir="../${component.build.name}/build/">
+			<fileset dir="javascript"/>
+		</copy>
+	</target>
+
+	<target name="samples.copy" description="Copies all the styles and script files into the samples folder">
+		<copy todir="../output/samples/common">
+			<fileset dir="../output/javascript_css"/>
+		</copy>
+		<copy todir="../output/samples/common/style">
+			<fileset dir="../samples/css" />
+		</copy>
+		<copy todir="../output/samples/common/sh">
+			<fileset dir="../samples/js" />
+		</copy>
+		
+		<!-- If this is PHP or JSP, copy the NitobiSampleDatabases.sql to the samples directory -->
+		<if>
+			<or>
+				<equals arg1="php" arg2="${platform.name}"/>
+				<equals arg1="jsp" arg2="${platform.name}"/>
+				<equals arg1="script" arg2="${platform.name}"/>
+			</or>
+			<then>
+				<copy todir="../output/samples" file="../server/NitobiSampleDatabases.sql" />
+			</then>
+		</if>
+		<antcall target="makeWebLink">
+			<param name="url" value="http://www.nitobi.com/products/completeui/demos/explorer/index.html" />
+			<param name="file" value="../output/samples/Sample Explorer" />
+		</antcall>
+	</target>
+	
+	<target name="assemble.java.samples" depends="clean, components.copy, toolkit.copy, samples.copy, server" description="if this is a jsp build, prepare java samples">
+		<if>
+			<equals arg1="${platform.name}" arg2="jsp"/>
+		<then>
+			<antcall target="assemble.struts1.samples" />
+			<antcall target="assemble.servlet.samples" />
+			<antcall target="assemble.struts2.samples" />
+			<antcall target="assemble.spring.samples" />
+		</then>
+		</if>
+	</target>
+	
+	<target name="assemble.spring.samples" description="Puts together the spring sample as a deployable directory">
+		<property name="samples.dir" value="spring-samples"/>
+		<!-- Copy scripts and styles need for samples -->
+		<copy todir="../temp/java/${samples.dir}/common">
+			<fileset dir="../output/javascript_css"/>
+		</copy>
+		<copy todir="../temp/java/${samples.dir}/common/style">
+			<fileset dir="../toolkit/samples-css" />
+		</copy>
+		<!-- Copy server libraries -->
+		<copy todir="../temp/java/${samples.dir}/WEB-INF/lib">
+			<fileset dir="../output/server_libraries/java/lib"/>
+		</copy>
+		
+		<copy todir="../temp/java/${samples.dir}/WEB-INF/lib">
+			<fileset dir="../server/java/lib/spring">
+				<include name="*.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="../temp/java/${samples.dir}/WEB-INF/lib" 
+			file="../server/java/lib/mysql-connector-java-5.1.0-bin.jar"/>
+	
+		<!-- Copy web.xml dirs -->
+		<copy todir="../temp/java/${samples.dir}/WEB-INF" file="javadeployment/spring/web.xml"/>
+		<copy todir="../temp/java/${samples.dir}/WEB-INF" file="javadeployment/spring/springapp-servlet.xml"/>
+
+		<copy todir="../output/samples/nitobi-spring-samples">
+			<fileset dir="../temp/java/${samples.dir}"/>
+		</copy>
+	</target>
+	
+	<target name="assemble.struts2.samples" description="Puts together the struts 2 sample as a deployable directory">
+		<property name="samples.dir" value="struts2-samples"/>
+		<!-- Copy scripts and styles need for samples -->
+		<copy todir="../temp/java/${samples.dir}/common">
+			<fileset dir="../output/javascript_css"/>
+		</copy>
+		<copy todir="../temp/java/${samples.dir}/common/style">
+			<fileset dir="../toolkit/samples-css" />
+		</copy>
+		<!-- Copy server libraries -->
+		<copy todir="../temp/java/${samples.dir}/WEB-INF/lib">
+			<fileset dir="../output/server_libraries/java/lib"/>
+		</copy>
+	
+		<copy todir="../temp/java/${samples.dir}/WEB-INF/lib">
+			<fileset dir="../server/java/lib/struts2">
+				<include name="*.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="../temp/java/${samples.dir}/WEB-INF/lib" 
+			file="../server/java/lib/mysql-connector-java-5.1.0-bin.jar"/>
+		
+	
+		<!-- Copy web.xml dirs -->
+		<copy todir="../temp/java/${samples.dir}/WEB-INF" file="javadeployment/struts2/web.xml"/>
+		<copy todir="../temp/java/${samples.dir}/WEB-INF/classes" file="javadeployment/struts2/struts.xml"/>
+
+		<copy todir="../output/samples/nitobi-struts2-samples">
+			<fileset dir="../temp/java/${samples.dir}"/>
+		</copy>
+	</target>
+	
+	<target name="assemble.struts1.samples" description="if this is a jsp build, prepare struts 1 samples">
+		<property name="samples.dir" value="struts1-samples"/>
+		<!-- Copy scripts and styles need for samples -->
+		<copy todir="../temp/java/${samples.dir}/common">
+			<fileset dir="../output/javascript_css"/>
+		</copy>
+		<copy todir="../temp/java/${samples.dir}/common/style">
+			<fileset dir="../toolkit/samples-css" />
+		</copy>
+		<!-- Copy server libraries -->
+		<copy todir="../temp/java/${samples.dir}/WEB-INF/lib">
+			<fileset dir="../output/server_libraries/java/lib"/>
+		</copy>
+	
+		<copy todir="../temp/java/${samples.dir}/WEB-INF/lib">
+			<fileset dir="../server/java/lib/struts1">
+				<include name="*.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="../temp/java/${samples.dir}/WEB-INF/lib" 
+			file="../server/java/lib/mysql-connector-java-5.1.0-bin.jar"/>
+		
+	
+		<!-- Copy web.xml dirs -->
+		<copy tofile="../temp/java/${samples.dir}/WEB-INF/web.xml" file="javadeployment/struts1/web.xml"/>
+		<copy todir="../temp/java/${samples.dir}/WEB-INF" file="javadeployment/struts1/struts-config.xml"/>
+
+		<copy todir="../output/samples/nitobi-struts1-samples">
+			<fileset dir="../temp/java/${samples.dir}"/>
+		</copy>
+	
+	</target>
+	
+	<target name="assemble.servlet.samples" description="if this is a jsp build, prepare a war file for deployment">
+		<property name="samples.dir" value="servlet-samples"/>
+		
+		<!-- Copy scripts and styles need for samples -->
+		<copy todir="../temp/java/${samples.dir}/common">
+			<fileset dir="../output/javascript_css"/>
+		</copy>
+		<copy todir="../temp/java/${samples.dir}/common/style">
+			<fileset dir="../toolkit/samples-css" />
+		</copy>
+		<!-- Copy server libraries -->
+		<copy todir="../temp/java/${samples.dir}/WEB-INF/lib">
+			<fileset dir="../output/server_libraries/java/lib"/>
+		</copy>
+	
+		<copy todir="../temp/java/${samples.dir}/WEB-INF/lib" 
+			file="../server/java/lib/mysql-connector-java-5.1.0-bin.jar"/>
+
+		<!-- Copy web.xml dirs -->
+		<copy tofile="../temp/java/${samples.dir}/WEB-INF/web.xml" file="javadeployment/web.xml"/>
+
+		<copy todir="../output/samples/completeui-servlet-samples">
+			<fileset dir="../temp/java/${samples.dir}"/>
+		</copy>
+	</target>
+
+	<target name="buildTools" description="copies the build tools to the output folder">
+
+		<copy todir="../output/build/ant">
+			<fileset dir="ant">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+
+		<!-- Copy the needed xslt files -->		
+		<copy file="xslt/jsincludes.xslt" todir="../output/build/includes/xslt/" />
+		<copy file="xslt/xslincludes.xslt" todir="../output/build/includes/xslt/" />
+		<copy file="xslt/xmlincludes.xslt" todir="../output/build/includes/xslt/" />
+		<copy file="xslt/xslstringify.xslt" todir="../output/build/includes/xslt/" />
+		<copy file="xslt/xmlstringify.xslt" todir="../output/build/includes/xslt/" />
+	
+		<copy file="rhino/bin/js.jar" todir="../output/build/rhino/bin"/>
+		<copy file="rhino/dojo_rhino.jar" todir="../output/build/rhino" />
+		<copy file="rhino/tokens.xml" todir="../output/build/rhino" />
+	
+		<copy todir="../output/build/includes/javascript" >
+			<fileset dir="javascript" />
+		</copy>
+	
+		<copy file="enduser_build.xml" tofile="../output/build/build.xml" />
+		<copy file="enduser_component_build.xml" tofile="../output/build/component_build.xml" />
+		<copy file="enduser_build_readme.txt" tofile="../output/build/readme.txt" />
+	</target>
+
+	<target name="server" description="Copy the server side include files from backend folder.">
+		<!-- <copy todir="../output/server_libraries">
+			<fileset dir="../server">
+				<include name="**/*"/>
+				<exclude name="**/docs/"/>
+			</fileset>
+		</copy>
+		<property name="jarLibPath" value="../server/java/lib" />
+		<mkdir dir="../temp/server/java/classes" />
+		<javac 
+			srcdir="../server/java/src"
+         	destdir="../temp/server/java/classes"
+         	classpath="${jarLibPath}/xml-apis.jar;${jarLibPath}/xercesImpl.jar;${jarLibPath}/servlet-api.jar;${jarLibPath}/jsp-api.jar;${jarLibPath}/serializer.jar;${jarLibPath}/xalan.jar;${jarLibPath}/xsltc.jar;${jarLibPath}/servlet-api.jar;${jarLibPath}/xercesImpl.jar;${jarLibPath}/jsp-api.jar"
+         	debug="off"
+			source="1.3"
+			target="1.3"			
+		/>
+		<mkdir dir="../output/server_libraries/java/bin" />
+		<jar 
+			destfile="../output/server_libraries/java/bin/nitobicomponents.jar"
+			basedir="../temp/server/java/classes"
+		/> -->
+	
+		<if>
+			<equals arg1="${platform.name}" arg2="dotnet" />
+			<then>
+				<!-- Copy all components -->
+				<foreach list="${components.list}" target="server.dotnet.copy" param="server.dotnet.copy.name"></foreach>
+
+				<!-- ****************************** -->
+				<!-- THIS NEEDS TO BE FIXED! -->
+				<if>
+					<isset property="component.name" />
+					<then>
+					</then>
+					<else>
+						<!-- Copy over the serverapiref.hhc / hhp from build folder-->
+						<copy todir="../temp/documentation">
+							<fileset dir="documentation/dotnet">
+								<include name="**/*" />
+							</fileset>
+						</copy>
+
+						<!--
+						<antcall target="CHM">
+							<param name="workingdir" value="../temp/documentation"></param>
+							<param name="src" value="serverapiref"></param>
+							<param name="dest" value="../output/docs/chm"></param>
+						</antcall>
+
+						<copy file="../grid/temp/docs/grid-server.chm" tofile="../output/docs/chm/grid-server.chm"></copy>
+						<copy file="../combo/temp/docs/combo-server.chm" tofile="../output/docs/chm/combo-server.chm"></copy>
+						-->
+
+					</else>
+				</if>
+			</then>
+			<elseif>
+				<equals arg1="${platform.name}" arg2="jsp" />
+				<then>
+					<!-- Copy java server library source and compiled jar to output -->
+					<ant dir="../server/java/serverLibrary/dist">
+						<property name="jarname" value="nitobi-server-lib"/>
+					</ant>
+					<copy todir="../output/server_libraries/java/lib" >
+						<fileset dir="../server/java/serverLibrary/dist/lib"/>
+					</copy>
+	
+					<!-- Copy server library source to output -->
+					<copy todir="../output/build/server/src">
+						<fileset dir="../server/java/serverLibrary/src">
+						</fileset>
+					</copy>
+	
+					<!-- Copy over taglib -->
+					<ant dir="../server/java/nitobiTaglib/dist">
+						<property name="jarname" value="nitobi-cui-taglib"></property>
+					</ant>
+	
+					<copy todir="../output/server_libraries/java/lib">
+						<fileset dir="../server/java/nitobiTaglib/dist/lib"/>
+					</copy>
+	
+					<!-- Copy over struts 2 plugin -->
+					<ant dir="../server/java/struts2plugin/dist">
+							<property name="jarname" value="nitobi-struts2-plugin"></property>
+					</ant>
+				
+					<copy todir="../output/server_libraries/java/lib">
+						<fileset dir="../server/java/struts2plugin/dist/lib"/>
+					</copy>
+
+					<!-- Copy over the JSF stuff -->
+					<copy todir="../output/server_libraries/java/lib">
+						<fileset dir="../server/java/jsf/dist/lib"/>
+					</copy>
+
+					<!-- Copy over the JSF stuff -->
+					<copy todir="../output/server_libraries/java/jsf/tlddoc">
+						<fileset dir="../server/java/jsf/dist/tlddoc"/>
+					</copy>
+
+					<!-- Copy over the JSF stuff -->
+					<copy todir="../output/server_libraries/java/jsf/javadoc">
+						<fileset dir="../server/java/jsf/dist/javadoc"/>
+					</copy>
+
+					<!-- Copy over eclipse plugin -->
+					<ant dir="../server/java/eclipsePlugin/dist" antfile="plugin.build.xml"/>
+				
+					<copy todir="../output/server_libraries/java/eclipse/com.nitobi.eclipse/">
+						<fileset dir="../server/java/eclipsePlugin/dist/lib"/>
+					</copy>
+				</then>
+			</elseif>
+			<elseif>
+				<equals arg1="${platform.name}" arg2="script" />
+				<then>
+					<copy todir="../output/server_libraries/asp">
+						<fileset dir="../server/asp">
+							<include name="**/*"/>
+							<exclude name="**/docs/"/>
+						</fileset>
+					</copy>
+					<copy todir="../output/server_libraries/php">
+						<fileset dir="../server/php">
+							<include name="**/*"/>
+							<exclude name="**/docs/"/>
+						</fileset>
+					</copy>
+					<copy todir="../output/server_libraries/cfm">
+						<fileset dir="../server/cfm">
+							<include name="**/*"/>
+							<exclude name="**/docs/"/>
+						</fileset>
+					</copy>
+				</then>
+			</elseif>
+			<else>
+				<copy todir="../output/server_libraries/${platform.name}">
+					<fileset dir="../server/${platform.name}">
+						<include name="**/*"/>
+						<exclude name="**/docs/"/>
+					</fileset>
+				</copy>
+			</else>
+		</if>
+	</target>
+
+	<target name="server.dotnet.copy">
+		<copy todir="../output/server_libraries/dotnet">
+			<fileset dir="../${server.dotnet.copy.name}/temp/dotnet/bin">
+				<exclude name="**/*.xml" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="docs" depends="jsdoc" description="">
+
+		<!-- Copy all the docs to the output folder -->
+		<!--
+		<copy todir="../output/docs/chm">
+			<fileset dir="../temp/documentation">
+				<include name="**/*.chm"/>
+			</fileset>
+		</copy>
+		-->
+
+		<!--
+		<copy todir="../output/docs/html">
+			<fileset dir="../temp/documentation/html"></fileset>
+		</copy>
+		-->
+
+		<!-- rename the main CHM file -->
+		<!--
+		<rename src="../output/docs/chm/common.chm" dest="../output/docs/chm/CompleteUI.chm" />
+		-->
+
+		<!-- Create some web links to the online docs and knowledgebase -->
+		<antcall target="makeWebLink">
+			<param name="url" value="http://support.nitobi.com/" />
+			<param name="file" value="../output/docs/Online Documentation" />
+		</antcall>
+
+		<antcall target="makeWebLink">
+			<param name="url" value="http://www.nitobi.com/kb/" />
+			<param name="file" value="../output/docs/Knowledgebase" />
+		</antcall>
+	</target>
+
+	<target name="docs.chm">
+
+	</target>
+
+	<target name="docs.chm2web">
+
+		<!-- Copy the basic CHM2Web file -->
+		<!--
+		<copy file="../build/documentation/base.chm2web" tofile="../temp/documentation/base.chm2web"/>
+		-->
+	
+		<!-- Append the absolute referenced target folder to the chm2web file. -->
+		<!--
+		<echo file="../temp/documentation/base.chm2web" append="true">TargetFolder=${basedir}\..\temp\documentation\html</echo>
+		-->
+
+		<!-- Run the chm2web tool -->
+		<!--
+		<exec executable="cmd" dir="../temp/documentation">
+			<arg value="/c"/>
+			<arg value="..\..\build\documentation\chm2web\chm2web base.chm2web /d"/>
+		</exec>
+		-->
+
+	</target>
+
+<!-- This is where we go back to sanity, albeit rather slowly -->
+
+
+	<target name="installer.prepare" description="Makes the installer for the various platforms">
+
+		<propertyregex
+			override="true"
+			property="localroot"
+			input="${basedir}"
+			regexp="\\trunk\\build"
+			replace=""
+			defaultValue="oops!"
+		/>
+
+		<echo message="base: ${localroot}" />
+<!--
+		<replace file="..\installer\suite_trial.iap_xml" token="C:\Dev" value="${localroot}" />
+		<replace file="..\installer\suite_enterprise.iap_xml" token="C:\Dev" value="${localroot}" />
+		<replace file="..\installer\suite_enterprise_webassist.iap_xml" token="C:\Dev" value="${localroot}" />	
+-->
+		<antcall target="makeWebLink">
+			<param name="url" value="http://www.nitobi.com/kb/printable/?artid=340" />
+			<param name="file" value="../output/License Agreement" />
+		</antcall>
+
+		<property name="installer.file" value="..\installer\built_suite_${license.name}${webassist}.iap_xml"/>
+
+		<copy file="..\installer\oscui_suite_${license.name}${webassist}.iap_xml" tofile="${installer.file}" overwrite="true"></copy>
+
+		<!--http://www.nitobi.com/account/register/main.asp?
+			product=$REPLACE_PRODUCT_NAME$&
+			license=$REPLACE_PRODUCT_LICENSE$&
+			edition=$REPLACE_PRODUCT_EDITION$&
+			version=$REPLACE_PRODUCT_VERSION$&
+			platform=version=$REPLACE_PRODUCT_PLATFORM$&
+			build=$REPLACE_PRODUCT_BUILD$-->
+
+		<!-- remove any references to the variable year and quarter values in the installer definition xml files -->		
+		<replaceregexp file="${installer.file}" flags="g"
+			match="\$REPLACE_PRODUCT_YEAR\$"
+			replace="${product.year}"
+			byline="true" />
+
+		<replaceregexp file="${installer.file}" flags="g"
+			match="\$REPLACE_PRODUCT_QUARTER\$"
+			replace="${product.quarter}"
+			byline="true" />		
+
+		<replaceregexp file="${installer.file}" flags="g"
+			match="\$REPLACE_PRODUCT_NAME\$"
+			replace="${product.name}"
+			byline="true" />
+
+		<replaceregexp file="${installer.file}" flags="g"
+			match="\$REPLACE_PRODUCT_LICENSE\$"
+			replace="${license.name}"
+			byline="true" />
+
+		<replaceregexp file="${installer.file}" flags="g"
+			match="\$REPLACE_PRODUCT_EDITION\$"
+			replace="${product.year}${product.quarter}"
+			byline="true" />
+		
+		<replaceregexp file="${installer.file}" flags="g"
+			match="\$REPLACE_PRODUCT_VERSION\$"
+			replace="${product.version}"
+			byline="true" />
+		
+		<replaceregexp file="${installer.file}" flags="g"
+			match="\$REPLACE_PRODUCT_PLATFORM\$"
+			replace="${platform.name}"
+			byline="true" />
+
+		<replaceregexp file="${installer.file}" flags="g"
+			match="\$REPLACE_PRODUCT_BUILD\$"
+			replace="${build.number}"
+			byline="true" />
+
+		<!--windows, solaris, macosx, linux, java, genericunix
+			edition - "2007q1", "2008q4" etc
+			version - 3.41 would be 341, etc
+			platform -  "java" "aspnet" "cfmx" etc.
+			OS - "win" "mac" "linx" etc
+			build - "trial" "subscr" "entsub" etc
+		-->
+
+		<!-- At this point we need to actually get the installers built on the remote server ... -->
+
+		<delete dir="../installer/built_suite_trial_Build_Output"></delete>
+		<delete dir="../installer/built_suite_enterprise_Build_Output"></delete>
+		<delete dir="../installer/built_suite_enterprise_webassist_Build_Output"></delete>
+
+		<delete dir="../installer/suite_trial_Build_Output"></delete>
+		<delete dir="../installer/suite_enterprise_Build_Output"></delete>
+		<delete dir="../installer/suite_enterprise_webassist_Build_Output"></delete>
+	</target>
+
+	<target name="installer.build">
+		<exec executable="cmd" dir="installanywhere">
+			<arg value="/c"/>
+			<arg value="build.exe ..\..\installer\built_suite_${license.name}${webassist}.iap_xml +LV +WV +X"/>
+		</exec>
+	</target>
+
+	<target name="installer.copy" description="Copies the installers to {installer.path} variable">
+
+		<copy todir="../installers/${platform.name}/${license.name}/${component.name}">
+			<fileset dir="../installer/built_suite_${license.name}_Build_Output/Web_Installers/InstData">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+
+		<!-- Rename the linux bin installer file to be correct -->
+		<copy file="../installers/${platform.name}/${license.name}/${component.name}/linux/vm/Nitobi_Complete_UI_${product.year}_${product.quarter}.bin" tofile="../installers/${platform.name}/${license.name}/${component.name}/ntb${component.name}${product.year}${product.quarter}${product.version}_${platform.name}linux_${license.name}.bin"></copy>
+		<!-- Zip up the linux bin installer file -->
+		<zip destfile="${installer.path}/ntb${component.name}${product.year}${product.quarter}${product.version}_${platform.name}linux_${license.name}.zip" basedir="../installers/${platform.name}/${license.name}/${component.name}" includes="ntb${component.name}${product.year}${product.quarter}${product.version}_${platform.name}linux_${license.name}.bin"/>
+		<!-- Delete the original and copied file -->
+		<delete file="../installers/${platform.name}/${license.name}/${component.name}/ntb${component.name}${product.year}${product.quarter}${product.version}_${platform.name}linux_${license.name}.bin"></delete>
+		<delete file="../installers/${platform.name}/${license.name}/${component.name}/linux/vm/Nitobi_Complete_UI_${product.year}_${product.quarter}.bin"></delete>
+
+		<!-- Rename the macosx zip installer file to be correct -->		
+		<copy file="../installers/${platform.name}/${license.name}/${component.name}/macosx/Nitobi Complete UI ${product.year} ${product.quarter}.zip" tofile="${installer.path}/ntb${component.name}${product.year}${product.quarter}${product.version}_${platform.name}macosx_${license.name}.zip"></copy>
+		<!-- Delete the original file -->
+		<delete file="../installers/${platform.name}/${license.name}/${component.name}/macosx/Nitobi Complete UI ${product.year} ${product.quarter}.zip"></delete>
+
+		<!-- Rename the windows exe installer file to be correct -->
+		<copy file="../installers/${platform.name}/${license.name}/${component.name}/windows/vm/Nitobi Complete UI ${product.year} ${product.quarter}.exe" tofile="../installers/${platform.name}/${license.name}/${component.name}/ntb${component.name}${product.year}${product.quarter}${product.version}_${platform.name}windows_${license.name}.exe"></copy>
+		<!-- Zip up the windows exe installer file -->
+		<zip destfile="${installer.path}/ntb${component.name}${product.year}${product.quarter}${product.version}_${platform.name}windows_${license.name}.zip" basedir="../installers/${platform.name}/${license.name}/${component.name}" includes="ntb${component.name}${product.year}${product.quarter}${product.version}_${platform.name}windows_${license.name}.exe"/>
+		<!-- Delete the original and copied file -->
+		<delete file="../installers/${platform.name}/${license.name}/${component.name}/ntb${component.name}${product.year}${product.quarter}${product.version}_${platform.name}windows_${license.name}.exe"></delete>
+		<delete file="../installers/${platform.name}/${license.name}/${component.name}/windows/vm/Nitobi Complete UI ${product.year} ${product.quarter}.exe"></delete>
+
+	</target>
+
+	<target name="installer.ftp">
+
+		<ftp server="66.135.40.173"
+			port="21"
+			remotedir="/c:/web/sites/nitobi.com/download/files/"
+			userid="djohnson"
+			password="alpha$etti"
+			passive="no">
+			<fileset dir="../installers/${platform.name}/${license.name}/${component.name}">
+				<include name="*_${license.name}.zip"/>
+			</fileset>
+		</ftp>
+
+			<!--
+			For SKU's (store, and fullfillment)
+			[prodname][platform][build]
+			
+			eg: "CUIJAVAENTSUB"
+			We dont need the other things (version, edition, OS) in the SKU
+			because presumably those wont alter the price, and also we wouldn't be
+			selling different editions at the same time so we dont need that in
+			the SKU.
+			
+			For filenames:
+			ntb[prodname][edition][version]_[platform][OS]_[build].zip
+			
+			prodname - "cui", "combo", "grid", "fisheye", "callout", etc - try to
+			keep these short
+			
+		-->		
+	</target>
+
+	<target name="makeWebLink" description="Makes link file with the current ${file} and ${url} properties">
+		<echo file="${file}.html">&lt;html&gt;&lt;head&gt;
+			&lt;meta http-equiv="refresh" content="0;url=${url}"&gt;&lt;/meta&gt;
+		&lt;/head&gt;
+			&lt;body&gt;&lt;/body&gt;&lt;/html&gt;
+		</echo>
+	</target>
+
+	<target name="api.db.build" description="Uploads the component api docs to the server where they will be parsed and added to a database for easy online retrieval">
+		<ftp server="66.135.40.173" port="21" userid="api" password="joe_D1rt" passive="no">
+			<fileset dir="../temp/doctoserver/"/>
+		</ftp>
+
+		<echo message="Importing API docs to DB: ${src.revision}"/>
+		<exec executable="cmd" dir="urlread">
+			<arg value="/c"/>
+			<arg value="URLRead"/>
+			<arg value="http://support.nitobi.com/api_import/import.asp?build=${src.revision}"/>
+			<arg value="5"/>
+			<arg value="../../temp/doctoserver/response.txt"/>
+		</exec>
+	</target>
+
+
+	<property name="junit.home" value="C:/bin/junit4.3.1"/>
+	<property name="remotecontrol.home" value="C:/bin/selenium-remote-control-0.8.1" />	
+	<property name="selenium.test.class" value="C:\Dev\trunk\grid\test\functionaltests\selenium\remotecontrol\bin\" />
+	<property name="selenium.test.source" value="C:\Dev\trunk\grid\test\functionaltests\selenium\remotecontrol\" />
+	
+	<property name="remotecontrol.java.client.driver" value="${remotecontrol.home}/java/" />
+	<property name="test.class.name" value="RemoteControl.Test.RenderTest" />
+
+	<fileset id="junit.lib" dir="${junit.home}">	
+		<include name="**/*.jar"/>
+	</fileset>
+	<fileset id="remotecontrol.java.client.lib" dir="${remotecontrol.java.client.driver}">
+		<include name="**/*.jar"/>
+	</fileset>
+	
+	<path id="selenium.test.classpath">
+		<pathelement location="${selenium.test.class}" />
+		<fileset refid="junit.lib" />
+		<fileset refid="remotecontrol.java.client.lib" />
+	</path>
+	
+	<target name="compile">
+		<javac srcdir="${selenium.test.source}" destdir="${selenium.test.class}">
+			<classpath refid="selenium.test.classpath" />
+		</javac>
+	</target>			
+	
+	<target name="functional_test" depends="compile">
+		<!--
+			<junit>
+			<batchtest>				
+			<fileset dir="${selenium.test.class}">					
+			<include name="**/*"/>
+			</fileset>
+			</batchtest>
+			<formatter type="plain" usefile="false"/>
+			<classpath refid="selenium.test.classpath" />
+			</junit>
+		-->
+		
+		<junit fork="yes" haltonfailure="yes">
+			<test name="${test.class.name}" todir="c:\program files\cruisecontrol\logs\remotecontrol"/>
+			<formatter type="xml" />
+			<classpath refid="selenium.test.classpath" />
+		</junit>
+		
+		<!--
+			<junit fork="yes" haltonfailure="yes">
+			<test name="${test.class2.name}" />
+			<formatter type="plain" usefile="false" />
+			<classpath refid="selenium.test.classpath" />
+			</junit>		
+		-->
+	</target>
+
+	<target name="nothing">
+	</target>
+
+</project>

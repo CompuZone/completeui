@@ -1,0 +1,155 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">// For x-component stuff</span><span class="WHIT">
+<span class='line'>  2</span> </span><span class="NAME">nitobi.lang.defineNs</span><span class="PUNC">(</span><span class="STRN">"nitobi.component"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  3</span> 
+<span class='line'>  4</span> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">false</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>  5</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>  6</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>  7</span> 	 * @class
+<span class='line'>  8</span> 	 * @constructor
+<span class='line'>  9</span> 	 * @private
+<span class='line'> 10</span> 	 */</span><span class="WHIT">
+<span class='line'> 11</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.component</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 12</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 13</span> 
+<span class='line'> 14</span> </span><span class="COMM">/**
+<span class='line'> 15</span>  * Loads and renders a component from a declaration. It returns the javascript object.
+<span class='line'> 16</span>  * @param {HTMLElement/String} el Either the id of the declaration or the HTMLElement itself.
+<span class='line'> 17</span>  * @type Object
+<span class='line'> 18</span>  */</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="NAME">nitobi.loadComponent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">el</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">id</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">el</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 22</span> </span><span class="WHIT">	</span><span class="NAME">el</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">el</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 23</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">el</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">		</span><span class="NAME">nitobi.lang.throwError</span><span class="PUNC">(</span><span class="STRN">"nitobi.loadComponent could not load the component because it could not be found on the page. The component may not have a declaration, node, or it may have a duplicated id. Id: "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">id</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">el.jsObject</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 28</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">el.jsObject</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">component</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">tagName</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.getTagName</span><span class="PUNC">(</span><span class="NAME">el</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">	</span><span class="COMM">// If the component is grid or combo then use their special init procedures.</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">tagName</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"ntb:grid"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">		</span><span class="NAME">component</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.initGrid</span><span class="PUNC">(</span><span class="NAME">el.id</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">tagName</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">"ntb:combo"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 39</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">		</span><span class="NAME">component</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.initCombo</span><span class="PUNC">(</span><span class="NAME">el.id</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">tagName</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"ntb:treegrid"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="WHIT">		</span><span class="NAME">component</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.initTreeGrid</span><span class="PUNC">(</span><span class="NAME">el.id</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 45</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 47</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="WHIT">		</span><span class="COMM">// The component is a new-style component that doesn't require any special init process.</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">el.jsObject</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 50</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 51</span> </span><span class="WHIT">			</span><span class="NAME">component</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.base.Factory.getInstance</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">createByTag</span><span class="PUNC">(</span><span class="NAME">tagName</span><span class="PUNC">,</span><span class="NAME">el.id</span><span class="PUNC">,</span><span class="NAME">nitobi.component.renderComponent</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">component.render</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">component.onLoadCallback</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">				</span><span class="NAME">component.render</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 56</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="WHIT">		</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="WHIT">			</span><span class="NAME">component</span><span class="PUNC">=</span><span class="NAME">el.jsObject</span><span class="PUNC">;</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 60</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">			</span><span class="WHIT">
+<span class='line'> 62</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">component</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 63</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 64</span> 
+<span class='line'> 65</span> </span><span class="COMM">/**
+<span class='line'> 66</span>  * @private
+<span class='line'> 67</span>  */</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="NAME">nitobi.component.renderComponent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">eventArgs</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="WHIT">	</span><span class="NAME">eventArgs.source.render</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 72</span> 
+<span class='line'> 73</span> </span><span class="COMM">/**
+<span class='line'> 74</span>  * Returns the javascript object for a component with a particular id. The 
+<span class='line'> 75</span>  * component must have been already rendered.
+<span class='line'> 76</span>  * @param {String} id The id of the component.
+<span class='line'> 77</span>  * @type Object
+<span class='line'> 78</span>  */</span><span class="WHIT">
+<span class='line'> 79</span> </span><span class="NAME">nitobi.getComponent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">id</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 80</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 81</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">el</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">id</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 82</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">el</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 83</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">el.jsObject</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 84</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 85</span> 
+<span class='line'> 86</span> </span><span class="COMM">/**
+<span class='line'> 87</span>  * @private
+<span class='line'> 88</span>  */</span><span class="WHIT">
+<span class='line'> 89</span> </span><span class="NAME">nitobi.component.uniqueId</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 90</span> 
+<span class='line'> 91</span> </span><span class="COMM">/**
+<span class='line'> 92</span>  * Returns a unique string.
+<span class='line'> 93</span>  * @type String
+<span class='line'> 94</span>  * @private
+<span class='line'> 95</span>  */</span><span class="WHIT">
+<span class='line'> 96</span> </span><span class="NAME">nitobi.component.getUniqueId</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 97</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 98</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">"ntbcmp_"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.component.uniqueId</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 99</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>100</span> 
+<span class='line'>101</span> </span><span class="COMM">/**
+<span class='line'>102</span>  * Finds all the child nodes of the supplied node that are Nitobi components
+<span class='line'>103</span>  * @param {HTMLNode} rootNode The node to start the search on
+<span class='line'>104</span>  * @param {Array} foundNodes An array to store the nodes
+<span class='line'>105</span>  * @private
+<span class='line'>106</span>  */</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="NAME">nitobi.getComponents</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">rootNode</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">foundNodes</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">foundNodes</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>110</span> </span><span class="WHIT">		</span><span class="NAME">foundNodes</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>111</span> 
+<span class='line'>112</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.component.isNitobiElement</span><span class="PUNC">(</span><span class="NAME">rootNode</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>113</span> </span><span class="WHIT">		</span><span class="NAME">foundNodes.push</span><span class="PUNC">(</span><span class="NAME">rootNode</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>114</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>115</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>116</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>117</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nodes</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">rootNode.childNodes</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>118</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">nodes.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>119</span> </span><span class="WHIT">		</span><span class="NAME">nitobi.getComponents</span><span class="PUNC">(</span><span class="NAME">nodes</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">foundNodes</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>120</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>121</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>122</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">foundNodes</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>123</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>124</span> 
+<span class='line'>125</span> </span><span class="COMM">/**
+<span class='line'>126</span>  * @private
+<span class='line'>127</span>  */</span><span class="WHIT">
+<span class='line'>128</span> </span><span class="NAME">nitobi.component.isNitobiElement</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">rootNode</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>129</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>130</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">rootNodeName</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.getTagName</span><span class="PUNC">(</span><span class="NAME">rootNode</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>131</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">rootNodeName.substr</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">3</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"ntb"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>132</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>133</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>134</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>135</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>136</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>137</span> 
+<span class='line'>138</span> </span><span class="COMM">/**
+<span class='line'>139</span>  * @private
+<span class='line'>140</span>  */</span><span class="WHIT">
+<span class='line'>141</span> </span><span class="NAME">nitobi.component.loadComponentsFromNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">rootNode</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>142</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>143</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ntbElements</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Array</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>144</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.getComponents</span><span class="PUNC">(</span><span class="NAME">rootNode</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ntbElements</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>145</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">ntbElements.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>146</span> </span><span class="WHIT">		</span><span class="NAME">nitobi.loadComponent</span><span class="PUNC">(</span><span class="NAME">ntbElements</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">getAttribute</span><span class="PUNC">(</span><span class="STRN">'id'</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>147</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="PUNC">}</span></pre></body></html>

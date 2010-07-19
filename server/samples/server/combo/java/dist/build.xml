@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project default="assemble">
+	<target name="assemble" depends="clean, build.src">
+		<copy todir="temp/src/examples">
+			<fileset dir="../src/examples"/>
+		</copy>
+		
+		<copy todir="temp/client/java">
+			<fileset dir="../WebContent/combo/java"/>
+		</copy>
+	</target>
+	
+	<target name="build.src">
+		<path id="lib-path">
+			<fileset dir="../../../../server/java/lib">
+				<include name="**/*.jar"/>
+			</fileset>
+		</path>
+		<mkdir dir="temp/classes"/>
+		<javac srcdir="../src"
+			destdir="temp/classes"
+			debug="off" target="1.4" source="1.4"
+			classpathref="lib-path"/>
+	</target>
+	
+	<target name="clean">
+		<delete dir="temp"/>
+	</target>
+</project>

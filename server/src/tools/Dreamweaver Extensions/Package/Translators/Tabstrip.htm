@@ -1,0 +1,142 @@
+<html>
+<head>
+<title>Nitobi Tabstrip Tag Translator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=">
+<script language="text/javascipt" src="../Shared/Nitobi/NitobiUtility.js"></script>
+<script language="JavaScript">
+var DEFAULTHEIGHT = "200px";
+var DEFAULTWIDTH = "100%";
+var DEFAULTTABWIDTH = "200px";
+var DEFAULTTABSHEIGHT = "28px";
+var DEFAULTTHEME = "nitobi";
+
+var startTag = "<ntb:tabstrip>";
+var endTag = "</ntb:tabstrip>"
+function getTranslatorInfo()
+{
+	var translatorInfo = new Array(6);
+	
+	translatorInfo[0] = "NTB_TABSTRIP";
+	translatorInfo[1] = "Nitobi Tabstrip";
+	translatorInfo[2] = "0";
+	translatorInfo[3] = "1";
+	translatorInfo[4] = "<ntb:tabstrip";
+	translatorInfo[5] = "byExpression";
+	return translatorInfo;
+}
+
+function translateMarkup(docNameStr, siteRootStr, inStr)
+{
+	var outStr = "";
+	var replCode = "";
+	var start = inStr.indexOf("<ntb:tabstrip");
+	var end = inStr.indexOf("</ntb:tabstrip>");
+
+	// If the string to translate is empty, do nothing.
+	if (inStr.length <= 0)
+	{
+		return "";
+	}
+	
+	while (start != -1)
+	{
+		outStr = inStr.substring(0,start);
+		replCode = constructLockedMarkup(inStr.substring(start, end + endTag.length));
+		outStr = outStr + replCode;
+		outStr = outStr + inStr.substring(end + endTag.length);
+		inStr = outStr;
+		start = inStr.indexOf("<ntb:tabstrip");
+		end = inStr.indexOf("</ntb:tabstrip>");
+	}
+	return outStr;
+}
+
+function constructLockedMarkup(declaration)
+{
+	var startMarkup = "<MM:BeginLock translatorClass=\"NTB_TABSTRIP\" type=\"ntb:tabstrip\" orig=\"" + escape(declaration) + "\">";
+	var endMarkup = "<" + "MM:EndLock>";
+	
+	var tabstrip = nitobi.util.getTag(declaration, "ntb:tabstrip", 0);
+	var tabs = nitobi.util.getTag(declaration, "ntb:tabs", 0);
+	var width = nitobi.util.getAttribute(tabstrip, "width");
+	var height = nitobi.util.getAttribute(tabstrip, "height");
+	var align = (tabs?nitobi.util.getAttribute(tabs, "align"):"center");
+	var activeTab = (tabs?nitobi.util.getAttribute(tabs, "activetabindex"):"0");
+	var tabCollection = nitobi.util.getTag(declaration, "ntb:tab");
+	var theme = nitobi.util.getAttribute(tabstrip, "theme");
+	
+	var content = "";
+	content += '<div class="' + (theme?theme:DEFAULTTHEME) + ' ntb-tabstrip-reset" style="';
+	content += 'width:' + (width?width:DEFAULTWIDTH) + ';height:' + (height?height:DEFAULTHEIGHT);
+	content += ';position:static;border:1px solid black;">';
+	content += '<div class="ntb-tab-strip" style="border:1px solid black;">';
+	content += '<table border="0" cellpadding="0" cellspacing="0" class="ntb-tab-tabs" style="position:inherit;" ';
+	/*if (align == "left")
+	{
+		content += "margin-right:auto;";
+	}
+	else if (align == "right")
+	{
+		content += "margin-left:auto;";
+	}
+	else 
+	{
+		content += "margin-left:auto;margin-right:auto;";
+	}*/
+	if (align != null)
+	{
+		content += 'align="' + align + '"';
+	}
+	else
+	{
+		content += 'align="left"';
+	}
+	content += '">';
+	content += '<tbody><tr>';
+	if (tabCollection != null)
+	{
+		for (var i = 0; i < tabCollection.length; i++)
+		{
+			var tab = tabCollection[i];
+			var width = nitobi.util.getAttribute(tab, "width");
+			var label = nitobi.util.getAttribute(tab, "label");
+			content += '<td><div class="ntb-tab-active';
+			/*if (activeTab != null)
+			{
+				content += (parseInt(activeTab) == i?'ntb-tab-active':'ntb-tab-inactive');
+			}
+			else
+			{
+				content += (0 == i?'ntb-tab-active':'ntb-tab-inactive');
+			}*/
+			content += '" style="white-space:nowrap;"><div>';
+			content += '<span class="ntb-tab ntb-tab-left" style="height:30px; white-space: nowrap;"></span>';
+			content += '<span class="ntb-tab ntb-tab-body" style="height:30px; white-space: nowrap;';
+			if (activeTab != null)
+			{
+				content += (parseInt(activeTab) == i?'font-weight:bold;':'');
+			}
+			else
+			{
+				content += (0 == i?'font-weight:bold;':'');
+			}
+			content += 'width:' + (width?parseInt(width) - 42 + "px":parseInt(DEFAULTTABWIDTH) - 42 + "px") + ';">';
+			content += (label?label:"") + '</span>';
+			content += '<span class="ntb-tab ntb-tab-right" style="height:30px; white-space: nowrap;';
+			if (i != tabCollection.length - 1)
+			{
+				content += 'width:22px;';
+			}
+			content += '"></span>';
+			content += '</div></div></td>';
+		}
+	}
+	content += '</tr></tbody></table></div></div>';
+	return startMarkup + content + endMarkup;
+}
+
+</script>
+</head>
+<body>
+</body>
+</html>

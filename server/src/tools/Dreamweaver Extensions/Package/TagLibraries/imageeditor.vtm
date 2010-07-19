@@ -1,0 +1,7 @@
+<tag name="imageeditor" endtag="yes">
+	<tagformat nlbeforetag="1" nlaftertag="1"></tagformat>
+	<tagdialog file="imageeditor.htm"></tagdialog>
+	<attributes>
+		<attrib name="imageurl" type="text"></attrib>
+	</attributes>
+</tag>

@@ -1,0 +1,1 @@
+<%@ Application Inherits="GridVisualBasicSamples.Global" Language="VB" %>

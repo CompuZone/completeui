@@ -1,0 +1,91 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<span class='line'>  2</span>  * @class Fixed-height scrollable grid without paging 
+<span class='line'>  3</span>  * &lt;p>
+<span class='line'>  4</span>  * &lt;b>Fixed Size&lt;/b>&lt;br/> 
+<span class='line'>  5</span>  * 	Height of grid specified explicitly.&lt;br/> 
+<span class='line'>  6</span>  * 	Vertical scrollbar allows user to scroll through rendered rows.  
+<span class='line'>  7</span>  * 	If there are not enough rows to fill the grid, a blank area will be present, 
+<span class='line'>  8</span>  *  the grid will not shrink.
+<span class='line'>  9</span>  * &lt;/p>
+<span class='line'> 10</span>  * &lt;p> 
+<span class='line'> 11</span>  * &lt;b>Client-side Data&lt;/b>&lt;br/> 
+<span class='line'> 12</span>  * 	Data in the client-side datasource constitutes all the available records.  
+<span class='line'> 13</span>  * 	The grid renders all records present in the client-side datasource that match the specified filter 
+<span class='line'> 14</span>  *  criteria.
+<span class='line'> 15</span>  * 	Sorting is performed client-side.&lt;br/>
+<span class='line'> 16</span>  * 	All grid rows are rendered in a single render operation.&lt;br/>
+<span class='line'> 17</span>  * 	Data is loaded once.&lt;br/> 
+<span class='line'> 18</span>  * 	Allows for static client-side XML and loadXML().&lt;br/>
+<span class='line'> 19</span>  * &lt;/p>
+<span class='line'> 20</span>  * &lt;p>
+<span class='line'> 21</span>  * &lt;b>No Paging&lt;/b>&lt;br/> 
+<span class='line'> 22</span>  * 	Paging operations have no effect 
+<span class='line'> 23</span>  * &lt;/p>
+<span class='line'> 24</span>  * @constructor
+<span class='line'> 25</span>  * @param {String} uid The unique ID of the Grid.
+<span class='line'> 26</span>  */</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="NAME">nitobi.grid.GridNonpaging</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">uid</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 28</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.grid.GridNonpaging.baseConstructor.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="WHIT">	</span><span class="NAME">this.mode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"nonpaging"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="NAME">nitobi.lang.extend</span><span class="PUNC">(</span><span class="NAME">nitobi.grid.GridNonpaging</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">nitobi.grid.TreeGrid</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 32</span> 
+<span class='line'> 33</span> </span><span class="NAME">nitobi.grid.GridNonpaging.prototype.createChildren</span><span class="PUNC">=</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">args</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">arguments</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.grid.GridNonpaging.base.createChildren.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="NAME">args</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.grid.GridNonpaging.base.createToolbars.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="NAME">nitobi.ui.Toolbars.VisibleToolbars.STANDARD</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 38</span> 
+<span class='line'> 39</span> </span><span class="COMM">//get all data if getHandler specified (no paging stuff)</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="NAME">nitobi.grid.GridNonpaging.prototype.bind</span><span class="PUNC">=</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.grid.GridStandard.base.bind.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.getGetHandler</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">!=</span><span class="STRN">''</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 45</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="WHIT">		</span><span class="NAME">this.ensureConnected</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 47</span> </span><span class="WHIT">		</span><span class="NAME">this.datatable.get</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.getComplete</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 50</span> </span><span class="WHIT">		</span><span class="COMM">// TODO: if we have created the datasource and loaded it with data BEFORE connecting to it</span><span class="WHIT">
+<span class='line'> 51</span> </span><span class="WHIT">		</span><span class="COMM">// the rowcount changed events etc will not have propagated to the Grid and so we will</span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="WHIT">		</span><span class="COMM">// have an incorrect row count.</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">		</span><span class="NAME">this.finalizeRowCount</span><span class="PUNC">(</span><span class="NAME">this.datatable.getRemoteRowCount</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">		</span><span class="NAME">this.bindComplete</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 56</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="NAME">nitobi.grid.GridNonpaging.prototype.getComplete</span><span class="PUNC">=</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">evtArgs</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="WHIT">  	</span><span class="NAME">nitobi.grid.GridNonpaging.base.getComplete.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">evtArgs</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 60</span> 
+<span class='line'> 61</span> </span><span class="WHIT">	</span><span class="COMM">// TODO: This is not needed since the connected datatable will fire all the</span><span class="WHIT">
+<span class='line'> 62</span> </span><span class="WHIT">	</span><span class="COMM">// right events on the Grid when it gets the data back.</span><span class="WHIT">
+<span class='line'> 63</span> </span><span class="WHIT">	</span><span class="NAME">this.finalizeRowCount</span><span class="PUNC">(</span><span class="NAME">evtArgs.numRowsReturned</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 64</span> 
+<span class='line'> 65</span> </span><span class="WHIT">	</span><span class="COMM">// TODO: This is not needed since the connected datatable will fire all the</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="WHIT">	</span><span class="COMM">// right events on the Grid when it gets the data back.</span><span class="WHIT">
+<span class='line'> 67</span> </span><span class="WHIT">	</span><span class="NAME">this.defineColumnsFinalize</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 68</span> 
+<span class='line'> 69</span> </span><span class="WHIT">  	</span><span class="NAME">this.bindComplete</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 71</span> 
+<span class='line'> 72</span> </span><span class="NAME">nitobi.grid.GridNonpaging.prototype.renderMiddle</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.grid.GridNonpaging.base.renderMiddle.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="NAME">arguments</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 75</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">startRow</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.getfreezetop</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 76</span> </span><span class="WHIT">	</span><span class="NAME">endRow</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.getRowCount</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 77</span> </span><span class="WHIT">	</span><span class="NAME">this.Scroller.view.midcenter.renderGap</span><span class="PUNC">(</span><span class="NAME">startRow</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">endRow</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 78</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 79</span> 
+<span class='line'> 80</span> </span><span class="COMM">/*
+<span class='line'> 81</span> nitobi.grid.GridNonpaging.prototype.handleKey = function()
+<span class='line'> 82</span> {
+<span class='line'> 83</span> }
+<span class='line'> 84</span> */</span></pre></body></html>

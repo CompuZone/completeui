@@ -1,0 +1,7 @@
+<project>
+	<property name="buildTools.basedir" 					value="${nant.project.basedir}\..\..\EBABuild"/>
+	<property name="buildTools.dev.basedir" 				value="${buildTools.basedir}\v13"/>
+	<property name="buildTools.dev.build.basedir" 			value="${buildTools.dev.basedir}\Build"/>
+	<property name="buildTools.dev.doc.javadoc2chm.basedir" value="${buildTools.dev.basedir}\Documentation\JavaDoc2Chm"/>    	
+	<property name="buildTools.dev.doc.docapigen" 			value="${buildTools.dev.basedir}\Documentation\DocumentationAPIGenerator" />	
+</project>

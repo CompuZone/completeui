@@ -1,0 +1,69 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="NAME">nitobi.lang.defineNs</span><span class="PUNC">(</span><span class="STRN">"nitobi.browser"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  2</span> 
+<span class='line'>  3</span> </span><span class="COMM">/**
+<span class='line'>  4</span>  * History is used to fix the back button the web browser.
+<span class='line'>  5</span>  * Current support is only for IE and MOZ browsers.
+<span class='line'>  6</span>  * @class
+<span class='line'>  7</span>  * @constructor
+<span class='line'>  8</span>  */</span><span class="WHIT">
+<span class='line'>  9</span> </span><span class="NAME">nitobi.browser.History</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 10</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 11</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 12</span> 	 * @private
+<span class='line'> 13</span> 	 */</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="WHIT">	</span><span class="NAME">this.lastPage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 15</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 16</span> 	 * @private
+<span class='line'> 17</span> 	 */</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="WHIT">	</span><span class="NAME">this.currentPage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 20</span> 	 * Fired when the back or forward button is pressed by the user.
+<span class='line'> 21</span> 	 * @type nitobi.base.Event
+<span class='line'> 22</span> 	 */</span><span class="WHIT">
+<span class='line'> 23</span> </span><span class="WHIT">	</span><span class="NAME">this.onChange</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.base.Event</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 25</span> 	 * @private
+<span class='line'> 26</span> 	 */</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="WHIT">	</span><span class="NAME">this.iframeObject</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.createElement</span><span class="PUNC">(</span><span class="STRN">"iframe"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="STRN">"name"</span><span class="PUNC">:</span><span class="STRN">"ntb_history"</span><span class="PUNC">,</span><span class="STRN">"id"</span><span class="PUNC">:</span><span class="STRN">"ntb_history"</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="STRN">"display"</span><span class="PUNC">:</span><span class="STRN">"none"</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 28</span> 
+<span class='line'> 29</span> </span><span class="WHIT">	</span><span class="NAME">document.body.appendChild</span><span class="PUNC">(</span><span class="NAME">nitobi.xml.importNode</span><span class="PUNC">(</span><span class="NAME">document</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.iframeObject</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 31</span> 	 * @private
+<span class='line'> 32</span> 	 */</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">	</span><span class="NAME">this.iframe</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">frames</span><span class="PUNC">[</span><span class="STRN">'ntb_history'</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="WHIT">	</span><span class="NAME">this.monitor</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="COMM">/**
+<span class='line'> 37</span>  * Adds a new URL to the back button history.
+<span class='line'> 38</span>  * @param {String} path A URL with a "#" character that separates the web page from the fragment.
+<span class='line'> 39</span>  * Either part (page name or fragment) can be used to retrieve the state.
+<span class='line'> 40</span>  */</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="NAME">nitobi.browser.History.prototype.add</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">path</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="WHIT">	</span><span class="NAME">this.lastPage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.currentPage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">path.substr</span><span class="PUNC">(</span><span class="NAME">path.indexOf</span><span class="PUNC">(</span><span class="STRN">"#"</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="WHIT">	</span><span class="NAME">this.iframe.location.href</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">path</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 45</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="COMM">/**
+<span class='line'> 47</span>  * Monitors the hidden IFRAME watching for changes to the location. When the location changes due to the
+<span class='line'> 48</span>  * user pressing the back or forward buttons the OnChange event is fired.
+<span class='line'> 49</span>  * @private
+<span class='line'> 50</span>  */</span><span class="WHIT">
+<span class='line'> 51</span> </span><span class="NAME">nitobi.browser.History.prototype.monitor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">alocation</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.iframe.location.href.split</span><span class="PUNC">(</span><span class="STRN">"#"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">	</span><span class="NAME">this.currentPage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">alocation</span><span class="PUNC">[</span><span class="NUMB">1</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.currentPage</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="NAME">this.lastPage</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 56</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="WHIT">		</span><span class="NAME">this.onChange.notify</span><span class="PUNC">(</span><span class="NAME">alocation</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">substring</span><span class="PUNC">(</span><span class="NAME">alocation</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">lastIndexOf</span><span class="PUNC">(</span><span class="STRN">"/"</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.currentPage</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="WHIT">		</span><span class="NAME">this.lastPage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.currentPage</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 60</span> </span><span class="WHIT">	</span><span class="NAME">window.setTimeout</span><span class="PUNC">(</span><span class="NAME">nitobi.lang.close</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.monitor</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">1500</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 62</span> </span></pre></body></html>

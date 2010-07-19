@@ -1,0 +1,735 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="NAME">nitobi.lang.defineNs</span><span class="PUNC">(</span><span class="STRN">"nitobi.html"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  2</span> 
+<span class='line'>  3</span> </span><span class="COMM">/**
+<span class='line'>  4</span>  * &lt;I>There is no constructor for this class.&lt;/I>
+<span class='line'>  5</span>  * @class Utilities for manipulating the and inspecting the CSS properties of HTML Documents and
+<span class='line'>  6</span>  * Elements.
+<span class='line'>  7</span>  * @constructor
+<span class='line'>  8</span>  */</span><span class="WHIT">
+<span class='line'>  9</span> </span><span class="NAME">nitobi.html.Css</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 10</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 11</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 12</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 13</span> </span><span class="NAME">nitobi.html.Css.onPrecached</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.base.Event</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="COMM">/**
+<span class='line'> 15</span>  * Replace one CSS class with another in an &lt;CODE>Element&lt;/CODE>'s class list.
+<span class='line'> 16</span>  * @param {HTMLElement} domElement the HTML DOM element whose class attribute will be changed
+<span class='line'> 17</span>  * @param {String} class1 the name of the class to replace with &lt;CODE>class2&lt;/CODE>
+<span class='line'> 18</span>  * @param {String} class2 the name of the class that will replace &lt;CODE>class1&lt;/CODE> 
+<span class='line'> 19</span>  */</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="NAME">nitobi.html.Css.swapClass</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">domElement</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">class1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">class2</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 22</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">domElement.className</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 23</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">reg</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">RegExp</span><span class="PUNC">(</span><span class="STRN">'(\\s|^)'</span><span class="PUNC">+</span><span class="NAME">class1</span><span class="PUNC">+</span><span class="STRN">'(\\s|$)'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">		</span><span class="NAME">domElement.className</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">domElement.className.replace</span><span class="PUNC">(</span><span class="NAME">reg</span><span class="PUNC">,</span><span class="STRN">"$1"</span><span class="PUNC">+</span><span class="NAME">class2</span><span class="PUNC">+</span><span class="STRN">"$2"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 28</span> 
+<span class='line'> 29</span> </span><span class="COMM">/**
+<span class='line'> 30</span>  * Replace one CSS class with another in an &lt;CODE>Element&lt;/CODE>'s class list.  If class1 
+<span class='line'> 31</span>  * is not present, then append class2 to the class list.
+<span class='line'> 32</span>  * @param {HTMLElement} domElement the HTML DOM element whose class attribute will be changed
+<span class='line'> 33</span>  * @param {String} class1 the name of the class to replace with &lt;CODE>class2&lt;/CODE>
+<span class='line'> 34</span>  * @param {String} class2 the name of the class that will replace &lt;CODE>class1&lt;/CODE> 
+<span class='line'> 35</span>  */</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="NAME">nitobi.html.Css.replaceOrAppend</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">domElement</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">class1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">class2</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.html.Css.hasClass</span><span class="PUNC">(</span><span class="NAME">domElement</span><span class="PUNC">,</span><span class="NAME">class1</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 39</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">		</span><span class="NAME">nitobi.html.Css.swapClass</span><span class="PUNC">(</span><span class="NAME">domElement</span><span class="PUNC">,</span><span class="NAME">class1</span><span class="PUNC">,</span><span class="NAME">class2</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="WHIT">		</span><span class="NAME">nitobi.html.Css.addClass</span><span class="PUNC">(</span><span class="NAME">domElement</span><span class="PUNC">,</span><span class="NAME">class2</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 45</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 47</span> </span><span class="COMM">/**
+<span class='line'> 48</span>  * Returns &lt;CODE>true&lt;/CODE> if &lt;CODE>clazz&lt;/CODE> is in &lt;CODE>domElement&lt;/CODE>'s CSS class list.
+<span class='line'> 49</span>  * @param {HTMLElement} domElement the HTML DOM element whose class attribue will be inspected
+<span class='line'> 50</span>  * @param {String} clazz the name of the class to look for
+<span class='line'> 51</span>  * @type Boolean 
+<span class='line'> 52</span>  */</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="NAME">nitobi.html.Css.hasClass</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">domElement</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">clazz</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">clazz</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">clazz</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">''</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 56</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">RegExp</span><span class="PUNC">(</span><span class="STRN">'(\\s|^)'</span><span class="PUNC">+</span><span class="NAME">clazz</span><span class="PUNC">+</span><span class="STRN">'(\\s|$)'</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">test</span><span class="PUNC">(</span><span class="NAME">domElement.className</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 58</span> 
+<span class='line'> 59</span> </span><span class="COMM">/**
+<span class='line'> 60</span>  * Adds a CSS class to the end of an HTML DOM element's class list.
+<span class='line'> 61</span>  * @param {HTMLElement} domElement the HTML DOM element to alter
+<span class='line'> 62</span>  * @param {String} clazz the CSS class to append to &lt;CODE>domElement&lt;/CODE>'s class list
+<span class='line'> 63</span>  * @param {Boolean} ignoreCheck Indicates whether or not to first check if the element already has the class that we are adding. Default is &lt;code>false&lt;/code>. Optional.
+<span class='line'> 64</span>  */</span><span class="WHIT">
+<span class='line'> 65</span> </span><span class="NAME">nitobi.html.Css.addClass</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">domElement</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">clazz</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ignoreCheck</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 67</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">ignoreCheck</span><span class="PUNC">==</span><span class="KEYW">true</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">nitobi.html.Css.hasClass</span><span class="PUNC">(</span><span class="NAME">domElement</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">clazz</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="WHIT">		</span><span class="NAME">domElement.className</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">domElement.className</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">domElement.className</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">' '</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">clazz</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">clazz</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 72</span> 
+<span class='line'> 73</span> </span><span class="COMM">/**
+<span class='line'> 74</span>  * Removes a CSS class to the end of an HTML DOM element's class list.
+<span class='line'> 75</span>  * @param {HTMLElement} domElement The HTML DOM element to alter
+<span class='line'> 76</span>  * @param {String | Array} clazz The CSS class to remove from &lt;CODE>domElement&lt;/CODE>'s class list. It can also be an array of classes that will be removed.
+<span class='line'> 77</span>  * @param {Boolean} ignoreCheck Indicates whether or not to first check if the element has the class that we are removing. Default is &lt;code>false&lt;/code>. Optional.
+<span class='line'> 78</span>  */</span><span class="WHIT">
+<span class='line'> 79</span> </span><span class="NAME">nitobi.html.Css.removeClass</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">domElement</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">clazz</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ignoreCheck</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 80</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 81</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">clazz</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"array"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 82</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">clazz.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 83</span> </span><span class="WHIT">			</span><span class="NAME">this.removeClass</span><span class="PUNC">(</span><span class="NAME">domElement</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">clazz</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ignoreCheck</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 84</span> 
+<span class='line'> 85</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">ignoreCheck</span><span class="PUNC">==</span><span class="KEYW">true</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css.hasClass</span><span class="PUNC">(</span><span class="NAME">domElement</span><span class="PUNC">,</span><span class="NAME">clazz</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 86</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 87</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">reg</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">RegExp</span><span class="PUNC">(</span><span class="STRN">'(\\s|^)'</span><span class="PUNC">+</span><span class="NAME">clazz</span><span class="PUNC">+</span><span class="STRN">'(\\s|$)'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 88</span> </span><span class="WHIT">		</span><span class="NAME">domElement.className</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">domElement.className.replace</span><span class="PUNC">(</span><span class="NAME">reg</span><span class="PUNC">,</span><span class="STRN">'$2'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 89</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 90</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 91</span> 
+<span class='line'> 92</span> </span><span class="COMM">/**
+<span class='line'> 93</span>  * Adds a CSS rule to the specified stylesheet object.
+<span class='line'> 94</span>  * @param {String} selector The CSS rule selector string such as &lt;code>.myClass&lt;/code>.
+<span class='line'> 95</span>  * @param {String} style The CSS rule style string such as &lt;code>color:red;border:1px solid black;&lt;/code>.
+<span class='line'> 96</span>  */</span><span class="WHIT">
+<span class='line'> 97</span> </span><span class="NAME">nitobi.html.Css.addRule</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">styleSheet</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">selector</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">style</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 98</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 99</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">styleSheet.cssRules</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>100</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">index</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">styleSheet.insertRule</span><span class="PUNC">(</span><span class="NAME">selector</span><span class="PUNC">+</span><span class="STRN">"{"</span><span class="PUNC">+</span><span class="PUNC">(</span><span class="NAME">style</span><span class="PUNC">||</span><span class="STRN">""</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="STRN">"}"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">styleSheet.cssRules.length</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>101</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">styleSheet.cssRules</span><span class="PUNC">[</span><span class="NAME">index</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>102</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>103</span> </span><span class="WHIT">		</span><span class="COMM">// sets style nitobi:placeholder since IE doesnt like the empty steez</span><span class="WHIT">
+<span class='line'>104</span> </span><span class="WHIT">		</span><span class="NAME">styleSheet.addRule</span><span class="PUNC">(</span><span class="NAME">selector</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">style</span><span class="PUNC">||</span><span class="STRN">"nitobi:placeholder;"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>105</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">styleSheet.rules</span><span class="PUNC">[</span><span class="NAME">styleSheet.rules.length</span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>106</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>108</span> 
+<span class='line'>109</span> </span><span class="COMM">/**
+<span class='line'>110</span>  * Returns an &lt;CODE>Array&lt;/CODE> of CSS rules in the specified stylesheet.
+<span class='line'>111</span>  * @param {StyleSheet|Number} styleSheetIndex The index of the stylesheet for which you want the rules, or a StyleSheet object itself.
+<span class='line'>112</span>  * @type Array
+<span class='line'>113</span>  */</span><span class="WHIT">
+<span class='line'>114</span> </span><span class="NAME">nitobi.html.Css.getRules</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">styleSheetIndex</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>115</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>116</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">sheet</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>117</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">styleSheetIndex</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">'number'</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>118</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>119</span> </span><span class="WHIT">		</span><span class="NAME">sheet</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.styleSheets</span><span class="PUNC">[</span><span class="NAME">styleSheetIndex</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>120</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>121</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="COMM">// styleSheetIndex is an actual stylesheet object.</span><span class="WHIT">
+<span class='line'>122</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>123</span> </span><span class="WHIT">		</span><span class="NAME">sheet</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">styleSheetIndex</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>124</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>125</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">sheet</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="WHIT">	</span><span class="COMM">// Watch out here - you can't get cross domain CSS in Firefox</span><span class="WHIT">
+<span class='line'>127</span> </span><span class="WHIT">	</span><span class="KEYW">try</span><span class="WHIT">
+<span class='line'>128</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>129</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">sheet.cssRules</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>130</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>131</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">sheet.cssRules</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>132</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>133</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">sheet.rules</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>134</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>135</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">sheet.rules</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>136</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>137</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">catch</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="COMM">/*error is due to cross domain CSS*/</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>138</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>139</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>140</span> 
+<span class='line'>141</span> </span><span class="COMM">/**
+<span class='line'>142</span>  * Returns an Array of CSS style sheets with the given file name.
+<span class='line'>143</span>  * @param {String} sheetName the file name (with no path) of the stylesheet
+<span class='line'>144</span>  * @type Array
+<span class='line'>145</span>  */</span><span class="WHIT">
+<span class='line'>146</span> </span><span class="NAME">nitobi.html.Css.getStyleSheetsByName</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">sheetName</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>147</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">arr</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Array</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>149</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ss</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.styleSheets</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>150</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">regex</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">RegExp</span><span class="PUNC">(</span><span class="NAME">sheetName.replace</span><span class="PUNC">(</span><span class="STRN">"."</span><span class="PUNC">,</span><span class="STRN">"\."</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="STRN">"($|\\?)"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>151</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>152</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">ss.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>153</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>154</span> </span><span class="WHIT">		</span><span class="NAME">arr</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css._getStyleSheetsByName</span><span class="PUNC">(</span><span class="NAME">regex</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ss</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="NAME">arr</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>155</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>156</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">arr</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>157</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>158</span> </span><span class="COMM">/**
+<span class='line'>159</span>  * @ignore
+<span class='line'>160</span>  */</span><span class="WHIT">
+<span class='line'>161</span> </span><span class="NAME">nitobi.html.Css._getStyleSheetsByName</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">regex</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">sheet</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">arr</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>162</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>163</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">regex.test</span><span class="PUNC">(</span><span class="NAME">sheet.href</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>164</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>165</span> </span><span class="WHIT">		</span><span class="NAME">arr</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">arr.concat</span><span class="PUNC">(</span><span class="PUNC">[</span><span class="NAME">sheet</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>166</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>167</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">rules</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css.getRules</span><span class="PUNC">(</span><span class="NAME">sheet</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>168</span> </span><span class="WHIT">	</span><span class="COMM">// IE6 imports bug - its actually a problem with using imports on dynamic stylesheets</span><span class="WHIT">
+<span class='line'>169</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">sheet.href</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">sheet.imports</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>170</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>171</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">sheet.imports.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>172</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>173</span> </span><span class="WHIT">			</span><span class="NAME">arr</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css._getStyleSheetsByName</span><span class="PUNC">(</span><span class="NAME">regex</span><span class="PUNC">,</span><span class="NAME">sheet.imports</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="NAME">arr</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>174</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>175</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>176</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>177</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>178</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">rules.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>179</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>180</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">s</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">rules</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">styleSheet</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>181</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">s</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>182</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>183</span> </span><span class="WHIT">				</span><span class="NAME">arr</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css._getStyleSheetsByName</span><span class="PUNC">(</span><span class="NAME">regex</span><span class="PUNC">,</span><span class="NAME">s</span><span class="PUNC">,</span><span class="NAME">arr</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>184</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>185</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>186</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>187</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">arr</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>188</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>189</span> 
+<span class='line'>190</span> </span><span class="COMM">/**
+<span class='line'>191</span>  * @ignore
+<span class='line'>192</span>  */</span><span class="WHIT">
+<span class='line'>193</span> </span><span class="NAME">nitobi.html.Css.imageCache</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>194</span> 
+<span class='line'>195</span> </span><span class="COMM">/**
+<span class='line'>196</span>  * @ignore
+<span class='line'>197</span>  */</span><span class="WHIT">
+<span class='line'>198</span> </span><span class="NAME">nitobi.html.Css.imageCacheDidNotify</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>199</span> 
+<span class='line'>200</span> </span><span class="COMM">/**
+<span class='line'>201</span>  * @ignore
+<span class='line'>202</span>  */</span><span class="WHIT">
+<span class='line'>203</span> </span><span class="NAME">nitobi.html.Css.trackPrecache</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">imgName</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>204</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>205</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.html.Css.precacheArray</span><span class="PUNC">[</span><span class="NAME">imgName</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>206</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">precacheComplete</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>207</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css.precacheArray</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>208</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">nitobi.html.Css.precacheArray</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>209</span> </span><span class="WHIT">			</span><span class="NAME">precacheComplete</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>210</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>211</span> 
+<span class='line'>212</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">nitobi.html.Css.imageCacheDidNotify</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">precacheComplete</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>213</span> </span><span class="WHIT">		</span><span class="NAME">nitobi.html.Css.imageCacheDidNotify</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>214</span> </span><span class="WHIT">		</span><span class="NAME">nitobi.html.Css.isPrecaching</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>215</span> </span><span class="WHIT">		</span><span class="NAME">nitobi.html.Css.onPrecached.notify</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>216</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>217</span> 
+<span class='line'>218</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>219</span> 
+<span class='line'>220</span> </span><span class="COMM">/**
+<span class='line'>221</span>  * @ignore
+<span class='line'>222</span>  */</span><span class="WHIT">
+<span class='line'>223</span> </span><span class="NAME">nitobi.html.Css.precacheArray</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>224</span> 
+<span class='line'>225</span> </span><span class="COMM">/**
+<span class='line'>226</span>  * @ignore
+<span class='line'>227</span>  */</span><span class="WHIT">
+<span class='line'>228</span> </span><span class="NAME">nitobi.html.Css.isPrecaching</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>229</span> 
+<span class='line'>230</span> 
+<span class='line'>231</span> </span><span class="COMM">/**
+<span class='line'>232</span>  * Loads images from a stylesheet.  If no stylesheet is specified, loads every image from every
+<span class='line'>233</span>  * stylesheet in the page.  After an image is pre-cached, the browser will not need to load the 
+<span class='line'>234</span>  * image from the server.
+<span class='line'>235</span>  * @param {StyleSheet} sheet the stylesheet to parse for image names
+<span class='line'>236</span>  */</span><span class="WHIT">
+<span class='line'>237</span> 
+<span class='line'>238</span> </span><span class="NAME">nitobi.html.Css.precacheImages</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">sheet</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>239</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>240</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.html.Css.isPrecaching</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>241</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">sheet</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>242</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>243</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ss</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.styleSheets</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>244</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">ss.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>245</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>246</span> </span><span class="WHIT">			</span><span class="NAME">nitobi.html.Css.precacheImages</span><span class="PUNC">(</span><span class="NAME">ss</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>247</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>248</span> </span><span class="WHIT">		</span><span class="COMM">//this.onPrecached.notify();</span><span class="WHIT">
+<span class='line'>249</span> </span><span class="WHIT">		</span><span class="COMM">//this.onPrecached.subscribe();</span><span class="WHIT">
+<span class='line'>250</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>251</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>252</span> 
+<span class='line'>253</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">regex</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="REGX">/.*?url\((.*?)\).*?/</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>254</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">rules</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css.getRules</span><span class="PUNC">(</span><span class="NAME">sheet</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>255</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">url</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css.getPath</span><span class="PUNC">(</span><span class="NAME">sheet</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>256</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">rules.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>257</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>258</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">rule</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">rules</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>259</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">rule.styleSheet</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>260</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>261</span> </span><span class="WHIT">			</span><span class="NAME">nitobi.html.Css.precacheImages</span><span class="PUNC">(</span><span class="NAME">rule.styleSheet</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>262</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>263</span> </span><span class="WHIT">		</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>264</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>265</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">s</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">rule.style</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>266</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">bgImage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">s</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">s.backgroundImage</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>267</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">bgImage</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>268</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>269</span> 
+<span class='line'>270</span> </span><span class="WHIT">				</span><span class="NAME">bgImage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">bgImage.replace</span><span class="PUNC">(</span><span class="NAME">regex</span><span class="PUNC">,</span><span class="STRN">'$1'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>271</span> </span><span class="WHIT">				</span><span class="NAME">bgImage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Url.normalize</span><span class="PUNC">(</span><span class="NAME">url</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">bgImage</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>272</span> 
+<span class='line'>273</span> </span><span class="WHIT">				</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">nitobi.html.Css.imageCache</span><span class="PUNC">[</span><span class="NAME">bgImage</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>274</span> </span><span class="WHIT">				</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>275</span> </span><span class="WHIT">					</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">image</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Image</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>276</span> </span><span class="WHIT">					</span><span class="NAME">image.src</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">bgImage</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>277</span> </span><span class="WHIT">					</span><span class="COMM">//console.log(bgImage);</span><span class="WHIT">
+<span class='line'>278</span> 
+<span class='line'>279</span> </span><span class="WHIT">					</span><span class="NAME">nitobi.html.Css.precacheArray</span><span class="PUNC">[</span><span class="NAME">bgImage</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>280</span> 
+<span class='line'>281</span> </span><span class="WHIT">					</span><span class="COMM">// Create a memory leak safe closure that calls the global function</span><span class="WHIT">
+<span class='line'>282</span> </span><span class="WHIT">					</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">closure</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.lang.close</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css.trackPrecache</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="NAME">bgImage</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>283</span> </span><span class="WHIT">					</span><span class="NAME">image.onload</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">closure</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>284</span> </span><span class="WHIT">					</span><span class="NAME">image.onerror</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">closure</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>285</span> </span><span class="WHIT">					</span><span class="NAME">image.onabort</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">closure</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>286</span> 
+<span class='line'>287</span> </span><span class="WHIT">					</span><span class="NAME">nitobi.html.Css.imageCache</span><span class="PUNC">[</span><span class="NAME">bgImage</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">image</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>288</span> </span><span class="WHIT">					</span><span class="KEYW">try</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>289</span> </span><span class="WHIT">					</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">image.width</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>290</span> </span><span class="WHIT">						</span><span class="NAME">nitobi.html.Css.precacheArray</span><span class="PUNC">[</span><span class="NAME">bgImage</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">					</span><span class="WHIT">
+<span class='line'>291</span> </span><span class="WHIT">					</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">catch</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>292</span> </span><span class="WHIT">				</span><span class="WHIT">
+<span class='line'>293</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>294</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>295</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>296</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>297</span> </span><span class="WHIT">	</span><span class="COMM">// IE6 imports bug - its actually a problem with using imports on dynamic stylesheets</span><span class="WHIT">
+<span class='line'>298</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">sheet.href</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">sheet.imports</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>299</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>300</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">sheet.imports.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>301</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>302</span> </span><span class="WHIT">			</span><span class="NAME">nitobi.html.Css.precacheImages</span><span class="PUNC">(</span><span class="NAME">sheet.imports</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>303</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>304</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>305</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>306</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>307</span> 
+<span class='line'>308</span> </span><span class="COMM">/**
+<span class='line'>309</span>  * Returns the normalized path for a given style sheet.
+<span class='line'>310</span>  * @param {StyleSheet} sheet the stylesheet whose URL is sought
+<span class='line'>311</span>  * @type String
+<span class='line'>312</span>  */</span><span class="WHIT">
+<span class='line'>313</span> </span><span class="NAME">nitobi.html.Css.getPath</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">sheet</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>314</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>315</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">href</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">sheet.href</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>316</span> </span><span class="WHIT">	</span><span class="NAME">href</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Url.normalize</span><span class="PUNC">(</span><span class="NAME">href</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>317</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">sheet.parentStyleSheet</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">href.indexOf</span><span class="PUNC">(</span><span class="STRN">'/'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">href.indexOf</span><span class="PUNC">(</span><span class="STRN">'http://'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">href.indexOf</span><span class="PUNC">(</span><span class="STRN">'https://'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>318</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>319</span> </span><span class="WHIT">		</span><span class="NAME">href</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css.getPath</span><span class="PUNC">(</span><span class="NAME">sheet.parentStyleSheet</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="NAME">href</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>320</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>321</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">href</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>322</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>323</span> 
+<span class='line'>324</span> </span><span class="COMM">/**
+<span class='line'>325</span>  * @ignore
+<span class='line'>326</span>  */</span><span class="WHIT">
+<span class='line'>327</span> </span><span class="NAME">nitobi.html.Css.getSheetUrl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css.getPath</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>328</span> 
+<span class='line'>329</span> </span><span class="COMM">/**
+<span class='line'>330</span>  * Returns the &lt;CODE>StyleSheet&lt;/CODE> object to which the specified cssClass belongs.
+<span class='line'>331</span>  * @param {String} cssClass The name of the cssClass whose parent sheet you want to find.
+<span class='line'>332</span>  * @type StyleSheet
+<span class='line'>333</span>  */</span><span class="WHIT">
+<span class='line'>334</span> </span><span class="NAME">nitobi.html.Css.findParentStylesheet</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">cssClass</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>335</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>336</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">rule</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css.getRule</span><span class="PUNC">(</span><span class="NAME">cssClass</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>337</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">rule</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>338</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>339</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">rule.parentStyleSheet</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>340</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>341</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>342</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>343</span> 
+<span class='line'>344</span> </span><span class="COMM">/**
+<span class='line'>345</span>  * @ignore
+<span class='line'>346</span>  */</span><span class="WHIT">
+<span class='line'>347</span> </span><span class="NAME">nitobi.html.Css.findInSheet</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">cssClass</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">sheet</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">level</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>348</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>349</span> </span><span class="WHIT">	</span><span class="COMM">// IE 6 BUG - http://cs.nerdbank.net/blogs/jmpinline/archive/2006/02/09/151.aspx</span><span class="WHIT">
+<span class='line'>350</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE6</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">level</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"undefined"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>351</span> </span><span class="WHIT">		</span><span class="NAME">level</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>352</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">level</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">4</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>353</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>354</span> </span><span class="WHIT">	</span><span class="NAME">level</span><span class="PUNC">++</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>355</span> 
+<span class='line'>356</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">rules</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css.getRules</span><span class="PUNC">(</span><span class="NAME">sheet</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>357</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">rule</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">rule</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">rules.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">rule</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>358</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ruleItem</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">rules</span><span class="PUNC">[</span><span class="NAME">rule</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>359</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ss</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ruleItem.styleSheet</span><span class="WHIT">
+<span class='line'>360</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">selectorText</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ruleItem.selectorText</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>361</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">ss</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>362</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>363</span> </span><span class="WHIT">			</span><span class="COMM">// Non-IE</span><span class="WHIT">
+<span class='line'>364</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">inImport</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css.findInSheet</span><span class="PUNC">(</span><span class="NAME">cssClass</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ss</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">level</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>365</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">inImport</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>366</span> </span><span class="WHIT">				</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">inImport</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>367</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>368</span> </span><span class="WHIT">		</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">selectorText</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">selectorText.toLowerCase</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">indexOf</span><span class="PUNC">(</span><span class="NAME">cssClass</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>369</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>370</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>371</span> </span><span class="WHIT">				</span><span class="COMM">// We create a dummy rule object that includes the parentStyleSheet field.</span><span class="WHIT">
+<span class='line'>372</span> </span><span class="WHIT">				</span><span class="COMM">// For whatever reason, IE doesn't support this property.</span><span class="WHIT">
+<span class='line'>373</span> </span><span class="WHIT">				</span><span class="NAME">ruleItem</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>374</span> </span><span class="WHIT">					</span><span class="NAME">selectorText</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">selectorText</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>375</span> </span><span class="WHIT">					</span><span class="NAME">style</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">ruleItem.style</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>376</span> </span><span class="WHIT">					</span><span class="NAME">readOnly</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">ruleItem.readOnly</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>377</span> </span><span class="WHIT">					</span><span class="NAME">parentStyleSheet</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">sheet</span><span class="WHIT">
+<span class='line'>378</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>379</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>380</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">ruleItem</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>381</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>382</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>383</span> </span><span class="WHIT">	</span><span class="COMM">// IE6 imports bug - its actually a problem with using imports on dynamic stylesheets</span><span class="WHIT">
+<span class='line'>384</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">imports</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">sheet.imports</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>385</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">sheet.href</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">imports</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>386</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>387</span> </span><span class="WHIT">		</span><span class="COMM">// IE only</span><span class="WHIT">
+<span class='line'>388</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">importLen</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">imports.length</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>389</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">importLen</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>390</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>391</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">inImport</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css.findInSheet</span><span class="PUNC">(</span><span class="NAME">cssClass</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">imports</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">level</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>392</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">inImport</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">inImport</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>393</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>394</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>395</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>396</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>397</span> 
+<span class='line'>398</span> </span><span class="COMM">/**
+<span class='line'>399</span>  * Returns the &lt;CODE>Style&lt;/CODE> object that has the cssClass as the only selector.
+<span class='line'>400</span>  * @param {String} cssClass The name of the class for which the style should be returned.
+<span class='line'>401</span>  * @type Map
+<span class='line'>402</span>  */</span><span class="WHIT">
+<span class='line'>403</span> </span><span class="NAME">nitobi.html.Css.getClass</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">cssClass</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ignoreCache</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>404</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>405</span> </span><span class="WHIT">	</span><span class="COMM">// TODO: We need to cache this stuff here ... </span><span class="WHIT">
+<span class='line'>406</span> </span><span class="WHIT">	</span><span class="NAME">cssClass</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">cssClass.toLowerCase</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>407</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">cssClass.indexOf</span><span class="PUNC">(</span><span class="STRN">"."</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>408</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>409</span> </span><span class="WHIT">		</span><span class="NAME">cssClass</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"."</span><span class="PUNC">+</span><span class="NAME">cssClass</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>410</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>411</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">ignoreCache</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>412</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>413</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">rule</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css.getRule</span><span class="PUNC">(</span><span class="NAME">cssClass</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>414</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">rule</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>415</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">rule.style</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>416</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>417</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>418</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>419</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.html.Css.classCache</span><span class="PUNC">[</span><span class="NAME">cssClass</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>420</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>421</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">rule</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css.getRule</span><span class="PUNC">(</span><span class="NAME">cssClass</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>422</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">rule</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>423</span> </span><span class="WHIT">				</span><span class="NAME">nitobi.html.Css.classCache</span><span class="PUNC">[</span><span class="NAME">cssClass</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">rule.style</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>424</span> </span><span class="WHIT">			</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>425</span> </span><span class="WHIT">				</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>426</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>427</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css.classCache</span><span class="PUNC">[</span><span class="NAME">cssClass</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>428</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>429</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>430</span> 
+<span class='line'>431</span> </span><span class="COMM">/**
+<span class='line'>432</span>  * This hash is used to keep track of already found classes in CSS
+<span class='line'>433</span>  * @private
+<span class='line'>434</span>  */</span><span class="WHIT">
+<span class='line'>435</span> </span><span class="NAME">nitobi.html.Css.classCache</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>436</span> 
+<span class='line'>437</span> </span><span class="COMM">/**
+<span class='line'>438</span>  * @ignore
+<span class='line'>439</span>  * @private
+<span class='line'>440</span>  */</span><span class="WHIT">
+<span class='line'>441</span> </span><span class="NAME">nitobi.html.Css.getStyleBySelector</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">sSelector</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>442</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>443</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">rule</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css.getRule</span><span class="PUNC">(</span><span class="NAME">sSelector</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>444</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">rule</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>445</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">rule.style</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>446</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>447</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>448</span> 
+<span class='line'>449</span> </span><span class="COMM">/**
+<span class='line'>450</span>  * Returns the &lt;CODE>Rule&lt;/CODE> object that has the cssClass as the only selector.
+<span class='line'>451</span>  * @param {String} cssClass The name of the class for which the style should be returned.
+<span class='line'>452</span>  * @type CSSStyleRule
+<span class='line'>453</span>  */</span><span class="WHIT">
+<span class='line'>454</span> </span><span class="NAME">nitobi.html.Css.getRule</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">cssClass</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>455</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>456</span> </span><span class="WHIT">	</span><span class="NAME">cssClass</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">cssClass.toLowerCase</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>457</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">cssClass.indexOf</span><span class="PUNC">(</span><span class="STRN">"."</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>458</span> </span><span class="WHIT">		</span><span class="NAME">cssClass</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"."</span><span class="PUNC">+</span><span class="NAME">cssClass</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>459</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">stylesheets</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.styleSheets</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>460</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ss</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">ss</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">stylesheets.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">ss</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>461</span> </span><span class="WHIT">		</span><span class="KEYW">try</span><span class="WHIT">
+<span class='line'>462</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>463</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">inSheet</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css.findInSheet</span><span class="PUNC">(</span><span class="NAME">cssClass</span><span class="PUNC">,</span><span class="NAME">stylesheets</span><span class="PUNC">[</span><span class="NAME">ss</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>464</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">inSheet</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">inSheet</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>465</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>466</span> </span><span class="WHIT">		</span><span class="KEYW">catch</span><span class="PUNC">(</span><span class="NAME">err</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>467</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>468</span> </span><span class="WHIT">			</span><span class="COMM">// Fall through. Might just be permissions error.</span><span class="WHIT">
+<span class='line'>469</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>470</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>471</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>472</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>473</span> 
+<span class='line'>474</span> </span><span class="COMM">/**
+<span class='line'>475</span>  * Returns the value for the specified style of the CSS class selector where the selector is the specified class name.
+<span class='line'>476</span>  * The following would return the value of "red":
+<span class='line'>477</span>  * &lt;CODE>&lt;PRE>
+<span class='line'>478</span>  * &lt;style&gt;.myClass {color:red;}&lt;/style&gt;
+<span class='line'>479</span>  * &lt;script&gt;nitobi.html.Css.getClassStyle("myClass","color");&lt;/script&gt;
+<span class='line'>480</span>  * &lt;/PRE>&lt;/CODE>
+<span class='line'>481</span>  * @param {String} cssClassName The name of the class used in the CSS selector.
+<span class='line'>482</span>  * @param {String} style The name of the style property to return.
+<span class='line'>483</span>  * @type String
+<span class='line'>484</span>  */</span><span class="WHIT">
+<span class='line'>485</span> </span><span class="NAME">nitobi.html.Css.getClassStyle</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">cssClassName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">style</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>486</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>487</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">cssClass</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css.getClass</span><span class="PUNC">(</span><span class="NAME">cssClassName</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>488</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">cssClass</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>489</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">cssClass</span><span class="PUNC">[</span><span class="NAME">style</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>490</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>491</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>492</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>493</span> 
+<span class='line'>494</span> </span><span class="COMM">/**
+<span class='line'>495</span>  * Sets the value of a particular style property. The style rule
+<span class='line'>496</span>  * is written in the CSS syntax, e.g., background-color instead of
+<span class='line'>497</span>  * backgroundColor.
+<span class='line'>498</span>  * @param {HTMLElement} el The element on which to set the style.
+<span class='line'>499</span>  * @param {String} rule The css rule to change.
+<span class='line'>500</span>  * @param {String} value The value to change the style to.
+<span class='line'>501</span>  */</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'>502</span> </span><span class="NAME">nitobi.html.Css.setStyle</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">el</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">rule</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">value</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>503</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>504</span> </span><span class="WHIT">	</span><span class="NAME">rule</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">rule.replace</span><span class="PUNC">(</span><span class="REGX">/\-(\w)/g</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">strMatch</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">p1</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>505</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">p1.toUpperCase</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>506</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>507</span> </span><span class="WHIT">	</span><span class="NAME">el.style</span><span class="PUNC">[</span><span class="NAME">rule</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">value</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>508</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>509</span> 
+<span class='line'>510</span> </span><span class="COMM">/**
+<span class='line'>511</span>  * Gets the value of the specified element and style property.
+<span class='line'>512</span>  * @param {HTMLElement} oElem The HTML element one wants the style value for.
+<span class='line'>513</span>  * @param {String} sCssRule The style property one wants the value for.
+<span class='line'>514</span>  * @type String
+<span class='line'>515</span>  */</span><span class="WHIT">
+<span class='line'>516</span> </span><span class="NAME">nitobi.html.Css.getStyle</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">oElm</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">sCssRule</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>517</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">strValue</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>518</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">document.defaultView</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">document.defaultView.getComputedStyle</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>519</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>520</span> </span><span class="WHIT">    	</span><span class="COMM">// This is for MOZ.</span><span class="WHIT">
+<span class='line'>521</span> </span><span class="WHIT">    	</span><span class="COMM">// Put the dashes in if there are capital letters.</span><span class="WHIT">
+<span class='line'>522</span> </span><span class="WHIT">    	</span><span class="NAME">sCssRule</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">sCssRule.replace</span><span class="PUNC">(</span><span class="REGX">/([A-Z])/g</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">$1</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>523</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">"-"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">$1.toLowerCase</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>524</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>525</span> </span><span class="WHIT">        </span><span class="NAME">strValue</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.defaultView.getComputedStyle</span><span class="PUNC">(</span><span class="NAME">oElm</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">getPropertyValue</span><span class="PUNC">(</span><span class="NAME">sCssRule</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>526</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>527</span> </span><span class="WHIT">    </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">oElm.currentStyle</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>528</span> </span><span class="WHIT">        </span><span class="NAME">sCssRule</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">sCssRule.replace</span><span class="PUNC">(</span><span class="REGX">/\-(\w)/g</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">strMatch</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">p1</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>529</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">p1.toUpperCase</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>530</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>531</span> </span><span class="WHIT">        </span><span class="NAME">strValue</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">oElm.currentStyle</span><span class="PUNC">[</span><span class="NAME">sCssRule</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>532</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>533</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">strValue</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>534</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>535</span> 
+<span class='line'>536</span> </span><span class="COMM">/*
+<span class='line'>537</span> 
+<span class='line'>538</span> nitobi.dom.getStyle = function (oElm, strCssRule)
+<span class='line'>539</span> {
+<span class='line'>540</span>     var strValue = "";
+<span class='line'>541</span> 	if (oElm.style[strCssRule])
+<span class='line'>542</span> 	{
+<span class='line'>543</span> 		// inline style property
+<span class='line'>544</span> 		return oElm.style[strCssRule];
+<span class='line'>545</span> 	}
+<span class='line'>546</span> 	else if (oElm.currentStyle)
+<span class='line'>547</span> 	{
+<span class='line'>548</span> 		// external stylesheet for Explorer
+<span class='line'>549</span>         strCssRule = strCssRule.replace(/([A-Z])/g, "-$1");
+<span class='line'>550</span>         strValue = oElm.currentStyle[strCssRule];
+<span class='line'>551</span> 	}
+<span class='line'>552</span> 	else if(document.defaultView && document.defaultView.getComputedStyle)
+<span class='line'>553</span>     {
+<span class='line'>554</span> 		strValue = document.defaultView.getComputedStyle(oElm, "").getPropertyValue(strCssRule);
+<span class='line'>555</span>     }
+<span class='line'>556</span>     if (strValue == 'auto' && console != null)
+<span class='line'>557</span>     	console.log(strCssRule + ' is auto on ' + oElm);
+<span class='line'>558</span>     return strValue;
+<span class='line'>559</span> }
+<span class='line'>560</span>  */</span><span class="WHIT">
+<span class='line'>561</span> 
+<span class='line'>562</span> </span><span class="COMM">/**
+<span class='line'>563</span>  * Sets the opacity of an Array of elements using {@link nitobi.html.Css#setOpacity}
+<span class='line'>564</span>  * @param {Array} elements the HTML elements to change the opacity of
+<span class='line'>565</span>  * @param {Number} opacity the new opacity for these elements (0-100) 
+<span class='line'>566</span>  */</span><span class="WHIT">
+<span class='line'>567</span> 
+<span class='line'>568</span> </span><span class="NAME">nitobi.html.Css.setOpacities</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">elements</span><span class="PUNC">,</span><span class="NAME">opacity</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>569</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>570</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">elements.length</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>571</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>572</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">elements.length</span><span class="PUNC">;</span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>573</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>574</span> </span><span class="WHIT">			</span><span class="NAME">nitobi.html.Css.setOpacity</span><span class="PUNC">(</span><span class="NAME">elements</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="NAME">opacity</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>575</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>576</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>577</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>578</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>579</span> </span><span class="WHIT">		</span><span class="NAME">nitobi.html.Css.setOpacity</span><span class="PUNC">(</span><span class="NAME">elements</span><span class="PUNC">,</span><span class="NAME">opacity</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>580</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>581</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>582</span> 
+<span class='line'>583</span> </span><span class="COMM">/**
+<span class='line'>584</span>  * Sets the opacity of an element.
+<span class='line'>585</span>  * @param {HTMLElement} element The element on which to set the opacity.
+<span class='line'>586</span>  * @param {Number} opacity The opacity, 0 - 100;
+<span class='line'>587</span>  */</span><span class="WHIT">
+<span class='line'>588</span> </span><span class="NAME">nitobi.html.Css.setOpacity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">opacity</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>589</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>590</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">s</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">element.style</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>591</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">opacity</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">100</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>592</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>593</span> </span><span class="WHIT">    	</span><span class="NAME">opacity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">100</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>594</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>595</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">opacity</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>596</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>597</span> </span><span class="WHIT">    	</span><span class="NAME">opacity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>598</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>599</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">s.filter</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>600</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>601</span> </span><span class="WHIT">    	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">match</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">s.filter.match</span><span class="PUNC">(</span><span class="REGX">/alpha\(opacity=[\d\.]*?\)/ig</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>602</span> </span><span class="WHIT">    	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">match</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">match.length</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>603</span> </span><span class="WHIT">    	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>604</span> </span><span class="WHIT">			</span><span class="NAME">s.filter</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">s.filter.replace</span><span class="PUNC">(</span><span class="REGX">/alpha\(opacity=[\d\.]*?\)/ig</span><span class="PUNC">,</span><span class="STRN">"alpha(opacity="</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">opacity</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">")"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>605</span> </span><span class="WHIT">    	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>606</span> </span><span class="WHIT">    	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>607</span> </span><span class="WHIT">    	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>608</span> </span><span class="WHIT">    		</span><span class="NAME">s.filter</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"alpha(opacity="</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">opacity</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">")"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>609</span> </span><span class="WHIT">    	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>610</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>611</span> </span><span class="WHIT">    </span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>612</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>613</span> </span><span class="WHIT">		</span><span class="NAME">s.opacity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">opacity</span><span class="WHIT"> </span><span class="PUNC">/</span><span class="WHIT"> </span><span class="NUMB">100</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>614</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>615</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>616</span> 
+<span class='line'>617</span> </span><span class="COMM">/**
+<span class='line'>618</span>  * Gets the opacity (0-100) of an element. This depends on the element having both a 
+<span class='line'>619</span>  * Mozilla and IE6 opacity set.
+<span class='line'>620</span>  * @param {HTMLElement} element the element to inspect
+<span class='line'>621</span>  * @type Number
+<span class='line'>622</span>  */</span><span class="WHIT">
+<span class='line'>623</span> </span><span class="NAME">nitobi.html.Css.getOpacity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">element</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>624</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>625</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">element</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>626</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>627</span> </span><span class="WHIT">		</span><span class="NAME">nitobi.lang.throwError</span><span class="PUNC">(</span><span class="NAME">nitobi.error.ArgExpected</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">" for nitobi.html.Css.getOpacity"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>628</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>629</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>630</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>631</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">element.style.filter</span><span class="PUNC">==</span><span class="STRN">""</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NUMB">100</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>632</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">s</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">element.style.filter</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>633</span> </span><span class="WHIT">		</span><span class="NAME">s.match</span><span class="PUNC">(</span><span class="REGX">/opacity=([\d\.]*?)\)/ig</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>634</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">RegExp.$1</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NUMB">100</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>635</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">RegExp.$1</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>636</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>637</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>638</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>639</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">Math.abs</span><span class="PUNC">(</span><span class="NAME">element.style.opacity</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">element.style.opacity</span><span class="WHIT"> </span><span class="PUNC">*</span><span class="WHIT"> </span><span class="NUMB">100</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">100</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>640</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>641</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>642</span> 
+<span class='line'>643</span> </span><span class="COMM">/**
+<span class='line'>644</span>  * @ignore
+<span class='line'>645</span>  * @private
+<span class='line'>646</span>  */</span><span class="WHIT">
+<span class='line'>647</span> </span><span class="NAME">nitobi.html.Css.getCustomStyle</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">className</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">style</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>648</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>649</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>650</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>651</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">nitobi.html.getClassStyle</span><span class="PUNC">(</span><span class="NAME">className</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">style</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>652</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>653</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>654</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>655</span> </span><span class="WHIT">		</span><span class="COMM">// Do a replace on &lt;!--nitobi.grid.xslProcessorName--> and merge the contents</span><span class="WHIT">
+<span class='line'>656</span> </span><span class="WHIT">		</span><span class="COMM">// The second block does this for escaped XSL</span><span class="WHIT">
+<span class='line'>657</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">rule</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.html.Css.getRule</span><span class="PUNC">(</span><span class="NAME">className</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>658</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">re</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">RegExp</span><span class="PUNC">(</span><span class="STRN">'(.*?)(\{)(.*?\)(\})'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'gi'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>659</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">matches</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">rule.cssText.match</span><span class="PUNC">(</span><span class="NAME">re</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>660</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>661</span> </span><span class="WHIT">		</span><span class="NAME">re</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">RegExp</span><span class="PUNC">(</span><span class="STRN">'('</span><span class="PUNC">+</span><span class="NAME">style</span><span class="PUNC">+</span><span class="STRN">')(\:)(.*?\)(\;)'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'gi'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>662</span> </span><span class="WHIT">		</span><span class="NAME">matches</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">re.exec</span><span class="PUNC">(</span><span class="NAME">RegExp.$3</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>663</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>664</span> </span><span class="WHIT">	</span><span class="COMM">/*
+<span class='line'>665</span> 		nitobi.temp.xsl2 = "";
+<span class='line'>666</span> 		if (exprMatches != null)
+<span class='line'>667</span> 		{
+<span class='line'>668</span> 			for (var i=0; i&lt;exprMatches.length; i++)
+<span class='line'>669</span> 			{
+<span class='line'>670</span> 				var incl = exprMatches[i].replace("&lt;!--","").replace("--&gt;","");
+<span class='line'>671</span> 				// Get the imported stylesheet and remove the outer stylesheet element
+<span class='line'>672</span> 				try {
+<span class='line'>673</span> 					nitobi.temp.xsl2 = eval(incl).stylesheet.xml;
+<span class='line'>674</span> 				} catch(e) {
+<span class='line'>675</span> 					continue;
+<span class='line'>676</span> 				}
+<span class='line'>677</span> 				nitobi.temp.xsl2 = nitobi.temp.xsl2.replace(/\&lt;xsl:stylesheet.*?\&gt;/g,'');
+<span class='line'>678</span> 				nitobi.temp.xsl2 = nitobi.temp.xsl2.replace(/\&lt;\/xsl:stylesheet\&gt;/g,'');
+<span class='line'>679</span> 	
+<span class='line'>680</span> 				nitobi.temp.xsl1 = nitobi.temp.xsl1.replace('&lt;!--'+incl+'--&gt;', nitobi.temp.xsl2);
+<span class='line'>681</span> 			}
+<span class='line'>682</span> 		}
+<span class='line'>683</span> 		*/</span><span class="WHIT">
+<span class='line'>684</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>685</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>686</span> 
+<span class='line'>687</span> </span><span class="NAME">nitobi.html.Css.createStyleSheet</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">cssText</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>688</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>689</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ss</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>690</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>691</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>692</span> </span><span class="WHIT">		</span><span class="NAME">ss</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.createStyleSheet</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>693</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>694</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>695</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>696</span> </span><span class="WHIT">		</span><span class="NAME">ss</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.createElement</span><span class="PUNC">(</span><span class="STRN">'style'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>697</span> </span><span class="WHIT">		</span><span class="NAME">ss.setAttribute</span><span class="PUNC">(</span><span class="STRN">"type"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"text/css"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>698</span> </span><span class="WHIT">		</span><span class="NAME">document.body.appendChild</span><span class="PUNC">(</span><span class="NAME">ss</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>699</span> </span><span class="WHIT">		</span><span class="NAME">ss.appendChild</span><span class="PUNC">(</span><span class="NAME">document.createTextNode</span><span class="PUNC">(</span><span class="STRN">""</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>700</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>701</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">cssText</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>702</span> </span><span class="WHIT">		</span><span class="NAME">nitobi.html.Css.setStyleSheetValue</span><span class="PUNC">(</span><span class="NAME">ss</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">cssText</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>703</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">ss</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>704</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>705</span> 
+<span class='line'>706</span> </span><span class="NAME">nitobi.html.Css.setStyleSheetValue</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">ss</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">cssText</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>707</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>708</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.IE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>709</span> </span><span class="WHIT">		</span><span class="NAME">ss.cssText</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">cssText</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>710</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>711</span> </span><span class="WHIT">		</span><span class="NAME">ss.replaceChild</span><span class="PUNC">(</span><span class="NAME">document.createTextNode</span><span class="PUNC">(</span><span class="NAME">cssText</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ss.firstChild</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>712</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">ss</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>713</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>714</span> 
+<span class='line'>715</span> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nitobi.browser.MOZ</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>716</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>717</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>718</span> 	 * @private
+<span class='line'>719</span> 	 * @ignore
+<span class='line'>720</span> 	 */</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>721</span> </span><span class="WHIT">	</span><span class="NAME">HTMLStyleElement.prototype.__defineSetter__</span><span class="PUNC">(</span><span class="STRN">"cssText"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">param</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="NAME">this.innerHTML</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">param</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>722</span> 
+<span class='line'>723</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>724</span> 	 * @private
+<span class='line'>725</span> 	 * @ignore
+<span class='line'>726</span> 	 */</span><span class="WHIT">
+<span class='line'>727</span> </span><span class="WHIT">	</span><span class="NAME">HTMLStyleElement.prototype.__defineGetter__</span><span class="PUNC">(</span><span class="STRN">"cssText"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.innerHTML</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>728</span> </span><span class="PUNC">}</span></pre></body></html>

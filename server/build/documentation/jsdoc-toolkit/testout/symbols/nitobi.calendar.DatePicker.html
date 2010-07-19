@@ -1,0 +1,1662 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="JsDoc Toolkit" />
+		
+		<title>JsDoc Reference - nitobi.calendar.DatePicker</title>
+
+		<style type="text/css">
+			/* default.css */
+body
+{
+	font: 12px "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+	width: 800px;
+}
+
+.header
+{
+	clear: both;
+	background-color: #ccc;
+	padding: 8px;
+}
+
+h1
+{
+	font-size: 150%;
+	font-weight: bold;
+	padding: 0;
+	margin: 1em 0 0 .3em;
+}
+
+hr
+{
+	border: none 0;
+	border-top: 1px solid #7F8FB1;
+	height: 1px;
+}
+
+pre.code
+{
+	display: block;
+	padding: 8px;
+	border: 1px dashed #ccc;
+}
+
+#index
+{
+	margin-top: 24px;
+	float: left;
+	width: 160px;
+	position: absolute;
+	left: 8px;
+	background-color: #F3F3F3;
+	padding: 8px;
+}
+
+#content
+{
+	margin-left: 190px;
+	width: 600px;
+}
+
+.classList
+{
+	list-style-type: none;
+	padding: 0;
+	margin: 0 0 0 8px;
+	font-family: arial, sans-serif;
+	font-size: 1em;
+	overflow: auto;
+}
+
+.classList li
+{
+	padding: 0;
+	margin: 0 0 8px 0;
+}
+
+.summaryTable { width: 100%; }
+
+h1.classTitle
+{
+	font-size:170%;
+	line-height:130%;
+}
+
+h2 { font-size: 110%; }
+caption, div.sectionTitle
+{
+	background-color: #7F8FB1;
+	color: #fff;
+	font-size:130%;
+	text-align: left;
+	padding: 2px 6px 2px 6px;
+	border: 1px #7F8FB1 solid;
+}
+
+div.sectionTitle { margin-bottom: 8px; }
+.summaryTable thead { display: none; }
+
+.summaryTable td
+{
+	vertical-align: top;
+	padding: 4px;
+	border-bottom: 1px #7F8FB1 solid;
+	border-right: 1px #7F8FB1 solid;
+}
+
+/*col#summaryAttributes {}*/
+.summaryTable td.attributes
+{
+	border-left: 1px #7F8FB1 solid;
+	width: 140px;
+	text-align: right;
+}
+
+td.attributes, .fixedFont
+{
+	line-height: 15px;
+	color: #002EBE;
+	font-family: "Courier New",Courier,monospace;
+	font-size: 13px;
+}
+
+.summaryTable td.nameDescription
+{
+	text-align: left;
+	font-size: 13px;
+	line-height: 15px;
+}
+
+.summaryTable td.nameDescription, .description
+{
+	line-height: 15px;
+	padding: 4px;
+	padding-left: 4px;
+}
+
+.summaryTable { margin-bottom: 8px; }
+
+ul.inheritsList
+{
+	list-style: square;
+	margin-left: 20px;
+	padding-left: 0;
+}
+
+.detailList {
+	margin-left: 20px; 
+	line-height: 15px;
+}
+.detailList dt { margin-left: 20px; }
+
+.detailList .heading
+{
+	font-weight: bold;
+	padding-bottom: 6px;
+	margin-left: 0;
+}
+
+.light, td.attributes, .light a:link, .light a:visited
+{
+	color: #777;
+	font-style: italic;
+}
+
+.fineprint
+{
+	text-align: right;
+	font-size: 10px;
+}
+		</style>
+	</head>
+
+	<body>
+<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<div id="header">
+</div>
+		<!-- end static/header.html -->
+
+<!-- ============================== classes index ============================ -->
+		<div id="index">
+			<!-- begin publish.classesIndex -->
+			<div align="center"><a href="../index.html">Class Index</a>
+| <a href="../files.html">File Index</a></div>
+<hr />
+<h2>Classes</h2>
+<ul class="classList">
+	
+	<li><i><a href="../symbols/_global_.html">_global_</a></i></li>
+	
+	<li><a href="../symbols/nitobi.calendar.Calendar.html">nitobi.calendar.Calendar</a></li>
+	
+	<li><a href="../symbols/nitobi.calendar.CalRenderer.html">nitobi.calendar.CalRenderer</a></li>
+	
+	<li><a href="../symbols/nitobi.calendar.DateInput.html">nitobi.calendar.DateInput</a></li>
+	
+	<li><a href="../symbols/nitobi.calendar.DatePicker.html">nitobi.calendar.DatePicker</a></li>
+	
+	<li><a href="../symbols/nitobi.calendar.EventsManager.html">nitobi.calendar.EventsManager</a></li>
+	
+	<li><a href="../symbols/nitobi.callout.html">nitobi.callout</a></li>
+	
+	<li><a href="../symbols/nitobi.callout.Callout.html">nitobi.callout.Callout</a></li>
+	
+</ul>
+<hr />
+			<!-- end publish.classesIndex -->
+		</div>
+		
+		<div id="content">
+<!-- ============================== class title ============================ -->
+			<h1 class="classTitle">
+				
+				Class nitobi.calendar.DatePicker
+			</h1>
+
+<!-- ============================== class summary ========================== -->			
+			<p class="description">
+				<br />Extends
+					nitobi.ui.Element.<br />
+				
+			
+				
+				
+				
+					<br /><i>Defined in: </i> <a href="../symbols/src/public_src_client_calendar_js_nitobi_calendar_datepicker.js.html">datepicker.js</a>.
+				
+			</p>
+
+<!-- ============================== constructor summary ==================== -->			
+			
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class nitobi.calendar.DatePicker.">
+				<caption>Class Summary</caption>
+				<thead>
+					<tr>
+						<th scope="col">Constructor Attributes</th>
+						<th scope="col">Constructor Name and Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="attributes">&nbsp;</td>
+						<td class="nameDescription" >
+							<div class="fixedFont">
+								<b><a href="../symbols/nitobi.calendar.DatePicker.html#constructor">nitobi.calendar.DatePicker</a></b>(element)
+							</div>
+							<div class="description"></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+
+<!-- ============================== properties summary ===================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class nitobi.calendar.DatePicker.">
+					<caption>Field Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Field Attributes</th>
+							<th scope="col">Field Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/nitobi.calendar.DatePicker.html#onDateSelected">onDateSelected</a></b>
+								</div>
+								<div class="description">Fires when a date is selected.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/nitobi.calendar.DatePicker.html#onEventDateSelected">onEventDateSelected</a></b>
+								</div>
+								<div class="description">Fires when the user selects a date with event information.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/nitobi.calendar.DatePicker.html#onSetDisabledDate">onSetDisabledDate</a></b>
+								</div>
+								<div class="description">Fires when the user attempts to set a date that is specified as disabled as the selected date.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/nitobi.calendar.DatePicker.html#onSetInvalidDate">onSetInvalidDate</a></b>
+								</div>
+								<div class="description">Fires when the user attempts to set an invalid date as the selected date.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/nitobi.calendar.DatePicker.html#onSetOutOfRangeDate">onSetOutOfRangeDate</a></b>
+								</div>
+								<div class="description">Fires when the user attempts to set a date beyond the range defined by the mindate/maxdate attributesas the selected date.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
+
+<!-- ============================== methods summary ======================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class nitobi.calendar.DatePicker.">
+					<caption>Method Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Method Attributes</th>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#clear">clear</a></b>()
+								</div>
+								<div class="description">Clears the DatePicker.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#disableButton">disableButton</a></b>()
+								</div>
+								<div class="description">Disables the calendar toggling button.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#enableButton">enableButton</a></b>()
+								</div>
+								<div class="description">Enables the calendar toggling button.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#getCalendar">getCalendar</a></b>()
+								</div>
+								<div class="description">Returns the Calendar.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#getEventsManager">getEventsManager</a></b>()
+								</div>
+								<div class="description">Returns the EventManager for the DatePicker.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#getEventsUrl">getEventsUrl</a></b>()
+								</div>
+								<div class="description">Returns the eventsurl from the DatePicker.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#getInput">getInput</a></b>()
+								</div>
+								<div class="description">Returns the Input.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#getLongDayNames">getLongDayNames</a></b>()
+								</div>
+								<div class="description">Returns an array of full day names.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#getLongMonthNames">getLongMonthNames</a></b>()
+								</div>
+								<div class="description">Returns an array of full month names, e.g.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#getMaxDate">getMaxDate</a></b>()
+								</div>
+								<div class="description">Returns the latest selected date in the DatePicker.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#getMinDate">getMinDate</a></b>()
+								</div>
+								<div class="description">Returns the earliest selectable date for the DatePicker.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#getMinDayNames">getMinDayNames</a></b>()
+								</div>
+								<div class="description">Returns an array of mimimized day names, e.g.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#getNavCancelText">getNavCancelText</a></b>()
+								</div>
+								<div class="description">Returns the text for the cancel button on the quick nav panel</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#getNavConfirmText">getNavConfirmText</a></b>()
+								</div>
+								<div class="description">Returns the text for the confirm button on the quick nav panel.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#getNavInvalidYearText">getNavInvalidYearText</a></b>()
+								</div>
+								<div class="description">Returns the text for the invalid year error for the quick nav panel.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#getNavOutOfRangeText">getNavOutOfRangeText</a></b>()
+								</div>
+								<div class="description">Returns the text for the date out of range error for the quick nav panel.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#getQuickNavTooltip">getQuickNavTooltip</a></b>()
+								</div>
+								<div class="description">Returns the text for the quick nav tooltip</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#getSelectedDate">getSelectedDate</a></b>()
+								</div>
+								<div class="description">Returns the selected date.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#getShortDayNames">getShortDayNames</a></b>()
+								</div>
+								<div class="description">Returns an array of abbreviated day names, e.g.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#getShortMonthNames">getShortMonthNames</a></b>()
+								</div>
+								<div class="description">Returns an array of abbreviated month names, e.g.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#getSubmitMask">getSubmitMask</a></b>()
+								</div>
+								<div class="description">Returns the mask used by the DatePicker to format dates for the hidden field available for use in a form.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#getTheme">getTheme</a></b>()
+								</div>
+								<div class="description">Returns the theme used by the DatePicker.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#isDisabled">isDisabled</a></b>(date)
+								</div>
+								<div class="description">Returns true if the given date is disabled, false otherwise.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#isOutOfRange">isOutOfRange</a></b>(date)
+								</div>
+								<div class="description">Returns true if the given date is within the range specified by the mindate and maxdate attributes.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#isShimEnabled">isShimEnabled</a></b>()
+								</div>
+								<div class="description">Returns true if the shimenabled attribute is set to true AND if the browser is FF 2 on Mac or IE 6.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#render">render</a></b>()
+								</div>
+								<div class="description">Render the calendar into the container specified either by the location of the declaration, orby nitobi.calendar.Datepicker.setContainer.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#setEventsUrl">setEventsUrl</a></b>(url)
+								</div>
+								<div class="description">Sets the eventsurl.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#setMaxDate">setMaxDate</a></b>(maxDate)
+								</div>
+								<div class="description">Sets the latest selectable date in the DatePicker.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#setMinDate">setMinDate</a></b>(minDate)
+								</div>
+								<div class="description">Sets the earliest selectable date in the DatePicker.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#setSelectedDate">setSelectedDate</a></b>(date, forceRender)
+								</div>
+								<div class="description">Set the selected date.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/nitobi.calendar.DatePicker.html#setSubmitMask">setSubmitMask</a></b>(mask)
+								</div>
+								<div class="description">Sets the submit mask for the DatePicker.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
+
+<!-- ============================== constructor details ==================== -->		
+			
+			<div class="details"><a name="constructor"> </a>
+				<div class="sectionTitle">
+					Class Detail
+				</div>
+				
+				<div class="fixedFont">
+						<b>nitobi.calendar.DatePicker</b>(element)
+				</div>
+				
+				<div class="description">
+					
+					
+				</div>
+				
+				
+				
+				
+					
+						<dl class="detailList">
+						<dt class="heading">Parameters:</dt>
+						
+							<dt>
+								<span class="light fixedFont">{String}</span>  <b>element</b>
+								
+							</dt>
+								<dd>The id of the control's declaration, or an xml node that describes the Calendar. If you do not specify an id, one is created for you. (Optional)</dd>
+						
+						</dl>
+					
+					
+					
+					
+					
+					
+					
+
+			</div>
+			
+
+<!-- ============================== field details ========================== -->		
+			
+				<div class="sectionTitle">
+					Field Detail
+				</div>
+				
+					<a name="onDateSelected"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{nitobi.base.Event}</span>
+					<b>onDateSelected</b>
+					
+					</div>
+					<div class="description">
+						Fires when a date is selected.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="onEventDateSelected"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{nitobi.base.Event}</span>
+					<b>onEventDateSelected</b>
+					
+					</div>
+					<div class="description">
+						Fires when the user selects a date with event information.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="onSetDisabledDate"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{nitobi.base.Event}</span>
+					<b>onSetDisabledDate</b>
+					
+					</div>
+					<div class="description">
+						Fires when the user attempts to set a date that is specified as disabled as the selected date.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="onSetInvalidDate"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{nitobi.base.Event}</span>
+					<b>onSetInvalidDate</b>
+					
+					</div>
+					<div class="description">
+						Fires when the user attempts to set an invalid date as the selected date.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="onSetOutOfRangeDate"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{nitobi.base.Event}</span>
+					<b>onSetOutOfRangeDate</b>
+					
+					</div>
+					<div class="description">
+						Fires when the user attempts to set a date beyond the range defined by the mindate/maxdate attributesas the selected date.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					
+				
+			
+
+<!-- ============================== method details ========================= -->		
+			
+				<div class="sectionTitle">
+					Method Detail
+				</div>
+				
+					<a name="clear"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>clear</b>()
+					
+					</div>
+					<div class="description">
+						Clears the DatePicker.  After clearing, the DatePicker no longer has a selected date and thehidden input is cleared.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="disableButton"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>disableButton</b>()
+					
+					</div>
+					<div class="description">
+						Disables the calendar toggling button.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="enableButton"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>enableButton</b>()
+					
+					</div>
+					<div class="description">
+						Enables the calendar toggling button.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getCalendar"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/nitobi.calendar.Calendar.html#constructor">nitobi.calendar.Calendar</a>}</span>
+					<b>getCalendar</b>()
+					
+					</div>
+					<div class="description">
+						Returns the Calendar.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getEventsManager"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{nitobi.calendar.EventManager}</span>
+					<b>getEventsManager</b>()
+					
+					</div>
+					<div class="description">
+						Returns the EventManager for the DatePicker.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getEventsUrl"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>getEventsUrl</b>()
+					
+					</div>
+					<div class="description">
+						Returns the eventsurl from the DatePicker.  The eventsurl defines the server location where the DatePickercan get information on events and disabled dates.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getInput"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/nitobi.calendar.DateInput.html#constructor">nitobi.calendar.DateInput</a>}</span>
+					<b>getInput</b>()
+					
+					</div>
+					<div class="description">
+						Returns the Input.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getLongDayNames"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Array}</span>
+					<b>getLongDayNames</b>()
+					
+					</div>
+					<div class="description">
+						Returns an array of full day names.  E.g. Sunday, Monday, etc.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getLongMonthNames"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Array}</span>
+					<b>getLongMonthNames</b>()
+					
+					</div>
+					<div class="description">
+						Returns an array of full month names, e.g. Januaray, February, March, etc.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getMaxDate"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Date}</span>
+					<b>getMaxDate</b>()
+					
+					</div>
+					<div class="description">
+						Returns the latest selected date in the DatePicker.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getMinDate"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Date}</span>
+					<b>getMinDate</b>()
+					
+					</div>
+					<div class="description">
+						Returns the earliest selectable date for the DatePicker.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getMinDayNames"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Array}</span>
+					<b>getMinDayNames</b>()
+					
+					</div>
+					<div class="description">
+						Returns an array of mimimized day names, e.g. S, M, T, W, T, F, S
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getNavCancelText"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>getNavCancelText</b>()
+					
+					</div>
+					<div class="description">
+						Returns the text for the cancel button on the quick nav panel
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getNavConfirmText"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>getNavConfirmText</b>()
+					
+					</div>
+					<div class="description">
+						Returns the text for the confirm button on the quick nav panel.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getNavInvalidYearText"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>getNavInvalidYearText</b>()
+					
+					</div>
+					<div class="description">
+						Returns the text for the invalid year error for the quick nav panel.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getNavOutOfRangeText"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>getNavOutOfRangeText</b>()
+					
+					</div>
+					<div class="description">
+						Returns the text for the date out of range error for the quick nav panel.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getQuickNavTooltip"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>getQuickNavTooltip</b>()
+					
+					</div>
+					<div class="description">
+						Returns the text for the quick nav tooltip
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getSelectedDate"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Date}</span>
+					<b>getSelectedDate</b>()
+					
+					</div>
+					<div class="description">
+						Returns the selected date.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getShortDayNames"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Array}</span>
+					<b>getShortDayNames</b>()
+					
+					</div>
+					<div class="description">
+						Returns an array of abbreviated day names, e.g. Sun, Mon, Tue, etc.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getShortMonthNames"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>getShortMonthNames</b>()
+					
+					</div>
+					<div class="description">
+						Returns an array of abbreviated month names, e.g. Jan, Feb, Mar, etc.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getSubmitMask"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>getSubmitMask</b>()
+					
+					</div>
+					<div class="description">
+						Returns the mask used by the DatePicker to format dates for the hidden field available for use in a form.  If you includethe DatePicker in a form, you can optionally use this hidden input as the actual submit value (as opposed to the value that isdisplayed in the visible input field).  The hidden input has the same name as the id given to the DatePicker component.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getTheme"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>getTheme</b>()
+					
+					</div>
+					<div class="description">
+						Returns the theme used by the DatePicker.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="isDisabled"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>isDisabled</b>(date)
+					
+					</div>
+					<div class="description">
+						Returns true if the given date is disabled, false otherwise.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Date}</span> <b>date</b>
+									
+								</dt>
+								<dd>The date to check.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="isOutOfRange"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>isOutOfRange</b>(date)
+					
+					</div>
+					<div class="description">
+						Returns true if the given date is within the range specified by the mindate and maxdate attributes.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Date}</span> <b>date</b>
+									
+								</dt>
+								<dd>The date to check.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="isShimEnabled"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>isShimEnabled</b>()
+					
+					</div>
+					<div class="description">
+						Returns true if the shimenabled attribute is set to true AND if the browser is FF 2 on Mac or IE 6.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="render"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>render</b>()
+					
+					</div>
+					<div class="description">
+						Render the calendar into the container specified either by the location of the declaration, orby nitobi.calendar.Datepicker.setContainer. Call render after changing the currentlyselected date with nitobi.calendar.DatePicker.setDate.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setEventsUrl"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setEventsUrl</b>(url)
+					
+					</div>
+					<div class="description">
+						Sets the eventsurl.  Call render to rebind the DatePicker to the new eventsurl.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>url</b>
+									
+								</dt>
+								<dd>The url to set as the eventsurl.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setMaxDate"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setMaxDate</b>(maxDate)
+					
+					</div>
+					<div class="description">
+						Sets the latest selectable date in the DatePicker.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>maxDate</b>
+									
+								</dt>
+								<dd>The date to set as the max date.  Some natural language dates are acceptable:yesterday, today, tomorrow, lastweek, nextweek, lastmonth, nextmonth, lastyear, and nextyear.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setMinDate"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setMinDate</b>(minDate)
+					
+					</div>
+					<div class="description">
+						Sets the earliest selectable date in the DatePicker.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>minDate</b>
+									
+								</dt>
+								<dd>The date to set as the min date.  Some natural language dates are acceptable:yesterday, today, tomorrow, lastweek, nextweek, lastmonth, nextmonth, lastyear, and nextyear.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setSelectedDate"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setSelectedDate</b>(date, forceRender)
+					
+					</div>
+					<div class="description">
+						Set the selected date. Call <a href="../symbols/nitobi.calendar.Calendar.html#render">nitobi.calendar.Calendar#render</a> for the visible calendar to be updated.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Date}</span> <b>date</b>
+									
+								</dt>
+								<dd>The new selected date - <code>date</code> can be also be any string that <code>Date.parse()</code> accepts</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Boolean}</span> <b>forceRender</b>
+									
+								</dt>
+								<dd>Setting to true re-renders the calendar so you don't have to make an explicit call to <a href="#nitobi.calendar.Calendar.render">#nitobi.calendar.Calendar.render</a></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setSubmitMask"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setSubmitMask</b>(mask)
+					
+					</div>
+					<div class="description">
+						Sets the submit mask for the DatePicker.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>mask</b>
+									
+								</dt>
+								<dd>The mask to apply to the hidden field.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					
+				
+			
+			
+			<hr />
+		</div>
+		
+<!-- ============================== footer ================================= -->
+		<div class="fineprint" style="clear:both">
+			
+			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Thu Sep 11 2008 11:41:01 GMT-0700 (PDT)
+		</div>
+	</body>
+</html>

@@ -1,0 +1,312 @@
+<VisualStudioProject>
+    <CSHARP
+        ProjectType = "Web"
+        ProductVersion = "7.10.3077"
+        SchemaVersion = "2.0"
+        ProjectGuid = "{67CD0417-B829-4A7F-8060-1BF5698D25C5}"
+    >
+        <Build>
+            <Settings
+                ApplicationIcon = ""
+                AssemblyKeyContainerName = ""
+                AssemblyName = "GridCSharpSamples"
+                AssemblyOriginatorKeyFile = ""
+                DefaultClientScript = "JScript"
+                DefaultHTMLPageLayout = "Grid"
+                DefaultTargetSchema = "IE50"
+                DelaySign = "false"
+                OutputType = "Library"
+                PreBuildEvent = ""
+                PostBuildEvent = ""
+                RootNamespace = "GridCSharpSamples"
+                RunPostBuildEvent = "OnBuildSuccess"
+                StartupObject = ""
+            >
+                <Config
+                    Name = "Debug"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "DEBUG;TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "true"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "false"
+                    NoStdLib = "false"
+                    NoWarn = ""
+                    Optimize = "false"
+                    OutputPath = "bin\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+                <Config
+                    Name = "Release"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "false"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "false"
+                    NoStdLib = "false"
+                    NoWarn = ""
+                    Optimize = "true"
+                    OutputPath = "bin\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+            </Settings>
+            <References>
+                <Reference
+                    Name = "System"
+                    AssemblyName = "System"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll"
+                />
+                <Reference
+                    Name = "System.Drawing"
+                    AssemblyName = "System.Drawing"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Drawing.dll"
+                />
+                <Reference
+                    Name = "System.Data"
+                    AssemblyName = "System.Data"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Data.dll"
+                />
+                <Reference
+                    Name = "System.Web"
+                    AssemblyName = "System.Web"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Web.dll"
+                />
+                <Reference
+                    Name = "System.XML"
+                    AssemblyName = "System.Xml"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
+                />
+                <Reference
+                    Name = "System.Design"
+                    AssemblyName = "System.Design"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Design.dll"
+                />
+                <Reference
+                    Name = "Grid"
+                    Project = "{821EF2E6-28D2-4AFA-AF33-EE73AC992C1E}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+            </References>
+        </Build>
+        <Files>
+            <Include>
+                <File
+                    RelPath = "AssemblyInfo.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Global.asax"
+                    SubType = "Component"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Global.asax.cs"
+                    DependentUpon = "Global.asax"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Global.asax.resx"
+                    DependentUpon = "Global.asax.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "index.htm"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web.config"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\ASHX\datahandler.ashx"
+                    SubType = "Form"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Basic\ASHX\index.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\ASHX\index.aspx.cs"
+                    DependentUpon = "index.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Basic\ASHX\index.aspx.resx"
+                    DependentUpon = "index.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Basic\ASHX\data\GeneralProducts.mdb"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Basic\Editors\docicon.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Editors\index.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Editors\index.aspx.cs"
+                    DependentUpon = "index.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Basic\Editors\index.aspx.resx"
+                    DependentUpon = "index.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Basic\Editors\data\GeneralProducts.mdb"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Basic\LiveScrolling\index.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\LiveScrolling\index.aspx.cs"
+                    DependentUpon = "index.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Basic\LiveScrolling\index.aspx.resx"
+                    DependentUpon = "index.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Basic\LiveScrolling\data\ContactsFlatfile3k.mdb"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Basic\LocalData\docicon.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\LocalData\index.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\LocalData\index.aspx.cs"
+                    DependentUpon = "index.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Basic\LocalData\index.aspx.resx"
+                    DependentUpon = "index.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Basic\LocalData\data\GeneralProducts.ldb"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Basic\LocalData\data\GeneralProducts.mdb"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Basic\MasterDetail\docicon.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\MasterDetail\index.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\MasterDetail\index.aspx.cs"
+                    DependentUpon = "index.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Basic\MasterDetail\index.aspx.resx"
+                    DependentUpon = "index.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Basic\MasterDetail\personicon1.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\MasterDetail\personicon2.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\MasterDetail\personicon3.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\MasterDetail\data\MasterDetailDB.mdb"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Basic\Paging\index.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\Paging\index.aspx.cs"
+                    DependentUpon = "index.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Basic\Paging\index.aspx.resx"
+                    DependentUpon = "index.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Basic\Paging\data\ContactsFlatfile3k.mdb"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Basic\ShowAll\index.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Basic\ShowAll\index.aspx.cs"
+                    DependentUpon = "index.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Basic\ShowAll\index.aspx.resx"
+                    DependentUpon = "index.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Basic\ShowAll\data\ContactsFlatfile3k.mdb"
+                    BuildAction = "None"
+                />
+            </Include>
+        </Files>
+    </CSHARP>
+</VisualStudioProject>
+

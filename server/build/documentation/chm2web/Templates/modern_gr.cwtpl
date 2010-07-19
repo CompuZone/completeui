@@ -1,0 +1,58 @@
+;==============================================================================
+;
+; MODERN TEMPLATE SCHEME for chm2web software
+; by A!K Research Labs, 2003-2004
+;
+;==============================================================================
+
+
+[TEMPLATE.INFO]
+
+NAME		= Modern Green
+Template name
+
+BODY		= modern.body
+Template body file name
+
+AUTHOR		= A!K Research Labs
+Copyright(c) 2003-2004, All Rights Reserved
+
+
+[OPEN.FIELDS]
+
+SCHEMECOLOR1	= #ECF8F4
+
+SCHEMECOLOR2    = #BAE7D7
+
+SCHEMECOLOR3	= #4EBE9D
+
+SCHEMECOLOR4	= #285B4C
+
+PAGECAPTION    = white
+Page caption text color
+
+TREEICONSFOLDER= modern\gr\treeicons
+This folder contains tree images.
+
+;==============================================================================
+;
+; FILES TO COPY
+;
+; [F|N|M]:[target_image_name] = [source_image_name]
+;
+; F - only for frames version
+; N - only for noframes version
+; M - only for mobile version
+;
+;==============================================================================
+
+[COPY.FILES]
+
+files\			= modern\gr\*.*
+
+F:helpleftcon.html	= modern\gr\html\helpleftcon.html
+F:helpleftind.html	= modern\gr\html\helpleftind.html
+F:helpleftsch.html	= modern\gr\html\helpleftsch.html
+F:space_page.html	= modern\gr\html\space_page.html
+F:helpblankpage.html 	= modern\gr\html\helpblankpage.html
+                     	

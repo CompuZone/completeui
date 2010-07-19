@@ -1,0 +1,32 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="NAME">nitobi.lang.defineNs</span><span class="PUNC">(</span><span class="STRN">"nitobi.collections"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  2</span> 
+<span class='line'>  3</span> </span><span class="COMM">/**
+<span class='line'>  4</span> 	Creates a list.
+<span class='line'>  5</span> 	@class A more feature rich list than a javascript array. If all the items in the list
+<span class='line'>  6</span> 	implement ISerializable, then the entire list will be serializable.
+<span class='line'>  7</span> 	@constructor
+<span class='line'>  8</span> 	@param {nitobi.base.Profile} profile Optional. By default, the list serializes to XML using the tagname ntb:list;
+<span class='line'>  9</span> 	if you do not wish to use this name, inherit from this class and supply a different profile.
+<span class='line'> 10</span> 	@extends nitobi.Object
+<span class='line'> 11</span> 	@implements nitobi.base.ISerializable
+<span class='line'> 12</span> 	@implements nitobi.collections.IEnumerable	
+<span class='line'> 13</span>  */</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="NAME">nitobi.collections.List</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">profile</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 15</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 16</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.collections.List.baseConstructor.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 17</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.collections.IList.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 19</span> 
+<span class='line'> 20</span> </span><span class="NAME">nitobi.lang.extend</span><span class="PUNC">(</span><span class="NAME">nitobi.collections.List</span><span class="PUNC">,</span><span class="NAME">nitobi.Object</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="NAME">nitobi.lang.implement</span><span class="PUNC">(</span><span class="NAME">nitobi.collections.List</span><span class="PUNC">,</span><span class="NAME">nitobi.collections.IList</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 22</span> 
+<span class='line'> 23</span> </span><span class="NAME">nitobi.base.Registry.getInstance</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">register</span><span class="PUNC">(</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="WHIT">		</span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">nitobi.base.Profile</span><span class="PUNC">(</span><span class="STRN">"nitobi.collections.List"</span><span class="PUNC">,</span><span class="KEYW">null</span><span class="PUNC">,</span><span class="KEYW">false</span><span class="PUNC">,</span><span class="STRN">"ntb:list"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="PUNC">)</span><span class="PUNC">;</span></pre></body></html>

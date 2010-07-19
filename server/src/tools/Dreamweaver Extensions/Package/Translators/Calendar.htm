@@ -1,0 +1,151 @@
+<html>
+<head>
+<title>Nitobi Calendar Tag Translator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script language="text/javascipt" src="../Shared/Nitobi/NitobiUtility.js"></script>
+<script language="JavaScript">
+var startTag = "<ntb:datepicker>";
+var endTag = "</ntb:datepicker>"
+var DEFAULTHEIGHT = "192px";
+var DEFAULTWIDTH = "180px";
+var DEFAULTTHEME = "base";
+var monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+function getTranslatorInfo()
+{
+	var translatorInfo = new Array(6);
+	
+	translatorInfo[0] = "NTB_CALENDAR";
+	translatorInfo[1] = "Nitobi Calendar";
+	translatorInfo[2] = "0";
+	translatorInfo[3] = "1";
+	translatorInfo[4] = "<ntb:datepicker";
+	translatorInfo[5] = "byExpression";
+	return translatorInfo;
+}
+
+function translateMarkup(docNameStr, siteRootStr, inStr)
+{
+	var outStr = "";
+	var replCode = "";
+	var start = inStr.indexOf("<ntb:datepicker");
+	var end = inStr.indexOf("</ntb:datepicker>");
+
+	// If the string to translate is empty, do nothing.
+	if (inStr.length <= 0)
+	{
+		return "";
+	}
+	
+	while (start != -1)
+	{
+		outStr = inStr.substring(0,start);
+		replCode = constructLockedMarkup(inStr.substring(start, end + endTag.length));
+		outStr = outStr + replCode;
+		outStr = outStr + inStr.substring(end + endTag.length);
+		inStr = outStr;
+		start = inStr.indexOf("<ntb:datepicker");
+		end = inStr.indexOf("</ntb:datepicker>");
+	}
+	return outStr;
+}
+
+function constructLockedMarkup(declaration)
+{
+	var datePicker = nitobi.util.getTag(declaration, "ntb:datepicker", 0);
+	var input = nitobi.util.getTag(declaration, "ntb:dateinput", 0);
+	var calendar = nitobi.util.getTag(declaration, "ntb:calendar", 0);
+	
+	var theme = nitobi.util.getAttribute(datePicker, "theme");
+	var id = nitobi.util.getAttribute(datePicker, "id");
+	id = (id?id:"");
+	var startMarkup = "<MM:BeginLock translatorClass=\"NTB_CALENDAR\" type=\"ntb:datepicker\" orig=\"" + escape(declaration) + "\">";
+	var endMarkup = "<" + "MM:EndLock>";
+	var content = "";
+	content += "<div class='ntb-calendar-reset " + theme + "'>";
+	if (input != null)
+	{
+		content += "<div style='float: left;'>";
+		content += "<div class='ntb-inputcontainer' style='height: 23px;'></div></div>";
+		if (calendar != null)
+			content += "<div class='ntb-calendar-button' style='float: left;' id='dp.button'></div>";
+	}
+	if (calendar != null)
+	{
+		content += "<div id='" + id + "cal' class='ntb-calendar-container' style='clear:both;overflow: hidden;" + (input != null?"position: absolute;display:none;":"width:180px;") + "'>";
+		content += "<div style='top: 0px; left: 0px;'><table cellspacing='0' cellpadding='0' border='0'><tbody>";
+		content += "<tr><td><table cellspacing='0' cellpadding='0' border='0'><tbody><tr><td>";
+		content += "<div class='ntb-calendar'><div><table cellspacing='0' cellpadding='0' border='0' style='width: 100%;'><tbody>";
+		content += "<tr class='ntb-calendar-monthheader'><td style='width: 70%;height:23px;'><span>";
+		content += "<a class='ntb-calendar-month'>July</a><a class='ntb-calendar-year'>2008</a></span></td></tr>";
+		content += "</tbody></table></div>";
+		content += "<div><table cellspacing='0' cellpadding='0' border='0' style='width: 100%;'><tbody><tr>";
+		content += "<th class='ntb-calendar-dayheader'>S</th>";
+		content += "<th class='ntb-calendar-dayheader'>M</th>";
+		content += "<th class='ntb-calendar-dayheader'>T</th>";
+		content += "<th class='ntb-calendar-dayheader'>W</th>";
+		content += "<th class='ntb-calendar-dayheader'>T</th>";
+		content += "<th class='ntb-calendar-dayheader'>F</th>";
+		content += "<th class='ntb-calendar-dayheader'>S</th>";
+		content += "</tr>";
+		content += "<tr><td>";
+		content += "<a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>29</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>30</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>1</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>2</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>3</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>4</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>5</a></td>";
+		content += "</tr><tr>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>6</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>7</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>8</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>9</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>10</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>11</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>12</a></td>";
+		content += "</tr><tr>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>13</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>14</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>15</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>16</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>17</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>18</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>19</a></td>";
+		content += "</tr><tr>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>20</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>21</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>22</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>23</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>24</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>25</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>26</a></td>";
+		content += "</tr><tr>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>27</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>28</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>29</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>30</a></td>";
+		content += "<td><a class='ntb-calendar-lastmonth ntb-calendar-day' style='display: block; text-decoration: none;'>31</a></td>";
+		content += "<td><a class='ntb-calendar-nextmonth ntb-calendar-day' style='display: block; text-decoration: none;'>1</a></td>";
+		content += "<td><a class='ntb-calendar-nextmonth ntb-calendar-day' style='display: block; text-decoration: none;'>2</a></td>";
+		content += "</tr><tr>";
+		content += "<td><a class='ntb-calendar-nextmonth ntb-calendar-day' style='display: block; text-decoration: none;'>3</a></td>";
+		content += "<td><a class='ntb-calendar-nextmonth ntb-calendar-day' style='display: block; text-decoration: none;'>4</a></td>";
+		content += "<td><a class='ntb-calendar-nextmonth ntb-calendar-day' style='display: block; text-decoration: none;'>5</a></td>";
+		content += "<td><a class='ntb-calendar-nextmonth ntb-calendar-day' style='display: block; text-decoration: none;'>6</a></td>";
+		content += "<td><a class='ntb-calendar-nextmonth ntb-calendar-day' style='display: block; text-decoration: none;'>7</a></td>";
+		content += "<td><a class='ntb-calendar-nextmonth ntb-calendar-day' style='display: block; text-decoration: none;'>8</a></td>";
+		content += "<td><a class='ntb-calendar-nextmonth ntb-calendar-day' style='display: block; text-decoration: none;'>9</a></td>";
+		content += "</tr></tbody></table></div></div></td></tr></tbody></table></td></tr></tbody></table></div>"
+		content += "</div>";
+	}
+	content += "</div>";
+
+
+	return startMarkup + content + endMarkup;
+}
+</script>
+</head>
+<body>
+</body>
+</html>

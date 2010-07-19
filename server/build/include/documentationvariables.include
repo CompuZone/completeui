@@ -1,0 +1,15 @@
+<project>
+
+	<property name="documentation.basedir" 				value="${nant.project.basedir}\documentation" />
+	<property name="documentation.basedir" 				value="${nant.project.basedir}\documentation" />
+	<property name="documentation.api.basedir" 			value="${eba::get-platform-target-dir( path::combine( documentation.basedir, 'api' ), platform.name ) }" />
+	<property name="documentation.help.basedir" 		value="${documentation.basedir}\help" />
+	<property name="documentation.help.asp.basedir" 	value="${documentation.basedir}\help\asp" />
+	<property name="documentation.help.jsp.basedir" 	value="${documentation.basedir}\help\jsp" />
+	<property name="documentation.help.php.basedir" 	value="${documentation.basedir}\help\php" />
+	<property name="documentation.api.basedir" 			value="${documentation.basedir}\api" />
+	<property name="documentation.tag.basedir" 			value="${documentation.basedir}\tag" />
+	<property name="documentation.tag.common.basedir" 	value="${documentation.basedir}\tag\common" />
+	<property name="documentation.tag.basedir" 			value="${documentation.basedir}\tag" />
+
+</project>

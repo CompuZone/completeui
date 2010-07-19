@@ -1,0 +1,892 @@
+<?xml version="1.0"?>
+<project name="componentBuild" default="trial" basedir=".">
+
+	<import file="build.server.xml"/>
+	<!--<import file="build.chm.xml"/>-->
+	<import file="build.custom.xml" optional="true"/>
+
+	<property name="src.revision" value="" />
+
+	<property name="component.name" value="toolkit"></property>
+	<property name="platform.name" value="asp"></property>
+	<property name="helpdir" value="${basedir}\..\..\build\documentation\helpworkshop"></property>
+
+	<loadfile property="component.version" srcfile="version.txt" />
+
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+		<classpath>
+			<pathelement location="../../build/ant-contrib/ant-contrib-1.0b3.jar"/>
+		</classpath>
+	</taskdef>
+
+	<taskdef resource="svntask.properties" />	
+
+	<target name="createOutputFolders">
+		
+		<!-- make all the output folders first -->
+		<mkdir dir="../output"></mkdir>
+		<mkdir dir="../output/src"></mkdir>
+		<mkdir dir="../output/bin"></mkdir>
+		<mkdir dir="../output/docs"></mkdir>
+		<mkdir dir="../output/build"></mkdir>
+		<mkdir dir="../output/samples"></mkdir>
+		<mkdir dir="../output/style"></mkdir>
+		
+	</target>
+
+	<target name="debug" depends="clean, uptodate, singleJS, mergeAll, custom.check" description="Brings together all the source code with no obfuscation and one lining ... except for the XSL and XML files - this should be changed so that they too are not onelined ...">
+		<if>
+			<equals arg1="toolkit" arg2="${component.name}" />
+			<then>
+				<xslt in="../includes.xml" out="../temp/srcincludes.txt" style="xslt/srcincludes.xslt"></xslt>
+				<loadfile property="fileList" srcfile="../temp/srcincludes.txt" />
+				<foreach list="${fileList}" target="copySrc" param="srcFile" />
+				
+				<!--copy the includes.xml for the end user build-->
+				<copy file="../includes.xml" tofile="../output/src/${component.name}/${component.name}.includes.xml" />
+				
+				<!--remove all the CSS files from the includes-->
+				<replaceregexp file="../output/src/${component.name}/${component.name}.includes.xml"
+					match=".*&lt;cssfile.*"
+					replace=""
+					byline="true" />
+			</then>
+		</if>
+		
+		<copy file="../temp/js_src.js" tofile="../output/bin/nitobi.${component.name}.js"></copy>
+		
+		<sound>
+			<success source="../../build/success.wav"/>
+			<fail source="../../build/failure.wav"/>
+		</sound>
+	</target>
+
+	<target name="trial" depends="developer"></target>
+
+	<!-- Developer license source is first catted, then the code is obfuscated -->
+	<target name="developer" depends="clean, uptodate, singleJS, obfuscateJS, mergeAll, custom.check, docs, api.db.prep, samples" description="Brings together all the source code with no obfuscation and one lining ... except for the XSL and XML files - this should be changed so that they too are not onelined ...">
+		<if>
+			<equals arg1="toolkit" arg2="${component.name}" />
+			<then>
+				<xslt in="../includes.xml" out="../temp/srcincludes.txt" style="xslt/srcincludes.xslt"></xslt>
+				<loadfile property="fileList" srcfile="../temp/srcincludes.txt" />
+				<foreach list="${fileList}" target="copySrc" param="srcFile" />
+		
+				<!--copy the includes.xml for the end user build-->
+				<copy file="../includes.xml" tofile="../output/src/${component.name}/${component.name}.includes.xml" />
+		
+				<!--remove all the CSS files from the includes-->
+				<replaceregexp file="../output/src/${component.name}/${component.name}.includes.xml"
+					match=".*&lt;cssfile.*"
+					replace=""
+					byline="true" />
+			</then>
+		</if>
+
+		<copy file="../temp/nitobi.${component.name}.obfuscated.js" tofile="../output/bin/nitobi.${component.name}.js"></copy>
+
+		<sound>
+			<success source="../../build/success.wav"/>
+			<fail source="../../build/failure.wav"/>
+		</sound>
+	</target>
+
+
+	<!-- Enterprise license source is just catted -->	
+	<target name="enterprise" depends="developer" description="Brings together all the source code with no obfuscation and one lining ... except for the XSL and XML files - this should be changed so that they too are not onelined ...">
+
+		<!--Copy all the files for the specific component-->
+		
+		<xslt in="../includes.xml" out="../temp/srcincludes.txt" style="xslt/srcincludes.xslt"></xslt>
+		<loadfile property="fileList" srcfile="../temp/srcincludes.txt" />
+		<foreach list="${fileList}" target="copySrc" param="srcFile" />
+
+		<!--Remove any calls to nitobi.prepare()-->
+		<replaceregexp
+			match=".*nitobi.prepare().*"
+			replace=""
+			byline="true">
+			<fileset dir="../output/src/${component.name}" includes="**/*.js"/>
+		</replaceregexp>
+
+		<!--copy the includes.xml for the end user build-->
+		<copy file="../includes.xml" tofile="../output/src/${component.name}/${component.name}.includes.xml" />
+
+		<!--remove all the CSS files from the includes-->
+		<replaceregexp file="../output/src/${component.name}/${component.name}.includes.xml"
+			match=".*&lt;cssfile.*"
+			replace=""
+			byline="true" /> 
+
+		<!--changing the toolkit include dir-->
+		<replaceregexp file="../output/src/${component.name}/${component.name}.includes.xml"
+			match="(.*)\.\.\/toolkit\/(.*)"
+			replace="\1\2"
+			byline="true" />
+
+		<mkdir dir="../output/src/${component.name}/client/script/nitobi"/>
+
+		<!--move files copied into toolkit folder due to paths in includes.xml back into the component folder.-->
+		<!--this actually does nothing for the toolkit build ...-->
+		<copy todir="../output/src/${component.name}/client/script/nitobi" failonerror="false">
+			<fileset dir="../output/src/toolkit/client/script/nitobi" />
+		</copy>
+
+		<sound>
+			<success source="../../build/success.wav"/>
+			<fail source="../../build/failure.wav"/>
+		</sound>
+	</target>
+
+	<target name="copySrc">
+		<copy file="../${srcFile}" tofile="../output/src/${component.name}/${srcFile}" failonerror="false" />
+	</target>
+
+	<!-- Builds the source code for the nitobi domain -->
+	<target name="domain" depends="singleJS, prepareDomainCode" description="Brings together all the source code with no obfuscation and one lining ... except for the XSL and XML files - this should be changed so that they too are not onelined ...">
+
+		<antcall target="obfuscateJS" />
+
+		<antcall target="mergeAll">
+			<param name="inputfilename" value="${basedir}\..\Output\temp\src\nitobi.grid_src_noxsl_obfuscated.js" />
+			<param name="outputfilename" value="${basedir}\..\Output\temp\lib\js\bin\nitobi.grid.js" />
+		</antcall>
+	</target>
+
+	<target name="mergeJSIncludes">
+		<echo message="Creating jsincludes.txt file."></echo>
+
+		<xslt in="../includes.xml" out="../temp/jsincludes.txt" style="jsincludes.xslt"></xslt>
+	</target>
+
+	<!-- takes all XSLT files in includes.xml and runs them through xsltostring.js -->
+	<target name="mergeXSLIncludes" unless="xsl.uptodate">
+		<!-- first create a txt file that contains JS calls to stringify() for each file -->
+		<xslt in="../includes.xml" out="../temp/xslstringify.txt" style="xslstringify.xslt"></xslt>
+
+		<!-- concat the generated JS with the stringify method -->		
+		<concat append="false" destfile="../temp/xsltostringbat.js" fixlastline="true" >
+			<filelist files="../temp/xslstringify.txt xsltostring.js" dir="" />
+		</concat>
+
+		<!-- execute the stringify which will create all the single JS files of XSLT -->		
+		<exec executable="cmd">
+			<arg value="/c"/>
+			<arg value="cscript ../temp/xsltostringbat.js"/>
+		</exec>
+
+		<!-- create the list of JS files of XSLT to merge -->
+		<xslt in="../includes.xml" out="../temp/xslincludes.txt" style="xslincludes.xslt"></xslt>
+
+		<loadfile property="srcxslfiles" srcfile="../temp/xslincludes.txt" />		
+
+		<!-- merge into single XSLT file -->		
+		<concat append="false" destfile="../temp/xslt.js" fixlastline="true" >
+			<filelist files="${srcxslfiles}" dir="" />
+		</concat>
+	</target>
+
+	<!-- takes all XML files in includes.xml and runs them through xsltostring.js -->
+	<target name="mergeXMLIncludes" unless="xml.uptodate">
+		<!-- first create a txt file that contains JS calls to stringify() for each file -->
+		<xslt in="../includes.xml" out="../temp/xmlstringify.txt" style="xmlstringify.xslt"></xslt>
+
+		<!-- concat the generated JS with the stringify method -->		
+		<concat append="false" destfile="../temp/xmltostringbat.js" fixlastline="true" >
+			<filelist files="../temp/xmlstringify.txt xmltostring.js" dir="" />
+		</concat>
+		
+		<!-- execute the stringify which will create all the single JS files of XSLT -->		
+		<exec executable="cmd">
+			<arg value="/c"/>
+			<arg value="cscript ../temp/xmltostringbat.js"/>
+		</exec>
+		
+		<!-- create the list of JS files of XML to merge -->
+		<xslt in="../includes.xml" out="../temp/xmlincludes.txt" style="xmlincludes.xslt"></xslt>
+
+		<loadfile property="srcxmlfiles" srcfile="../temp/xmlincludes.txt" />		
+
+		<!-- merge into single XML file -->		
+		<concat append="false" destfile="../temp/xml.js" fixlastline="true" >
+			<filelist files="${srcxmlfiles}" dir="" />
+		</concat>
+	</target>
+
+	<!-- this creates a concatted temp\src\nitobi.grid_src_noxsl.js javascript file -->
+	<target name="singleJS" depends="mergeJSIncludes" unless="javascript.uptodate">
+
+		<echo message="Merging all JavaScript files"></echo>
+
+		<loadfile property="srcjsfiles" srcfile="../temp/jsincludes.txt" />
+
+		<concat append="false" destfile="../temp/js.js" fixlastline="true" >
+			<filelist files="${srcjsfiles}" dir="" />
+		</concat>
+
+		<!-- clean out all the calls to ntbAssert -->
+		<replaceregexp file="../temp/js.js"
+			match="^\s*ntbAssert\(.*\);$"
+			replace=""
+			byline="true"/>
+		
+		<!-- clean out all the calls to Debug.* -->
+		<replaceregexp file="../temp/js.js"
+			match="^\s*Debug\.(.*)\(.*\);"
+			replace=""
+			byline="true" />
+
+		<!-- clean out all the calls to console.* -->
+		<replaceregexp file="../temp/js.js"
+			match="^\s*console\.(.*)\(.*\);"
+			replace=""
+			byline="true" />
+
+		<!-- clean out all the calls to console.* -->
+		<replaceregexp file="../temp/js.js"
+			match="^\s*debugger(.*)$"
+			replace=""
+			byline="true" />
+
+		<replaceregexp file="../temp/js.js"
+			match="\/\*NITOBI_BUILD_NUMBER\*\/"
+			replace="nitobi.lang.defineNs('nitobi.${component.name}');nitobi.${component.name}.build='${src.revision}';nitobi.${component.name}.version='${component.version}.${src.revision}';"
+			byline="true" />
+
+		<!-- make an extra copy of the JS just for fun -->
+		<copy file="../temp/js.js" tofile="../temp/js_src.js"/>
+
+	</target>
+
+<!--
+	<target name="mergeCSS" description="Merges all the CSS into ">
+
+		<if>
+			<isset property="customMergeCSSAvailable" />
+			<then>
+				<antcall target="customBuild.mergeCSS"></antcall>
+			</then>
+			<else></else>
+		</if>
+
+	</target>
+-->
+
+	<target name="makeCSS" description="Makes a single CSS file that imports all the other CSS's">
+		<!-- Generate a single CSS file that uses @import to get all the required stylesheets -->
+		<xslt in="../includes.xml" out="../output/style/nitobi.${component.name}.css" style="makecss.xslt">
+			<param name="component" expression="${component.name}"></param>
+		</xslt>
+
+		<!-- Generate a txt file with the list of CSS folders and copy each one to the output -->
+		<xslt in="../includes.xml" out="../temp/cssincludes.txt" style="cssincludes.xslt">
+			<param name="component" expression="${component.name}"></param>
+		</xslt>
+
+		<loadfile property="cssincludes" srcfile="../temp/cssincludes.txt" />
+
+		<foreach list="${cssincludes}" target="css.copy" param="CSSFolderName"></foreach>
+
+		<!-- Merge toolkit CSS straglers ... this is temporary -->
+		<foreach target="toolkit.css.merge" param="css.filename">
+			<fileset dir="../output/style">
+				<include name="**/*.css"></include>
+			</fileset>
+		</foreach>
+
+	</target>
+
+	<target name="css.copy">
+		<!-- Lame if statement here ... -->
+		<if>
+			<equals arg1="${CSSFolderName}" arg2="${cssincludes}"></equals>
+			<then></then>
+			<else>
+				<copy todir="../output/style">
+					<fileset dir="../${CSSFolderName}">
+						<include name="**/*"></include>
+					</fileset>
+				</copy>
+			</else>
+		</if>
+	</target>
+
+	<target name="toolkit.css.merge">
+		<if>
+			<equals arg1="${component.name}" arg2="toolkit"></equals>
+			<then></then>
+			<else>
+				<concat destfile="${css.filename}" append="true">
+					<fileset dir="../../toolkit/client/style">
+						<include name="**/*.css"></include>
+						<exclude name="**/toolbar.css"></exclude>
+					</fileset>
+				</concat>
+			</else>
+		</if>
+	</target>
+
+    <!-- creates an obfuscated JS file  -->
+	<target name="obfuscateJS" depends="prepareTrialCode" unless="javascript.uptodate" description="Run rhino java class to compress and obfuscate the js code">
+
+		<!-- copy the token file for this product to the rhino dir ... -->
+		<copy file="tokens.xml" tofile="../../build/rhino/tokens.xml"></copy>
+
+    	<!--
+    		http://dojotoolkit.org/docs/compressor_system.html
+    		java -jar custom_rhino.jar -c infile.js > outfile.js 2>&1-->
+
+    	<exec executable="cmd">
+    		<arg value="/c"/>
+    		<arg value="java -jar ../../build/rhino/dojo_rhino.jar -opt -1 -c ../temp/js.js > ../temp/js.obfuscated.js 2>&amp;1"/>
+    	</exec>    	
+
+    </target>
+
+	<target name="mergeAll" depends="mergeAll.check, mergeXMLIncludes, mergeXSLIncludes, makeCSS" unless="mergeAll.uptodate" description="Merges the JS, XML and XSLT files to create a single JS. This happens for both obfuscated and non-obfuscated code.">
+
+		<!-- Also concat the XSL files onto the non-obfuscated grid code for testing purposes -->
+		<concat append="false" destfile="../temp/nitobi.${component.name}.obfuscated.js" fixlastline="true" >
+			<fileset dir="../temp" casesensitive="false">
+				<include name="js.obfuscated.js"/>
+				<include name="xml.js"/>
+				<include name="xslt.js"/>
+			</fileset>
+		</concat>
+<!--
+		<copy file="../temp/nitobi.${component.name}.obfuscated.js" tofile="../output/src/nitobi.${component.name}.js"/>		
+-->
+		<!-- just make a plain source file for testing etc -->
+		<concat append="false" destfile="../temp/nitobi.${component.name}.js" fixlastline="true" >
+			<fileset dir="../temp" casesensitive="false">
+				<include name="js.js"/>
+				<include name="xml.js"/>
+				<include name="xslt.js"/>
+			</fileset>
+		</concat>
+	</target>
+	
+	<target name="mergeAll.check">
+		<condition property="mergeAll.uptodate">
+			<and>
+				<istrue value="javascript.uptodate"/>
+				<istrue value="xml.uptodate"/>
+				<istrue value="xsl.uptodate"/>
+			</and>
+		</condition>
+	</target>
+
+	<target name="prepareTrialCode">
+		<!-- replaces the commnented TRIAL string so that the trial code is no longer commented and in full effect-->
+		<replace file="../temp/js.js" token="/*TRIAL*//*" value="/*TRIAL*/"></replace>
+		<replace file="../temp/js.js" token="*//*TRIAL*/" value="/*TRIAL*/"></replace>
+	</target>
+
+	<target name="prepareDomainCode">
+		<!-- replaces the commnented TRIAL string so that the trial code is no longer commented and in full effect-->
+		<replace file="../temp/js.js" token="STRIPONLINECHECK*/" value=""></replace>
+		<replace file="../temp/js.js" token="/*STRIPONLINECHECK" value=""></replace>
+	</target>
+
+	
+	<!-- Strip the trial checking -->
+	<target name="stripTrial">
+		<replaceregexp file="${basedir}\..\Output\temp\src\nitobi.grid_src_noxsl.js"
+			match="\/\*TRIAL\\*\/\/\*.*\*\/\/\*TRIAL\\*/"
+			replace=""
+			flags="s"/>
+	</target>
+
+	<target name="samples">
+
+		<mkdir dir="../output/samples"></mkdir>
+		
+		<!-- <foreach list="html,asp,jsp,php,cfm" target="samples.platform" param="samples.platform.name"></foreach> -->
+		<antcall target="samples.platform" />
+
+		<replaceregexp byline="true">
+			<regexp pattern="&lt;!-- EBA_REMOVE_START.*EBA_REMOVE_END -->"/>
+			<substitution expression=""/>
+			<fileset dir="..\output\samples">
+				<include name="**/*"/>
+			</fileset>
+		</replaceregexp>
+
+		<!-- Special replace for dotnet ... not sure why it uses a difference syntax -->
+		<replaceregexp byline="true">
+			<regexp pattern="&lt;!--_NRS_.*_NRE_-->"/>
+			<substitution expression=""/>
+			<fileset dir="..\output\">
+				<include name="samples\**\dotnet\**\*.*"/>
+			</fileset>
+		</replaceregexp>
+
+		<replaceregexp byline="true">
+			<regexp pattern="\$STYLE\$"/>
+			<substitution expression="../../../common/style"/>
+			<fileset dir="..\output">
+				<include name="**/*"/>
+			</fileset>
+		</replaceregexp>
+
+		<replaceregexp byline="true">
+			<regexp pattern="\$LANGUAGE\$"/>
+			<substitution expression="../../../../client/language"/>
+			<fileset dir="..\output">
+				<include name="**/*"/>
+			</fileset>
+		</replaceregexp>
+
+		<replaceregexp byline="true">
+			<regexp pattern="\$SCRIPT\$"/>
+			<substitution expression="../../../common/script"/>
+			<fileset dir="..\output">
+				<include name="**/*"/>
+			</fileset>
+		</replaceregexp>
+
+		<replaceregexp byline="true">
+			<regexp pattern="\$SH\$"/>
+			<substitution expression="../../../common/sh"/>
+			<fileset dir="..\output">
+				<include name="**/*"/>
+			</fileset>
+		</replaceregexp>
+
+		<!-- Need to check for combo because combo samples have one more directory in the sample structure -->
+		<if>
+			<equals arg1="${component.name}" arg2="combo" />
+			<then>
+				<replaceregexp byline="true" flags="i">
+					<regexp pattern="../../../../test/lib/asp/base_gethandler.inc"/>
+					<substitution expression="../common/nitobi.xml.inc"/>
+					<fileset dir="..\output\samples">
+						<include name="**/*"/>
+					</fileset>
+				</replaceregexp>
+	
+				<replaceregexp byline="true" flags="i">
+					<regexp pattern="../../../../test/lib/cfm/base_gethandler.cfm"/>
+					<substitution expression="../common/nitobi.xml.cfm"/>
+					<fileset dir="..\output\samples">
+						<include name="**/*"/>
+					</fileset>
+				</replaceregexp>
+	
+				<replaceregexp byline="true" flags="i">
+					<regexp pattern="nitobi.xml.php"/>
+					<substitution expression="../common/nitobi.xml.php"/>
+					<fileset dir="..\output\samples">
+						<include name="**/*"/>
+					</fileset>
+				</replaceregexp>
+			</then>
+			<else>
+				<replaceregexp byline="true" flags="i">
+					<regexp pattern="../../../test/lib/asp/base_gethandler.inc"/>
+					<substitution expression="../common/nitobi.xml.inc"/>
+					<fileset dir="..\output\samples">
+						<include name="**/*"/>
+					</fileset>
+				</replaceregexp>
+	
+				<replaceregexp byline="true" flags="i">
+					<regexp pattern="../../../test/lib/cfm/base_gethandler.cfm"/>
+					<substitution expression="../common/nitobi.xml.cfm"/>
+					<fileset dir="..\output\samples">
+						<include name="**/*"/>
+					</fileset>
+				</replaceregexp>
+
+				<replaceregexp byline="true" flags="i">
+					<regexp pattern="nitobi.xml.php"/>
+					<substitution expression="../common/nitobi.xml.php"/>
+					<fileset dir="..\output\samples">
+						<include name="**/*"/>
+					</fileset>
+				</replaceregexp>
+			</else>
+		</if>
+	</target>
+
+	<target name="samples.platform">
+
+		<!-- Copy the html samples if they exist-->
+		<if>
+			<available file="html" filepath="../samples" type="dir" />
+			<then>
+				<copy todir="../output/samples/html">
+					<fileset dir="../samples/html" />
+				</copy>
+			</then>
+		</if>
+	
+	
+		<if>
+			<equals arg1="${platform.name}" arg2="dotnet"/>
+			<then>
+				<!-- Ignore dotnet samples.  They are handled in build.custom.xml -->
+			</then>
+			<elseif>
+				<equals arg1="${platform.name}" arg2="jsp"/>
+				<then>
+					<if>
+						<!-- Need to distinguish between components that have servlet
+							 samples and those that don't.  If there are servlets,
+							 we need to build them -->
+						<available file="java" filepath="../samples" type="dir" />
+					<then>
+						<ant dir="../samples/java/dist"/>
+						<copy todir="../output/samples/servlet/client">
+							<fileset dir="../samples/java/dist/temp/client/java"/>
+						</copy>
+			
+						<copy todir="../output/samples/servlet/src">
+							<fileset dir="../samples/java/dist/temp/src"/>
+						</copy>
+						
+						<copy todir="../output/samples/servlet/classes">
+							<fileset dir="../samples/java/dist/temp/classes"/>
+						</copy>
+					</then>
+					</if>
+					<if>
+						<available file="struts1" filepath="../samples" type="dir"/>
+					<then>
+						<ant dir="../samples/struts1/dist"/>
+						<copy todir="../output/samples/struts1/client">
+							<fileset dir="../samples/struts1/dist/temp/client/java"/>
+						</copy>
+		
+						<copy todir="../output/samples/struts1/src">
+							<fileset dir="../samples/struts1/dist/temp/src"/>
+						</copy>
+						
+						<copy todir="../output/samples/struts1/classes">
+							<fileset dir="../samples/struts1/dist/temp/classes"/>
+						</copy>
+					</then>
+					</if>
+					<if>
+						<available file="struts2" filepath="../samples" type="dir"/>
+					<then>
+						<ant dir="../samples/struts2/dist"/>
+						<copy todir="../output/samples/struts2/client">
+							<fileset dir="../samples/struts2/dist/temp/client/java"/>
+						</copy>
+		
+						<copy todir="../output/samples/struts2/src">
+							<fileset dir="../samples/struts2/dist/temp/src"/>
+						</copy>
+						
+						<copy todir="../output/samples/struts2/classes">
+							<fileset dir="../samples/struts2/dist/temp/classes"/>
+						</copy>
+					</then>
+					</if>
+					
+					<if>
+						<available file="spring" filepath="../samples" type="dir"/>
+					<then>
+						<ant dir="../samples/spring/dist"/>
+						<copy todir="../output/samples/spring/client">
+							<fileset dir="../samples/spring/dist/temp/client/java"/>
+						</copy>
+		
+						<copy todir="../output/samples/spring/src">
+							<fileset dir="../samples/spring/dist/temp/src"/>
+						</copy>
+						
+						<copy todir="../output/samples/spring/classes">
+							<fileset dir="../samples/spring/dist/temp/classes"/>
+						</copy>
+					</then>
+					</if>
+					<!--<else>
+						<copy todir="../output/samples/${platform.name}" failonerror="false">
+							<fileset dir="../samples/${platform.name}"></fileset>
+						</copy>
+					</else>-->
+				</then>
+			</elseif>
+			<else>
+				<!-- If it's not dotnet or jsp, just copy the samples -->
+				<if>
+					<equals arg1="${component.name}" arg2="combo"/>
+					<then>
+						<!-- Combo samples have a different directory structure,
+							 so we have to accomodate that here -->
+						<copy todir="../output/samples/${platform.name}" failonerror="false">
+							<fileset dir="../samples/${platform.name}/Advanced"></fileset>
+							<fileset dir="../samples/${platform.name}/Basic"></fileset>
+						</copy>
+					</then>
+					<elseif>
+						<equals arg1="${platform.name}" arg2="script" />
+						<then>
+							<copy todir="../output/samples/asp" failonerror="false">
+								<fileset dir="../samples/asp"></fileset>
+							</copy>
+							<copy todir="../output/samples/php" failonerror="false">
+								<fileset dir="../samples/php"></fileset>
+							</copy>
+							<copy todir="../output/samples/cfm" failonerror="false">
+								<fileset dir="../samples/cfm"></fileset>
+							</copy>
+						</then>
+					</elseif>
+					<else>
+						<copy todir="../output/samples/${platform.name}" failonerror="false">
+							<fileset dir="../samples/${platform.name}"></fileset>
+						</copy>
+					</else>
+				</if>
+				
+				<!-- Copy the XML Converter library to a common place -->
+				<if>
+					<or>
+						<equals arg1="${platform.name}" arg2="asp" />
+						<equals arg1="${platform.name}" arg2="script" />						
+					</or>
+					<then>
+						<copy file="../../server/asp/XmlConverter/nitobi.xml.inc" 
+							todir="../output/samples/asp/common" />
+					</then>
+					<elseif>
+						<equals arg1="${platform.name}" arg2="script" />
+						<then>
+							<copy file="../../server/php/XmlConverter/nitobi.xml.php" 
+								todir="../output/samples/php/common" />
+							<copy file="../../server/cfm/XmlConverter/nitobi.xml.cfm" 
+								todir="../output/samples/cfm/common" />
+						</then>
+					</elseif>
+					<else>
+						<copy file="../../server/${platform.name}/XmlConverter/nitobi.xml.${platform.name}" 
+							todir="../output/samples/${platform.name}/common" />
+					</else>
+				</if>
+			</else>
+		</if>
+	</target>
+
+	<target name="docs.client" depends="docs.client.custom, docs.client.tagref" unless="docs.uptodate" description="Builds the master CHM which includes both server and client docs."></target>
+
+	<target name="docs.client.custom">
+		<!-- Build the custom client docs. -->
+		<!--
+		<antcall target="CHM">
+			<param name="workingdir" value="../documentation/common"></param>
+			<param name="src" value="${component.name}-client-custom"></param>
+			<param name="dest" value="../temp/documentation"></param>
+		</antcall>
+		-->
+	</target>
+
+	<target name="docs.client.tagref" depends="jsdoc.xml">
+
+		<!-- Build the tag docs. -->
+		<!-- First create the hhk, hhp and hhc files. -->
+		<delete file="../temp/documentation/tags.xml"></delete>
+
+		<mkdir dir="../temp/documentation/${component.name}-client-tag"></mkdir>
+
+		<!-- Generate the tag reference HTML content -->
+		<exec executable="cmd" failonerror="true">
+			<arg value="/c"/>
+			<arg value="..\..\build\documentation\createtagref.bat ${component.name}"/>
+		</exec>
+
+		<copy file="..\..\build\documentation\tagref.css" tofile="../temp/documentation/tagref.css"></copy>
+
+		<!--
+		<antcall target="CHM">
+			<param name="workingdir" value="../temp/documentation"></param>
+			<param name="src" value="${component.name}-client-tag"></param>
+			<param name="dest" value="../temp/documentation"></param>
+		</antcall>
+		-->
+
+	</target>
+
+	<target name="docs" depends="docs.client, docs.server" unless="docs.uptodate">
+
+		<!-- Generate the primary HHP file -->
+		<!--
+		<xslt in="../documentation/includes.xml" out="../documentation/common/${component.name}-common.hhp" style="../../build/documentation/tocommonhhp.xsl">
+			<param name="component" expression="${component.name}"></param>
+		</xslt>
+		-->
+
+		<!-- Finally, build the Master CHM which pulls in the client and server docs -->
+		<!--
+		<antcall target="CHM">
+			<param name="workingdir" value="../documentation/common"></param>
+			<param name="src" value="${component.name}-common"></param>
+			<param name="dest" value="../temp/documentation"></param>
+		</antcall>
+		-->
+
+		<!-- Ensure that CHM2WEB is registered regedit.exe /s path of .reg file -->
+		<!--
+		<exec executable="cmd" dir="../temp">
+			<arg value="/c"/>
+			<arg value="regedit.exe /s ..\..\build\documentation\chm2web\chm2web.reg"/>
+		</exec>
+		-->
+
+		<!-- Generate the chm2web project file -->
+		<!--
+		<xslt in="../includes.xml" out="../temp/documentation/base.chm2web" style="documentation/chm2web.xslt">
+			<param name="src" expression="${basedir}\..\temp\documentation\${component.name}-common.chm"></param>
+			<param name="target" expression="${basedir}\..\temp\documentation\html"></param>
+		</xslt>
+		-->
+
+		<!--
+		 Run the chm2web tool 
+		<exec executable="cmd" dir="../temp/documentation">
+			<arg value="/c"/>
+			<arg value="..\..\..\build\documentation\chm2web\chm2web base.chm2web /d"/>
+		</exec>
+		<delete file="../temp/documentation/base.chm2web"/>
+		-->
+		<!-- Copy the HTML based docs to the output
+			<copy todir="../output/docs/html">
+			<fileset dir="../temp/documentation/html"></fileset>
+			</copy>
+		-->
+
+		<!--
+		<copy todir="../output/docs">
+			<fileset dir="../temp/documentation">
+				<include name="**/*.chm"/>
+			</fileset>
+		</copy>
+		-->
+
+	</target>
+
+	<!-- ************* -->
+	<!-- JSDOC TARGETS -->
+
+	<target name="jsdoc" depends="jsdoc.includes" unless="javascript.updated">
+
+		<loadfile property="jsdocincludes" srcfile="../temp/jsdocincludes.txt" />
+
+		<!-- build the HTML version of the docs -->
+		<exec executable="cmd">
+			<arg value="/c"/>
+			<arg value="perl ..\..\build\Documentation\jsdoc\jsdoc.pl --package-naming --logo nitobi.gif --no-sources ${jsdocincludes}"/>
+		</exec>
+
+		<!-- copy the documentation to the temp folder -->
+		<copy todir="../temp/documentation/${component.name}-client-api/" failonerror="false">
+			<fileset dir="js_docs_out"/>
+		</copy>
+
+		<delete dir="js_docs_out"></delete>
+
+	</target>
+
+	<target name="jsdoc.xml" depends="jsdoc.createfilelist">
+
+		<loadfile property="jsdocincludes" srcfile="../temp/jsdoc${component.name}includes.txt" />
+		
+		<!-- build the XML version of the docs -->
+		<exec executable="cmd">
+			<arg value="/c"/>
+			<arg value="perl ..\..\build\Documentation\jsdoc\jsdoc.pl --format xml --package-naming --logo nitobi.gif --no-sources ${jsdocincludes}"/>
+		</exec>		
+
+		<!-- copy the jsdoc.xml file to the temp folder -->
+		<copy todir="../temp/documentation/${component.name}-client-api/" file="js_docs_out/jsdoc.xml" failonerror="false"></copy>
+
+		<!-- get rid of the xml prolog -->
+		<replaceregexp file="../temp/documentation/${component.name}-client-api/jsdoc.xml"
+			match=".*?\?xml version=.1\.0.*"
+			replace=""
+			byline="true"/>
+
+	</target>
+
+	<target name="jsdoc.includes" depends="jsdoc.createfilelist">
+
+		<loadfile property="jsdocFileList" srcfile="../temp/jsdoc${component.name}includes.txt" />
+
+		<concat destfile="../temp/jsdoc${component.name}files.js">
+			<filelist dir="../temp/" files="${jsdocFileList}"/>
+		</concat>
+
+		<!-- give the component a chance to append other JS to the jsdoc${component.name}files.js file ... -->
+		<antcall target="custom.jsdoc.check"></antcall>
+
+	</target>
+
+	<target name="jsdoc.createfilelist">
+
+		<!-- create the list of JS files of XSLT to merge -->
+		<xslt in="../includes.xml" out="../temp/jsdoc${component.name}includes.txt" style="jsdocincludes.xslt">
+			<param name="component" expression="${component.name}"></param>
+			<param name="componentPath" expression=""></param>
+		</xslt>
+
+	</target>
+
+	<target name="custom.jsdoc.check">
+		<if>
+			<equals arg1="${custom.jsdoc}" arg2="true"/>
+			<then>
+				<antcall target="custom.jsdoc" />
+			</then>
+		</if>
+	</target>
+
+
+	<target name="custom.check">
+		<if>
+			<equals arg1="${custom.build}" arg2="true"/>
+			<then>
+				<antcall target="custom.all" />
+			</then>
+		</if>
+	</target>
+		
+	<target name="api.db.prep" description="Place the component's docs into the main temp folder.  In the main build.xml, these files will be uploaded to the server to be parsed into a database for online retrieval">
+		<copy tofile="../../temp/doctoserver/${component.name}-jsdoc.xml" file="js_docs_out/jsdoc.xml" failonerror="true"/>
+		
+		<copy tofile="../../temp/doctoserver/${component.name}-tagref.xml" file="../temp/documentation/documentation.xml" failonerror="true"/>
+	</target>
+
+	<target name="uptodate">
+		<uptodate property="javascript.uptodate" targetfile="../temp/js.js" >
+			<srcfiles dir= "../client/script" includes="**"/>
+		</uptodate>
+		<uptodate property="xsl.uptodate" targetfile="../temp/xslt.js" >
+			<srcfiles dir= "../client/xsl" includes="**"/>
+		</uptodate>
+		<uptodate property="xml.uptodate" targetfile="../temp/xml.js" >
+			<srcfiles dir= "../client" includes="**"/>
+		</uptodate>
+		<uptodate property="style.uptodate" targetfile="../temp/js.js" >
+			<srcfiles dir= "../client/style" includes="**"/>
+		</uptodate>
+		<uptodate property="docs.uptodate" targetfile="../temp/js.js" >
+			<srcfiles dir= "../documentation" includes="**"/>
+			<srcfiles dir= "../client/script" includes="**"/>
+			<srcfiles dir= "../client/style" includes="**"/>
+		</uptodate>
+		<uptodate property="build.uptodate" targetfile="../temp/js.js" >
+			<srcfiles dir= "../build" includes="**"/>
+		</uptodate>	
+	</target>
+
+	<target name="clean">
+		<delete dir="../temp"></delete>
+		<delete dir="../output"></delete>
+
+		<mkdir dir="../temp"></mkdir>
+		<mkdir dir="../output"></mkdir>
+	</target>
+
+</project>

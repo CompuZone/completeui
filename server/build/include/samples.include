@@ -1,0 +1,34 @@
+<project>
+	<target name="samples" description="Builds the samples">
+
+	    <!-- Copy the samples -->
+		<echo message="Copying the samples to ${output.basedir}\${platform.name}\Samples"/>
+		<copy todir="${output.basedir}\${platform.name}\Samples">
+			<fileset basedir="${nant.project.basedir}\samples\${platform.name}">
+				<include name="**/*" />
+				<exclude name="**/nitobi.grid.js" />
+		    	<exclude name="**/WEB-INF/**" />
+			</fileset>
+		</copy>		
+
+		<echo message="Copy the contents of bin to each sample's directory" />
+
+		<foreach item="Folder" in="${output.basedir}\${platform.name}\Samples" property="foldername">
+		    <do>
+			    <copy todir="${foldername}">
+			    	<fileset basedir="${output.basedir}\${platform.name}\bin">
+				    	<include name="**/*" />
+				    	<exclude name="*.jar" />
+				    </fileset>
+				</copy>
+			</do>
+		</foreach>		
+
+		<!-- call ant to remove the sample path info -->
+		<sleep seconds="3" />
+		<exec
+			 program="${buildTools.dev.build.basedir}\RunUnixCommand.bat" 
+			 workingdir="${nant.project.basedir}\Build" 
+			 commandline="ant -e -buildfile build.xml deploySamples" failonerror="false"/>
+	</target>
+</project>

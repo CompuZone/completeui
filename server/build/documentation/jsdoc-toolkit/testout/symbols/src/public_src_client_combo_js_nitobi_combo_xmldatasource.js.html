@@ -1,0 +1,394 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="NAME">nitobi.lang.defineNs</span><span class="PUNC">(</span><span class="STRN">"nitobi.combo"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  2</span> 
+<span class='line'>  3</span> </span><span class="COMM">/**
+<span class='line'>  4</span>  * The XML data source manages the local XML cache.  It doesn't have anything to do
+<span class='line'>  5</span>  * with any other datasource.  It is used directly by the list to manage the
+<span class='line'>  6</span>  * client side data. The XML stored in this object is compressed EBA XML in the form:
+<span class='line'>  7</span>  * &lt;div class="code">
+<span class='line'>  8</span>  * &lt;pre>&lt;code class="xml">
+<span class='line'>  9</span>  * &lt;root&gt;
+<span class='line'> 10</span>  * 	&lt;e xk="1" a="The Clash" b="London Calling"/&gt;
+<span class='line'> 11</span>  * 	&lt;e xk="2" a="Elvis Costello" b="Armed Forces"/&gt;
+<span class='line'> 12</span>  * 	&lt;e xk="3" a="XTC" b="Black Sea"/&gt;
+<span class='line'> 13</span>  * &lt;/root&gt;
+<span class='line'> 14</span>  * &lt;/code>&lt;/pre>
+<span class='line'> 15</span>  * &lt;/div>
+<span class='line'> 16</span>  * @class The client side data source for the List
+<span class='line'> 17</span>  * @constructor
+<span class='line'> 18</span>  * @param {HTMLElement} userTag The HTML object that represents ListColumnDefinition
+<span class='line'> 19</span>  * @param {Boolean} clip Whether or not to clip list
+<span class='line'> 20</span>  * @param {Number} clipLength The clip length to use to clip the list
+<span class='line'> 21</span>  * @param {nitobi.combo.Combo} comboObject The owner combo object
+<span class='line'> 22</span>  * @see nitobi.combo.Combo
+<span class='line'> 23</span>  */</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="NAME">nitobi.combo.XmlDataSource</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 27</span> 	 * @private
+<span class='line'> 28</span> 	 */</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="WHIT">	</span><span class="NAME">this.combo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 31</span> 	 * @private
+<span class='line'> 32</span> 	 */</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">	</span><span class="NAME">this.m_Dirty</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 34</span> 
+<span class='line'> 35</span> </span><span class="WHIT">	</span><span class="NAME">this.SetLastPageSize</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">	</span><span class="NAME">this.SetNumberColumns</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 38</span> 
+<span class='line'> 39</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="COMM">// * XmlId</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="NAME">nitobi.combo.XmlDataSource.prototype.GetXmlId</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_GetXmlId</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="COMM">/**
+<span class='line'> 44</span>  * Returns the ID of the XML data-island on the page.
+<span class='line'> 45</span>  * Typically, the XML data is stored on the HTML page itself in what is referred to 
+<span class='line'> 46</span>  * as an XML data island, that is, XML enclosed by XML tags.  This is the ID of that dataisland.
+<span class='line'> 47</span>  * @type String
+<span class='line'> 48</span>  */</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_GetXmlId</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 50</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.m_XmlId</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 51</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 52</span> 
+<span class='line'> 53</span> </span><span class="NAME">nitobi.combo.XmlDataSource.prototype.SetXmlId</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_SetXmlId</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="COMM">/**
+<span class='line'> 55</span>  * Sets the ID of the XML data-island on the page.
+<span class='line'> 56</span>  * Typically, the XML data is stored on the HTML page itself in what is referred to 
+<span class='line'> 57</span>  * as an XML data island, that is, XML enclosed by XML tags.  This is the ID of that dataisland.
+<span class='line'> 58</span>  * @param {String} XmlId The id of the xml data island
+<span class='line'> 59</span>  * @private
+<span class='line'> 60</span>  */</span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_SetXmlId</span><span class="PUNC">(</span><span class="NAME">XmlId</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 62</span> </span><span class="WHIT">	</span><span class="NAME">this.m_XmlId</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XmlId</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 63</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 64</span> 
+<span class='line'> 65</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="COMM">// * XmlObject</span><span class="WHIT">
+<span class='line'> 67</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="NAME">nitobi.combo.XmlDataSource.prototype.GetXmlObject</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_GetXmlObject</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="COMM">/**
+<span class='line'> 70</span>  * Returns the XML DOM object.
+<span class='line'> 71</span>  * The type of this object changes depending on the type of the browser.
+<span class='line'> 72</span>  * In Internet Explorer it is the latest version (up to version 4) of the Microsoft XML DOM, e.g.,
+<span class='line'> 73</span>  * Msxml4.DOMDocument. For Mozilla based browsers, this is the standard XML doc document. Note: Some
+<span class='line'> 74</span>  * text in the document is escaped.
+<span class='line'> 75</span>  * &lt;p>
+<span class='line'> 76</span>  * &lt;b>Example&lt;/b>
+<span class='line'> 77</span>  * &lt;/p>
+<span class='line'> 78</span>  * &lt;div class="code">
+<span class='line'> 79</span>  * &lt;pre>&lt;code class="javascript">
+<span class='line'> 80</span>  * var list = nitobi.getComponent('combo1').GetList();
+<span class='line'> 81</span>  * var xmlDataSource = list.GetXmlDataSource();
+<span class='line'> 82</span>  * var xmlDoc = xmlDataSource.GetXmlObject();
+<span class='line'> 83</span>  * // Gives us the xml node with xk equal to 47858
+<span class='line'> 84</span>  * var node = xmlDoc.selectSingleNode('//e[&amp;xk=47858]');
+<span class='line'> 85</span>  * node.setAttribute('a', 'London Calling');
+<span class='line'> 86</span>  * &lt;/code>&lt;/pre>
+<span class='line'> 87</span>  * &lt;/div>
+<span class='line'> 88</span>  * @type XMLDocument
+<span class='line'> 89</span>  * @see nitobi.combo.XmlDataSource#.GetRow
+<span class='line'> 90</span>  */</span><span class="WHIT">
+<span class='line'> 91</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_GetXmlObject</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 92</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.m_XmlObject</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 93</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 94</span> 
+<span class='line'> 95</span> </span><span class="COMM">// TODO: This function is private until AddPage is public.</span><span class="WHIT">
+<span class='line'> 96</span> </span><span class="NAME">nitobi.combo.XmlDataSource.prototype.SetXmlObject</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_SetXmlObject</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 97</span> </span><span class="COMM">/**
+<span class='line'> 98</span>  * Sets the XML DOM object.
+<span class='line'> 99</span>  * The type of this object changes depending on the type of the browser.
+<span class='line'>100</span>  * In Internet Explorer it is the latest version (up to version 4) of the Microsoft XML DOM, e.g.,
+<span class='line'>101</span>  * Msxml4.DOMDocument. For Mozilla based browsers, this is the standard XML doc document. Note: Some
+<span class='line'>102</span>  * text in the document is escaped.
+<span class='line'>103</span>  * @param {XMLDocument} XmlObject The XML document
+<span class='line'>104</span>  * @param {Number} clip Whether or not to clip list
+<span class='line'>105</span>  * @param {Boolean} clipLength The clip length to use to clip the list
+<span class='line'>106</span>  * @private
+<span class='line'>107</span>  */</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_SetXmlObject</span><span class="PUNC">(</span><span class="NAME">XmlObject</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">clip</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">clipLength</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="KEYW">null</span><span class="PUNC">==</span><span class="NAME">XmlObject.documentElement</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>110</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">clip</span><span class="PUNC">==</span><span class="KEYW">true</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>111</span> </span><span class="WHIT">		</span><span class="NAME">XmlObject</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">xbClipXml</span><span class="PUNC">(</span><span class="NAME">XmlObject</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"root"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"e"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">clipLength</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>112</span> </span><span class="WHIT">	</span><span class="NAME">this.m_XmlObject</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XmlObject</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>113</span> </span><span class="WHIT">	</span><span class="COMM">// Since the whole object was blown away, treat this like a getpage.</span><span class="WHIT">
+<span class='line'>114</span> </span><span class="WHIT">	</span><span class="COMM">// Set the page size to number of rows we receive initially.</span><span class="WHIT">
+<span class='line'>115</span> </span><span class="WHIT">	</span><span class="COMM">// Here we assume that the initial data we receive is like a page</span><span class="WHIT">
+<span class='line'>116</span> </span><span class="WHIT">	</span><span class="COMM">// get.  We don't actually do a page get because we don't want</span><span class="WHIT">
+<span class='line'>117</span> </span><span class="WHIT">	</span><span class="COMM">// to copy our initial xml datasource.</span><span class="WHIT">
+<span class='line'>118</span> </span><span class="WHIT">	</span><span class="NAME">this.SetLastPageSize</span><span class="PUNC">(</span><span class="NAME">this.GetNumberRows</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>119</span> 
+<span class='line'>120</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">fields</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XmlObject.documentElement.getAttribute</span><span class="PUNC">(</span><span class="STRN">"fields"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>121</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">null</span><span class="PUNC">==</span><span class="NAME">fields</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>122</span> </span><span class="WHIT">		</span><span class="COMM">// TODO: How are we going to deal with exceptions in dontnet.</span><span class="WHIT">
+<span class='line'>123</span> </span><span class="COMM">//			alert( "You must have at least one field in your dataset.  The root's 'fields' attribute was not set.");</span><span class="WHIT">
+<span class='line'>124</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="KEYW">else</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>125</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">colNames</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">fields.split</span><span class="PUNC">(</span><span class="STRN">"|"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="WHIT">		</span><span class="NAME">this.SetColumnNames</span><span class="PUNC">(</span><span class="NAME">colNames</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>127</span> </span><span class="WHIT">		</span><span class="NAME">this.SetNumberColumns</span><span class="PUNC">(</span><span class="NAME">colNames.length</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>128</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>129</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>130</span> 
+<span class='line'>131</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>132</span> </span><span class="COMM">// * NumberRows</span><span class="WHIT">
+<span class='line'>133</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>134</span> </span><span class="NAME">nitobi.combo.XmlDataSource.prototype.GetNumberRows</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_GetNumberRows</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>135</span> </span><span class="COMM">/**
+<span class='line'>136</span>  * Returns the number of rows currently in the dataset.
+<span class='line'>137</span>  * @type Number
+<span class='line'>138</span>  * @see #GetRow
+<span class='line'>139</span>  * @see #GetNumberColumns
+<span class='line'>140</span>  */</span><span class="WHIT">
+<span class='line'>141</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_GetNumberRows</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>142</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.GetXmlObject</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">selectNodes</span><span class="PUNC">(</span><span class="STRN">"//e"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">length</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>143</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>144</span> 
+<span class='line'>145</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>146</span> </span><span class="COMM">// * LastPageSize</span><span class="WHIT">
+<span class='line'>147</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="NAME">nitobi.combo.XmlDataSource.prototype.GetLastPageSize</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_GetLastPageSize</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>149</span> </span><span class="COMM">/** 
+<span class='line'>150</span>  * Returns the size of the last page retrieved.
+<span class='line'>151</span>  * @type Number
+<span class='line'>152</span>  * @private
+<span class='line'>153</span>  */</span><span class="WHIT">
+<span class='line'>154</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_GetLastPageSize</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>155</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.m_LastPageSize</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>156</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>157</span> 
+<span class='line'>158</span> </span><span class="NAME">nitobi.combo.XmlDataSource.prototype.SetLastPageSize</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_SetLastPageSize</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="COMM">/** 
+<span class='line'>160</span>  * Sets the size of the last page retrieved.
+<span class='line'>161</span>  * @param {Number} LastPageSize The size of the last page retrieved
+<span class='line'>162</span>  * @private
+<span class='line'>163</span>  */</span><span class="WHIT">
+<span class='line'>164</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_SetLastPageSize</span><span class="PUNC">(</span><span class="NAME">LastPageSize</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>165</span> </span><span class="WHIT">	</span><span class="NAME">this.m_LastPageSize</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">LastPageSize</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>166</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>167</span> 
+<span class='line'>168</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>169</span> </span><span class="COMM">// * NumberColumns</span><span class="WHIT">
+<span class='line'>170</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>171</span> </span><span class="NAME">nitobi.combo.XmlDataSource.prototype.GetNumberColumns</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_GetNumberColumns</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>172</span> </span><span class="COMM">/**
+<span class='line'>173</span>  * Returns the number of columns in the dataset.
+<span class='line'>174</span>  * @type Number
+<span class='line'>175</span>  * @see #GetNumberRows
+<span class='line'>176</span>  */</span><span class="WHIT">
+<span class='line'>177</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_GetNumberColumns</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>178</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.m_NumberColumns</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>179</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>180</span> 
+<span class='line'>181</span> </span><span class="NAME">nitobi.combo.XmlDataSource.prototype.SetNumberColumns</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_SetNumberColumns</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>182</span> </span><span class="COMM">/**
+<span class='line'>183</span>  * Sets the number of columns in the dataset.
+<span class='line'>184</span>  * @param {Number} NumberColumns The number of columns of the dataset
+<span class='line'>185</span>  * @private
+<span class='line'>186</span>  */</span><span class="WHIT">
+<span class='line'>187</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_SetNumberColumns</span><span class="PUNC">(</span><span class="NAME">NumberColumns</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>188</span> </span><span class="WHIT">	</span><span class="NAME">this.m_NumberColumns</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">NumberColumns</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>189</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>190</span> 
+<span class='line'>191</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>192</span> </span><span class="COMM">// * ColumnNames</span><span class="WHIT">
+<span class='line'>193</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>194</span> </span><span class="COMM">/// &lt;function name='GetColumnNames' access='private'>&lt;summary></span><span class="WHIT">
+<span class='line'>195</span> </span><span class="COMM">/// Contains the list of column names.</span><span class="WHIT">
+<span class='line'>196</span> </span><span class="COMM">/// &lt;/summary>&lt;remarks>&lt;/remarks>&lt;returns type='array'>The value of the property.&lt;/returns>&lt;/function></span><span class="WHIT">
+<span class='line'>197</span> </span><span class="NAME">nitobi.combo.XmlDataSource.prototype.GetColumnNames</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_GetColumnNames</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>198</span> </span><span class="COMM">/**
+<span class='line'>199</span>  * @private
+<span class='line'>200</span>  */</span><span class="WHIT">
+<span class='line'>201</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_GetColumnNames</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>202</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.m_ColumnNames</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>203</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>204</span> 
+<span class='line'>205</span> </span><span class="COMM">/// &lt;function name='SetColumnNames' access='private'>&lt;summary></span><span class="WHIT">
+<span class='line'>206</span> </span><span class="COMM">/// Contains the list of column names.</span><span class="WHIT">
+<span class='line'>207</span> </span><span class="COMM">/// &lt;/summary>&lt;param name='ColumnNames' type='array' >The value of the property you want to set.&lt;/param>&lt;remarks>&lt;/remarks>&lt;returns type='void'>&lt;/returns>&lt;/function></span><span class="WHIT">
+<span class='line'>208</span> </span><span class="NAME">nitobi.combo.XmlDataSource.prototype.SetColumnNames</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_SetColumnNames</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>209</span> </span><span class="COMM">/**
+<span class='line'>210</span>  * @private
+<span class='line'>211</span>  */</span><span class="WHIT">
+<span class='line'>212</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_SetColumnNames</span><span class="PUNC">(</span><span class="NAME">ColumnNames</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>213</span> </span><span class="WHIT">	</span><span class="NAME">this.m_ColumnNames</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ColumnNames</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>214</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>215</span> 
+<span class='line'>216</span> </span><span class="COMM">/**
+<span class='line'>217</span>  * Searches the list and returns the ordinal value of the first matched row. Searches the local cache only.
+<span class='line'>218</span>  * @param {String} Value The value to match.
+<span class='line'>219</span>  * @param {Int} ColumnIndex The column to search on.
+<span class='line'>220</span>  * @param {Boolean} Smart Whether or not this is a "smart" mode search.
+<span class='line'>221</span>  */</span><span class="WHIT">
+<span class='line'>222</span> </span><span class="NAME">nitobi.combo.XmlDataSource.prototype.Search</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">Value</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ColumnIndex</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">Smart</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>223</span> 
+<span class='line'>224</span> </span><span class="WHIT">	</span><span class="NAME">Value</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Value.toLowerCase</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>225</span> </span><span class="WHIT">	</span><span class="NAME">Value</span><span class="PUNC">=</span><span class="NAME">nitobi.xml.constructValidXpathQuery</span><span class="PUNC">(</span><span class="NAME">Value</span><span class="PUNC">,</span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>226</span> 
+<span class='line'>227</span> </span><span class="WHIT">	</span><span class="COMM">// ** A few notes on this Search mechanism. **//</span><span class="WHIT">
+<span class='line'>228</span> </span><span class="WHIT">	</span><span class="COMM">// ** There is only one central xml datasource object. IE searches this datasource object using XSL. </span><span class="WHIT">
+<span class='line'>229</span> </span><span class="WHIT">	</span><span class="COMM">// ** The XSL calls the js toLowerCase() function in order to do case-insensitive search.</span><span class="WHIT">
+<span class='line'>230</span> </span><span class="WHIT">	</span><span class="COMM">// ** Netscape has no such facility. For netscape, we must mirror the xml object and make a lower case version of it.</span><span class="WHIT">
+<span class='line'>231</span> </span><span class="WHIT">	</span><span class="COMM">// ** This is not done for IE because it is more error prone. I'm trying to minimize the risk here. Sometimes, people</span><span class="WHIT">
+<span class='line'>232</span> </span><span class="WHIT">	</span><span class="COMM">// ** modify the xml directly.</span><span class="WHIT">
+<span class='line'>233</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">xsl</span><span class="PUNC">=</span><span class="STRN">"&lt;xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" version=\"1.0\">"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>234</span> </span><span class="WHIT">	</span><span class="NAME">xsl</span><span class="PUNC">+</span><span class="PUNC">=</span><span class="STRN">"&lt;xsl:output method=\"text\" />"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>235</span> </span><span class="WHIT">	</span><span class="NAME">xsl</span><span class="PUNC">+</span><span class="PUNC">=</span><span class="STRN">"&lt;xsl:template match=\"/\">&lt;xsl:apply-templates select=\"//e["</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">Smart</span><span class="PUNC">==</span><span class="KEYW">true</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="STRN">"contains"</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"starts-with"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"(@"</span><span class="PUNC">+</span><span class="NAME">String.fromCharCode</span><span class="PUNC">(</span><span class="NUMB">97</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">ColumnIndex</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">+</span><span class="STRN">","</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">Value</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">")][1]\"/>&lt;/xsl:template>"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>236</span> </span><span class="WHIT">	</span><span class="NAME">xsl</span><span class="PUNC">+</span><span class="PUNC">=</span><span class="STRN">"&lt;xsl:template match=\"e\">"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>237</span> </span><span class="WHIT">	</span><span class="COMM">// Note this needs to be indexing from 0 not 1.</span><span class="WHIT">
+<span class='line'>238</span> </span><span class="WHIT">	</span><span class="NAME">xsl</span><span class="PUNC">+</span><span class="PUNC">=</span><span class="STRN">"&lt;xsl:value-of select=\"count(preceding-sibling::e)\" />"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>239</span> </span><span class="WHIT">	</span><span class="NAME">xsl</span><span class="PUNC">+</span><span class="PUNC">=</span><span class="STRN">"&lt;/xsl:template>"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>240</span> </span><span class="WHIT">	</span><span class="NAME">xsl</span><span class="PUNC">+</span><span class="PUNC">=</span><span class="STRN">"&lt;/xsl:stylesheet>"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>241</span> 
+<span class='line'>242</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">oXSL</span><span class="PUNC">=</span><span class="NAME">nitobi.xml.createXslProcessor</span><span class="PUNC">(</span><span class="NAME">xsl</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>243</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">searchXml</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.createXmlDoc</span><span class="PUNC">(</span><span class="NAME">this.GetXmlObject</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">xml.replace</span><span class="PUNC">(</span><span class="REGX">/>\s+&lt;/g</span><span class="PUNC">,</span><span class="STRN">">&lt;"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">toLowerCase</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>244</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">index</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nitobi.xml.transformToString</span><span class="PUNC">(</span><span class="NAME">searchXml</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">oXSL</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>245</span> 
+<span class='line'>246</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">index</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>247</span> </span><span class="WHIT">		</span><span class="NAME">index</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>248</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">index</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>249</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>250</span> 
+<span class='line'>251</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>252</span> </span><span class="COMM">// * AddPage</span><span class="WHIT">
+<span class='line'>253</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>254</span> </span><span class="COMM">/// &lt;function name='AddPage' access='private'></span><span class="WHIT">
+<span class='line'>255</span> </span><span class="COMM">/// &lt;summary>Adds a page of XML to the local datasource.&lt;/summary></span><span class="WHIT">
+<span class='line'>256</span> </span><span class="COMM">/// &lt;param name='XML' type='string' >The xml page including the root tags.&lt;/param></span><span class="WHIT">
+<span class='line'>257</span> </span><span class="COMM">/// &lt;/function></span><span class="WHIT">
+<span class='line'>258</span> </span><span class="NAME">nitobi.combo.XmlDataSource.prototype.AddPage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_AddPage</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>259</span> </span><span class="COMM">/**
+<span class='line'>260</span>  * @private
+<span class='line'>261</span>  */</span><span class="WHIT">
+<span class='line'>262</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_AddPage</span><span class="PUNC">(</span><span class="NAME">XML</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>263</span> </span><span class="WHIT">	</span><span class="COMM">// Got rid of the lower case XML crap for Netscape</span><span class="WHIT">
+<span class='line'>264</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>265</span> </span><span class="WHIT">	</span><span class="COMM">// Copy the XML into our local datasource.</span><span class="WHIT">
+<span class='line'>266</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">tmp</span><span class="PUNC">=</span><span class="NAME">nitobi.xml.createXmlDoc</span><span class="PUNC">(</span><span class="NAME">XML</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>267</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">newNodes</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">tmp.selectNodes</span><span class="PUNC">(</span><span class="STRN">"//e"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>268</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">root</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.GetXmlObject</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">documentElement</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>269</span> </span><span class="WHIT">	</span><span class="COMM">// In the future we may support different page sizes. For now</span><span class="WHIT">
+<span class='line'>270</span> </span><span class="WHIT">	</span><span class="COMM">// this should be the same as the specified preset page size.</span><span class="WHIT">
+<span class='line'>271</span> </span><span class="WHIT">	</span><span class="NAME">this.SetLastPageSize</span><span class="PUNC">(</span><span class="NAME">tmp.selectNodes</span><span class="PUNC">(</span><span class="STRN">"//e"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">length</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>272</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">newNodes.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>273</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>274</span> </span><span class="WHIT">		</span><span class="COMM">// removed some lower case XML crap here</span><span class="WHIT">
+<span class='line'>275</span> </span><span class="WHIT">  		</span><span class="NAME">root.appendChild</span><span class="PUNC">(</span><span class="NAME">newNodes</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">cloneNode</span><span class="PUNC">(</span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>276</span> </span><span class="WHIT">  	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>277</span> </span><span class="WHIT">  	</span><span class="WHIT">
+<span class='line'>278</span> </span><span class="WHIT">  	</span><span class="NAME">this.m_Dirty</span><span class="PUNC">=</span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>279</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>280</span> 
+<span class='line'>281</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>282</span> </span><span class="COMM">// * Clear</span><span class="WHIT">
+<span class='line'>283</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>284</span> </span><span class="NAME">nitobi.combo.XmlDataSource.prototype.Clear</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_Clear</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>285</span> </span><span class="COMM">/**
+<span class='line'>286</span>  * Deletes all records in the XML cache.
+<span class='line'>287</span>  * This does not clear the rendered list. Use 
+<span class='line'>288</span>  * {@link nitobi.combo.List#Clear} to clear the rendered
+<span class='line'>289</span>  * list.
+<span class='line'>290</span>  * &lt;p>
+<span class='line'>291</span>  * &lt;b>Example&lt;/b>
+<span class='line'>292</span>  * &lt;/p>
+<span class='line'>293</span>  * &lt;div class="code">
+<span class='line'>294</span>  * &lt;pre>&lt;code class="javascript">
+<span class='line'>295</span>  * &#102;unction clearCombo()
+<span class='line'>296</span>  * {
+<span class='line'>297</span>  * 	var combo = nitobi.getComponent('combo1');
+<span class='line'>298</span>  * 	combo.GetList().GetXmlDataSource().Clear();
+<span class='line'>299</span>  * 	combo.GetList().Clear();
+<span class='line'>300</span>  * }
+<span class='line'>301</span>  * &lt;/code>&lt;/pre>
+<span class='line'>302</span>  * &lt;/div>
+<span class='line'>303</span>  * @see nitobi.combo.List#AddRow
+<span class='line'>304</span>  */</span><span class="WHIT">
+<span class='line'>305</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_Clear</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>306</span> </span><span class="WHIT">	</span><span class="COMM">// Removed stuff here to do with lower casing the XML for Firefox case sensitivity</span><span class="WHIT">
+<span class='line'>307</span> </span><span class="WHIT">	</span><span class="NAME">nitobi.xml.loadXml</span><span class="PUNC">(</span><span class="NAME">this.GetXmlObject</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"&lt;root/>"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>308</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>309</span> 
+<span class='line'>310</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>311</span> </span><span class="COMM">// * GetRow</span><span class="WHIT">
+<span class='line'>312</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>313</span> </span><span class="NAME">nitobi.combo.XmlDataSource.prototype.GetRow</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_GetRow</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>314</span> </span><span class="COMM">/**
+<span class='line'>315</span>  * Returns a row from the dataset.
+<span class='line'>316</span>  * This returns a row from the XML cache. The ordinal position of the row
+<span class='line'>317</span>  * corresponds to the ordinal position of the row displayed in the list. If you want 
+<span class='line'>318</span>  * to get all rows, i.e., the entire dataset, you should use {@link #GetXmlObject}.
+<span class='line'>319</span>  * &lt;p>
+<span class='line'>320</span>  * &lt;b>Example&lt;/b>
+<span class='line'>321</span>  * &lt;/p>
+<span class='line'>322</span>  * &lt;div class="code">
+<span class='line'>323</span>  * &lt;pre>&lt;code class="javascript">
+<span class='line'>324</span>  * var datasource = nitobi.getComponent('combo1').GetList().GetXmlDataSource();
+<span class='line'>325</span>  * var row = datasource.GetRow(0);
+<span class='line'>326</span>  * alert('The 3rd column of data: ' + row[2]);
+<span class='line'>327</span>  * &lt;/code>&lt;/pre>
+<span class='line'>328</span>  * &lt;/div>
+<span class='line'>329</span>  * @param {Number} Index The index of the row you want to retrieve. Indexed from zero
+<span class='line'>330</span>  * @type Array
+<span class='line'>331</span>  */</span><span class="WHIT">
+<span class='line'>332</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_GetRow</span><span class="PUNC">(</span><span class="NAME">Index</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>333</span> </span><span class="WHIT">	</span><span class="NAME">Index</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">Index</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>334</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">row</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.GetXmlObject</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">documentElement.childNodes.item</span><span class="PUNC">(</span><span class="NAME">Index</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>335</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">values</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Array</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>336</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">this.GetNumberColumns</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>337</span> </span><span class="WHIT">		</span><span class="NAME">values</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">row.getAttribute</span><span class="PUNC">(</span><span class="NAME">String.fromCharCode</span><span class="PUNC">(</span><span class="NUMB">97</span><span class="PUNC">+</span><span class="NAME">i</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>338</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>339</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">values</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>340</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>341</span> 
+<span class='line'>342</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>343</span> </span><span class="COMM">// * GetRowCol</span><span class="WHIT">
+<span class='line'>344</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>345</span> </span><span class="COMM">/// &lt;function name='GetRowCol' access='private'></span><span class="WHIT">
+<span class='line'>346</span> </span><span class="COMM">/// &lt;summary>Returns a value from a column from a row.&lt;/summary></span><span class="WHIT">
+<span class='line'>347</span> </span><span class="COMM">/// &lt;param name='Row' type='int' >The index of the row you want to retrieve. Indexed from zero.&lt;/param></span><span class="WHIT">
+<span class='line'>348</span> </span><span class="COMM">/// &lt;param name='Col' type='int' >The index of the col you want to retrieve. Indexed from zero.&lt;/param></span><span class="WHIT">
+<span class='line'>349</span> </span><span class="COMM">/// &lt;/function></span><span class="WHIT">
+<span class='line'>350</span> </span><span class="NAME">nitobi.combo.XmlDataSource.prototype.GetRowCol</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_GetRowCol</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>351</span> </span><span class="COMM">/**
+<span class='line'>352</span>  * @private
+<span class='line'>353</span>  */</span><span class="WHIT">
+<span class='line'>354</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_GetRowCol</span><span class="PUNC">(</span><span class="NAME">Row</span><span class="PUNC">,</span><span class="NAME">Col</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>355</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">row</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.GetXmlObject</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">documentElement.childNodes.item</span><span class="PUNC">(</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">Row</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>356</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">val</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">row.getAttribute</span><span class="PUNC">(</span><span class="NAME">String.fromCharCode</span><span class="PUNC">(</span><span class="NUMB">97</span><span class="PUNC">+</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">Col</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>357</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">val</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>358</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>359</span> 
+<span class='line'>360</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>361</span> </span><span class="COMM">// * GetColumnIndex</span><span class="WHIT">
+<span class='line'>362</span> </span><span class="COMM">// *****************************************************************************</span><span class="WHIT">
+<span class='line'>363</span> </span><span class="COMM">/// &lt;function name='GetColumnIndex' access='private'></span><span class="WHIT">
+<span class='line'>364</span> </span><span class="COMM">/// &lt;summary>Returns a column index given its name.&lt;/summary></span><span class="WHIT">
+<span class='line'>365</span> </span><span class="COMM">/// &lt;param name='Name' type='string' >The name of the column whose index you want to find.&lt;/param></span><span class="WHIT">
+<span class='line'>366</span> </span><span class="COMM">/// &lt;/function></span><span class="WHIT">
+<span class='line'>367</span> </span><span class="NAME">nitobi.combo.XmlDataSource.prototype.GetColumnIndex</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_GetColumnIndex</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>368</span> </span><span class="COMM">/**
+<span class='line'>369</span>  * @private
+<span class='line'>370</span>  */</span><span class="WHIT">
+<span class='line'>371</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">XmlDataSource_GetColumnIndex</span><span class="PUNC">(</span><span class="NAME">Name</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>372</span> </span><span class="WHIT">	</span><span class="COMM">// better to default to col 0 (i.e. GetColumnIndex(null) now returns 0) than to fail and throw a fit</span><span class="WHIT">
+<span class='line'>373</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">Name</span><span class="PUNC">==</span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>374</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>375</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>376</span> </span><span class="WHIT">	</span><span class="NAME">Name</span><span class="PUNC">=</span><span class="NAME">Name.toLowerCase</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>377</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">colNames</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.GetColumnNames</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>378</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>379</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">colNames</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>380</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">colNames.length</span><span class="WHIT"> </span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>381</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">Name</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">colNames</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">toLowerCase</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>382</span> </span><span class="WHIT">				</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">i</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>383</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>384</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>385</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>386</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>387</span> </span><span class="PUNC">}</span></pre></body></html>
