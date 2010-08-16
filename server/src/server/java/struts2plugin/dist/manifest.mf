@@ -1,9 +1,0 @@
-Manifest-Verison: 1.0
-Built-By: mhan
-
-Name: com/nitobi/struts2/plugin/
-Sealed: false
-Implementation-Title: com.nitobi.struts2.plugin
-Implementation-Vendor: Nitobi
-Specification-Title: Nitobi Struts 2 Plugin
-Specification-Vendor: Nitobi

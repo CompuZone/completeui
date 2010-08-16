@@ -1,8 +1,0 @@
-<tag name="datasourcestructure" endtag="yes">
-	<tagformat nlbeforetag="1" nlaftertag="1"></tagformat>
-	<tagdialog file="datasourcestructure.htm"></tagdialog>
-	<attributes>
-		<attrib name="fieldnames" type="text"></attrib>
-		<attrib name="keys" type="text"></attrib>
-	</attributes>
-</tag>

@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<root fields="startdate|enddate|location|description|type|tooltip|cssClass|cssStyle">
-	<e a="2008-10-01" c="loc" d="desc" e="event" f="No rooms are available." h="border-top:solid red 2px;"/>
-	<e a="2008-10-02" c="loc 2" d="desc 2" e="event" f="Limited rooms available. Choices include:  3 Poolside rooms  2 Waterside rooms" h="border-bottom:solid green 2px;"/>
-	<e a="2008-10-08" c="loc 2" d="desc 2" e="event" f="apple" h="border-bottom:solid green 2px;"/>
-	<e a="2008-07-01" e="disabled" />
-	<e a="2008-07-04" e="disabled" />
-	<e a="2008-12-25" e="disabled" />
-</root>

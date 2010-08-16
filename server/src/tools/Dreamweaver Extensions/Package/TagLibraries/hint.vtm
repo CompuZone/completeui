@@ -1,9 +1,0 @@
-<tag name="hint" endtag="yes">
-	<tagformat nlbeforetag="1" nlaftertag="1"></tagformat>
-	<tagdialog file="hint.htm"></tagdialog>
-	<attributes>
-		<attrib name="body" type="text"></attrib>
-		<attrib name="target" type="text"></attrib>
-		<attrib name="title" type="text"></attrib>
-	</attributes>
-</tag>

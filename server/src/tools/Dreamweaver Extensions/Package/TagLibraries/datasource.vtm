@@ -1,7 +1,0 @@
-<tag name="datasource" endtag="yes">
-	<tagformat nlbeforetag="1" nlaftertag="1"></tagformat>
-	<tagdialog file="datasource.htm"></tagdialog>
-	<attributes>
-		<attrib name="id" type="text"></attrib>
-	</attributes>
-</tag>

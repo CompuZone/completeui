@@ -1,7 +1,0 @@
-<tag name="combovalues" endtag="yes">
-	<tagformat nlbeforetag="1" nlaftertag="1"></tagformat>
-	<tagdialog file="combovalues.htm"></tagdialog>
-	<attributes>
-		<attrib name="fields" type="text"></attrib>
-	</attributes>
-</tag>
