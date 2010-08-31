@@ -1,0 +1,174 @@
+<!-- MENU-LOCATION=NONE -->
+<!DOCTYPE HTML SYSTEM "-//Macromedia//DWExtension layout-engine 5.0//dialog">
+<html>
+<head>
+<title>Nitobi Callout</title>
+<script type="text/javascript" src="NTBCallout.js"></script>
+<script type="text/javascript" src="../Shared/Nitobi/NitobiUtility.js"></script>
+
+<style>
+.page 
+{
+	position:absolute;
+	padding:10px;
+	left:0px;
+	top:1px;
+	width:550px;
+	height:550px;
+}
+
+.nav
+{
+	visibility: hidden;
+	position:absolute;
+	bottom:20px;
+}
+
+.propField
+{
+	width:200px;
+}
+
+.attrDescription
+{
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+.hiddenWarning
+{
+	display:none;
+}
+
+.visibleWarning
+{
+	display:inline;
+}
+
+.pageTitle
+{
+	padding-left:5px;
+}
+
+.pageDescription
+{
+	padding-left:5px;
+	margin-bottom:10px;
+}
+
+.banner
+{
+}
+</style>
+</head>
+<body onLoad="init()">
+<form>
+
+<div id="page1" class="page">
+<img src="../Shared/Nitobi/images/banners/callout.png" class="banner"/>
+<table border="0">
+	<tbody>
+    	<tr>
+        	<td colspan="2">
+                <div class="pageTitle">
+                    <strong>Callout Options (1 of 1)</strong>
+                </div>
+            </td>
+        </tr>
+        <tr>
+        	<td colspan="4">
+            	<div class="pageDescription">
+                    Choose the properties for this Callout.
+                </div>
+            </td>
+        </tr>
+		<tr>
+            <td align="right" valign="top" style="width:75px;">
+                <span>Element ID:</span>
+            </td>
+            <td>
+                <select id="calloutid_list" name="calloutid_list" class="propField idList">
+                    <option value="null">None</option>
+                </select>
+                <div class="attrDescription">
+                    The id of the dom element to attach the Callout to.  You can choose "None" to have
+                    a Callout be unattached and centered on the page.
+                </div>
+            </td>
+        </tr>
+    	<tr>
+        	<td align="right" valign="top">
+            	<span>Callout Style:</span><br/>
+            </td>
+            <td colspan="1">
+            	
+            	<select id="calloutstyle_list" name="calloutstyle_list" class="propField" onChange="switchCalloutPreview(this.options[this.selectedIndex].value)">
+                	<option value="clean" selected="true">Clean</option>
+                    <option value="impact">Impact</option>
+                    <option value="peanut_exclam">Peanut (Exclaim)</option>
+                    <option value="peanut_info">Peanut (Info)</option>
+                    <option value="peanut_noaccess">Peanut (No Access)</option>
+                    <option value="peanut_talkbubble">Peanut (Talkbubble)</option>
+                    <option value="vista">Vista</option>
+                    <option value="xp">Xp</option>
+                </select>
+                <div class="attrDescription">
+                	The Callout style is the style applied to tour Callouts.
+                </div>
+            </td>
+        </tr>
+
+
+        <tr>
+        	<td align="right" valign="top">
+            	<span>Title:</span>
+            </td>
+            <td colspan="1">
+            	<input type="text" name="title_input" id="title_input" class="propField"/>
+				<div class="attrDescription">
+                	The title to apply to the Callout.
+                </div>
+            </td>
+        </tr>
+        <tr>
+        	<td align="right" valign="top">
+            	<span>Body:</span>
+            </td>
+            <td colspan="1">
+				<textarea style="width:400px;height:85px;" name="body_text"/>
+				<div class="attrDescription">
+                	The body element for this Callout.
+                </div>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	
+            </td>
+            <td valign="top">
+            	<div style="font-weight:bold">Callout Style Preview:</div>
+            	<img name="callout_image" src="../Shared/Nitobi/images/calloutsamples/clean.png" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<div id="buttons" class="nav">
+	<table border="0" style="width:250px;">
+    	<tbody>
+        	<tr>
+                <td>
+                    <input type="button" value="Cancel" onClick="window.close()" id="cancel_button" name="cancel_button" style="float:left;"/>
+                    <input type="button" value="Finish" onClick="doFinish()" id="next_button" name="next_button" />
+					<input type="button" value="Help" onClick="doHelp()" id="help_button" name="help_button" style="margin-left:15px;"/>
+					
+            	</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</form>
+</body>
+</html>

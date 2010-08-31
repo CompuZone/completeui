@@ -1,0 +1,16 @@
+<tag name="combobutton" endtag="yes">
+	<tagformat nlbeforetag="1" nlaftertag="1"></tagformat>
+	<tagdialog file="combobutton.htm"></tagdialog>
+	<attributes>
+		<attrib name="defaultcssclassname" type="text"></attrib>
+		<attrib name="height" type="text"></attrib>
+		<attrib name="onbeforeselectevent" type="text"></attrib>
+		<attrib name="onblurevent" type="text"></attrib>
+		<attrib name="onfocusevent" type="text"></attrib>
+		<attrib name="onloadevent" type="text"></attrib>
+		<attrib name="onselectevent" type="text"></attrib>
+		<attrib name="ontabevent" type="text"></attrib>
+		<attrib name="pressedcssclassname" type="text"></attrib>
+		<attrib name="width" type="text"></attrib>
+	</attributes>
+</tag>

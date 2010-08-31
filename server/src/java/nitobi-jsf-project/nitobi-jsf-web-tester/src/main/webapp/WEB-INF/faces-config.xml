@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
+              version="1.2">
+
+
+    <managed-bean>
+        <display-name>treebean</display-name>
+        <managed-bean-name>treebean</managed-bean-name>
+        <managed-bean-class>com.nitobi.jsf.example.backing.tree.TreeBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <display-name>combobean</display-name>
+        <managed-bean-name>combobean</managed-bean-name>
+        <managed-bean-class>com.nitobi.jsf.example.backing.combo.ComboBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <display-name>calloutThemeBean</display-name>
+        <managed-bean-name>calloutThemeBean</managed-bean-name>
+        <managed-bean-class>com.nitobi.jsf.example.backing.callout.CalloutThemeBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <display-name>Livescrolling Bean</display-name>
+        <managed-bean-name>livescrollingBean</managed-bean-name>
+        <managed-bean-class>com.nitobi.jsf.example.backing.grid.Livescrolling</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>dateform</managed-bean-name>
+        <managed-bean-class>com.nitobi.jsf.example.backing.datepicker.FormBackingBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <!-- Orders Managed Bean -->
+    <managed-bean>
+        <managed-bean-name>orders</managed-bean-name>
+        <managed-bean-class>com.nitobi.jsf.example.backing.treegrid.Orders</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <description>
+            Holds onto the set of available themes for callout. Must be a
+            LinkedHashMap to maintain order when paging.
+        </description>
+        <display-name>Available Themes</display-name>
+        <managed-bean-name>availableCalloutThemesBean</managed-bean-name>
+        <managed-bean-class>java.util.LinkedHashMap</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+        <managed-property>
+            <description>These are the available themes for the Callout component</description>
+            <display-name>Callout Theme Map</display-name>
+            <property-name>themes</property-name>
+            <map-entries>
+                <key-class>java.lang.String</key-class>
+                <value-class>java.lang.String</value-class>
+                <map-entry>
+                    <key>Vista</key>
+                    <value>vista</value>
+                </map-entry>
+                <map-entry>
+                    <key>Impact</key>
+                    <value>impact</value>
+                </map-entry>
+                <map-entry>
+                    <key>XP</key>
+                    <value>xp</value>
+                </map-entry>
+                <map-entry>
+                    <key>Clean</key>
+                    <value>clean</value>
+                </map-entry>
+                <map-entry>
+                    <key>Peanut Info</key>
+                    <value>peanut_info</value>
+                </map-entry>
+                <map-entry>
+                    <key>Peanut Talkbubble</key>
+                    <value>peanut_talkbubble</value>
+                </map-entry>
+                <map-entry>
+                    <key>Peanut Exclam</key>
+                    <value>peanut_exclam</value>
+                </map-entry>
+                <map-entry>
+                    <key>Peanut No Access</key>
+                    <value>peanut_noaccess</value>
+                </map-entry>
+            </map-entries>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>signup_backing</managed-bean-name>
+        <managed-bean-class>com.nitobi.jsf.example.backing.SignupBackingBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+</faces-config>

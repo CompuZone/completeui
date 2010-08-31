@@ -1,0 +1,5 @@
+<tag name="children" endtag="yes">
+	<tagformat nlbeforetag="1" nlaftertag="1"></tagformat>
+	<tagdialog file="children.htm"></tagdialog>
+	<attributes></attributes>
+</tag>

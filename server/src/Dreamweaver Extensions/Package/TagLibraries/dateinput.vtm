@@ -1,0 +1,12 @@
+<tag name="dateinput" endtag="yes">
+	<tagformat nlbeforetag="1" nlaftertag="1"></tagformat>
+	<tagdialog file="dateinput.htm"></tagdialog>
+	<attributes>
+		<attrib name="displaymask" type="text"></attrib>
+		<attrib name="editmask" type="text"></attrib>
+		<attrib name="editable" type="text"></attrib>
+		<attrib name="width" type="text"></attrib>
+		<attrib name="onblur" type="text"></attrib>
+		<attrib name="onfocus" type="text"></attrib>
+	</attributes>
+</tag>

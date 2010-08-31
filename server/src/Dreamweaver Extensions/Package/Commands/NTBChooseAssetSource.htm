@@ -1,0 +1,28 @@
+<!DOCTYPE HTML SYSTEM "-//Macromedia//DWExtension layout-engine 5.0//dialog">
+<html>
+<head>
+<title>Choose Nitobi Asset Source</title>
+<script src="NTBChooseAssetSource.js"></script>
+<script type="text/javascript" src="../Shared/Nitobi/NitobiUtility.js"></script>
+</head>
+<body>
+<div id="form1">
+<form>
+<table border="0" cellpadding="5">
+    	<tbody>
+        	<tr>
+            	<td align="right" valign="top" style="width:130px;">Asset Source Directory:</td>
+                <td style="width:300px;">
+                	<input style="text-align:left" type="text" id="source_input" name="source_input"></input>
+                    <input type="button" id="browse" name="browse" value="Browse" onClick="browseForDir()"/>
+                    <br/>
+                    <span>When you insert Nitobi components, Nitobi assets are copied automatically to your site.  The
+                    Asset source directory determines from where those assets are copied from.</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+</div>
+</body>
+</html>

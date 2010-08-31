@@ -1,0 +1,24 @@
+<tag name="tab" endtag="yes">
+	<tagformat nlbeforetag="1" nlaftertag="1"></tagformat>
+	<tagdialog file="tab.htm"></tagdialog>
+	<attributes>
+		<attrib name="containertype" type="text"></attrib>
+		<attrib name="cssclassname" type="text"></attrib>
+		<attrib name="hideoverflowenabled" type="text"></attrib>
+		<attrib name="icon" type="text"></attrib>
+		<attrib name="label" type="text"></attrib>
+		<attrib name="loadondemandenabled" type="text"></attrib>
+		<attrib name="onactivate" type="text"></attrib>
+		<attrib name="onblur" type="text"></attrib>
+		<attrib name="onclick" type="text"></attrib>
+		<attrib name="ondeactivate" type="text"></attrib>
+		<attrib name="onfocus" type="text"></attrib>
+		<attrib name="onload" type="text"></attrib>
+		<attrib name="onmouseout" type="text"></attrib>
+		<attrib name="onmouseover" type="text"></attrib>
+		<attrib name="scriptevaluationenabled" type="text"></attrib>
+		<attrib name="source" type="text"></attrib>
+		<attrib name="tooltip" type="text"></attrib>
+		<attrib name="width" type="text"></attrib>
+	</attributes>
+</tag>

@@ -1,0 +1,7 @@
+<tag name="dateeditor" endtag="yes">
+	<tagformat nlbeforetag="1" nlaftertag="1"></tagformat>
+	<tagdialog file="dateeditor.htm"></tagdialog>
+	<attributes>
+		<attrib name="mask" type="text"></attrib>
+	</attributes>
+</tag>

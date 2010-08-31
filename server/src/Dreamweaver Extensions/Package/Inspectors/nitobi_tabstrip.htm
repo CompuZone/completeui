@@ -1,0 +1,119 @@
+<!-- tag:*LOCKED*,priority:9,selection:within -->
+<!DOCTYPE HTML SYSTEM "-//Macromedia//DWExtension layout-engine 5.0//pi">
+<html>
+<head>
+<title>Nitobi Tabstrip Inspector</title>
+<script type="text/javascript" src="../Shared/Nitobi/NitobiUtility.js"></script>
+<script src="nitobi_tabstrip.js"></script>
+</head>
+<body>
+<div style="position:absolute; left:4px; top:5px;">
+	<IMG SRC="nitobi_tabstrip.png" HEIGHT="36" NAME="nitobiImage">
+</div>
+<div id="id_div" style="position:absolute; left:55px; top:5px;">
+  <div id="piTitle">&nbsp;<strong>Nitobi Tabstrip</strong></div>
+</div>
+</div>
+<div id="tabstrip_props" style="position:absolute; left:51px; top:20px;">
+<table cellspacing="0" cellpadding="0" border="0">
+	<tbody>
+<tr>
+        	<td>
+            	<span style="float:left;margin-left:5px;">Align:</span>  
+                <div style="float:right;">
+                	<input id="align_input" type="text" style="width:50px" name="align_input" 
+                    	onBlur="updateTabs('align', this.value, 'ntb:tabs')"/>
+                </div>
+            </td>
+            <td>
+            	<span style="float:left;margin-left:5px;">Overlap:</span>
+                <div style="float:right;">
+                	<input id="overlap_input" type="text" style="width:50px" name="overlap_input" 
+                    	onBlur="updateTabs('overlap', this.value, 'ntb:tabs')"/>
+                </div>
+            </td>
+      </tr>
+        <tr>
+        <tr>
+       		<td><span style="float:left;margin-left:5px;">Height:</span>
+                <div style="float:right;">
+                	<input id="height_input" type="text" style="width:50px" name="height_input" 
+                    	onBlur="updateTabstrip('height', this.value, 'ntb:tabstrip')"/>
+                </div>
+          	</td>
+        	<td>
+            	<span style="float:left;margin-left:5px;">Width:</span>
+                <div style="float:right;">
+                	<input id="width_input" type="text" style="width:50px" name="width_input" 
+                    	onBlur="updateTabstrip('width', this.value, 'ntb:tabstrip')"/>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+</div>
+<div id="tabs_div" style="position:absolute; left:247px; top: 5px;">
+<table cellspacing="0" cellpadding="0" border="0">
+    	<tbody>
+        	<tr>
+            	<td>
+                	<span style="float:left;margin-right:5px;">Tabs</span>
+                	<input style="float:right;" type="image" border="0" alt="Remove menu Item" 
+                    	src="../Shared/MM/Images/btnDel.gif" 
+                    	onclick="removeTab()" id="elemDel1" name="elemDel1"/>
+                  <input style="float:right;" type="image" border="0" alt="Remove menu Item" 
+                    	src="../Shared/MM/Images/btnAdd.gif" 
+                    	onclick="addTab()" id="elemDel1" name="elemDel1"/>                </td>
+</tr>
+            <tr>
+            	<td><select name="tabs_list" size="4" id="tabs_list" style="width:100px;height:70px;" onChange="populateTabInfo(this)">
+                </select></td>
+            </tr>
+        </tbody>
+  </table>
+</div>
+<div id="tab_props" style="position:absolute; left:354px; top:5px;">
+<table cellspacing="0" cellpadding="0" border="0">
+	<tbody>
+    	<tr>
+        	<td>
+            	<span style="float:right;">Selected Tab Info</span>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	<span style="float:left;">Label:</span>  
+                <div style="float:right;">
+                	<input id="tab_label" type="text" style="width:100px" name="label_input"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	<span style="float:left;">Width:</span>
+                <div style="float:right;">
+                	<input id="tab_width" type="text" style="width:100px" name="width_input"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+        	<td> 
+				<span style="float:left;">Source:</span>
+                <div style="float:right;">
+                	<input id="tab_source" type="text" style="width:100px" name="source_input"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+        	<td colspan="2">
+           	  <div style="float:right;">
+            		<input type="button" value="Apply Changes" onClick="applyTabInfo()" />
+              </div>
+            </td>
+       </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>

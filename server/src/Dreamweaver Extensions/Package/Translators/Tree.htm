@@ -1,0 +1,82 @@
+<html>
+<head>
+<title>Nitobi Tabstrip Tag Translator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=">
+<script language="text/javascipt" src="../Shared/Nitobi/NitobiUtility.js"></script>
+<script language="JavaScript">
+var startTag = "<ntb:tree>";
+var endTag = "</ntb:tree>"
+function getTranslatorInfo()
+{
+	var translatorInfo = new Array(6);
+	
+	translatorInfo[0] = "NTB_TREE";
+	translatorInfo[1] = "Nitobi Tree";
+	translatorInfo[2] = "0";
+	translatorInfo[3] = "1";
+	translatorInfo[4] = "<ntb:tree";
+	translatorInfo[5] = "byExpression";
+	return translatorInfo;
+}
+
+function translateMarkup(docNameStr, siteRootStr, inStr)
+{
+	var outStr = "";
+	var replCode = "";
+	var start = inStr.indexOf("<ntb:tree");
+	var end = inStr.indexOf("</ntb:tree>");
+
+	// If the string to translate is empty, do nothing.
+	if (inStr.length <= 0)
+	{
+		return "";
+	}
+	
+	while (start != -1)
+	{
+		outStr = inStr.substring(0,start);
+		replCode = constructLockedMarkup(inStr.substring(start, end + endTag.length));
+		outStr = outStr + replCode;
+		outStr = outStr + inStr.substring(end + endTag.length);
+		inStr = outStr;
+		start = inStr.indexOf("<ntb:tree");
+		end = inStr.indexOf("</ntb:tree>");
+	}
+	return outStr;
+}
+
+function constructLockedMarkup(declaration)
+{
+	var startMarkup = "<MM:BeginLock translatorClass=\"NTB_TREE\" type=\"ntb:tree\" orig=\"" + escape(declaration) + "\">";
+	var endMarkup = "<" + "MM:EndLock>";
+	var tree = nitobi.util.getTag(declaration, "ntb:tree", 0);
+	var id = nitobi.util.getAttribute(tree, "id");
+	var cssclass = nitobi.util.getAttribute(tree, "cssclass");
+	var theme = nitobi.util.getAttribute(tree, "theme");
+	theme = theme?theme:cssclass;
+	var content = "";
+	
+	content += '<div class="' + (theme?theme:"") + ' ntb-tree-reset" style="width:300px;height:95px;"><div class="tree" style="overflow:inherit">';
+	content += '<div style="float:left;width:300px;"><div class="children">';
+	content += '<span class="treenode" style="display:inline;"><span class="node"><span><span class="tee"></span>';
+	content += '<span class="chooser"><span class="icon" /><span><span class="label">A node without any children</span>';
+	content += '</span></span></span></span></span><br/><span class="treenode" style="clear:both;display:inline;">';
+	content += '<span class="leaf"><span><span class="tee" /><span class="chooser"><span class="icon"></span>';
+	content += '<span><span class="label">A leaf</span></span></span></span></span></span><br/>';
+	content += '<span class="treenode" style="clear:both;display:inline;"><span class="expanded"><span class="node">';
+	content += '</span><span class="ell" /><span class="chooser"><span class="icon"></span>';
+	content += '<span><span class="label">A node (with children)</span></span></span></span></span></span><br/>';
+	content += '<span class="children"><span class="treenode" style="display:inline;"><span class="leaf"><span>';
+	content += '<span><span class="spacer" /></span><span class="tee"/><span class="chooser">';
+	content += '<span class="icon"/><span><span class="label">A leaf</span></span>';
+	content += '</span></span></span></span><br/><span class="treenode" style="display:inline;">';
+	content += '<span class="node"><span><span><span class="spacer" /></span>';
+	content += '<span class="ell" /><span class="chooser"><span class="icon"></span><span><span class="label">A node</span>';
+	content += '</span></span></span></span></span></span></span></div></div></div><div style="clear:both;"/></div>';
+	return startMarkup + content + endMarkup;
+}
+</script>
+</head>
+<body>
+</body>
+</html>

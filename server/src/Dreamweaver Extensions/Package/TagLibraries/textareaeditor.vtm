@@ -1,0 +1,5 @@
+<tag name="textareaeditor" endtag="yes">
+	<tagformat nlbeforetag="1" nlaftertag="1"></tagformat>
+	<tagdialog file="textareaeditor.htm"></tagdialog>
+	<attributes></attributes>
+</tag>

@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ntb>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Nitobi Tabstrip Demos - Adding and Removing Tabs</title>
+
+<script type='text/javascript' src='resources/js/nitobi.toolkit.js'></script><script type='text/javascript' src='resources/js/nitobi.tabstrip.js'></script><link type='text/css' rel='stylesheet' href='resources/styles/nitobi.tabstrip.css'></link>
+
+<script>
+
+	
+	function add()
+	{
+		var t1 = nitobi.getComponent("tabstrip1");
+		var tabs = t1.getTabs();
+		var tab = new nitobi.tabstrip.Tab();
+		tab.setLabel("W3C");
+		tab.setContainerType("iframe");
+		tab.setSource("http://www.w3.org/");
+		tabs.add(tab);		
+		t1.render();
+		
+	}
+	
+	function remove()
+	{
+		var t1 = nitobi.getComponent("tabstrip1");
+		var tabs = t1.getTabs();
+		tabs.remove(3);
+		t1.render();
+		
+	}
+</script>
+</head>
+
+<body>
+<p class="intro">This sample demonstrates adding and removing tabs.</p>
+<ul class="instructions">
+	<li>Click <a href="#" onclick="add()">add</a> to add a tab.</li>
+	<li>Click <a href="#" onclick="remove()">remove</a> to remove a tab.</li>
+	<li>Note that the content of the existing tabs don't change when adding and removing tabs</li>
+</ul>
+<ntb:tabstrip id="tabstrip1" width="800px" height="400px">
+	<ntb:tabs>
+		<ntb:tab label="Yahoo" source="http://www.yahoo.ca" containertype="iframe"></ntb:tab>
+		<ntb:tab label="Google" source="http://www.google.ca" containertype="iframe" loadondemandenabled="true"></ntb:tab>
+		<ntb:tab label="DOM" source="domTarget"></ntb:tab>
+	</ntb:tabs>
+</ntb:tabstrip>
+<script>function onLoad(){nitobi.loadComponent("tabstrip1");}nitobi.html.attachEvent(window,'load',onLoad)</script>
+
+
+</body>
+</html>

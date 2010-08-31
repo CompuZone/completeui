@@ -1,0 +1,9 @@
+<tag name="menuitem" endtag="yes">
+	<tagformat nlbeforetag="1" nlaftertag="1"></tagformat>
+	<tagdialog file="menuitem.htm"></tagdialog>
+	<attributes>
+		<attrib name="imagesrc" type="text"></attrib>
+		<attrib name="label" type="text"></attrib>
+		<attrib name="onclick" type="text"></attrib>
+	</attributes>
+</tag>
